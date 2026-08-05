@@ -1,4 +1,22 @@
 {
+  "0364b6517526f383c50cdc52": {
+    "company": "Twilio",
+    "first_seen_utc": "2026-08-05T18:10:13.388953+00:00",
+    "location": "Remote - India",
+    "score": 80,
+    "source": "Official careers: Greenhouse",
+    "title": "Technical Support Engineer 1",
+    "url": "https://job-boards.greenhouse.io/twilio/jobs/8016229"
+  },
+  "0f768458ccc6d60d96e1aa3b": {
+    "company": "UiPath",
+    "first_seen_utc": "2026-08-05T18:10:13.388953+00:00",
+    "location": "Bangalore",
+    "score": 85,
+    "source": "Official careers: Ashby",
+    "title": "Associate RPA Developer",
+    "url": "https://jobs.ashbyhq.com/uipath/bf05f562-f877-48ee-aaf0-26693e507376"
+  },
   "119a317301cf2c884d1412bb": {
     "company": "Amazon",
     "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
@@ -34,6 +52,15 @@
     "source": "Official careers: Greenhouse",
     "title": "Machine Learning Engineer, Chakra",
     "url": "https://job-boards.greenhouse.io/hackerrank/jobs/7793417"
+  },
+  "254a3f06da5741924d607bb2": {
+    "company": "JPMorgan Chase",
+    "first_seen_utc": "2026-08-05T18:10:13.388953+00:00",
+    "location": "Bengaluru, Karnataka, India;",
+    "score": 85,
+    "source": "Official careers: Oracle Recruiting",
+    "title": "Model Risk Program Analyst",
+    "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210741367"
   },
   "28ad98d7b5294b7461506e85": {
     "company": "State Street",
@@ -134,6 +161,15 @@
     "title": "AI Specialist, Treasury Finance Operations",
     "url": "https://stripe.com/jobs/search?gh_jid=7947074"
   },
+  "49ce481e408b25decaf537b9": {
+    "company": "Observe.AI",
+    "first_seen_utc": "2026-08-05T18:10:13.388953+00:00",
+    "location": "Bengaluru",
+    "score": 85,
+    "source": "Official careers: Greenhouse",
+    "title": "Technical Support Engineer - 1",
+    "url": "https://www.observe.ai/position?gh_jid=5290390008"
+  },
   "4d16c8ce507211c944007489": {
     "company": "Twilio",
     "first_seen_utc": "2026-08-05T18:02:13.880800+00:00",
@@ -161,6 +197,15 @@
     "title": "Data Engineer, IN Data Engineering & Analytics",
     "url": "https://www.amazon.jobs/en/jobs/10474887/data-engineer-in-data-engineering-analytics"
   },
+  "5e189fc7747e9f11e6969eaf": {
+    "company": "JPMorgan Chase",
+    "first_seen_utc": "2026-08-05T18:10:13.388953+00:00",
+    "location": "Bengaluru, Karnataka, India;",
+    "score": 80,
+    "source": "Official careers: Oracle Recruiting",
+    "title": "Software Engineer III - Python",
+    "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210774213"
+  },
   "65105de80e2349609cc5c7ee": {
     "company": "Postman",
     "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
@@ -187,6 +232,15 @@
     "source": "Official careers: SmartRecruiters",
     "title": "Research Engineer \u2013 Neuro-Symbolic AI (Knowledge Graphs) & Multimodal Assistant Systems",
     "url": "https://jobs.smartrecruiters.com/BoschGroup/744000139912519-research-engineer-neuro-symbolic-ai-knowledge-graphs-multimodal-assistant-systems"
+  },
+  "69fb7e1f815c3710e98f0330": {
+    "company": "GitLab",
+    "first_seen_utc": "2026-08-05T18:10:13.388953+00:00",
+    "location": "Bangalore, India",
+    "score": 75,
+    "source": "Official careers: Greenhouse",
+    "title": "Intermediate Backend Engineer - Analytics Instrumentation",
+    "url": "https://job-boards.greenhouse.io/gitlab/jobs/8615389002"
   },
   "6e4a8de18f1bd56ce9125d86": {
     "company": "Apna",
@@ -278,6 +332,33 @@
     "title": "Machine Learning Engineer Expert",
     "url": "https://jobs.sap.com/job/Bangalore-Machine-Learning-Engineer-Expert-KA-562149/1392118733/"
   },
+  "87f70cbfeb73343641044688": {
+    "company": "Amazon",
+    "first_seen_utc": "2026-08-05T18:10:13.388953+00:00",
+    "location": "Bengaluru, Karnataka, IND",
+    "score": 80,
+    "source": "Official careers: Amazon Jobs",
+    "title": "Data Engineer I",
+    "url": "https://www.amazon.jobs/en/jobs/10446769/data-engineer-i"
+  },
+  "88cb40e5b33ac57ea205f94e": {
+    "company": "Sigmoid",
+    "first_seen_utc": "2026-08-05T18:10:13.388953+00:00",
+    "location": "Bengaluru, Karnataka, India",
+    "score": 80,
+    "source": "Official careers: Greenhouse",
+    "title": "Software Development Engineer II - Python, PySpark, SQL",
+    "url": "https://job-boards.greenhouse.io/sigmoid/jobs/7920014002"
+  },
+  "8a4422305ed7a07149f3a85f": {
+    "company": "Amazon",
+    "first_seen_utc": "2026-08-05T18:10:13.388953+00:00",
+    "location": "Bengaluru, Karnataka, IND",
+    "score": 80,
+    "source": "Official careers: Amazon Jobs",
+    "title": "Data Engineer II, ARTS Data Engineering Team",
+    "url": "https://www.amazon.jobs/en/jobs/10460676/data-engineer-ii-arts-data-engineering-team"
+  },
   "8c12c4c794e1202b7c2f1f72": {
     "company": "Glance",
     "first_seen_utc": "2026-08-05T17:16:59.566590+00:00",
@@ -286,6 +367,15 @@
     "source": "Official careers: Greenhouse",
     "title": "Applied Scientist II - Recommendation Systems",
     "url": "https://job-boards.greenhouse.io/glance/jobs/7528886"
+  },
+  "8ddcd276e7690490276baf3e": {
+    "company": "Amazon",
+    "first_seen_utc": "2026-08-05T18:10:13.388953+00:00",
+    "location": "Bengaluru, Karnataka, IND",
+    "score": 80,
+    "source": "Official careers: Amazon Jobs",
+    "title": "Data Engineer I, Data Engineer RBS",
+    "url": "https://www.amazon.jobs/en/jobs/10426413/data-engineer-i-data-engineer-rbs"
   },
   "905b9b6d96c433b08f738ba7": {
     "company": "Capco",
@@ -404,6 +494,15 @@
     "title": "Custom Software Engineer",
     "url": "https://www.accenture.com/in-en/careers/jobdetails?id=ATCI-5403211-S1965192_en&title=Custom+Software+Engineer"
   },
+  "b40d1f954307c7f9ba0496a1": {
+    "company": "UiPath",
+    "first_seen_utc": "2026-08-05T18:10:13.388953+00:00",
+    "location": "Bangalore",
+    "score": 80,
+    "source": "Official careers: Ashby",
+    "title": "RPA developer I",
+    "url": "https://jobs.ashbyhq.com/uipath/fcce2522-1a45-44a5-b205-6362296639f5"
+  },
   "b507f9dbedcd6759888aec5e": {
     "company": "ABB",
     "first_seen_utc": "2026-08-05T16:20:45.242795+00:00",
@@ -421,6 +520,15 @@
     "source": "Official careers: Greenhouse",
     "title": "Data Scientist",
     "url": "https://job-boards.greenhouse.io/capco/jobs/7978913"
+  },
+  "c7092ce62e93d6df78a1fa37": {
+    "company": "Qualcomm",
+    "first_seen_utc": "2026-08-05T18:10:13.388953+00:00",
+    "location": "Bangalore, India",
+    "score": 80,
+    "source": "Official careers: Eightfold",
+    "title": "Engineer",
+    "url": "https://careers.qualcomm.com/careers/job/446719814299?domain=qualcomm.com"
   },
   "dfe8610111d75c65f7328182": {
     "company": "SAP",
@@ -458,6 +566,15 @@
     "title": "AI Engineer",
     "url": "https://job-boards.greenhouse.io/capco/jobs/7625868"
   },
+  "e6013ef29c7c7dcfb7a36fda": {
+    "company": "JPMorgan Chase",
+    "first_seen_utc": "2026-08-05T18:10:13.388953+00:00",
+    "location": "Bengaluru, Karnataka, India;",
+    "score": 85,
+    "source": "Official careers: Oracle Recruiting",
+    "title": "Software Engineer III - Java, Springboot, Cloud",
+    "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210737237"
+  },
   "e75632e1ff66ece9ba809a74": {
     "company": "Amazon",
     "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
@@ -475,6 +592,15 @@
     "source": "Official careers: HTML fallback",
     "title": "How Intuit data analysts write SQL 2x faster with internal GenAI tool",
     "url": "https://medium.com/intuit-engineering/how-intuit-data-analysts-write-sql-2x-faster-with-internal-genai-tool-c3b9d482208a"
+  },
+  "ed175e65e286ddcfce90c733": {
+    "company": "JPMorgan Chase",
+    "first_seen_utc": "2026-08-05T18:10:13.388953+00:00",
+    "location": "Bengaluru, Karnataka, India;",
+    "score": 80,
+    "source": "Official careers: Oracle Recruiting",
+    "title": "Software Engineer III -Java FullStack",
+    "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210765067"
   },
   "f5c5b81cba4643f69bc53986": {
     "company": "Twilio",
@@ -502,5 +628,14 @@
     "source": "Official careers: Oracle Recruiting",
     "title": "Advanced Data Scientist",
     "url": "https://ibqbjb.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/Honeywell/job/153628"
+  },
+  "fdbebbd0afce4e20d604081f": {
+    "company": "Meesho",
+    "first_seen_utc": "2026-08-05T18:10:13.388953+00:00",
+    "location": "Bangalore, Karnataka",
+    "score": 75,
+    "source": "Official careers: Lever",
+    "title": "GTM Engineer \u2013 Meesho AI Services (MAS)",
+    "url": "https://jobs.lever.co/meesho/c49e13f6-f027-42f3-98b5-745d83997cbf"
   }
 }
