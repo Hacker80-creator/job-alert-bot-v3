@@ -1,10 +1,7 @@
 {
-  "allowlist_count": 793,
+  "allowlist_count": 794,
   "failed_sources": [
-    "Adobe",
-    "Akamai",
     "Atlassian",
-    "Booking.com",
     "Chargebee",
     "CoinDCX",
     "Dream11",
@@ -13,14 +10,12 @@
     "IQVIA",
     "Indeed fallback",
     "Microsoft",
-    "Myntra",
     "Nutanix",
-    "Rippling",
     "Siemens Healthineers",
     "Tavant Technologies",
     "Uber",
     "Zepto"
   ],
-  "last_notice_utc": "2026-08-05T17:46:29.159849+00:00",
-  "official_source_count": 260
+  "last_notice_utc": "2026-08-05T18:02:32.194231+00:00",
+  "official_source_count": 261
 }
