@@ -1,4 +1,13 @@
 {
+  "020bbb4b5f26371d95f40ea4": {
+    "company": "Five9",
+    "first_seen_utc": "2026-08-05T18:15:54.711462+00:00",
+    "location": "India, Bengaluru (Hybrid)",
+    "score": 75,
+    "source": "Official careers: Greenhouse",
+    "title": "AI Applications Engineer",
+    "url": "https://www.five9.com/about/careers/job-detail?gh_jid=6123056004"
+  },
   "0364b6517526f383c50cdc52": {
     "company": "Twilio",
     "first_seen_utc": "2026-08-05T18:10:13.388953+00:00",
@@ -88,6 +97,15 @@
     "source": "Official careers: Greenhouse",
     "title": "Machine Learning Engineer, Evaluation",
     "url": "https://job-boards.greenhouse.io/hackerrank/jobs/7793413"
+  },
+  "326ee8c109472855d6f31ec4": {
+    "company": "Rippling",
+    "first_seen_utc": "2026-08-05T18:15:54.711462+00:00",
+    "location": "Bangalore, India",
+    "score": 70,
+    "source": "Official careers: Rippling",
+    "title": "Credit Data Scientist & AI Agents",
+    "url": "https://ats.rippling.com/rippling/jobs/16b161f2-b631-408e-9177-c5723c62d690"
   },
   "36f975cda88ecb169b515c3d": {
     "company": "Databricks",
@@ -214,6 +232,15 @@
     "source": "Official careers: Greenhouse",
     "title": "AI Engineer, Intern",
     "url": "https://job-boards.greenhouse.io/postman/jobs/7823417003"
+  },
+  "66a5eca40921dae9a6dffd04": {
+    "company": "Amazon",
+    "first_seen_utc": "2026-08-05T18:15:54.711462+00:00",
+    "location": "Bengaluru, Karnataka, IND",
+    "score": 70,
+    "source": "Official careers: Amazon Jobs",
+    "title": "Data Engineer I, SPIV Data Engineering",
+    "url": "https://www.amazon.jobs/en/jobs/10490370/data-engineer-i-spiv-data-engineering"
   },
   "6709fef8f84367c59c20c84e": {
     "company": "Celonis",
@@ -394,6 +421,15 @@
     "source": "Official careers: Greenhouse",
     "title": "Agentic AI Engineer",
     "url": "https://jobs.elastic.co/jobs?gh_jid=8079636&gh_jid=8079636"
+  },
+  "94c829947f38e3147caa200d": {
+    "company": "Observe.AI",
+    "first_seen_utc": "2026-08-05T18:15:54.711462+00:00",
+    "location": "Bengaluru",
+    "score": 75,
+    "source": "Official careers: Greenhouse",
+    "title": "AI Agent Engineer",
+    "url": "https://www.observe.ai/position?gh_jid=5189295008"
   },
   "9b17b07f93445e1f2c2b80f3": {
     "company": "Capco",
