@@ -1,0 +1,27 @@
+metadata:
+  verified_at: "2026-08-05"
+  note: "Second live-verified repair batch using each company's official careers site."
+companies:
+  - name: "BrowserStack"
+    ats: "workday_search"
+    url: "https://browserstack.wd3.myworkdayjobs.com/wday/cxs/browserstack/External/jobs"
+    career_site_url: "https://browserstack.wd3.myworkdayjobs.com/en-US/External"
+    verified_job_count: 35
+    enabled: true
+  - name: "Razorpay"
+    ats: "greenhouse"
+    slug: "razorpaysoftwareprivatelimited"
+    verified_job_count: 25
+    enabled: true
+  - name: "Target"
+    ats: "workday_search"
+    url: "https://target.wd5.myworkdayjobs.com/wday/cxs/target/targetcareers/jobs"
+    career_site_url: "https://target.wd5.myworkdayjobs.com/en-US/targetcareers"
+    max_results_per_term: 40
+    verified_job_count: 115
+    enabled: true
+  - name: "Zoom"
+    ats: "html_search"
+    url: "https://careers.zoom.us/jobs/search"
+    verified_job_count: 10
+    enabled: true
