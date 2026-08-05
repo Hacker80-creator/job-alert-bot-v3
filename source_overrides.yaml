@@ -1,0 +1,44 @@
+metadata:
+  verified_at: "2026-08-05"
+  note: "Live-verified replacements for previously failing configured sources."
+companies:
+  - name: "CRED"
+    ats: "lever"
+    slug: "cred"
+    verified_job_count: 3
+    enabled: true
+  - name: "Confluent"
+    ats: "ashby"
+    slug: "confluent"
+    verified_job_count: 29
+    enabled: true
+  - name: "Freshworks"
+    ats: "smartrecruiters"
+    slug: "freshworks"
+    verified_job_count: 155
+    enabled: true
+  - name: "Meesho"
+    ats: "lever"
+    slug: "meesho"
+    verified_job_count: 47
+    enabled: true
+  - name: "Notion"
+    ats: "ashby"
+    slug: "notion"
+    verified_job_count: 117
+    enabled: true
+  - name: "OpenAI"
+    ats: "ashby"
+    slug: "openai"
+    verified_job_count: 733
+    enabled: true
+  - name: "Snowflake"
+    ats: "ashby"
+    slug: "snowflake"
+    verified_job_count: 397
+    enabled: true
+  - name: "Swiggy"
+    ats: "smartrecruiters"
+    slug: "swiggy"
+    verified_job_count: 8
+    enabled: true
