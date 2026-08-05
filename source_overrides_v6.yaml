@@ -1,0 +1,12 @@
+metadata:
+  verified_at: "2026-08-05"
+  note: "Enable Microsoft's throttle-aware official careers parser."
+companies:
+  - name: "Microsoft"
+    ats: "microsoft_eightfold"
+    url: "https://apply.careers.microsoft.com/api/pcsx/search"
+    career_site_url: "https://apply.careers.microsoft.com/careers"
+    domain: "microsoft.com"
+    request_delay_seconds: 0.6
+    max_generic_details: 3
+    enabled: true

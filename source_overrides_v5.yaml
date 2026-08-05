@@ -1,0 +1,13 @@
+metadata:
+  verified_at: "2026-08-05"
+  note: "Microsoft migrated to its official Eightfold careers search endpoint."
+companies:
+  - name: "Microsoft"
+    kind: "product"
+    wlb_score: 4
+    ats: "eightfold"
+    url: "https://apply.careers.microsoft.com/api/pcsx/search"
+    career_site_url: "https://apply.careers.microsoft.com/careers"
+    domain: "microsoft.com"
+    max_results_per_search: 30
+    enabled: true
