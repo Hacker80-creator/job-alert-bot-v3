@@ -1,0 +1,9 @@
+metadata:
+  verified_at: "2026-08-05"
+  note: "Use the plain browser identity expected by Tavant's Zwayam proxy."
+companies:
+  - name: "Tavant Technologies"
+    ats: "tavant_browser_transport"
+    max_results: 10
+    read_timeout_seconds: 20
+    enabled: true

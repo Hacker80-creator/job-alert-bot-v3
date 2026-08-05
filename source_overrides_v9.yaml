@@ -1,0 +1,9 @@
+metadata:
+  verified_at: "2026-08-05"
+  note: "Use the JSON-compatible transport required by Tavant's Zwayam server."
+companies:
+  - name: "Tavant Technologies"
+    ats: "tavant_zwayam"
+    max_results: 10
+    read_timeout_seconds: 20
+    enabled: true

@@ -1,0 +1,9 @@
+metadata:
+  verified_at: "2026-08-05"
+  note: "Limit Tavant to the newest page because historical Zwayam pagination is intermittently slow; every new posting enters this page."
+companies:
+  - name: "Tavant Technologies"
+    ats: "zwayam_hardened"
+    max_results: 10
+    read_timeout_seconds: 20
+    enabled: true

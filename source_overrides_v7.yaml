@@ -1,0 +1,28 @@
+metadata:
+  verified_at: "2026-08-05"
+  note: "Verified first-party repair batch for GE HealthCare, Expedia Group and Tavant."
+companies:
+  - name: "GE Healthcare"
+    ats: "phenom"
+    url: "https://careers.gehealthcare.com/widgets"
+    career_site_url: "https://careers.gehealthcare.com/global/en"
+    locale: "en_global"
+    search_cities: ["Bengaluru", "Bangalore", "Remote"]
+    page_size: 50
+    max_pages_per_query: 2
+    enabled: true
+  - name: "Expedia Group"
+    ats: "expedia_html"
+    url: "https://careers.expediagroup.com/jobs/"
+    max_pages_per_term: 3
+    max_details: 15
+    enabled: true
+  - name: "Tavant Technologies"
+    ats: "zwayam_hardened"
+    url: "https://public.zwayam.com/jobs/search"
+    career_site_url: "https://careers.tavant.com/tavant"
+    domain: "careers.tavant.com"
+    company_id: "MTU3Mzg="
+    read_timeout_seconds: 45
+    max_results: 100
+    enabled: true
