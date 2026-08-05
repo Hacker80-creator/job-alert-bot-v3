@@ -59,6 +59,7 @@ class Job:
     source: str
     description: str = ""
     department: str = ""
+    salary_text: str = ""
     wlb_score: int = 3
     score: int = 0
     reasons: list[str] | None = None
@@ -126,7 +127,7 @@ def get_html(url: str) -> str:
 
 def flatten_location(value: Any) -> str:
     if isinstance(value, dict):
-        parts = [value.get(k) for k in ("name", "city", "region", "country", "location")]
+        parts = [value.get(k) for k in ("name", "city", "region", "country", "location", "fullLocation", "formattedLocation")]
         return clean_text(" ".join([str(p) for p in parts if p]))
     if isinstance(value, list):
         return clean_text("; ".join(flatten_location(x) for x in value))
@@ -135,6 +136,16 @@ def flatten_location(value: Any) -> str:
 
 def normalize_match_text(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", " ", value.casefold()).strip()
+
+
+def is_target_title(title: str) -> bool:
+    target_terms = (
+        "data scientist", "machine learning engineer", "ml engineer", "applied scientist",
+        "decision scientist", "data analyst", "product analyst", "business analyst",
+        "analytics engineer", "business intelligence", "bi analyst", "insights analyst",
+        "ai engineer", "nlp engineer", "mlops engineer",
+    )
+    return any(term in title.casefold() for term in target_terms)
 
 
 def has_location_match(location: str, settings: dict[str, Any]) -> bool:
@@ -158,6 +169,8 @@ def has_location_match(location: str, settings: dict[str, Any]) -> bool:
 def reject_by_seniority(title: str, body: str, settings: dict[str, Any]) -> tuple[bool, str]:
     text = f"{title} {body}".lower()
     title_l = title.lower()
+    if re.search(r"\b(?:avp|svp|vp)\b", title_l):
+        return True, "blocked seniority abbreviation"
     for term in settings["blocked_title_terms"]:
         if term in title_l:
             return True, f"blocked title term: {term}"
@@ -281,31 +294,132 @@ def parse_ashby(company: dict[str, Any]) -> list[Job]:
 
 
 def parse_smartrecruiters(company: dict[str, Any]) -> list[Job]:
-    url = f"https://api.smartrecruiters.com/v1/companies/{company['slug']}/postings?limit=100"
-    data = get_json(url)
-    jobs = []
-    for item in data.get("content", []):
-        location = flatten_location(item.get("location"))
-        detail = ""
-        detail_url = item.get("ref")
-        if detail_url:
-            try:
-                detail_json = get_json(detail_url)
-                detail = clean_text(detail_json.get("jobAd", {}).get("sections", {}))
-            except Exception:
-                pass
-        jobs.append(Job(
-            company=company["name"],
-            title=clean_text(item.get("name")),
-            location=location,
-            url=item.get("ref", ""),
-            source="Official careers: SmartRecruiters",
-            description=detail,
-            department=clean_text(item.get("department")),
-            wlb_score=company.get("wlb_score", 3),
-        ))
+    search_terms = company.get("search_terms") or [""]
+    if isinstance(search_terms, str):
+        search_terms = [search_terms]
+
+    target_titles = (
+        "data scientist", "machine learning engineer", "ml engineer", "applied scientist",
+        "decision scientist", "data analyst", "product analyst", "business analyst",
+        "analytics engineer", "business intelligence", "bi analyst", "insights analyst",
+        "ai engineer", "nlp engineer", "mlops engineer",
+    )
+    settings = load_config()["settings"]
+    jobs: list[Job] = []
+    seen_ids: set[str] = set()
+    for search_text in search_terms:
+        url = f"https://api.smartrecruiters.com/v1/companies/{company['slug']}/postings?limit=100"
+        if search_text:
+            url += f"&q={quote_plus(search_text)}"
+        data = get_json(url)
+        for item in data.get("content", []):
+            item_id = str(item.get("id") or item.get("ref") or "")
+            if item_id in seen_ids:
+                continue
+            seen_ids.add(item_id)
+
+            title = clean_text(item.get("name"))
+            location = flatten_location(item.get("location"))
+            detail = ""
+            public_url = item.get("ref", "")
+            # Details are needed for the 0-3 year filter, but only target titles
+            # can become alerts. This avoids hundreds of needless API requests.
+            if any(term in title.casefold() for term in target_titles) and has_location_match(location, settings):
+                detail_url = item.get("ref")
+                if detail_url:
+                    try:
+                        detail_json = get_json(detail_url)
+                        detail = clean_text(detail_json.get("jobAd", {}).get("sections", {}))
+                        public_url = detail_json.get("postingUrl") or detail_json.get("applyUrl") or public_url
+                    except Exception:
+                        pass
+            jobs.append(Job(
+                company=company["name"],
+                title=title,
+                location=location,
+                url=public_url,
+                source="Official careers: SmartRecruiters",
+                description=detail,
+                department=clean_text(item.get("department")),
+                wlb_score=company.get("wlb_score", 3),
+            ))
     return jobs
 
+
+def parse_zwayam(company: dict[str, Any]) -> list[Job]:
+    """Read public Zwayam career portals such as careers.tavant.com."""
+    jobs: list[Job] = []
+    page_size = 10
+    max_results = max(page_size, int(company.get("max_results", 100)))
+    portal_url = company["career_site_url"].rstrip("/")
+    request_headers = {
+        **HEADERS,
+        "Origin": f"https://{company['domain']}",
+        "Referer": f"{portal_url}/",
+    }
+
+    for offset in range(0, max_results, page_size):
+        filter_criteria = {
+            "paginationStartNo": offset,
+            "selectedCall": "sort",
+            "sortCriteria": {"name": "modifiedDate", "isAscending": False},
+            "anyOfTheseWords": "",
+        }
+        for attempt in range(2):
+            try:
+                response = requests.post(
+                    company["url"],
+                    data={
+                        "filterCri": json.dumps(filter_criteria),
+                        "domain": company["domain"],
+                        "companyId": company["company_id"],
+                    },
+                    headers=request_headers,
+                    timeout=(8, 15),
+                )
+                response.raise_for_status()
+                break
+            except requests.RequestException as exc:
+                if attempt == 1:
+                    if jobs:
+                        print(f"WARN {company['name']} returned partial Zwayam results: {exc}")
+                        return jobs
+                    raise
+                time.sleep(1)
+        envelope = response.json()
+        data = envelope.get("data") or {}
+        raw_jobs = data.get("data") or []
+
+        for item in raw_jobs:
+            source = item.get("_source") or item
+            slug = clean_text(source.get("jobUrl"))
+            salary_parts = [source.get("minJobSalary"), source.get("maxJobSalary")]
+            if all(str(value or "").strip() for value in salary_parts):
+                salary_text = f"INR {salary_parts[0]}-{salary_parts[1]} per annum"
+            else:
+                salary_text = ""
+            description = " ".join(filter(None, [
+                clean_text(source.get("mediumDescription")),
+                clean_text(source.get("role")),
+                clean_text(source.get("jdSkillsKnown")),
+                clean_text(source.get("experienceUIField") or source.get("yrsOfExperience")),
+            ]))
+            jobs.append(Job(
+                company=company["name"],
+                title=clean_text(source.get("jobTitle")),
+                location=flatten_location(source.get("locationSeparatedbySlash") or source.get("jobLocationRecord") or source.get("location")),
+                url=f"{portal_url}/job/{slug}" if slug else portal_url,
+                source="Official careers: Zwayam",
+                description=description,
+                department=clean_text(source.get("text1") or source.get("departmentName")),
+                salary_text=salary_text,
+                wlb_score=company.get("wlb_score", 3),
+            ))
+
+        if not raw_jobs or not data.get("hasMoreData"):
+            break
+        time.sleep(0.1)
+    return jobs
 
 def parse_amazon(company: dict[str, Any]) -> list[Job]:
     url = "https://www.amazon.jobs/en/search.json?base_query=data&loc_query=Bangalore%2C%20India&country=IND&offset=0&result_limit=100&sort=relevant"
@@ -414,6 +528,135 @@ def parse_workday_search(company: dict[str, Any]) -> list[Job]:
     return jobs
 
 
+def parse_oracle_hcm(company: dict[str, Any]) -> list[Job]:
+    """Search a public Oracle Recruiting Candidate Experience site."""
+    terms = company.get("search_terms") or ["data scientist", "machine learning", "data analyst", "analytics"]
+    page_size = 24
+    max_results = max(page_size, int(company.get("max_results_per_term", 48)))
+    site_number = str(company["site_number"])
+    career_url = company["career_site_url"].rstrip("/")
+    detail_url = company["url"].replace("recruitingCEJobRequisitions", "recruitingCEJobRequisitionDetails")
+    settings = load_config()["settings"]
+    jobs: list[Job] = []
+    seen_ids: set[str] = set()
+    for term in terms:
+        for offset in range(0, max_results, page_size):
+            parts = [f"siteNumber={site_number}", f"limit={page_size}", f"offset={offset}", f'keyword="{term}"']
+            if company.get("location_facet"):
+                parts.append(f"selectedLocationsFacet={company['location_facet']}")
+            response = requests.get(
+                company["url"],
+                params={
+                    "onlyData": "true",
+                    "expand": "requisitionList.workLocation,requisitionList.otherWorkLocations,requisitionList.secondaryLocations",
+                    "finder": "findReqs;" + ",".join(parts),
+                },
+                headers=HEADERS, timeout=20,
+            )
+            response.raise_for_status()
+            raw_jobs: list[dict[str, Any]] = []
+            for container in response.json().get("items", []):
+                raw_jobs.extend(container.get("requisitionList") or [])
+            if not raw_jobs:
+                break
+            for item in raw_jobs:
+                job_id = str(item.get("Id") or item.get("id") or "")
+                if not job_id or job_id in seen_ids:
+                    continue
+                seen_ids.add(job_id)
+                title = clean_text(item.get("Title") or item.get("title"))
+                location = flatten_location([value for value in (
+                    item.get("PrimaryLocation"), item.get("workLocation"),
+                    item.get("otherWorkLocations"), item.get("secondaryLocations"),
+                ) if value])
+                description = clean_text(item.get("ShortDescriptionStr") or item.get("ShortDescription") or item.get("ExternalDescriptionStr"))
+                if is_target_title(title) and has_location_match(location, settings):
+                    try:
+                        detail = requests.get(
+                            detail_url,
+                            params={"expand": "all", "onlyData": "true", "finder": f'ById;Id="{job_id}",siteNumber={site_number}'},
+                            headers=HEADERS, timeout=20,
+                        )
+                        detail.raise_for_status()
+                        detail_items = detail.json().get("items") or []
+                        if detail_items:
+                            info = detail_items[0]
+                            if isinstance(info.get("requisitionList"), list) and info["requisitionList"]:
+                                info = info["requisitionList"][0]
+                            description = clean_text(info.get("ExternalDescriptionStr") or info.get("JobDescription") or info.get("Description") or info) or description
+                    except Exception as exc:
+                        print(f"WARN {company['name']} Oracle detail failed: {exc}")
+                jobs.append(Job(
+                    company=company["name"], title=title, location=location,
+                    url=f"{career_url}/job/{job_id}", source="Official careers: Oracle Recruiting",
+                    description=description, department=clean_text(item.get("JobFunction") or item.get("Category")),
+                    wlb_score=company.get("wlb_score", 3),
+                ))
+            if len(raw_jobs) < page_size:
+                break
+            time.sleep(0.1)
+    return jobs
+
+
+def parse_eightfold(company: dict[str, Any]) -> list[Job]:
+    """Search an official Eightfold career site for Bengaluru and Remote India."""
+    terms = company.get("search_terms") or ["data scientist", "machine learning", "data analyst", "analytics"]
+    locations = company.get("search_locations") or ["Bengaluru, Karnataka, India", "Remote, India"]
+    max_results = max(10, int(company.get("max_results_per_search", 30)))
+    domain = company["domain"]
+    career_url = company["career_site_url"].rstrip("/")
+    detail_url = company["url"].rsplit("/", 1)[0] + "/position_details"
+    settings = load_config()["settings"]
+    jobs: list[Job] = []
+    seen_ids: set[str] = set()
+    for term in terms:
+        for search_location in locations:
+            for offset in range(0, max_results, 10):
+                response = requests.get(
+                    company["url"],
+                    params={"domain": domain, "query": term, "location": search_location, "start": offset},
+                    headers=HEADERS, timeout=20,
+                )
+                response.raise_for_status()
+                data = response.json().get("data") or {}
+                raw_jobs = data.get("positions") or []
+                if not raw_jobs:
+                    break
+                for item in raw_jobs:
+                    job_id = str(item.get("id") or "")
+                    if not job_id or job_id in seen_ids:
+                        continue
+                    seen_ids.add(job_id)
+                    title = clean_text(item.get("name") or item.get("title"))
+                    location = flatten_location(item.get("locations") or item.get("location"))
+                    description = clean_text(item.get("jobDescription") or item.get("description"))
+                    department = clean_text(item.get("department") or item.get("jobFunction"))
+                    if is_target_title(title) and has_location_match(location, settings):
+                        try:
+                            detail = requests.get(
+                                detail_url, params={"position_id": job_id, "domain": domain, "hl": "en"},
+                                headers=HEADERS, timeout=20,
+                            )
+                            detail.raise_for_status()
+                            info = detail.json().get("data") or {}
+                            if isinstance(info.get("data"), dict):
+                                info = info["data"]
+                            description = clean_text(info.get("jobDescription") or info.get("description")) or description
+                            department = clean_text(info.get("department")) or department
+                        except Exception as exc:
+                            print(f"WARN {company['name']} Eightfold detail failed: {exc}")
+                    jobs.append(Job(
+                        company=company["name"], title=title, location=location,
+                        url=f"{career_url}/job/{job_id}?domain={domain}", source="Official careers: Eightfold",
+                        description=description, department=department, wlb_score=company.get("wlb_score", 3),
+                    ))
+                total = int(data.get("count") or 0)
+                if len(raw_jobs) < 10 or (total and offset + len(raw_jobs) >= total):
+                    break
+                time.sleep(0.1)
+    return jobs
+
+
 def parse_html_search(company: dict[str, Any]) -> list[Job]:
     # Conservative fallback. Only use text from the link's nearest compact card;
     # whole-page text can attach an unrelated location to a blog or navigation link.
@@ -470,9 +713,12 @@ def fetch_company_jobs(company: dict[str, Any]) -> list[Job]:
         "lever": parse_lever,
         "ashby": parse_ashby,
         "smartrecruiters": parse_smartrecruiters,
+        "zwayam": parse_zwayam,
         "amazon": parse_amazon,
         "ms_search": parse_ms_search,
         "workday_search": parse_workday_search,
+        "oracle_hcm": parse_oracle_hcm,
+        "eightfold": parse_eightfold,
         "html_search": parse_html_search,
     }
     parser = parsers.get(ats)
@@ -489,7 +735,17 @@ def fetch_company_jobs(company: dict[str, Any]) -> list[Job]:
 
 
 def approved_company_names(config: dict[str, Any]) -> list[str]:
-    return [c["name"] for c in config["companies"] if c.get("enabled", True)]
+    names = {c["name"] for c in config["companies"] if c.get("enabled", True)}
+    allowlist_name = config.get("external_job_boards", {}).get("company_allowlist_file")
+    if allowlist_name:
+        try:
+            for line in (ROOT / allowlist_name).read_text(encoding="utf-8").splitlines():
+                name = line.strip()
+                if name and not name.startswith("#"):
+                    names.add(name)
+        except Exception as exc:
+            print(f"WARN secondary company allowlist failed: {exc}")
+    return sorted(names)
 
 
 def scrape_indeed_best_effort(config: dict[str, Any]) -> list[Job]:
@@ -542,6 +798,58 @@ def filter_and_score(jobs: Iterable[Job], settings: dict[str, Any]) -> list[Job]
     return output
 
 
+def _format_lpa(value: float) -> str:
+    return f"{value:.1f}".rstrip("0").rstrip(".")
+
+
+def _posted_salary_lpa(text: str) -> tuple[float, float] | None:
+    """Extract an explicitly posted INR annual salary and normalize it to LPA."""
+    cleaned = clean_text(text)
+    for dash in (chr(0x2212), chr(0x2013), chr(0x2014)):
+        cleaned = cleaned.replace(dash, "-")
+    lpa_range = re.search(
+        r"(?i)(?:\u20b9|rs\.?|inr)?\s*(\d+(?:\.\d+)?)\s*(?:-|to)\s*"
+        r"(?:\u20b9|rs\.?|inr)?\s*(\d+(?:\.\d+)?)\s*"
+        r"(?:lpa|lakhs?(?:\s+per\s+(?:annum|year))?)\b",
+        cleaned,
+    )
+    if lpa_range:
+        low, high = map(float, lpa_range.groups())
+        if 1 <= low <= high <= 200:
+            return low, high
+
+    annual_range = re.search(
+        r"(?i)(?:\u20b9|rs\.?|inr)\s*([\d,]{6,})\s*(?:-|to)\s*"
+        r"(?:\u20b9|rs\.?|inr)?\s*([\d,]{6,})\s*(?:per\s+(?:annum|year)|p\.?a\.?)",
+        cleaned,
+    )
+    if annual_range:
+        low, high = (float(value.replace(",", "")) / 100_000 for value in annual_range.groups())
+        if 1 <= low <= high <= 200:
+            return low, high
+    return None
+
+
+def expected_salary(job: Job) -> str:
+    """Return posted pay when available, otherwise a conservative 0-3 YOE India CTC estimate."""
+    posted = _posted_salary_lpa(" ".join(filter(None, [job.salary_text, job.description])))
+    if posted:
+        return f"Posted \u20b9{_format_lpa(posted[0])}\u2013{_format_lpa(posted[1])} LPA"
+
+    title = normalize_match_text(job.title)
+    if any(term in title for term in ("machine learning engineer", "ml engineer", "ai engineer", "nlp engineer", "mlops engineer")):
+        low, high = 10, 22
+    elif any(term in title for term in ("data scientist", "applied scientist", "decision scientist")):
+        low, high = 8, 18
+    elif "analytics engineer" in title:
+        low, high = 8, 16
+    elif any(term in title for term in ("data analyst", "product analyst", "business analyst", "bi analyst", "insights analyst", "business intelligence")):
+        low, high = 6, 14
+    else:
+        low, high = 7, 15
+    return f"Est. \u20b9{low}\u2013{high} LPA"
+
+
 def discord_post(job: Job) -> bool:
     if not DISCORD_WEBHOOK_URL:
         print("ERROR: DISCORD_WEBHOOK_URL secret is missing")
@@ -555,11 +863,12 @@ def discord_post(job: Job) -> bool:
             "color": 5814783,
             "fields": [
                 {"name": "Location", "value": job.location[:1000] or "Not specified", "inline": True},
+                {"name": "Expected salary*", "value": expected_salary(job), "inline": True},
                 {"name": "Match score", "value": f"{job.score}/100", "inline": True},
                 {"name": "WLB priority", "value": f"{job.wlb_score}/5", "inline": True},
                 {"name": "Source", "value": job.source[:1000], "inline": False},
             ],
-            "footer": {"text": "Product-company DS/Analytics alert • scanned every 30 min"},
+            "footer": {"text": "*Salary is estimated unless marked Posted \u2022 scanned every 30 min"},
             "timestamp": datetime.now(timezone.utc).isoformat(),
         }]
     }

@@ -29,6 +29,8 @@ settings:
     - "architect"
     - "head of"
     - "vp "
+    - "avp"
+    - "svp"
     - "vice president"
     - "internship manager"
     - "sales"
@@ -575,8 +577,198 @@ companies:
     url: "https://cadence.wd1.myworkdayjobs.com/wday/cxs/cadence/External_Careers/jobs"
     career_site_url: "https://cadence.wd1.myworkdayjobs.com/en-US/External_Careers"
     enabled: true
+  - name: "Tavant Technologies"
+    kind: "approved_exception_technology_services"
+    wlb_score: 3
+    ats: "zwayam"
+    url: "https://public.zwayam.com/jobs/search"
+    career_site_url: "https://careers.tavant.com/tavant"
+    domain: "careers.tavant.com"
+    company_id: "MTU3Mzg="
+    enabled: true
+  - name: "Thoughtworks"
+    kind: "approved_exception_technology_consulting"
+    wlb_score: 4
+    ats: "greenhouse"
+    slug: "thoughtworks"
+    enabled: true
+  - name: "Bosch Group"
+    kind: "product_engineering"
+    wlb_score: 4
+    ats: "smartrecruiters"
+    slug: "BoschGroup"
+    search_terms: ["data scientist", "machine learning engineer", "data analyst", "analytics engineer", "AI engineer"]
+    enabled: true
+  - name: "Sigmoid"
+    kind: "approved_exception_data_analytics"
+    wlb_score: 3
+    ats: "greenhouse"
+    slug: "sigmoid"
+    enabled: true
+  - name: "Capco"
+    kind: "approved_exception_technology_consulting"
+    wlb_score: 3
+    ats: "greenhouse"
+    slug: "capco"
+    enabled: true
+  - name: "Nium"
+    kind: "product"
+    wlb_score: 3
+    ats: "lever"
+    slug: "nium"
+    enabled: true
+  - name: "Western Digital"
+    kind: "product_engineering"
+    wlb_score: 4
+    ats: "smartrecruiters"
+    slug: "WesternDigital"
+    search_terms: ["data scientist", "machine learning engineer", "data analyst", "analytics engineer", "AI engineer"]
+    enabled: true
+  - name: "Hitachi Solutions"
+    kind: "approved_exception_technology_services"
+    wlb_score: 3
+    ats: "smartrecruiters"
+    slug: "HitachiSolutions"
+    search_terms: ["data scientist", "machine learning engineer", "data analyst", "analytics engineer", "AI engineer"]
+    enabled: true
+  - name: "LSEG"
+    kind: "data_product_bfsi"
+    wlb_score: 4
+    ats: "workday_search"
+    url: "https://lseg.wd3.myworkdayjobs.com/wday/cxs/lseg/Careers/jobs"
+    career_site_url: "https://lseg.wd3.myworkdayjobs.com/en-US/Careers"
+    max_results_per_term: 20
+    enabled: true
+  - name: "JPMorgan Chase"
+    kind: "bfsi_tech_gcc"
+    wlb_score: 3
+    ats: "oracle_hcm"
+    url: "https://jpmc.fa.oraclecloud.com/hcmRestApi/resources/latest/recruitingCEJobRequisitions"
+    career_site_url: "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001"
+    site_number: "CX_1001"
+    location_facet: "300000081145775"
+    max_results_per_term: 48
+    enabled: true
+  - name: "Morgan Stanley"
+    kind: "bfsi_tech_gcc"
+    wlb_score: 3
+    ats: "eightfold"
+    url: "https://morganstanley.eightfold.ai/api/pcsx/search"
+    career_site_url: "https://morganstanley.eightfold.ai/careers"
+    domain: "morganstanley.com"
+    max_results_per_search: 30
+    enabled: true
+  - name: "Moody's"
+    kind: "data_product_bfsi"
+    wlb_score: 4
+    ats: "html_search"
+    url: "https://careers.moodys.com/en/location/bengaluru-karnataka-india-jobs/49841/1269750-1267701-1277333/4"
+    enabled: true
+  - name: "ABB"
+    kind: "product_engineering"
+    wlb_score: 4
+    ats: "workday_search"
+    url: "https://abb.wd3.myworkdayjobs.com/wday/cxs/abb/External_Career_Page/jobs"
+    career_site_url: "https://abb.wd3.myworkdayjobs.com/en-US/External_Career_Page"
+    max_results_per_term: 20
+    enabled: true
+  - name: "CGI"
+    kind: "approved_exception_technology_services"
+    wlb_score: 3
+    ats: "html_search"
+    url: "https://cgi.njoyn.com/corp/xweb/xweb.asp?CLID=21001&CountryID=IN&page=joblisting"
+    coverage_note: "Njoyn can block cloud requests; the supplied company fallback also checks CGI."
+    enabled: true
+  - name: "Qualcomm"
+    kind: "product_semiconductor"
+    wlb_score: 4
+    ats: "eightfold"
+    url: "https://careers.qualcomm.com/api/pcsx/search"
+    career_site_url: "https://careers.qualcomm.com/careers"
+    domain: "qualcomm.com"
+    max_results_per_search: 30
+    enabled: true
+  - name: "Micron Technology"
+    kind: "product_semiconductor"
+    wlb_score: 4
+    ats: "eightfold"
+    url: "https://careers.micron.com/api/pcsx/search"
+    career_site_url: "https://careers.micron.com/careers"
+    domain: "micron.com"
+    max_results_per_search: 30
+    enabled: true
+  - name: "State Street"
+    kind: "bfsi_tech_gcc"
+    wlb_score: 4
+    ats: "workday_search"
+    url: "https://statestreet.wd1.myworkdayjobs.com/wday/cxs/statestreet/Global/jobs"
+    career_site_url: "https://statestreet.wd1.myworkdayjobs.com/en-US/Global"
+    max_results_per_term: 20
+    enabled: true
+  - name: "Northern Trust"
+    kind: "bfsi_tech_gcc"
+    wlb_score: 4
+    ats: "workday_search"
+    url: "https://ntrs.wd1.myworkdayjobs.com/wday/cxs/ntrs/northerntrust/jobs"
+    career_site_url: "https://ntrs.wd1.myworkdayjobs.com/en-US/northerntrust"
+    max_results_per_term: 20
+    enabled: true
+  - name: "Citi"
+    kind: "bfsi_tech_gcc"
+    wlb_score: 3
+    ats: "html_search"
+    url: "https://jobs.citi.com/location/bengaluru-jobs/287/1269750-1267701-1277333/4"
+    enabled: true
+  - name: "Fidelity Investments"
+    kind: "bfsi_tech_gcc"
+    wlb_score: 4
+    ats: "html_search"
+    url: "https://jobs.fidelity.com/in/locations/bengaluru-india/"
+    enabled: true
+  - name: "Honeywell"
+    kind: "product_engineering"
+    wlb_score: 4
+    ats: "oracle_hcm"
+    url: "https://ibqbjb.fa.ocs.oraclecloud.com/hcmRestApi/resources/latest/recruitingCEJobRequisitions"
+    career_site_url: "https://ibqbjb.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/Honeywell"
+    site_number: "Honeywell"
+    max_results_per_term: 48
+    enabled: true
+  - name: "Applied Materials"
+    kind: "product_semiconductor"
+    wlb_score: 4
+    ats: "workday_search"
+    url: "https://amat.wd1.myworkdayjobs.com/wday/cxs/amat/External/jobs"
+    career_site_url: "https://amat.wd1.myworkdayjobs.com/en-US/External"
+    max_results_per_term: 20
+    enabled: true
+  - name: "GE Aerospace"
+    kind: "product_engineering"
+    wlb_score: 3
+    ats: "workday_search"
+    url: "https://geaerospace.wd5.myworkdayjobs.com/wday/cxs/geaerospace/GE_ExternalSite/jobs"
+    career_site_url: "https://geaerospace.wd5.myworkdayjobs.com/en-US/GE_ExternalSite"
+    max_results_per_term: 20
+    enabled: true
+  - name: "Boeing"
+    kind: "product_engineering"
+    wlb_score: 3
+    ats: "workday_search"
+    url: "https://boeing.wd1.myworkdayjobs.com/wday/cxs/boeing/EXTERNAL_CAREERS/jobs"
+    career_site_url: "https://boeing.wd1.myworkdayjobs.com/en-US/EXTERNAL_CAREERS"
+    max_results_per_term: 20
+    enabled: true
+  - name: "Shell"
+    kind: "energy_technology_gcc"
+    wlb_score: 4
+    ats: "workday_search"
+    url: "https://shell.wd3.myworkdayjobs.com/wday/cxs/shell/ShellCareers/jobs"
+    career_site_url: "https://shell.wd3.myworkdayjobs.com/en-US/ShellCareers"
+    max_results_per_term: 20
+    enabled: true
 external_job_boards:
   indeed_enabled: true
+  company_allowlist_file: "company_allowlist.txt"
   linkedin_enabled: false
   naukri_enabled: false
-  note: "Official career feeds are primary. Indeed is best-effort. LinkedIn/Naukri are intentionally not scraped by default because they frequently block automation and require login."
+  note: "Official career feeds are primary. The supplied company list expands the restricted Indeed fallback. Indeed is best-effort; LinkedIn/Naukri are not scraped because they frequently block automation and require login."

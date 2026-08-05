@@ -15,13 +15,20 @@ This bot checks official company career feeds every 30 minutes and sends matchin
 - Scores jobs using title + location + description + skills + early-career signal.
 - Rejects senior / principal / lead / manager roles.
 - Gives a small priority boost to companies marked with better work-life-balance priority.
+- Shows an expected INR CTC range; employer-posted pay is used when available, otherwise it is clearly marked as an estimate.
 - Prevents duplicate alerts through `state/seen_jobs.json`.
+
+- Uses company_allowlist.txt as a broad, restricted secondary-company universe.
 
 ## Important reality check
 
 This is not magic. Official ATS APIs like Greenhouse, Lever, Ashby, SmartRecruiters and some Workday endpoints are reliable. Dynamic pages, LinkedIn and Indeed can break or block requests. The bot logs failures and continues instead of crashing.
 
+The supplied company list is an allowlist, not a guarantee that every careers site permits automation. Verified official feeds are configured in companies.yaml; remaining names use the Indeed fallback. CGI's Njoyn site can block cloud requests, so CGI is best-effort.
+
 Work-life balance is only a ranking signal. It is not a guarantee because WLB depends heavily on team, manager, project and deadline pressure.
+
+Salary ranges are guidance for 0-3 year Bengaluru / Remote India candidates, not an offer or employer guarantee. Alerts label official posted compensation as `Posted` and market estimates as `Est.`
 
 ## Setup
 
