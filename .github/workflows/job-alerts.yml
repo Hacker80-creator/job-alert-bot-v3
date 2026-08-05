@@ -20,12 +20,12 @@ jobs:
     timeout-minutes: 28
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           persist-credentials: true
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.12"
 
@@ -44,7 +44,8 @@ jobs:
           SEND_DAILY_HEALTH: "true"
           DAILY_HEALTH_HOURS: "24"
           MAX_SOURCE_WORKERS: "25"
-        run: python job_monitor_entry_v6.py
+          ENABLE_INDEED: "false"
+        run: python job_monitor_entry_v8.py
 
       - name: Persist deduplication state
         if: ${{ always() }}
