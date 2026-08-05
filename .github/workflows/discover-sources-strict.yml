@@ -1,0 +1,88 @@
+name: Test company sources in parallel - strict
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: job-alert-source-discovery-strict
+  cancel-in-progress: false
+
+jobs:
+  discover:
+    name: Strict test batch ${{ matrix.batch }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      max-parallel: 6
+      matrix:
+        batch: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Probe one 25-company batch with strict validation
+        run: >-
+          python source_discovery_strict.py
+          --batch-index ${{ matrix.batch }}
+          --batch-size 25
+          --workers 4
+          --output part-${{ matrix.batch }}.json
+
+      - name: Upload batch result
+        uses: actions/upload-artifact@v4
+        with:
+          name: strict-source-discovery-${{ matrix.batch }}
+          path: part-${{ matrix.batch }}.json
+          retention-days: 7
+
+  merge:
+    name: Merge strict test results
+    needs: discover
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Download all strict batch results
+        uses: actions/download-artifact@v4
+        with:
+          pattern: strict-source-discovery-*
+          path: discovery-results
+          merge-multiple: true
+
+      - name: Merge only strictly verified sources
+        run: >-
+          python source_discovery_strict.py
+          --merge-dir discovery-results
+          --expected-parts 32
+          --output discovered_sources.yaml
+
+      - name: Upload strict coverage candidate
+        uses: actions/upload-artifact@v4
+        with:
+          name: strict-verified-company-sources
+          path: |
+            discovered_sources.yaml
+            discovered_sources.summary.json
+          retention-days: 7
