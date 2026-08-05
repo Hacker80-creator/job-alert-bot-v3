@@ -1,1 +1,110 @@
-{}
+{
+  "084b1b307c81813ab18448ea": {
+    "company": "Databricks",
+    "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
+    "location": "United States",
+    "score": 100,
+    "source": "Official careers: Greenhouse",
+    "title": "AI Engineer - FDE (Forward Deployed Engineer)",
+    "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8546367002"
+  },
+  "1a725eba6a36840447166898": {
+    "company": "Postman",
+    "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
+    "location": "Berkeley, California, United States",
+    "score": 100,
+    "source": "Official careers: Greenhouse",
+    "title": "AI Engineer, Intern",
+    "url": "https://job-boards.greenhouse.io/postman/jobs/7823417003"
+  },
+  "2baecb33d9a8ed4eb1c16254": {
+    "company": "Amazon",
+    "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
+    "location": "Chennai, Tamil Nadu, IND",
+    "score": 100,
+    "source": "Official careers: Amazon Jobs",
+    "title": "Data Scientist, Alexa Connections",
+    "url": "https://www.amazon.jobs/en/jobs/10381959/data-scientist-alexa-connections"
+  },
+  "54641004dec694500808cfff": {
+    "company": "Databricks",
+    "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
+    "location": "Bellevue, Washington; Mountain View, California; San Francisco, California",
+    "score": 70,
+    "source": "Official careers: Greenhouse",
+    "title": "Product Management Intern (Summer 2027)",
+    "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=6883068002"
+  },
+  "6cae537eb9eae04ac8be3855": {
+    "company": "Amazon",
+    "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
+    "location": "Chennai, Tamil Nadu, IND",
+    "score": 100,
+    "source": "Official careers: Amazon Jobs",
+    "title": "Data Scientist, Alexa Connections",
+    "url": "https://www.amazon.jobs/en/jobs/10379689/data-scientist-alexa-connections"
+  },
+  "7b8afffaf3419fcf7e3394d3": {
+    "company": "Amazon",
+    "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
+    "location": "Bengaluru, Karnataka, IND",
+    "score": 85,
+    "source": "Official careers: Amazon Jobs",
+    "title": "Data Scientist, Traffic Quality",
+    "url": "https://www.amazon.jobs/en/jobs/10453787/data-scientist-traffic-quality"
+  },
+  "8a1336b9b359089648de0963": {
+    "company": "Coinbase",
+    "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
+    "location": "Remote - India",
+    "score": 95,
+    "source": "Official careers: Greenhouse",
+    "title": "Machine Learning Engineer",
+    "url": "https://www.coinbase.com/careers/positions/7985187?gh_jid=7985187"
+  },
+  "9d9fbea4ed7f56f3a0855e24": {
+    "company": "Databricks",
+    "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
+    "location": "Remote - India",
+    "score": 100,
+    "source": "Official careers: Greenhouse",
+    "title": "AI Engineer - FDE (Forward Deployed Engineer)",
+    "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8099751002"
+  },
+  "b589edcf7a18cabda71d6554": {
+    "company": "Elastic",
+    "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
+    "location": "United States",
+    "score": 70,
+    "source": "Official careers: Greenhouse",
+    "title": "Agentic AI Engineer",
+    "url": "https://jobs.elastic.co/jobs?gh_jid=8079636&gh_jid=8079636"
+  },
+  "bf8901d510c5b6ed024f8e6d": {
+    "company": "Intuit",
+    "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
+    "location": "Search Job Opportunities at Intuit Skip to main content Skip to Search Results Skip to Search Filters Job Alerts 0 Saved Jobs Careers Job Categories Back Job Categories Build your career at Intuit Customer Experience Data Marketing Product Management Sales Software Engineering Tax & Bookkeeping Search and apply Hiring Process Administration Communications Corporate Strategy & Development Customer Success Design & User Experience Executive Finance Human Resources Information Technology Legal, Compliance, & Policy Program Management & Business Operations Real Estate & Workplace Services Security, Risk & Fraud Tax & Bookkeeping Programs Back Programs Internships Entry-Level Careers Intuit Careers Pathways Locations Back Locations United States Atlanta New York International Australia Canada India Israel United Kingdom Intuit Life Back Intuit Life Working at Intuit Diversity & Inclusion Benefits Hybrid Work Stories & News Technology Job Alerts 0 Saved Jobs Job Search Search Jobs by Keyword Location Search Jobs Explore open jobs at Intuit for your next career opportunity. Quick job search: Remote Engineering Data Tax Sort Jobs Relevancy Date Posted Date Updated Job Title Location ATS Posted Date Distance Display Date 388 jobs found Staff Vendor Partner Manager, Intuit Customer Success Bangalore, India Save Staff Facilitator & Training Coordinator Bangalore, India Save Staff Service Experience Strategy & Management Leader Mountain View, California Save Manager 3, State and Local Tax Multiple Locations Save Director, Banking, Payments & Wallet - Credit Karma Multiple Locations Save Risk Staff Software Engineer Mountain View, California Save Staff Software Engineer, Fintech API Mountain View, California Save Lead Partner Decision Scientist - Credit Karma Charlotte, North Carolina Save Senior Financial Analyst Charlotte, North Carolina Save Critical Account Manager Atlanta, Georgia Save Tax Expert - TurboTax Store (New York) Brooklyn, NY Save Tax Expert - TurboTax Store (Chi",
+    "score": 70,
+    "source": "Official careers: HTML fallback",
+    "title": "How Intuit data analysts write SQL 2x faster with internal GenAI tool",
+    "url": "https://medium.com/intuit-engineering/how-intuit-data-analysts-write-sql-2x-faster-with-internal-genai-tool-c3b9d482208a"
+  },
+  "cc2340834c313387a2da66d8": {
+    "company": "Stripe",
+    "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
+    "location": "Mexico City",
+    "score": 80,
+    "source": "Official careers: Greenhouse",
+    "title": "Data Analyst",
+    "url": "https://stripe.com/jobs/search?gh_jid=7978488"
+  },
+  "f201693166109af0c2cc3116": {
+    "company": "Stripe",
+    "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
+    "location": "IN-Bengaluru",
+    "score": 70,
+    "source": "Official careers: Greenhouse",
+    "title": "AI Specialist, Treasury Finance Operations",
+    "url": "https://stripe.com/jobs/search?gh_jid=7947074"
+  }
+}
