@@ -40,6 +40,16 @@ HEADERS = {
     "Accept-Language": "en-US,en;q=0.9",
 }
 
+
+def make_fingerprint(company: str, title: str, location: str) -> str:
+    """Create a stable key that ignores URL and harmless punctuation changes."""
+    parts = []
+    for value in (company, title, location):
+        normalized = re.sub(r"[^a-z0-9]+", " ", value.casefold()).strip()
+        parts.append(normalized)
+    return hashlib.sha256("|".join(parts).encode("utf-8")).hexdigest()[:24]
+
+
 @dataclass
 class Job:
     company: str
@@ -55,8 +65,7 @@ class Job:
 
     @property
     def fingerprint(self) -> str:
-        raw = f"{self.company}|{self.title}|{self.location}|{self.url}".lower().strip()
-        return hashlib.sha256(raw.encode("utf-8")).hexdigest()[:24]
+        return make_fingerprint(self.company, self.title, self.location)
 
 
 def load_config() -> dict[str, Any]:
@@ -67,7 +76,19 @@ def load_config() -> dict[str, Any]:
 def load_seen() -> dict[str, Any]:
     if STATE_FILE.exists():
         try:
-            return json.loads(STATE_FILE.read_text(encoding="utf-8"))
+            stored = json.loads(STATE_FILE.read_text(encoding="utf-8"))
+            if not isinstance(stored, dict):
+                return {}
+
+            # Migrate URL-based legacy keys so existing alerts stay deduplicated.
+            migrated: dict[str, Any] = {}
+            for old_key, record in stored.items():
+                if isinstance(record, dict) and all(record.get(k) for k in ("company", "title", "location")):
+                    key = make_fingerprint(record["company"], record["title"], record["location"])
+                    migrated[key] = record
+                else:
+                    migrated[old_key] = record
+            return migrated
         except Exception:
             return {}
     return {}
@@ -111,17 +132,25 @@ def flatten_location(value: Any) -> str:
     return clean_text(value)
 
 
-def has_location_match(text: str, settings: dict[str, Any]) -> bool:
-    t = text.lower()
-    include = settings["location_terms"]
-    exclude = settings["exclude_location_terms"]
-    if any(term in t for term in include):
-        return True
-    # Some official API postings omit location in list response; allow India remote if no competing Indian city exists.
-    if "india" in t and "remote" in t:
-        return True
-    if any(term in t for term in exclude):
+def normalize_match_text(value: str) -> str:
+    return re.sub(r"[^a-z0-9]+", " ", value.casefold()).strip()
+
+
+def has_location_match(location: str, settings: dict[str, Any]) -> bool:
+    """Accept Bangalore/Karnataka or a role explicitly marked remote in India."""
+    normalized = normalize_match_text(location)
+    if not normalized:
         return False
+
+    tokens = set(normalized.split())
+    if "remote" in tokens and ("india" in tokens or "ind" in tokens):
+        return True
+
+    padded = f" {normalized} "
+    for term in settings["location_terms"]:
+        needle = normalize_match_text(term)
+        if needle and f" {needle} " in padded:
+            return True
     return False
 
 
@@ -147,18 +176,18 @@ def score_job(job: Job, settings: dict[str, Any]) -> tuple[int, list[str]]:
     reasons: list[str] = []
     score = 0
 
-    if has_location_match(f"{job.location} {job.description}", settings):
+    if has_location_match(job.location, settings):
         score += 25
         reasons.append("Bangalore/Bengaluru or Remote India")
     else:
         reasons.append("location not clearly Bangalore/Remote India")
         return 0, reasons
 
-    for term in settings["strong_title_terms"]:
-        if term in title_l:
-            score += 35
-            reasons.append(f"role title: {term}")
-            break
+    matched_title = next((term for term in settings["strong_title_terms"] if term in title_l), None)
+    if not matched_title:
+        return 0, ["title does not match a target data/AI/analytics role"]
+    score += 35
+    reasons.append(f"role title: {matched_title}")
 
     matched_skills = [s for s in settings["skill_terms"] if s in text]
     if matched_skills:
@@ -342,10 +371,10 @@ def parse_workday_search(company: dict[str, Any]) -> list[Job]:
 
 
 def parse_html_search(company: dict[str, Any]) -> list[Job]:
-    # Fallback. Better than nothing, but official APIs above are more reliable.
+    # Conservative fallback. Only use text from the link's nearest compact card;
+    # whole-page text can attach an unrelated location to a blog or navigation link.
     page = get_html(company["url"])
     soup = BeautifulSoup(page, "html.parser")
-    text = clean_text(soup.get_text(" "))
     results: list[Job] = []
     for a in soup.find_all("a", href=True):
         title = clean_text(a.get_text(" "))
@@ -355,27 +384,33 @@ def parse_html_search(company: dict[str, Any]) -> list[Job]:
         if not any(term in title_l for term in ["data", "analytics", "scientist", "machine learning", "analyst", "business intelligence", "ai ", "ml "]):
             continue
         href = a["href"]
+        href_l = href.lower()
+        if not any(marker in href_l for marker in ("job", "career", "position", "opening", "requisition")):
+            continue
+
+        context = title
+        for parent in a.parents:
+            if parent is soup:
+                break
+            if getattr(parent, "name", "") not in {"article", "li", "tr", "div", "section"}:
+                continue
+            candidate = clean_text(parent.get_text(" "))
+            if len(candidate) > 2000:
+                break
+            if len(candidate) > len(title) + 3:
+                context = candidate
+                break
+
         if href.startswith("/"):
             base_match = re.match(r"https?://[^/]+", company["url"])
             href = (base_match.group(0) if base_match else "") + href
         results.append(Job(
             company=company["name"],
             title=title,
-            location=text[:2000],
+            location=context[:500],
             url=href if href.startswith("http") else company["url"],
             source="Official careers: HTML fallback",
-            description=text[:5000],
-            department="",
-            wlb_score=company.get("wlb_score", 3),
-        ))
-    if not results and any(x in text.lower() for x in ["data", "analytics", "scientist", "machine learning"]):
-        results.append(Job(
-            company=company["name"],
-            title="Possible matching career page result - review manually",
-            location=text[:2000],
-            url=company["url"],
-            source="Official careers: HTML fallback",
-            description=text[:5000],
+            description=context[:2000],
             department="",
             wlb_score=company.get("wlb_score", 3),
         ))
