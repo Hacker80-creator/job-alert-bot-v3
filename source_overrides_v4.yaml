@@ -1,0 +1,20 @@
+metadata:
+  verified_at: "2026-08-05"
+  note: "Verified first-party custom feeds; counts are unique live positions after location-record deduplication."
+companies:
+  - name: "Accenture"
+    kind: "approved_exception_technology_consulting"
+    wlb_score: 4
+    ats: "accenture"
+    url: "https://www.accenture.com/api/accenture/elastic/findjobs"
+    career_site_url: "https://www.accenture.com/in-en/careers/jobsearch"
+    verified_job_count: 249
+    enabled: true
+  - name: "Rippling"
+    ats: "rippling_algolia"
+    algolia_app_id: "6FNAX3TBEF"
+    algolia_search_key: "416caa4690f002ff6fe4a2097623640b"
+    algolia_index: "careers_en-US_production"
+    max_pages: 12
+    verified_job_count: 393
+    enabled: true
