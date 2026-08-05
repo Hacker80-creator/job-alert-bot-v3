@@ -1,0 +1,10 @@
+metadata:
+  verified_at: "2026-08-06"
+  note: "Bound Expedia searches below its WordPress firewall threshold; these broad terms include its Bangalore data/ML postings."
+companies:
+  - name: "Expedia Group"
+    ats: "expedia_html"
+    search_terms: ["machine learning", "data"]
+    max_pages_per_term: 1
+    max_details: 5
+    enabled: true
