@@ -1,0 +1,16 @@
+metadata:
+  verified_at: "2026-08-06"
+  note: "IQVIA's official careers page exposes its current IQVIA Workday tenant and Bangalore facets."
+companies:
+  - name: "IQVIA"
+    ats: "workday_faceted"
+    url: "https://iqvia.wd1.myworkdayjobs.com/wday/cxs/iqvia/IQVIA/jobs"
+    career_site_url: "https://iqvia.wd1.myworkdayjobs.com/en-US/IQVIA"
+    applied_facets:
+      locations:
+        - "1cf3a1582b7701da95a1ed9700294722"
+        - "289c35b082ff01e7a47a445ef4000e12"
+        - "7eead6777d8d01bab3b2426df4005010"
+    max_results_per_term: 60
+    max_candidate_details: 20
+    enabled: true
