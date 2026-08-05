@@ -36,6 +36,7 @@ jobs:
         run: python job_monitor.py
 
       - name: Persist deduplication state
+        if: ${{ always() }}
         run: |
           if [[ -n $(git status --porcelain state/seen_jobs.json) ]]; then
             git config user.name "github-actions[bot]"
