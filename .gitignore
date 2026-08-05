@@ -1,0 +1,7 @@
+.env
+__pycache__/
+*.pyc
+*.log
+.venv/
+companies.json
+.json_to_yaml_tmp.js

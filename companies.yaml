@@ -1,0 +1,476 @@
+---
+settings:
+  location_terms:
+    - "bangalore"
+    - "bengaluru"
+    - "ka"
+    - "karnataka"
+    - "india remote"
+    - "remote india"
+  exclude_location_terms:
+    - "hyderabad"
+    - "pune"
+    - "chennai"
+    - "mumbai"
+    - "gurgaon"
+    - "gurugram"
+    - "noida"
+    - "delhi"
+    - "kolkata"
+  target_profile: "Entry level or early career Data Scientist, Data Analyst, ML Engineer, Applied Scientist, Analytics Engineer, BI Analyst, Product Analyst, Decision Scientist. Skills: Python, SQL, statistics, pandas, numpy, machine learning, power bi, tableau, experimentation, dashboards, analytics, data visualization. Location Bangalore Bengaluru or Remote India. 0 to 3 years experience."
+  blocked_title_terms:
+    - "senior"
+    - "sr."
+    - "sr "
+    - "staff"
+    - "principal"
+    - "lead"
+    - "manager"
+    - "director"
+    - "architect"
+    - "head of"
+    - "vp "
+    - "vice president"
+    - "internship manager"
+    - "sales"
+    - "recruiter"
+    - "talent acquisition"
+    - "data center"
+    - "database administrator"
+    - "dba"
+  strong_title_terms:
+    - "data scientist"
+    - "associate data scientist"
+    - "junior data scientist"
+    - "machine learning engineer"
+    - "ml engineer"
+    - "applied scientist"
+    - "decision scientist"
+    - "data analyst"
+    - "product analyst"
+    - "business analyst"
+    - "analytics engineer"
+    - "business intelligence"
+    - "bi analyst"
+    - "insights analyst"
+    - "ai engineer"
+    - "nlp engineer"
+    - "mlops engineer"
+  skill_terms:
+    - "python"
+    - "sql"
+    - "machine learning"
+    - "statistics"
+    - "statistical"
+    - "pandas"
+    - "numpy"
+    - "power bi"
+    - "tableau"
+    - "dashboard"
+    - "analytics"
+    - "data visualization"
+    - "etl"
+    - "experiment"
+    - "a/b"
+    - "forecast"
+    - "classification"
+    - "regression"
+    - "nlp"
+    - "deep learning"
+    - "spark"
+    - "databricks"
+    - "airflow"
+  experience_reject_patterns:
+    - "4+ years"
+    - "5+ years"
+    - "6+ years"
+    - "7+ years"
+    - "8+ years"
+    - "9+ years"
+    - "10+ years"
+    - "minimum 4 years"
+    - "minimum 5 years"
+    - "at least 4 years"
+    - "at least 5 years"
+companies:
+  - name: "Atlassian"
+    kind: "product"
+    wlb_score: 5
+    ats: "lever"
+    slug: "atlassian"
+    enabled: true
+  - name: "Stripe"
+    kind: "product"
+    wlb_score: 4
+    ats: "greenhouse"
+    slug: "stripe"
+    enabled: true
+  - name: "Databricks"
+    kind: "product"
+    wlb_score: 4
+    ats: "greenhouse"
+    slug: "databricks"
+    enabled: true
+  - name: "Confluent"
+    kind: "product"
+    wlb_score: 4
+    ats: "lever"
+    slug: "confluent"
+    enabled: true
+  - name: "Rippling"
+    kind: "product"
+    wlb_score: 3
+    ats: "ashby"
+    slug: "Rippling"
+    enabled: true
+  - name: "Notion"
+    kind: "product"
+    wlb_score: 4
+    ats: "greenhouse"
+    slug: "notion"
+    enabled: true
+  - name: "OpenAI"
+    kind: "product"
+    wlb_score: 3
+    ats: "greenhouse"
+    slug: "openai"
+    enabled: true
+  - name: "Anthropic"
+    kind: "product"
+    wlb_score: 3
+    ats: "greenhouse"
+    slug: "anthropic"
+    enabled: true
+  - name: "NVIDIA"
+    kind: "product"
+    wlb_score: 4
+    ats: "workday_search"
+    url: "https://nvidia.wd5.myworkdayjobs.com/wday/cxs/nvidia/NVIDIAExternalCareerSite/jobs"
+    enabled: true
+  - name: "Amazon"
+    kind: "product"
+    wlb_score: 3
+    ats: "amazon"
+    enabled: true
+  - name: "Google"
+    kind: "product"
+    wlb_score: 4
+    ats: "html_search"
+    url: "https://careers.google.com/jobs/results/?location=Bengaluru%2C%20Karnataka%2C%20India&q=data"
+    enabled: true
+  - name: "Microsoft"
+    kind: "product"
+    wlb_score: 4
+    ats: "ms_search"
+    enabled: true
+  - name: "Adobe"
+    kind: "product"
+    wlb_score: 4
+    ats: "html_search"
+    url: "https://careers.adobe.com/us/en/search-results?keywords=data&location=Bangalore"
+    enabled: true
+  - name: "Salesforce"
+    kind: "product"
+    wlb_score: 4
+    ats: "html_search"
+    url: "https://careers.salesforce.com/en/jobs/?search=data&country=India&location=Bangalore"
+    enabled: true
+  - name: "Oracle"
+    kind: "product"
+    wlb_score: 3
+    ats: "html_search"
+    url: "https://careers.oracle.com/jobs/#en/sites/jobsearch/requisitions?keyword=data&location=Bengaluru%2C%20Karnataka%2C%20India"
+    enabled: true
+  - name: "SAP"
+    kind: "product"
+    wlb_score: 4
+    ats: "html_search"
+    url: "https://jobs.sap.com/search/?q=data&locationsearch=Bangalore"
+    enabled: true
+  - name: "Cisco"
+    kind: "product"
+    wlb_score: 4
+    ats: "html_search"
+    url: "https://jobs.cisco.com/jobs/SearchJobs/data?21178=%5B169482%5D&21178_format=6020&listFilterMode=1"
+    enabled: true
+  - name: "Intuit"
+    kind: "product"
+    wlb_score: 4
+    ats: "html_search"
+    url: "https://jobs.intuit.com/search-jobs/data/Bengaluru%2C%20India/27595/1/1269750-1277333-1277333-1277333/12x9716/77x5946/50/2"
+    enabled: true
+  - name: "PayPal"
+    kind: "product"
+    wlb_score: 4
+    ats: "html_search"
+    url: "https://paypal.eightfold.ai/careers?query=data&location=Bangalore"
+    enabled: true
+  - name: "Visa"
+    kind: "product"
+    wlb_score: 4
+    ats: "smartrecruiters"
+    slug: "Visa"
+    enabled: true
+  - name: "Mastercard"
+    kind: "product"
+    wlb_score: 4
+    ats: "smartrecruiters"
+    slug: "Mastercard"
+    enabled: true
+  - name: "American Express"
+    kind: "product"
+    wlb_score: 4
+    ats: "html_search"
+    url: "https://aexp.eightfold.ai/careers?query=data&location=Bangalore"
+    enabled: true
+  - name: "Walmart Global Tech"
+    kind: "product"
+    wlb_score: 4
+    ats: "html_search"
+    url: "https://walmart.wd5.myworkdayjobs.com/WalmartExternal?q=data&location=Bangalore"
+    enabled: true
+  - name: "Target"
+    kind: "product"
+    wlb_score: 4
+    ats: "html_search"
+    url: "https://jobs.target.com/search-jobs/data/Bengaluru%2C%20Karnataka/1118/1/1269750-1277333-1277333-1277333/12x9716/77x5946/50/2"
+    enabled: true
+  - name: "Uber"
+    kind: "product"
+    wlb_score: 3
+    ats: "greenhouse"
+    slug: "uber"
+    enabled: true
+  - name: "PhonePe"
+    kind: "product"
+    wlb_score: 3
+    ats: "greenhouse"
+    slug: "phonepe"
+    enabled: true
+  - name: "Razorpay"
+    kind: "product"
+    wlb_score: 3
+    ats: "greenhouse"
+    slug: "razorpay"
+    enabled: true
+  - name: "Swiggy"
+    kind: "product"
+    wlb_score: 3
+    ats: "greenhouse"
+    slug: "swiggy"
+    enabled: true
+  - name: "Meesho"
+    kind: "product"
+    wlb_score: 3
+    ats: "greenhouse"
+    slug: "meesho"
+    enabled: true
+  - name: "CRED"
+    kind: "product"
+    wlb_score: 3
+    ats: "greenhouse"
+    slug: "cred"
+    enabled: true
+  - name: "Groww"
+    kind: "product"
+    wlb_score: 4
+    ats: "greenhouse"
+    slug: "groww"
+    enabled: true
+  - name: "Zerodha"
+    kind: "product"
+    wlb_score: 5
+    ats: "html_search"
+    url: "https://zerodha.com/careers/"
+    enabled: true
+  - name: "Flipkart"
+    kind: "product"
+    wlb_score: 3
+    ats: "html_search"
+    url: "https://www.flipkartcareers.com/#!/joblist"
+    enabled: true
+  - name: "Myntra"
+    kind: "product"
+    wlb_score: 3
+    ats: "html_search"
+    url: "https://www.myntra.com/careers"
+    enabled: true
+  - name: "Zepto"
+    kind: "product"
+    wlb_score: 2
+    ats: "greenhouse"
+    slug: "zepto"
+    enabled: true
+  - name: "Freshworks"
+    kind: "product"
+    wlb_score: 4
+    ats: "greenhouse"
+    slug: "freshworks"
+    enabled: true
+  - name: "Zoho"
+    kind: "product"
+    wlb_score: 4
+    ats: "html_search"
+    url: "https://careers.zohocorp.com/jobs/Careers?search=data"
+    enabled: true
+  - name: "InMobi"
+    kind: "product"
+    wlb_score: 3
+    ats: "greenhouse"
+    slug: "inmobi"
+    enabled: true
+  - name: "Nutanix"
+    kind: "product"
+    wlb_score: 4
+    ats: "greenhouse"
+    slug: "nutanix"
+    enabled: true
+  - name: "ServiceNow"
+    kind: "product"
+    wlb_score: 4
+    ats: "smartrecruiters"
+    slug: "ServiceNow"
+    enabled: true
+  - name: "Snowflake"
+    kind: "product"
+    wlb_score: 3
+    ats: "greenhouse"
+    slug: "snowflake"
+    enabled: true
+  - name: "MongoDB"
+    kind: "product"
+    wlb_score: 4
+    ats: "greenhouse"
+    slug: "mongodb"
+    enabled: true
+  - name: "Elastic"
+    kind: "product"
+    wlb_score: 4
+    ats: "greenhouse"
+    slug: "elastic"
+    enabled: true
+  - name: "Postman"
+    kind: "product"
+    wlb_score: 4
+    ats: "greenhouse"
+    slug: "postman"
+    enabled: true
+  - name: "BrowserStack"
+    kind: "product"
+    wlb_score: 3
+    ats: "greenhouse"
+    slug: "browserstack"
+    enabled: true
+  - name: "Chargebee"
+    kind: "product"
+    wlb_score: 4
+    ats: "greenhouse"
+    slug: "chargebee"
+    enabled: true
+  - name: "FreshToHome"
+    kind: "product"
+    wlb_score: 3
+    ats: "html_search"
+    url: "https://www.freshtohome.com/careers"
+    enabled: false
+  - name: "Okta"
+    kind: "product"
+    wlb_score: 4
+    ats: "greenhouse"
+    slug: "okta"
+    enabled: true
+  - name: "Zoom"
+    kind: "product"
+    wlb_score: 4
+    ats: "greenhouse"
+    slug: "zoom"
+    enabled: true
+  - name: "Twilio"
+    kind: "product"
+    wlb_score: 4
+    ats: "greenhouse"
+    slug: "twilio"
+    enabled: true
+  - name: "Cloudflare"
+    kind: "product"
+    wlb_score: 4
+    ats: "greenhouse"
+    slug: "cloudflare"
+    enabled: true
+  - name: "Akamai"
+    kind: "product"
+    wlb_score: 4
+    ats: "html_search"
+    url: "https://akamaicareers.inflightcloud.com/search?keyword=data&location=Bangalore"
+    enabled: true
+  - name: "Airbnb"
+    kind: "product"
+    wlb_score: 4
+    ats: "greenhouse"
+    slug: "airbnb"
+    enabled: true
+  - name: "Coinbase"
+    kind: "product"
+    wlb_score: 3
+    ats: "greenhouse"
+    slug: "coinbase"
+    enabled: true
+  - name: "CoinDCX"
+    kind: "product"
+    wlb_score: 3
+    ats: "greenhouse"
+    slug: "coindcx"
+    enabled: true
+  - name: "Dream11"
+    kind: "product"
+    wlb_score: 3
+    ats: "greenhouse"
+    slug: "dreamsports"
+    enabled: true
+  - name: "MakeMyTrip"
+    kind: "product"
+    wlb_score: 3
+    ats: "html_search"
+    url: "https://careers.makemytrip.com/jobs?search=data&location=Bangalore"
+    enabled: true
+  - name: "Expedia Group"
+    kind: "product"
+    wlb_score: 4
+    ats: "greenhouse"
+    slug: "expediagroup"
+    enabled: true
+  - name: "Booking.com"
+    kind: "product"
+    wlb_score: 4
+    ats: "html_search"
+    url: "https://jobs.booking.com/careers?query=data&location=Bangalore"
+    enabled: true
+  - name: "IQVIA"
+    kind: "approved_exception_healthcare_data"
+    wlb_score: 4
+    ats: "html_search"
+    url: "https://jobs.iqvia.com/en/search-jobs/data/Bangalore%2C%20Karnataka/24443/1/1269750-1277333-1277333-1277333/12x9716/77x5946/50/2"
+    enabled: true
+  - name: "GE Healthcare"
+    kind: "product_healthcare"
+    wlb_score: 4
+    ats: "html_search"
+    url: "https://jobs.gecareers.com/healthcare/global/en/search-results?keywords=data&location=Bangalore"
+    enabled: true
+  - name: "Philips"
+    kind: "product_healthcare"
+    wlb_score: 4
+    ats: "html_search"
+    url: "https://philips.wd3.myworkdayjobs.com/jobs-and-careers?q=data&locationCountry=0521168d8d734ea4b53e47601f2b81f9"
+    enabled: true
+  - name: "Siemens Healthineers"
+    kind: "product_healthcare"
+    wlb_score: 4
+    ats: "html_search"
+    url: "https://jobs.siemens-healthineers.com/careers?query=data&location=Bangalore"
+    enabled: true
+external_job_boards:
+  indeed_enabled: true
+  linkedin_enabled: false
+  naukri_enabled: false
+  note: "Official career feeds are primary. Indeed is best-effort. LinkedIn/Naukri are intentionally not scraped by default because they frequently block automation and require login."
