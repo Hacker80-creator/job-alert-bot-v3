@@ -15,7 +15,7 @@ import re
 import sys
 import time
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Iterable
 from urllib.parse import quote_plus
@@ -27,11 +27,15 @@ from bs4 import BeautifulSoup
 ROOT = Path(__file__).parent
 CONFIG_FILE = ROOT / "companies.yaml"
 STATE_FILE = ROOT / "state" / "seen_jobs.json"
+HEALTH_FILE = ROOT / "state" / "scan_health.json"
+SCAN_ERRORS: list[str] = []
 
 DISCORD_WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL", "").strip()
 MIN_SCORE = int(os.getenv("MIN_SCORE", "70"))
 MAX_ALERTS_PER_RUN = int(os.getenv("MAX_ALERTS_PER_RUN", "15"))
 SEND_STARTUP_SUMMARY = os.getenv("SEND_STARTUP_SUMMARY", "false").lower() == "true"
+SEND_DAILY_HEALTH = os.getenv("SEND_DAILY_HEALTH", "true").lower() == "true"
+DAILY_HEALTH_HOURS = int(os.getenv("DAILY_HEALTH_HOURS", "24"))
 ENABLE_INDEED = os.getenv("ENABLE_INDEED", "true").lower() == "true"
 
 HEADERS = {
@@ -383,6 +387,7 @@ def parse_zwayam(company: dict[str, Any]) -> list[Job]:
                 if attempt == 1:
                     if jobs:
                         print(f"WARN {company['name']} returned partial Zwayam results: {exc}")
+                        SCAN_ERRORS.append(f"{company['name']} (partial feed)")
                         return jobs
                     raise
                 time.sleep(1)
@@ -724,6 +729,7 @@ def fetch_company_jobs(company: dict[str, Any]) -> list[Job]:
     parser = parsers.get(ats)
     if not parser:
         print(f"WARN unsupported ATS for {company['name']}: {ats}")
+        SCAN_ERRORS.append(f"{company['name']} (unsupported source)")
         return []
     try:
         jobs = parser(company)
@@ -731,6 +737,7 @@ def fetch_company_jobs(company: dict[str, Any]) -> list[Job]:
         return jobs
     except Exception as exc:
         print(f"WARN {company['name']} failed: {exc}")
+        SCAN_ERRORS.append(company["name"])
         return []
 
 
@@ -777,6 +784,8 @@ def scrape_indeed_best_effort(config: dict[str, Any]) -> list[Job]:
                 jobs.append(Job(company=company, title=title[:140], location=loc, url=href or url, source="Indeed best-effort", description=clean_text(card), wlb_score=3))
         except Exception as exc:
             print(f"WARN Indeed failed for {term}: {exc}")
+            if "Indeed fallback" not in SCAN_ERRORS:
+                SCAN_ERRORS.append("Indeed fallback")
         time.sleep(1)
     return jobs
 
@@ -879,13 +888,88 @@ def discord_post(job: Job) -> bool:
     return True
 
 
-def discord_summary(message: str) -> None:
+def discord_summary(message: str) -> bool:
     if not DISCORD_WEBHOOK_URL:
-        return
+        return False
     try:
-        requests.post(DISCORD_WEBHOOK_URL, json={"content": message[:1900]}, timeout=15)
+        response = requests.post(DISCORD_WEBHOOK_URL, json={"content": message[:1900]}, timeout=15)
+        if response.status_code not in (200, 204):
+            print(f"WARN summary response {response.status_code}: {response.text[:300]}")
+            return False
+        return True
     except Exception as exc:
         print(f"WARN summary failed: {exc}")
+        return False
+
+
+def maybe_send_health_summary(
+    *,
+    raw_count: int,
+    matching_count: int,
+    official_source_count: int,
+    allowlist_count: int,
+) -> None:
+    """Send a daily/changed health status and persist it for rate limiting."""
+    if not SEND_DAILY_HEALTH:
+        return
+
+    previous: dict[str, Any] = {}
+    if HEALTH_FILE.exists():
+        try:
+            previous = json.loads(HEALTH_FILE.read_text(encoding="utf-8"))
+        except Exception:
+            previous = {}
+
+    now = datetime.now(timezone.utc)
+    failed_sources = sorted(set(SCAN_ERRORS))
+    previous_failures = previous.get("failed_sources") or []
+    last_notice = previous.get("last_notice_utc")
+    due = True
+    if last_notice:
+        try:
+            due = now - datetime.fromisoformat(last_notice) >= timedelta(hours=DAILY_HEALTH_HOURS)
+        except (TypeError, ValueError):
+            due = True
+
+    if failed_sources == previous_failures and not due:
+        return
+
+    if failed_sources:
+        shown = ", ".join(failed_sources[:15])
+        extra = len(failed_sources) - 15
+        suffix = f" (+{extra} more)" if extra > 0 else ""
+        message = (
+            f"\u26a0\ufe0f Job bot health: scan completed with {len(failed_sources)} source issue(s). "
+            f"Raw jobs: {raw_count}; matching now: {matching_count}. "
+            f"Affected: {shown}{suffix}. Other sources continue normally."
+        )
+    elif previous_failures:
+        message = (
+            f"\u2705 Job bot recovered: all {official_source_count} configured sources completed "
+            f"without a recorded source error. Raw jobs: {raw_count}; matching now: {matching_count}."
+        )
+    else:
+        message = (
+            f"\u2705 Daily job bot health: scan completed. "
+            f"Configured sources: {official_source_count}; approved companies: {allowlist_count}; "
+            f"raw jobs: {raw_count}; matching now: {matching_count}."
+        )
+
+    if discord_summary(message):
+        HEALTH_FILE.parent.mkdir(exist_ok=True)
+        HEALTH_FILE.write_text(
+            json.dumps(
+                {
+                    "last_notice_utc": now.isoformat(),
+                    "failed_sources": failed_sources,
+                    "official_source_count": official_source_count,
+                    "allowlist_count": allowlist_count,
+                },
+                indent=2,
+                sort_keys=True,
+            ),
+            encoding="utf-8",
+        )
 
 
 def main() -> int:
@@ -893,6 +977,7 @@ def main() -> int:
         print("ERROR: DISCORD_WEBHOOK_URL secret is missing")
         return 1
 
+    SCAN_ERRORS.clear()
     config = load_config()
     seen = load_seen()
     settings = config["settings"]
@@ -934,18 +1019,12 @@ def main() -> int:
                 "source": job.source,
                 "score": job.score,
             }
+            # Persist immediately after Discord accepts an alert. The workflow's
+            # always-run state step commits this even if a later alert fails.
+            save_seen(seen)
         else:
             failed_alerts += 1
         time.sleep(1)
-
-    # Keep only the most recently seen jobs when the state grows too large.
-    if len(seen) > 5000:
-        items = sorted(
-            seen.items(),
-            key=lambda item: item[1].get("first_seen_utc", ""),
-            reverse=True,
-        )[:4000]
-        seen = dict(items)
 
     save_seen(seen)
 
@@ -955,6 +1034,13 @@ def main() -> int:
             f"⚠️ {len(new_jobs)} new jobs matched. "
             f"This run attempted {MAX_ALERTS_PER_RUN}; the remaining {remaining} will be retried next run."
         )
+
+    maybe_send_health_summary(
+        raw_count=len(all_jobs),
+        matching_count=len(matching),
+        official_source_count=len(config["companies"]),
+        allowlist_count=len(approved_company_names(config)),
+    )
 
     if failed_alerts:
         print(f"ERROR: {failed_alerts} Discord alert(s) failed and will be retried")

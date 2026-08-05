@@ -7,12 +7,8 @@ NVIDIA
 Adobe
 Salesforce
 Oracle
-Cisco
-Intel
-Qualcomm
-AMD
-IBM
 SAP
+IBM
 ServiceNow
 Atlassian
 Intuit
@@ -34,44 +30,6 @@ GitHub
 GitLab
 VMware by Broadcom
 Broadcom
-HP Inc.
-Hewlett Packard Enterprise
-Dell Technologies
-Lenovo
-Samsung R&D Institute India
-Sony India Software Centre
-LG Soft India
-Nokia
-Ericsson
-Juniper Networks
-Arista Networks
-NetApp
-Pure Storage
-Western Digital
-Seagate
-Logitech
-Acer
-ASUS
-Motorola Solutions
-Texas Instruments
-Micron Technology
-Marvell Technology
-Synopsys
-Cadence Design Systems
-Arm
-MediaTek
-Lam Research
-Applied Materials
-KLA
-ASML
-Keysight Technologies
-NI / Emerson Test & Measurement
-Ansys
-Autodesk
-Dassault Syst?mes
-Bentley Systems
-PTC
-Siemens Digital Industries Software
 Snowflake
 Databricks
 Confluent
@@ -85,8 +43,8 @@ Teradata
 SAS
 Alteryx
 Tableau
-ThoughtSpot
 Qlik
+ThoughtSpot
 Domo
 Looker
 Starburst
@@ -96,7 +54,7 @@ Airbyte
 Matillion
 Hightouch
 Census
-Monte Carlo Data
+Monte Carlo
 Anomalo
 Atlan
 Collibra
@@ -109,10 +67,8 @@ Weights & Biases
 Labelbox
 Scale AI
 Snorkel AI
-Abacus.AI
 C3 AI
 Palantir
-Samsara
 Amplitude
 Mixpanel
 Heap
@@ -122,9 +78,6 @@ Segment
 Braze
 Iterable
 Klaviyo
-MoEngage
-CleverTap
-WebEngage
 PostHog
 Grafana Labs
 Datadog
@@ -133,12 +86,77 @@ Dynatrace
 Splunk
 Sumo Logic
 Chronosphere
-Honeycomb.io
+Honeycomb
 PagerDuty
-ServiceTitan
-Lacework
-Wiz
-Snyk
+HashiCorp
+JFrog
+CircleCI
+Harness
+LaunchDarkly
+Sentry
+Postman
+BrowserStack
+Sauce Labs
+SmartBear
+JetBrains
+Docker
+Canonical
+SUSE
+Contentful
+Sanity
+Algolia
+Fastly
+Vercel
+Netlify
+CloudBees
+Sonatype
+Mend.io
+Black Duck
+Veracode
+UiPath
+Automation Anywhere
+Appian
+Pegasystems
+Celonis
+MuleSoft
+Boomi
+Anaplan
+OneStream
+BlackLine
+Workiva
+Coupa
+Ivalua
+Freshworks
+Zoho
+Chargebee
+Hasura
+Icertis
+Whatfix
+Uniphore
+Observe.AI
+Yellow.ai
+Darwinbox
+Mindtickle
+LeadSquared
+MoEngage
+CleverTap
+WebEngage
+Capillary Technologies
+Kissflow
+Rocketlane
+Sprinto
+Scrut Automation
+Facets.cloud
+Keka
+PeopleStrong
+Increff
+Locus
+FarEye
+Shipsy
+Mad Street Den
+HackerRank
+Zeta
+Cisco
 Palo Alto Networks
 CrowdStrike
 Zscaler
@@ -160,33 +178,6 @@ OneTrust
 CyberArk
 Ping Identity
 Duo Security
-HashiCorp
-JFrog
-CircleCI
-Harness
-LaunchDarkly
-Sentry
-Postman
-BrowserStack
-Sauce Labs
-SmartBear
-JetBrains
-Docker
-Kubernetes / CNCF ecosystem companies
-Canonical
-SUSE
-Elastic Path
-Contentful
-Sanity
-Algolia
-Fastly
-Vercel
-Netlify
-CloudBees
-Sonatype
-Mend.io
-Black Duck
-Veracode
 Rubrik
 Cohesity
 Veeam
@@ -196,8 +187,73 @@ Nutanix
 Wasabi Technologies
 Backblaze
 Qumulo
-HPE GreenLake
+NetApp
+Pure Storage
+Juniper Networks
+Arista Networks
+Motorola Solutions
 Cisco Meraki
+Intel
+Qualcomm
+AMD
+Texas Instruments
+Micron Technology
+Marvell Technology
+Synopsys
+Cadence Design Systems
+Arm
+MediaTek
+Lam Research
+Applied Materials
+KLA
+ASML
+Keysight Technologies
+National Instruments
+Ansys
+Autodesk
+Dassault Syst?mes
+Bentley Systems
+PTC
+Siemens Digital Industries Software
+HP Inc.
+Hewlett Packard Enterprise
+Dell Technologies
+Lenovo
+Samsung R&D Institute India
+Sony India Software Centre
+LG Soft India
+Western Digital
+Seagate
+Logitech
+Acer
+ASUS
+Nokia
+Ericsson
+Tejas Networks
+Mavenir
+CommScope
+Ciena
+Extreme Networks
+Xilinx
+Analog Devices
+NXP Semiconductors
+Renesas Electronics
+Infineon Technologies
+STMicroelectronics
+onsemi
+Microchip Technology
+Lattice Semiconductor
+Silicon Labs
+Rambus
+Synaptics
+Realtek
+Sasken Technologies
+MosChip
+Tata Elxsi
+Harman
+Quest Global
+KPIT Technologies
+Cyient
 Flipkart
 Myntra
 PhonePe
@@ -229,10 +285,9 @@ Kuvera
 CredAble
 Yubi
 KreditBee
-MoneyView
+Moneyview
 Lendingkart
 Open Financial Technologies
-Zeta
 Nium
 Rupeek
 MobiKwik
@@ -243,31 +298,6 @@ ICICI Securities
 HDFC Securities
 Kotak Securities
 Growfin
-Chargebee
-Zoho
-Freshworks
-Hasura
-Uniphore
-Whatfix
-Observe.AI
-Yellow.ai
-Darwinbox
-Icertis
-Mindtickle
-LeadSquared
-Keka
-PeopleStrong
-Kissflow
-Rocketlane
-Sprinto
-Scrut Automation
-Facets.cloud
-Increff
-Locus.sh
-FarEye
-Shipsy
-Capillary Technologies
-Mad Street Den
 Swiggy
 Zomato
 Blinkit
@@ -284,10 +314,6 @@ Yatra
 Cleartrip
 Treebo
 OYO
-Airbnb
-Booking Holdings
-Agoda
-Expedia Group
 Meesho
 Nykaa
 FirstCry
@@ -301,7 +327,6 @@ CarDekho
 Cars24
 Spinny
 Droom
-Cardekho Group
 BikeDekho
 InMobi
 Glance
@@ -314,13 +339,12 @@ Gameskraft
 Nazara Technologies
 Kuku FM
 Pocket FM
-JioStar / Disney Hotstar
+JioStar
 SonyLIV
 ZEE5
 Times Internet
 Info Edge
 Naukri.com
-Zomato Hyperpure
 Licious
 FreshToHome
 Country Delight
@@ -329,6 +353,42 @@ Livspace
 Pepperfry
 Urban Ladder
 Furlenco
+UrbanPiper
+Delhivery
+BlackBuck
+Udaan
+ElasticRun
+Shadowfax
+Shiprocket
+OfBusiness
+Infra.Market
+Moglix
+Bizongo
+DealShare
+Apna
+Ather Energy
+Ola Electric
+Bounce
+Yulu
+Simple Energy
+Ultraviolette Automotive
+River Mobility
+Sun Mobility
+Exponent Energy
+Log9 Materials
+Euler Motors
+Zypp Electric
+BluSmart
+Khatabook
+OkCredit
+Jumbotail
+Ninjacart
+DeHaat
+CropIn
+AgroStar
+Stellapps
+Captain Fresh
+Rivigo
 JPMorgan Chase
 Goldman Sachs
 Morgan Stanley
@@ -357,7 +417,7 @@ Bloomberg
 FactSet
 LSEG
 Refinitiv
-ICE
+Intercontinental Exchange
 MSCI
 Fiserv
 FIS
@@ -388,7 +448,6 @@ Franklin Templeton
 Invesco
 BNP Paribas
 Societe Generale
-Credit Suisse / UBS
 NatWest Group
 Lloyds Banking Group
 ING
@@ -398,6 +457,39 @@ OCBC Bank
 UOB
 ANZ
 Commonwealth Bank of Australia
+Macquarie Group
+Nomura
+MUFG
+Mizuho
+Sumitomo Mitsui Banking Corporation
+Stripe
+Block
+Robinhood
+SoFi
+Affirm
+Brex
+Ramp
+Plaid
+Wise
+Revolut
+Airwallex
+Checkout.com
+Adyen
+Marqeta
+Klarna
+GoCardless
+Rapyd
+Payoneer
+Remitly
+Western Union
+MoneyGram
+Coinbase
+Kraken
+Gemini
+Chainalysis
+TRM Labs
+Circle
+Ripple
 IQVIA
 Optum
 UnitedHealth Group
@@ -417,14 +509,14 @@ Stryker
 Thermo Fisher Scientific
 Danaher
 Agilent Technologies
-PerkinElmer / Revvity
+Revvity
 Roche
 Novartis
 Pfizer
 GSK
 AstraZeneca
 Sanofi
-Merck & Co.
+Merck
 MSD
 Eli Lilly
 Novo Nordisk
@@ -437,7 +529,7 @@ Takeda
 Moderna
 Illumina
 10x Genomics
-Cerner / Oracle Health
+Oracle Health
 Epic Systems
 athenahealth
 Teladoc Health
@@ -447,11 +539,19 @@ PharmEasy
 Tata 1mg
 MediBuddy
 HealthifyMe
-Cure.fit
+Curefit
 Innovaccer
 Komodo Health
 Tempus AI
 Flatiron Health
+Molecular Connections
+Indegene
+Syngene International
+Biocon
+Strand Life Sciences
+MedGenome
+Narayana Health Digital
+Manipal Hospitals Digital
 Walmart Global Tech
 Target India
 Lowe's India
@@ -473,6 +573,36 @@ Best Buy
 Home Depot
 Costco Wholesale
 Carrefour
+Airbnb
+Booking.com
+Agoda
+Expedia Group
+Tripadvisor
+Turo
+Lyft
+Grab
+Gojek
+Sea Limited
+Shopee
+Lazada
+Maersk
+FedEx
+UPS
+DHL
+DP World
+C.H. Robinson
+Flexport
+J.B. Hunt
+Kuehne+Nagel
+Lufthansa Group Digital
+Delta Air Lines
+United Airlines
+American Airlines
+Emirates Group IT
+Qatar Airways Technology
+Sabre
+Amadeus
+Travelport
 Schneider Electric
 ABB
 Honeywell
@@ -480,9 +610,8 @@ Bosch Global Software Technologies
 Bosch Group
 Siemens
 GE Aerospace
-Rolls-Royce Digital
+Rolls-Royce
 Shell Technology Centre Bangalore
-Maersk Global Service Centres
 bp
 Chevron
 ExxonMobil
@@ -494,7 +623,7 @@ Caterpillar
 John Deere
 CNH Industrial
 Volvo Group
-Mercedes-Benz Research & Development India
+Mercedes-Benz Research and Development India
 BMW Group
 Toyota Connected
 Hyundai Mobis
@@ -503,7 +632,6 @@ Aptiv
 Valeo
 Magna International
 ZF Group
-Bosch Mobility
 Hitachi Energy
 Rockwell Automation
 Emerson
@@ -513,6 +641,87 @@ Corning
 Saint-Gobain
 Carrier
 Trane Technologies
+Collins Aerospace
+Raytheon Technologies
+Pratt & Whitney
+Boeing India
+Airbus India
+Safran
+Thales
+Alstom
+Cummins
+Dana
+BorgWarner
+Visteon
+Mahindra Research Valley
+Tata Technologies
+TVS Motor
+Bajaj Auto
+Ashok Leyland
+Royal Enfield
+Siemens Energy
+Vestas
+GE Vernova
+Fluence
+Enphase Energy
+SolarEdge
+Hitachi Rail
+Tavant
+Thoughtworks
+Tiger Analytics
+Fractal Analytics
+Quantiphi
+Sigmoid
+LatentView Analytics
+Mu Sigma
+Affine
+Course5 Intelligence
+ZS Associates
+EXL Analytics
+Capco
+Publicis Sapient
+Nagarro
+EPAM Systems
+Altimetrik
+Xebia
+Brillio
+Persistent Systems
+Globant
+UST
+Encora
+Genpact Analytics
+Evalueserve
+TheMathCompany
+Tredence
+Cartesian Consulting
+Gramener
+Ganit
+NeenOpal
+Celebal Technologies
+Quantzig
+DataWeave
+Loyalytics
+Impetus Technologies
+CitiusTech
+Happiest Minds
+Indium Software
+Torry Harris Integration Solutions
+Nous Infosystems
+Sonata Software
+Robosoft Technologies
+Calsoft
+ProductDossier
+Sahaj Software
+Josh Software
+Zensar Technologies
+Birlasoft
+Marlabs
+Ness Digital Engineering
+Searce
+Presidio
+Rackspace Technology
+Amdocs
+Harman Connected Services
 Canva
 Figma
 Notion
@@ -527,15 +736,12 @@ Duolingo
 Khan Academy
 Chegg
 Udacity
-Udemy Business
 Skillsoft
 Pluralsight
-Coursera for Business
-SurveyMonkey / Momentive
+SurveyMonkey
 Qualtrics
 Medallia
 Zendesk
-Freshdesk
 Intercom
 HubSpot
 Shopify
@@ -543,43 +749,20 @@ BigCommerce
 Squarespace
 Wix
 Toast
-Square / Block
-Robinhood
-SoFi
-Affirm
-Brex
-Ramp
-Plaid
-Wise
-Revolut
-WiseTech Global
 Epic Games
 Roblox
 Unity
 Electronic Arts
 Take-Two Interactive
 Riot Games
-Valve
 Niantic
 Discord
 Reddit
 Pinterest
 Snap
-X / Twitter
 Quora
 Yelp
-Tripadvisor
-Turo
-Lyft
-Bolt
-Grab
-Gojek
-Sea Limited
-Shopee
-Lazada
-Tokopedia
 RingCentral
-Freshservice
 Five9
 Genesys
 NICE
@@ -594,63 +777,5 @@ Salesloft
 Demandbase
 Highspot
 Seismic
-Dropbox Sign
-DocuWare
-MuleSoft
-Boomi
-Celonis
-UiPath
-Automation Anywhere
-Blue Prism
-Appian
-Pegasystems
-ServiceMax
-Coupa
-Ivalua
-SAP Ariba
-Workiva
-Anaplan
-Adaptive Insights
-OneStream
-BlackLine
-Bill.com
-Tipalti
-Airwallex
-Checkout.com
-Adyen
-Stripe
-Marqeta
-Klarna
-Afterpay
-Block
-GoCardless
-Rapyd
-Payoneer
-Remitly
-Western Union Digital
-MoneyGram Digital
-Coinbase
-Kraken
-Gemini
-Chainalysis
-TRM Labs
-Circle
-Ripple
-OpenAI
-Anthropic
-Cohere
-Mistral AI
-Perplexity AI
-Hugging Face
-Character.AI
-Runway
-ElevenLabs
-Stability AI
-DeepMind
-xAI
-Adept AI
-Replit
-Cursor / Anysphere
-Sourcegraph
-Tabnine
-Codeium / Windsurf
+Dailyhunt
+VerSe Innovation
