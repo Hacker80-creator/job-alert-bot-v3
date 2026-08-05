@@ -1,50 +1,5 @@
 {
-  "084b1b307c81813ab18448ea": {
-    "company": "Databricks",
-    "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
-    "location": "United States",
-    "score": 100,
-    "source": "Official careers: Greenhouse",
-    "title": "AI Engineer - FDE (Forward Deployed Engineer)",
-    "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8546367002"
-  },
-  "1a725eba6a36840447166898": {
-    "company": "Postman",
-    "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
-    "location": "Berkeley, California, United States",
-    "score": 100,
-    "source": "Official careers: Greenhouse",
-    "title": "AI Engineer, Intern",
-    "url": "https://job-boards.greenhouse.io/postman/jobs/7823417003"
-  },
-  "2baecb33d9a8ed4eb1c16254": {
-    "company": "Amazon",
-    "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
-    "location": "Chennai, Tamil Nadu, IND",
-    "score": 100,
-    "source": "Official careers: Amazon Jobs",
-    "title": "Data Scientist, Alexa Connections",
-    "url": "https://www.amazon.jobs/en/jobs/10381959/data-scientist-alexa-connections"
-  },
-  "54641004dec694500808cfff": {
-    "company": "Databricks",
-    "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
-    "location": "Bellevue, Washington; Mountain View, California; San Francisco, California",
-    "score": 70,
-    "source": "Official careers: Greenhouse",
-    "title": "Product Management Intern (Summer 2027)",
-    "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=6883068002"
-  },
-  "6cae537eb9eae04ac8be3855": {
-    "company": "Amazon",
-    "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
-    "location": "Chennai, Tamil Nadu, IND",
-    "score": 100,
-    "source": "Official careers: Amazon Jobs",
-    "title": "Data Scientist, Alexa Connections",
-    "url": "https://www.amazon.jobs/en/jobs/10379689/data-scientist-alexa-connections"
-  },
-  "7b8afffaf3419fcf7e3394d3": {
+  "119a317301cf2c884d1412bb": {
     "company": "Amazon",
     "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
     "location": "Bengaluru, Karnataka, IND",
@@ -53,16 +8,16 @@
     "title": "Data Scientist, Traffic Quality",
     "url": "https://www.amazon.jobs/en/jobs/10453787/data-scientist-traffic-quality"
   },
-  "8a1336b9b359089648de0963": {
-    "company": "Coinbase",
-    "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
-    "location": "Remote - India",
-    "score": 95,
-    "source": "Official careers: Greenhouse",
-    "title": "Machine Learning Engineer",
-    "url": "https://www.coinbase.com/careers/positions/7985187?gh_jid=7985187"
+  "28ad98d7b5294b7461506e85": {
+    "company": "State Street",
+    "first_seen_utc": "2026-08-05T16:20:45.242795+00:00",
+    "location": "Bangalore, India",
+    "score": 85,
+    "source": "Official careers: Workday",
+    "title": "Data Insights and Business Intelligence (BI) Visualization Analyst",
+    "url": "https://statestreet.wd1.myworkdayjobs.com/en-US/Global/job/Bangalore-India/Data-Insights-and-Business-Intelligence--BI--Visualization-Analyst_R-778989-1"
   },
-  "9d9fbea4ed7f56f3a0855e24": {
+  "2f542a959cc55a302ac3a6cf": {
     "company": "Databricks",
     "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
     "location": "Remote - India",
@@ -71,7 +26,115 @@
     "title": "AI Engineer - FDE (Forward Deployed Engineer)",
     "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8099751002"
   },
-  "b589edcf7a18cabda71d6554": {
+  "2f6855910f547c384397a89b": {
+    "company": "HackerRank",
+    "first_seen_utc": "2026-08-05T16:20:45.242795+00:00",
+    "location": "Hybrid in Bangalore, India",
+    "score": 95,
+    "source": "Official careers: Greenhouse",
+    "title": "Machine Learning Engineer, Evaluation",
+    "url": "https://job-boards.greenhouse.io/hackerrank/jobs/7793413"
+  },
+  "36f975cda88ecb169b515c3d": {
+    "company": "Databricks",
+    "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
+    "location": "Bellevue, Washington; Mountain View, California; San Francisco, California",
+    "score": 70,
+    "source": "Official careers: Greenhouse",
+    "title": "Product Management Intern (Summer 2027)",
+    "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=6883068002"
+  },
+  "38b2cdc53d73a241b32509bf": {
+    "company": "Applied Materials",
+    "first_seen_utc": "2026-08-05T16:20:45.242795+00:00",
+    "location": "Bangalore,IND",
+    "score": 85,
+    "source": "Official careers: Workday",
+    "title": "Business Intelligence Analyst",
+    "url": "https://amat.wd1.myworkdayjobs.com/en-US/External/job/BangaloreIND/Business-Intelligence-Analyst_R2624961"
+  },
+  "39268bdd2adfc46218dca4de": {
+    "company": "Coinbase",
+    "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
+    "location": "Remote - India",
+    "score": 95,
+    "source": "Official careers: Greenhouse",
+    "title": "Machine Learning Engineer",
+    "url": "https://www.coinbase.com/careers/positions/7985187?gh_jid=7985187"
+  },
+  "47e9efdceff2e2877878fe88": {
+    "company": "Stripe",
+    "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
+    "location": "IN-Bengaluru",
+    "score": 70,
+    "source": "Official careers: Greenhouse",
+    "title": "AI Specialist, Treasury Finance Operations",
+    "url": "https://stripe.com/jobs/search?gh_jid=7947074"
+  },
+  "58a3dc5dd8879ebc8d9f1fbd": {
+    "company": "Databricks",
+    "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
+    "location": "United States",
+    "score": 100,
+    "source": "Official careers: Greenhouse",
+    "title": "AI Engineer - FDE (Forward Deployed Engineer)",
+    "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8546367002"
+  },
+  "65105de80e2349609cc5c7ee": {
+    "company": "Postman",
+    "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
+    "location": "Berkeley, California, United States",
+    "score": 100,
+    "source": "Official careers: Greenhouse",
+    "title": "AI Engineer, Intern",
+    "url": "https://job-boards.greenhouse.io/postman/jobs/7823417003"
+  },
+  "70224b190051f294eee2eb5f": {
+    "company": "Capco",
+    "first_seen_utc": "2026-08-05T16:20:45.242795+00:00",
+    "location": "India - Bengaluru; India - Chennai ; India - Gurugram; India - Hyderabad; India - Pune",
+    "score": 100,
+    "source": "Official careers: Greenhouse",
+    "title": "Data Scientist \u2013 Time Series, Statistical Modelling",
+    "url": "https://job-boards.greenhouse.io/capco/jobs/7981841"
+  },
+  "77ca1c9e376abb025831962f": {
+    "company": "Morgan Stanley",
+    "first_seen_utc": "2026-08-05T16:20:45.242795+00:00",
+    "location": "Bengaluru, Karnataka, India",
+    "score": 100,
+    "source": "Official careers: Eightfold",
+    "title": "Fraud Detection Strategist - Associate - Data & Analytics Engineering",
+    "url": "https://morganstanley.eightfold.ai/careers/job/549798977678?domain=morganstanley.com"
+  },
+  "867537293abb696a43381db2": {
+    "company": "Capco",
+    "first_seen_utc": "2026-08-05T16:20:45.242795+00:00",
+    "location": "India - Bengaluru",
+    "score": 100,
+    "source": "Official careers: Greenhouse",
+    "title": "Data Scientist with R programming",
+    "url": "https://job-boards.greenhouse.io/capco/jobs/8028016"
+  },
+  "86903377b4f5037586d5a8ca": {
+    "company": "SAP",
+    "first_seen_utc": "2026-08-05T16:20:45.242795+00:00",
+    "location": "Machine Learning Engineer Expert Machine Learning Engineer Expert Bangalore, KA, IN, 562149 Bangalore, KA, IN, 562149",
+    "score": 90,
+    "source": "Official careers: HTML fallback",
+    "title": "Machine Learning Engineer Expert",
+    "url": "https://jobs.sap.com/job/Bangalore-Machine-Learning-Engineer-Expert-KA-562149/1392118733/"
+  },
+  "905b9b6d96c433b08f738ba7": {
+    "company": "Capco",
+    "first_seen_utc": "2026-08-05T16:20:45.242795+00:00",
+    "location": "India - Bengaluru",
+    "score": 100,
+    "source": "Official careers: Greenhouse",
+    "title": "AI Engineer",
+    "url": "https://job-boards.greenhouse.io/capco/jobs/8053003"
+  },
+  "907081f9edb7426db669ec4c": {
     "company": "Elastic",
     "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
     "location": "United States",
@@ -80,16 +143,7 @@
     "title": "Agentic AI Engineer",
     "url": "https://jobs.elastic.co/jobs?gh_jid=8079636&gh_jid=8079636"
   },
-  "bf8901d510c5b6ed024f8e6d": {
-    "company": "Intuit",
-    "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
-    "location": "Search Job Opportunities at Intuit Skip to main content Skip to Search Results Skip to Search Filters Job Alerts 0 Saved Jobs Careers Job Categories Back Job Categories Build your career at Intuit Customer Experience Data Marketing Product Management Sales Software Engineering Tax & Bookkeeping Search and apply Hiring Process Administration Communications Corporate Strategy & Development Customer Success Design & User Experience Executive Finance Human Resources Information Technology Legal, Compliance, & Policy Program Management & Business Operations Real Estate & Workplace Services Security, Risk & Fraud Tax & Bookkeeping Programs Back Programs Internships Entry-Level Careers Intuit Careers Pathways Locations Back Locations United States Atlanta New York International Australia Canada India Israel United Kingdom Intuit Life Back Intuit Life Working at Intuit Diversity & Inclusion Benefits Hybrid Work Stories & News Technology Job Alerts 0 Saved Jobs Job Search Search Jobs by Keyword Location Search Jobs Explore open jobs at Intuit for your next career opportunity. Quick job search: Remote Engineering Data Tax Sort Jobs Relevancy Date Posted Date Updated Job Title Location ATS Posted Date Distance Display Date 388 jobs found Staff Vendor Partner Manager, Intuit Customer Success Bangalore, India Save Staff Facilitator & Training Coordinator Bangalore, India Save Staff Service Experience Strategy & Management Leader Mountain View, California Save Manager 3, State and Local Tax Multiple Locations Save Director, Banking, Payments & Wallet - Credit Karma Multiple Locations Save Risk Staff Software Engineer Mountain View, California Save Staff Software Engineer, Fintech API Mountain View, California Save Lead Partner Decision Scientist - Credit Karma Charlotte, North Carolina Save Senior Financial Analyst Charlotte, North Carolina Save Critical Account Manager Atlanta, Georgia Save Tax Expert - TurboTax Store (New York) Brooklyn, NY Save Tax Expert - TurboTax Store (Chi",
-    "score": 70,
-    "source": "Official careers: HTML fallback",
-    "title": "How Intuit data analysts write SQL 2x faster with internal GenAI tool",
-    "url": "https://medium.com/intuit-engineering/how-intuit-data-analysts-write-sql-2x-faster-with-internal-genai-tool-c3b9d482208a"
-  },
-  "cc2340834c313387a2da66d8": {
+  "9b1c91ceaa7546507ceae2d8": {
     "company": "Stripe",
     "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
     "location": "Mexico City",
@@ -98,13 +152,85 @@
     "title": "Data Analyst",
     "url": "https://stripe.com/jobs/search?gh_jid=7978488"
   },
-  "f201693166109af0c2cc3116": {
-    "company": "Stripe",
-    "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
-    "location": "IN-Bengaluru",
-    "score": 70,
+  "a23c752522c7ab970feff164": {
+    "company": "Capco",
+    "first_seen_utc": "2026-08-05T16:20:45.242795+00:00",
+    "location": "India - Bengaluru; India - Gurugram; India - Pune",
+    "score": 100,
     "source": "Official careers: Greenhouse",
-    "title": "AI Specialist, Treasury Finance Operations",
-    "url": "https://stripe.com/jobs/search?gh_jid=7947074"
+    "title": "Data Scientist with R programming",
+    "url": "https://job-boards.greenhouse.io/capco/jobs/8027943"
+  },
+  "a8f4b255dabe453a9852d7f4": {
+    "company": "SAP",
+    "first_seen_utc": "2026-08-05T16:20:45.242795+00:00",
+    "location": "Machine Learning Engineer Expert Bangalore, KA, IN, 562149",
+    "score": 90,
+    "source": "Official careers: HTML fallback",
+    "title": "Machine Learning Engineer Expert",
+    "url": "https://jobs.sap.com/job/Bangalore-Machine-Learning-Engineer-Expert-KA-562149/1392118733/"
+  },
+  "ac3f97bf3f54530c95a36a98": {
+    "company": "Honeywell",
+    "first_seen_utc": "2026-08-05T16:20:45.242795+00:00",
+    "location": "Bengaluru, Karnataka, India;",
+    "score": 95,
+    "source": "Official careers: Oracle Recruiting",
+    "title": "Data Scientist I",
+    "url": "https://ibqbjb.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/Honeywell/job/154260"
+  },
+  "b507f9dbedcd6759888aec5e": {
+    "company": "ABB",
+    "first_seen_utc": "2026-08-05T16:20:45.242795+00:00",
+    "location": "Bangalore, Karnataka, India",
+    "score": 90,
+    "source": "Official careers: Workday",
+    "title": "Talent Pool -FP&A- Data Scientist / Analytics Specialist / Data & AI Specialist",
+    "url": "https://abb.wd3.myworkdayjobs.com/en-US/External_Career_Page/job/Bangalore-Karnataka-India/Talent-Pool--FP-A--Data-Scientist---Analytics-Specialist----Data---AI-Specialist_JR00031176"
+  },
+  "e32784225a6e2b40530f067d": {
+    "company": "Capco",
+    "first_seen_utc": "2026-08-05T16:20:45.242795+00:00",
+    "location": "India - Bengaluru; India - Pune",
+    "score": 95,
+    "source": "Official careers: Greenhouse",
+    "title": "AI Engineer_Agentic AI",
+    "url": "https://job-boards.greenhouse.io/capco/jobs/8015336"
+  },
+  "e497b9ef9c9dc5b0b1a1dd9d": {
+    "company": "Capco",
+    "first_seen_utc": "2026-08-05T16:20:45.242795+00:00",
+    "location": "India - Bengaluru; India - Pune",
+    "score": 100,
+    "source": "Official careers: Greenhouse",
+    "title": "AI Engineer",
+    "url": "https://job-boards.greenhouse.io/capco/jobs/7625868"
+  },
+  "e75632e1ff66ece9ba809a74": {
+    "company": "Amazon",
+    "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
+    "location": "Chennai, Tamil Nadu, IND",
+    "score": 100,
+    "source": "Official careers: Amazon Jobs",
+    "title": "Data Scientist, Alexa Connections",
+    "url": "https://www.amazon.jobs/en/jobs/10379689/data-scientist-alexa-connections"
+  },
+  "ec230b572d728559136ce4e3": {
+    "company": "Intuit",
+    "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
+    "location": "Search Job Opportunities at Intuit Skip to main content Skip to Search Results Skip to Search Filters Job Alerts 0 Saved Jobs Careers Job Categories Back Job Categories Build your career at Intuit Customer Experience Data Marketing Product Management Sales Software Engineering Tax & Bookkeeping Search and apply Hiring Process Administration Communications Corporate Strategy & Development Customer Success Design & User Experience Executive Finance Human Resources Information Technology Legal, Compliance, & Policy Program Management & Business Operations Real Estate & Workplace Services Security, Risk & Fraud Tax & Bookkeeping Programs Back Programs Internships Entry-Level Careers Intuit Careers Pathways Locations Back Locations United States Atlanta New York International Australia Canada India Israel United Kingdom Intuit Life Back Intuit Life Working at Intuit Diversity & Inclusion Benefits Hybrid Work Stories & News Technology Job Alerts 0 Saved Jobs Job Search Search Jobs by Keyword Location Search Jobs Explore open jobs at Intuit for your next career opportunity. Quick job search: Remote Engineering Data Tax Sort Jobs Relevancy Date Posted Date Updated Job Title Location ATS Posted Date Distance Display Date 388 jobs found Staff Vendor Partner Manager, Intuit Customer Success Bangalore, India Save Staff Facilitator & Training Coordinator Bangalore, India Save Staff Service Experience Strategy & Management Leader Mountain View, California Save Manager 3, State and Local Tax Multiple Locations Save Director, Banking, Payments & Wallet - Credit Karma Multiple Locations Save Risk Staff Software Engineer Mountain View, California Save Staff Software Engineer, Fintech API Mountain View, California Save Lead Partner Decision Scientist - Credit Karma Charlotte, North Carolina Save Senior Financial Analyst Charlotte, North Carolina Save Critical Account Manager Atlanta, Georgia Save Tax Expert - TurboTax Store (New York) Brooklyn, NY Save Tax Expert - TurboTax Store (Chi",
+    "score": 70,
+    "source": "Official careers: HTML fallback",
+    "title": "How Intuit data analysts write SQL 2x faster with internal GenAI tool",
+    "url": "https://medium.com/intuit-engineering/how-intuit-data-analysts-write-sql-2x-faster-with-internal-genai-tool-c3b9d482208a"
+  },
+  "f93b9907b4d0614fa6c82c88": {
+    "company": "Honeywell",
+    "first_seen_utc": "2026-08-05T16:20:45.242795+00:00",
+    "location": "Bengaluru, Karnataka, India;",
+    "score": 95,
+    "source": "Official careers: Oracle Recruiting",
+    "title": "Advanced Data Scientist",
+    "url": "https://ibqbjb.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/Honeywell/job/153628"
   }
 }
