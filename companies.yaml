@@ -145,6 +145,7 @@ companies:
     wlb_score: 4
     ats: "workday_search"
     url: "https://nvidia.wd5.myworkdayjobs.com/wday/cxs/nvidia/NVIDIAExternalCareerSite/jobs"
+    career_site_url: "https://nvidia.wd5.myworkdayjobs.com/en-US/NVIDIAExternalCareerSite"
     enabled: true
   - name: "Amazon"
     kind: "product"
@@ -467,6 +468,112 @@ companies:
     wlb_score: 4
     ats: "html_search"
     url: "https://jobs.siemens-healthineers.com/careers?query=data&location=Bangalore"
+    enabled: true
+  - name: "HackerRank"
+    kind: "product"
+    wlb_score: 3
+    ats: "greenhouse"
+    slug: "hackerrank"
+    enabled: true
+  - name: "Celonis"
+    kind: "product"
+    wlb_score: 3
+    ats: "greenhouse"
+    slug: "celonis"
+    enabled: true
+  - name: "GitLab"
+    kind: "product"
+    wlb_score: 3
+    ats: "greenhouse"
+    slug: "gitlab"
+    enabled: true
+  - name: "Observe.AI"
+    kind: "product"
+    wlb_score: 3
+    ats: "greenhouse"
+    slug: "observeai"
+    enabled: true
+  - name: "Rubrik"
+    kind: "product"
+    wlb_score: 3
+    ats: "greenhouse"
+    slug: "rubrik"
+    enabled: true
+  - name: "Netskope"
+    kind: "product"
+    wlb_score: 3
+    ats: "greenhouse"
+    slug: "netskope"
+    enabled: true
+  - name: "Fivetran"
+    kind: "product"
+    wlb_score: 3
+    ats: "greenhouse"
+    slug: "fivetran"
+    enabled: true
+  - name: "Datadog"
+    kind: "product"
+    wlb_score: 3
+    ats: "greenhouse"
+    slug: "datadog"
+    enabled: true
+  - name: "Zeta"
+    kind: "product"
+    wlb_score: 3
+    ats: "lever"
+    slug: "zeta"
+    enabled: true
+  - name: "Druva"
+    kind: "product"
+    wlb_score: 3
+    ats: "greenhouse"
+    slug: "druva"
+    enabled: true
+  - name: "Sumo Logic"
+    kind: "product"
+    wlb_score: 3
+    ats: "greenhouse"
+    slug: "sumologic"
+    enabled: true
+  - name: "Cockroach Labs"
+    kind: "product"
+    wlb_score: 3
+    ats: "greenhouse"
+    slug: "cockroachlabs"
+    enabled: true
+  - name: "Grafana Labs"
+    kind: "product"
+    wlb_score: 3
+    ats: "greenhouse"
+    slug: "grafanalabs"
+    enabled: true
+  - name: "CrowdStrike"
+    kind: "product"
+    wlb_score: 3
+    ats: "workday_search"
+    url: "https://crowdstrike.wd5.myworkdayjobs.com/wday/cxs/crowdstrike/crowdstrikecareers/jobs"
+    career_site_url: "https://crowdstrike.wd5.myworkdayjobs.com/en-US/crowdstrikecareers"
+    enabled: true
+  - name: "Red Hat"
+    kind: "product"
+    wlb_score: 3
+    ats: "workday_search"
+    url: "https://redhat.wd5.myworkdayjobs.com/wday/cxs/redhat/Jobs/jobs"
+    career_site_url: "https://redhat.wd5.myworkdayjobs.com/en-US/Jobs"
+    enabled: true
+  - name: "Broadcom"
+    kind: "product"
+    wlb_score: 3
+    ats: "workday_search"
+    url: "https://broadcom.wd1.myworkdayjobs.com/wday/cxs/broadcom/External_Career/jobs"
+    career_site_url: "https://broadcom.wd1.myworkdayjobs.com/en-US/External_Career"
+    enabled: true
+  - name: "Cadence"
+    kind: "product"
+    wlb_score: 3
+    ats: "workday_search"
+    url: "https://cadence.wd1.myworkdayjobs.com/wday/cxs/cadence/External_Careers/jobs"
+    career_site_url: "https://cadence.wd1.myworkdayjobs.com/en-US/External_Careers"
     enabled: true
 external_job_boards:
   indeed_enabled: true

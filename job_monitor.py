@@ -104,7 +104,8 @@ def clean_text(value: Any) -> str:
         return ""
     if isinstance(value, list):
         value = " ".join(map(str, value))
-    text = BeautifulSoup(str(value), "html.parser").get_text(" ")
+    raw = str(value)
+    text = BeautifulSoup(raw, "html.parser").get_text(" ") if "<" in raw and ">" in raw else raw
     return re.sub(r"\s+", " ", html.unescape(text)).strip()
 
 
@@ -186,7 +187,9 @@ def score_job(job: Job, settings: dict[str, Any]) -> tuple[int, list[str]]:
     matched_title = next((term for term in settings["strong_title_terms"] if term in title_l), None)
     if not matched_title:
         return 0, ["title does not match a target data/AI/analytics role"]
-    score += 35
+    # A precise target title plus an approved location is sufficient even
+    # when an ATS list endpoint does not include the full job description.
+    score += 45
     reasons.append(f"role title: {matched_title}")
 
     matched_skills = [s for s in settings["skill_terms"] if s in text]
@@ -345,28 +348,69 @@ def parse_ms_search(company: dict[str, Any]) -> list[Job]:
 
 
 def parse_workday_search(company: dict[str, Any]) -> list[Job]:
-    # Generic Workday CXS endpoint. Some tenants require a site-specific body; failures are logged and skipped.
-    payload = {"appliedFacets": {}, "limit": 100, "offset": 0, "searchText": "data Bangalore"}
-    data = get_json(company["url"], method="POST", payload=payload)
-    raw_jobs = data.get("jobPostings", []) or data.get("jobs", [])
-    jobs = []
-    for item in raw_jobs:
-        external_path = item.get("externalPath") or item.get("url") or ""
-        if external_path.startswith("/"):
-            base = company["url"].split("/wday/")[0]
-            url = base + external_path
-        else:
-            url = external_path or company["url"]
-        jobs.append(Job(
-            company=company["name"],
-            title=clean_text(item.get("title")),
-            location=flatten_location(item.get("locationsText") or item.get("location")),
-            url=url,
-            source="Official careers: Workday",
-            description=clean_text(item.get("bulletFields") or item.get("jobDescription")),
-            department=clean_text(item.get("jobFamily")),
-            wlb_score=company.get("wlb_score", 3),
-        ))
+    # Workday CXS accepts pages of at most 20 jobs on the verified tenants.
+    # Query a small set of role families and deduplicate results across queries.
+    search_terms = company.get("search_terms") or ["data", "machine learning", "AI", "analytics"]
+    if isinstance(search_terms, str):
+        search_terms = [search_terms]
+
+    page_size = 20
+    max_results_per_term = max(20, int(company.get("max_results_per_term", 40)))
+    career_site_url = company.get("career_site_url") or company["url"].split("/wday/")[0]
+    jobs: list[Job] = []
+    seen_keys: set[str] = set()
+
+    for search_text in search_terms:
+        for offset in range(0, max_results_per_term, page_size):
+            payload = {
+                "appliedFacets": {},
+                "limit": page_size,
+                "offset": offset,
+                "searchText": search_text,
+            }
+            try:
+                data = get_json(company["url"], method="POST", payload=payload)
+            except Exception as exc:
+                print(f"WARN {company['name']} Workday query {search_text!r} failed: {exc}")
+                break
+
+            raw_jobs = data.get("jobPostings", []) or data.get("jobs", [])
+            if not raw_jobs:
+                break
+
+            for item in raw_jobs:
+                title = clean_text(item.get("title"))
+                location = flatten_location(item.get("locationsText") or item.get("location"))
+                external_path = item.get("externalPath") or item.get("url") or ""
+                dedupe_key = external_path or f"{title}|{location}".casefold()
+                if dedupe_key in seen_keys:
+                    continue
+                seen_keys.add(dedupe_key)
+
+                if external_path.startswith("/"):
+                    url = career_site_url.rstrip("/") + external_path
+                else:
+                    url = external_path or career_site_url
+
+                jobs.append(Job(
+                    company=company["name"],
+                    title=title,
+                    location=location,
+                    url=url,
+                    source="Official careers: Workday",
+                    description=clean_text(item.get("bulletFields") or item.get("jobDescription")),
+                    department=clean_text(item.get("jobFamily")),
+                    wlb_score=company.get("wlb_score", 3),
+                ))
+
+            try:
+                total = int(data.get("total") or 0)
+            except (TypeError, ValueError):
+                total = 0
+            if len(raw_jobs) < page_size or (total and offset + len(raw_jobs) >= total):
+                break
+            time.sleep(0.1)
+
     return jobs
 
 
