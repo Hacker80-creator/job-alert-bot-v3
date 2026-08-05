@@ -1,0 +1,8 @@
+metadata:
+  verified_at: "2026-08-06"
+  note: "Use Expedia's single-request official jobs sitemap because its WordPress search firewall blocks GitHub runner traffic intermittently."
+companies:
+  - name: "Expedia Group"
+    ats: "expedia_sitemap"
+    url: "https://careers.expediagroup.com/jobs-sitemap.xml"
+    enabled: true
