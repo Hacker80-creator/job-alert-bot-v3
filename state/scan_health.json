@@ -1,7 +1,6 @@
 {
   "allowlist_count": 794,
   "failed_sources": [
-    "Agoda",
     "Atlassian",
     "Chargebee",
     "CoinDCX",
@@ -12,6 +11,6 @@
     "Uber",
     "Zepto"
   ],
-  "last_notice_utc": "2026-08-07T15:04:43.113992+00:00",
+  "last_notice_utc": "2026-08-07T16:04:14.062893+00:00",
   "official_source_count": 261
 }
