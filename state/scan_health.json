@@ -1,16 +1,8 @@
 {
   "allowlist_count": 796,
   "failed_sources": [
-    "Adidas",
-    "Alstom",
-    "Avaya",
-    "Bayer",
-    "SAP",
-    "Swiss Re",
-    "Syngene International",
-    "Vestas",
-    "ZF Group"
+    "Dell Technologies"
   ],
-  "last_notice_utc": "2026-08-10T20:16:51.712640+00:00",
+  "last_notice_utc": "2026-08-10T21:27:40.812728+00:00",
   "official_source_count": 400
 }
