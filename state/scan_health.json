@@ -1,6 +1,8 @@
 {
   "allowlist_count": 796,
-  "failed_sources": [],
-  "last_notice_utc": "2026-08-10T21:41:35.587205+00:00",
+  "failed_sources": [
+    "ExxonMobil"
+  ],
+  "last_notice_utc": "2026-08-10T22:14:53.985935+00:00",
   "official_source_count": 400
 }
