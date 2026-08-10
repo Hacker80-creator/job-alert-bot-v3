@@ -49,6 +49,16 @@ class ProductionV22Tests(unittest.TestCase):
                 self.assertIn(url_part, source_identity)
                 self.assertNotEqual("html_search", company["ats"])
 
+    def test_boeing_and_qualcomm_hotfixes_are_active(self) -> None:
+        self.assertEqual("talentbrew_html", self.companies["Boeing"]["ats"])
+        self.assertEqual(
+            "https://jobs.boeing.com/search-jobs", self.companies["Boeing"]["url"]
+        )
+        self.assertEqual(
+            0.75, self.companies["Qualcomm"]["search_request_delay_seconds"]
+        )
+        self.assertEqual(4, self.companies["Qualcomm"]["rate_limit_attempts"])
+
     def test_sources_without_public_boards_are_not_fake_scanners(self) -> None:
         for name in ("Myntra", "FreshToHome", "Flipkart"):
             with self.subTest(company=name):

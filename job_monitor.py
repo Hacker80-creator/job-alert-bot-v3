@@ -795,11 +795,50 @@ def parse_oracle_hcm(company: dict[str, Any]) -> list[Job]:
     return jobs
 
 
+def _eightfold_search_json(
+    company: dict[str, Any], params: dict[str, Any]
+) -> dict[str, Any] | None:
+    """Fetch one Eightfold result page without losing prior pages on throttling."""
+    attempts = max(1, int(company.get("rate_limit_attempts", 3)))
+    base_delay = max(0.0, float(company.get("rate_limit_base_delay_seconds", 2)))
+    max_delay = max(base_delay, float(company.get("rate_limit_max_delay_seconds", 15)))
+    for attempt in range(attempts):
+        try:
+            response = requests.get(
+                company["url"], params=params, headers=HEADERS, timeout=20
+            )
+        except (requests.Timeout, requests.ConnectionError):
+            if attempt + 1 >= attempts:
+                raise
+            time.sleep(min(max_delay, base_delay * (2 ** attempt)))
+            continue
+
+        if response.status_code not in {429, 502, 503}:
+            response.raise_for_status()
+            return response.json()
+        if attempt + 1 >= attempts:
+            return None
+
+        retry_after = 0.0
+        try:
+            retry_after = float(response.headers.get("Retry-After") or 0)
+        except (AttributeError, TypeError, ValueError):
+            pass
+        delay = min(max_delay, max(retry_after, base_delay * (2 ** attempt)))
+        print(
+            f"WARN {company['name']} Eightfold returned {response.status_code}; "
+            f"retrying in {delay:g}s"
+        )
+        time.sleep(delay)
+    return None
+
+
 def parse_eightfold(company: dict[str, Any]) -> list[Job]:
     """Search an official Eightfold career site for Bengaluru and Remote India."""
     terms = company.get("search_terms") or ["data scientist", "machine learning", "data analyst", "analytics"]
     locations = company.get("search_locations") or ["Bengaluru, Karnataka, India", "Remote, India"]
     max_results = max(10, int(company.get("max_results_per_search", 30)))
+    request_delay = max(0.0, float(company.get("search_request_delay_seconds", 0)))
     domain = company["domain"]
     career_url = company["career_site_url"].rstrip("/")
     detail_url = company["url"].rsplit("/", 1)[0] + "/position_details"
@@ -809,13 +848,24 @@ def parse_eightfold(company: dict[str, Any]) -> list[Job]:
     for term in terms:
         for search_location in locations:
             for offset in range(0, max_results, 10):
-                response = requests.get(
-                    company["url"],
-                    params={"domain": domain, "query": term, "location": search_location, "start": offset},
-                    headers=HEADERS, timeout=20,
+                payload = _eightfold_search_json(
+                    company,
+                    {
+                        "domain": domain,
+                        "query": term,
+                        "location": search_location,
+                        "start": offset,
+                    },
                 )
-                response.raise_for_status()
-                data = response.json().get("data") or {}
+                if payload is None:
+                    print(
+                        f"WARN {company['name']} Eightfold rate limit persisted; "
+                        f"keeping {len(jobs)} jobs collected before throttling"
+                    )
+                    return jobs
+                if request_delay:
+                    time.sleep(request_delay)
+                data = payload.get("data") or {}
                 raw_jobs = data.get("positions") or []
                 if not raw_jobs:
                     break
@@ -850,7 +900,6 @@ def parse_eightfold(company: dict[str, Any]) -> list[Job]:
                 total = int(data.get("count") or 0)
                 if len(raw_jobs) < 10 or (total and offset + len(raw_jobs) >= total):
                     break
-                time.sleep(0.1)
     return jobs
 
 

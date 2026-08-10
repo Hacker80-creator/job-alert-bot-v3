@@ -180,3 +180,25 @@ companies:
     enabled: false
     source_status: "no_public_board"
     source_note: "Official site publishes a careers email but no public searchable openings board."
+  - name: "Boeing"
+    ats: "talentbrew_html"
+    url: "https://jobs.boeing.com/search-jobs"
+    career_site_url: "https://jobs.boeing.com"
+    search_terms:
+      - "data"
+      - "machine learning"
+      - "AI"
+      - "analytics"
+      - "DevOps"
+      - "platform"
+      - "automation"
+    max_pages_per_term: 2
+    max_candidate_details: 30
+    enabled: true
+
+  - name: "Qualcomm"
+    search_request_delay_seconds: 0.75
+    rate_limit_attempts: 4
+    rate_limit_base_delay_seconds: 2
+    rate_limit_max_delay_seconds: 15
+    enabled: true
