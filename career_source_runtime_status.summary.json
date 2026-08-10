@@ -1,0 +1,2187 @@
+{
+  "total_mappings": 432,
+  "status_counts": {
+    "WORKING": 57,
+    "BROKEN": 66,
+    "NO_JOBS": 13,
+    "REDIRECT": 108,
+    "DYNAMIC": 145,
+    "NO_PUBLIC_BOARD": 26,
+    "BLOCKED": 17
+  },
+  "promotable_sources": 118,
+  "non_working": [
+    {
+      "name": "bp",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 404"
+    },
+    {
+      "name": "Cigna",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "Cisco Meraki",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "CitiusTech",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "ClearTax",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Cleartrip",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Costco Wholesale",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Country Delight",
+      "status": "NO_PUBLIC_BOARD",
+      "resolved_status": null,
+      "reason": "User supplied an explicit no-public-board result; no URL was guessed."
+    },
+    {
+      "name": "Course5 Intelligence",
+      "status": "NO_PUBLIC_BOARD",
+      "resolved_status": null,
+      "reason": "User supplied an explicit no-public-board result; no URL was guessed."
+    },
+    {
+      "name": "CredAble",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "CropIn",
+      "status": "NO_PUBLIC_BOARD",
+      "resolved_status": null,
+      "reason": "User supplied an explicit no-public-board result; no URL was guessed."
+    },
+    {
+      "name": "Cummins",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "Curefit",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "CyberArk",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": "no India country facet; production must filter job locations"
+    },
+    {
+      "name": "Cyient",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Dailyhunt",
+      "status": "NO_PUBLIC_BOARD",
+      "resolved_status": null,
+      "reason": "User supplied an explicit no-public-board result; no URL was guessed."
+    },
+    {
+      "name": "Darwinbox",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Dassault Systèmes",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "DataRobot",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "DataWeave",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "DBS Bank",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "dbt Labs",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 404"
+    },
+    {
+      "name": "DealShare",
+      "status": "NO_PUBLIC_BOARD",
+      "resolved_status": null,
+      "reason": "User supplied an explicit no-public-board result; no URL was guessed."
+    },
+    {
+      "name": "DeHaat",
+      "status": "NO_PUBLIC_BOARD",
+      "resolved_status": null,
+      "reason": "User supplied an explicit no-public-board result; no URL was guessed."
+    },
+    {
+      "name": "Delhivery",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Delta Air Lines",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 444"
+    },
+    {
+      "name": "Deutsche Bank",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Digit Insurance",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "DocuSign",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Domo",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "DoorDash",
+      "status": "BLOCKED",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 403"
+    },
+    {
+      "name": "Dream Sports",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Droom",
+      "status": "NO_PUBLIC_BOARD",
+      "resolved_status": null,
+      "reason": "User supplied an explicit no-public-board result; no URL was guessed."
+    },
+    {
+      "name": "Dun & Bradstreet",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "Dunzo",
+      "status": "NO_PUBLIC_BOARD",
+      "resolved_status": null,
+      "reason": "User supplied an explicit no-public-board result; no URL was guessed."
+    },
+    {
+      "name": "Duo Security",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "Eaton",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "request failed: ReadTimeout: HTTPSConnectionPool(host='www.eaton.com', port=443): Read timed out. (read timeout=20)"
+    },
+    {
+      "name": "ElasticRun",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Electronic Arts",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Elevance Health",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": "no India country facet; production must filter job locations"
+    },
+    {
+      "name": "Emerson",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "Emirates Group IT",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Encora",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "request failed: ReadTimeout: HTTPSConnectionPool(host='careers.coforge.com', port=443): Read timed out. (read timeout=20)"
+    },
+    {
+      "name": "Enphase Energy",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "EPAM Systems",
+      "status": "BLOCKED",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 403"
+    },
+    {
+      "name": "Epic Systems",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Equifax",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Ericsson",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "ET Money",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Etsy",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Euler Motors",
+      "status": "NO_PUBLIC_BOARD",
+      "resolved_status": null,
+      "reason": "User supplied an explicit no-public-board result; no URL was guessed."
+    },
+    {
+      "name": "Evalueserve",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Evernorth Health Services",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 404"
+    },
+    {
+      "name": "EXL Analytics",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "request failed: ConnectionError: HTTPSConnectionPool(host='jobs.exlservice.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='jobs.exlservice.com', port=443): Failed to resolve 'jobs.exlservice.com' ([Errno 11001] getaddrinfo failed)\"))"
+    },
+    {
+      "name": "Facets.cloud",
+      "status": "BLOCKED",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 403"
+    },
+    {
+      "name": "FactSet",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "FarEye",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "FedEx",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Fi Money",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "FirstCry",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "request failed: ReadTimeout: HTTPSConnectionPool(host='www.firstcry.com', port=443): Read timed out. (read timeout=20)"
+    },
+    {
+      "name": "FIS",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": "no India country facet; production must filter job locations"
+    },
+    {
+      "name": "Fiserv",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "Fluence",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 404"
+    },
+    {
+      "name": "Fortinet",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "Fractal Analytics",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": "no India country facet; production must filter job locations"
+    },
+    {
+      "name": "Franklin Templeton",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "FullStory",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Furlenco",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 404"
+    },
+    {
+      "name": "Gameskraft",
+      "status": "NO_PUBLIC_BOARD",
+      "resolved_status": null,
+      "reason": "User supplied an explicit no-public-board result; no URL was guessed."
+    },
+    {
+      "name": "Ganit",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "GE Vernova",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Genesys",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "Genpact Analytics",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": "no India country facet; production must filter job locations"
+    },
+    {
+      "name": "GitHub",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Global Payments",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Globant",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Goibibo",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Goldman Sachs",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Gramener",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Grammarly",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Growfin",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "GSK",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "H2O.ai",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Happiest Minds",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Harman",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "request failed: SSLError: HTTPSConnectionPool(host='jobs.harman.com', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)')))"
+    },
+    {
+      "name": "Harman Connected Services",
+      "status": "NO_PUBLIC_BOARD",
+      "resolved_status": null,
+      "reason": "User supplied an explicit no-public-board result; no URL was guessed."
+    },
+    {
+      "name": "Harness",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "HashiCorp",
+      "status": "BLOCKED",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 429"
+    },
+    {
+      "name": "Hasura",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "HDFC Securities",
+      "status": "NO_PUBLIC_BOARD",
+      "resolved_status": null,
+      "reason": "User supplied an explicit no-public-board result; no URL was guessed."
+    },
+    {
+      "name": "HealthifyMe",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Heap",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "Hitachi Energy",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Hitachi Rail",
+      "status": "BLOCKED",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 403"
+    },
+    {
+      "name": "Home Depot",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": "no India country facet; production must filter job locations"
+    },
+    {
+      "name": "Housing.com",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "HP Inc.",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "HSBC",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Hyundai Mobis",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "IBM",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Icertis",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "IKEA Digital",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Illumina",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "Impetus Technologies",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Increff",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "JobPosting records are visible but no stable supported list feed was proven"
+    },
+    {
+      "name": "Indegene",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Indium Software",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "INDmoney",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Infineon Technologies",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Info Edge",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Informatica",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Infra.Market",
+      "status": "NO_PUBLIC_BOARD",
+      "resolved_status": null,
+      "reason": "User supplied an explicit no-public-board result; no URL was guessed."
+    },
+    {
+      "name": "Innovaccer",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Intercom",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Intercontinental Exchange",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Invesco",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": "no India country facet; production must filter job locations"
+    },
+    {
+      "name": "J.B. Hunt",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": "no India country facet; production must filter job locations"
+    },
+    {
+      "name": "JioStar",
+      "status": "NO_PUBLIC_BOARD",
+      "resolved_status": null,
+      "reason": "User supplied an explicit no-public-board result; no URL was guessed."
+    },
+    {
+      "name": "John Deere",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Johnson & Johnson",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": "no India country facet; production must filter job locations"
+    },
+    {
+      "name": "Josh Software",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Jumbotail",
+      "status": "NO_PUBLIC_BOARD",
+      "resolved_status": null,
+      "reason": "User supplied an explicit no-public-board result; no URL was guessed."
+    },
+    {
+      "name": "Juniper Networks",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "Jupiter Money",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Juspay",
+      "status": "NO_PUBLIC_BOARD",
+      "resolved_status": null,
+      "reason": "User supplied an explicit no-public-board result; no URL was guessed."
+    },
+    {
+      "name": "Keysight Technologies",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Khatabook",
+      "status": "NO_PUBLIC_BOARD",
+      "resolved_status": null,
+      "reason": "User supplied an explicit no-public-board result; no URL was guessed."
+    },
+    {
+      "name": "Kissflow",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "KLA",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "Klarna",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Kotak Securities",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "KPIT Technologies",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Kraken",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "KreditBee",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Kuku FM",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Kuvera",
+      "status": "NO_PUBLIC_BOARD",
+      "resolved_status": null,
+      "reason": "User supplied an explicit no-public-board result; no URL was guessed."
+    },
+    {
+      "name": "Lam Research",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "LatentView Analytics",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 404"
+    },
+    {
+      "name": "Lattice Semiconductor",
+      "status": "BLOCKED",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 403"
+    },
+    {
+      "name": "Lazada",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "LeadSquared",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Lenovo",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Lenskart",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "request failed: ConnectionError: HTTPSConnectionPool(host='lenskartcareers.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='lenskartcareers.com', port=443): Failed to resolve 'lenskartcareers.com' ([Errno 11001] getaddrinfo failed)\"))"
+    },
+    {
+      "name": "Levi Strauss & Co.",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "LG Soft India",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Licious",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "LinkedIn",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 999"
+    },
+    {
+      "name": "Livspace",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Lloyds Banking Group",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": "no India country facet; production must filter job locations"
+    },
+    {
+      "name": "Locus",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Logitech",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "Looker",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Loyalytics",
+      "status": "NO_PUBLIC_BOARD",
+      "resolved_status": null,
+      "reason": "User supplied an explicit no-public-board result; no URL was guessed."
+    },
+    {
+      "name": "Lufthansa Group Digital",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Macquarie Group",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Mad Street Den",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Maersk",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "request failed: ReadTimeout: HTTPSConnectionPool(host='www.maersk.com', port=443): Read timed out. (read timeout=20)"
+    },
+    {
+      "name": "Magicbricks",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "request failed: SSLError: HTTPSConnectionPool(host='careers.magicbricks.com', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLError(1, '[SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1010)')))"
+    },
+    {
+      "name": "Magna International",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Mahindra Research Valley",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "request failed: ConnectionError: HTTPSConnectionPool(host='careers.mahindra.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='careers.mahindra.com', port=443): Failed to resolve 'careers.mahindra.com' ([Errno 11001] getaddrinfo failed)\"))"
+    },
+    {
+      "name": "Manipal Hospitals Digital",
+      "status": "NO_PUBLIC_BOARD",
+      "resolved_status": null,
+      "reason": "User supplied an explicit no-public-board result; no URL was guessed."
+    },
+    {
+      "name": "Manulife",
+      "status": "BLOCKED",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 403"
+    },
+    {
+      "name": "Marlabs",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Marsh McLennan",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "Mavenir",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "McAfee",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 404"
+    },
+    {
+      "name": "Medallia",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "workday endpoint returned HTTP 422"
+    },
+    {
+      "name": "MedGenome",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "MediaTek",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "MediBuddy",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Mercedes-Benz Research and Development India",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Merck",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "request failed: ReadTimeout: HTTPSConnectionPool(host='www.merckgroup.com', port=443): Read timed out. (read timeout=20)"
+    },
+    {
+      "name": "Meta",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Mizuho",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "MobiKwik",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "MoEngage",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Moglix",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 404"
+    },
+    {
+      "name": "Moj",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Molecular Connections",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Monday.com",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "MoneyGram",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Moneyview",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Monte Carlo",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "Morningstar",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "MosChip",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "MPL",
+      "status": "NO_PUBLIC_BOARD",
+      "resolved_status": null,
+      "reason": "User supplied an explicit no-public-board result; no URL was guessed."
+    },
+    {
+      "name": "MSD",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": "no India country facet; production must filter job locations"
+    },
+    {
+      "name": "Mu Sigma",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "MUFG",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "MuleSoft",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Munich Re",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 404"
+    },
+    {
+      "name": "Nagarro",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "National Instruments",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "NatWest Group",
+      "status": "BLOCKED",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 403"
+    },
+    {
+      "name": "Naukri.com",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Nazara Technologies",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "NeenOpal",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 404"
+    },
+    {
+      "name": "Ness Digital Engineering",
+      "status": "BLOCKED",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 403"
+    },
+    {
+      "name": "Netflix",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Niantic",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "Nike",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Ninjacart",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Niyo",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Nokia",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Novartis",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Novo Nordisk",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Nykaa",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Ocado Technology",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "OCBC Bank",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "OfBusiness",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 410"
+    },
+    {
+      "name": "OkCredit",
+      "status": "NO_PUBLIC_BOARD",
+      "resolved_status": null,
+      "reason": "User supplied an explicit no-public-board result; no URL was guessed."
+    },
+    {
+      "name": "Ola",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Ola Electric",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "onsemi",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "workday endpoint returned HTTP 422"
+    },
+    {
+      "name": "Open Financial Technologies",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Optum",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "Oracle Health",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "OYO",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Palo Alto Networks",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": "no India country facet; production must filter job locations"
+    },
+    {
+      "name": "Pegasystems",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "PeopleStrong",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 404"
+    },
+    {
+      "name": "Pepperfry",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Perfios",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "request failed: ReadTimeout: HTTPSConnectionPool(host='perfios.ai', port=443): Read timed out. (read timeout=20)"
+    },
+    {
+      "name": "Persistent Systems",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "request failed: ReadTimeout: HTTPSConnectionPool(host='careers.persistent.com', port=443): Read timed out. (read timeout=20)"
+    },
+    {
+      "name": "Pfizer",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 404"
+    },
+    {
+      "name": "PharmEasy",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Pine Labs",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Policybazaar",
+      "status": "BLOCKED",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 403"
+    },
+    {
+      "name": "Porter",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Practo",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Presidio",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Principal Financial Group",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "ProductDossier",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Prudential",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "request failed: ConnectionError: HTTPSConnectionPool(host='careers.prudentialplc.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='careers.prudentialplc.com', port=443): Failed to resolve 'careers.prudentialplc.com' ([Errno 11001] getaddrinfo failed)\"))"
+    },
+    {
+      "name": "Publicis Sapient",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 404"
+    },
+    {
+      "name": "Pure Storage",
+      "status": "BLOCKED",
+      "resolved_status": null,
+      "reason": "workday endpoint returned HTTP 401"
+    },
+    {
+      "name": "Qatar Airways Technology",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Qlik",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "request failed: ConnectionError: HTTPSConnectionPool(host='careers.qlik.com', port=443): Max retries exceeded with url: /jobs (Caused by NameResolutionError(\"HTTPSConnection(host='careers.qlik.com', port=443): Failed to resolve 'careers.qlik.com' ([Errno 11001] getaddrinfo failed)\"))"
+    },
+    {
+      "name": "Quantiphi",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Quantzig",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Quest Global",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "Rabobank",
+      "status": "BLOCKED",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 403"
+    },
+    {
+      "name": "Rackspace Technology",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "Rambus",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "request failed: ConnectionError: HTTPSConnectionPool(host='jobs.rambus.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='jobs.rambus.com', port=443): Failed to resolve 'jobs.rambus.com' ([Errno 11001] getaddrinfo failed)\"))"
+    },
+    {
+      "name": "Rapid7",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 404"
+    },
+    {
+      "name": "Rapido",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Rapyd",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Realtek",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Remitly",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Revolut",
+      "status": "BLOCKED",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 403"
+    },
+    {
+      "name": "Revvity",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "RingCentral",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "request failed: ConnectionError: HTTPSConnectionPool(host='careers.ringcentral.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='careers.ringcentral.com', port=443): Failed to resolve 'careers.ringcentral.com' ([Errno 11001] getaddrinfo failed)\"))"
+    },
+    {
+      "name": "River Mobility",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Rivigo",
+      "status": "NO_PUBLIC_BOARD",
+      "resolved_status": null,
+      "reason": "User supplied an explicit no-public-board result; no URL was guessed."
+    },
+    {
+      "name": "Robosoft Technologies",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Rocketlane",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 404"
+    },
+    {
+      "name": "Rolls-Royce",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 404"
+    },
+    {
+      "name": "Royal Enfield",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "Rupeek",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "S&P Global",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Safran",
+      "status": "BLOCKED",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 403"
+    },
+    {
+      "name": "Sahaj Software",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Salesloft",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Samsung R&D Institute India",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "SAS",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 404"
+    },
+    {
+      "name": "Sasken Technologies",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Schneider Electric",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Scrut Automation",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Sea Limited",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Searce",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "request failed: ConnectionError: HTTPSConnectionPool(host='careers.searce.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='careers.searce.com', port=443): Failed to resolve 'careers.searce.com' ([Errno 11001] getaddrinfo failed)\"))"
+    },
+    {
+      "name": "Segment",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "SentinelOne",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Setu",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Shadowfax",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "ShareChat",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Shell Technology Centre Bangalore",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "Shiprocket",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 404"
+    },
+    {
+      "name": "Shopee",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Shopify",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Siemens",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Siemens Digital Industries Software",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Siemens Energy",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Silicon Labs",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "workday endpoint returned HTTP 422"
+    },
+    {
+      "name": "Simple Energy",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 404"
+    },
+    {
+      "name": "Slack",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "SLB",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Smallcase",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 404"
+    },
+    {
+      "name": "Snap",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Societe Generale",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 404"
+    },
+    {
+      "name": "SolarEdge",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "request failed: ConnectionError: HTTPSConnectionPool(host='careers.solaredge.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='careers.solaredge.com', port=443): Failed to resolve 'careers.solaredge.com' ([Errno 11001] getaddrinfo failed)\"))"
+    },
+    {
+      "name": "Sonata Software",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Sony India Software Centre",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "SonyLIV",
+      "status": "BLOCKED",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 403"
+    },
+    {
+      "name": "Spinny",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Splunk",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "Standard Chartered",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "request failed: ConnectionError: HTTPSConnectionPool(host='scb.taleo.net', port=443): Max retries exceeded with url: /careersection/ex/jobsearch.ftl (Caused by NameResolutionError(\"HTTPSConnection(host='scb.taleo.net', port=443): Failed to resolve 'scb.taleo.net' ([Errno 11001] getaddrinfo failed)\"))"
+    },
+    {
+      "name": "Stellapps",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 404"
+    },
+    {
+      "name": "STMicroelectronics",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Strand Life Sciences",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Stryker",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 404"
+    },
+    {
+      "name": "Sumitomo Mitsui Banking Corporation",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 404"
+    },
+    {
+      "name": "Sun Mobility",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 404"
+    },
+    {
+      "name": "SUSE",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": "no India country facet; production must filter job locations"
+    },
+    {
+      "name": "Synaptics",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Tableau",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Take-Two Interactive",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Target India",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 404"
+    },
+    {
+      "name": "Tata 1mg",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Tata Elxsi",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Tata Technologies",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Tavant",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "request failed: ReadTimeout: HTTPSConnectionPool(host='careers.tavant.com', port=443): Read timed out. (read timeout=20)"
+    },
+    {
+      "name": "Tejas Networks",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "Tempus AI",
+      "status": "BLOCKED",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 429"
+    },
+    {
+      "name": "Tenable",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "Teradata",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 404"
+    },
+    {
+      "name": "Tesco Bengaluru",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Texas Instruments",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "TheMathCompany",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "ThoughtSpot",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 404"
+    },
+    {
+      "name": "Times Internet",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Torry Harris Integration Solutions",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "TotalEnergies",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Travelport",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "request failed: ConnectionError: HTTPSConnectionPool(host='careers.travelport.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='careers.travelport.com', port=443): Failed to resolve 'careers.travelport.com' ([Errno 11001] getaddrinfo failed)\"))"
+    },
+    {
+      "name": "Tredence",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 404"
+    },
+    {
+      "name": "Treebo",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 404"
+    },
+    {
+      "name": "Trellix",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Turo",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": "no India country facet; production must filter job locations"
+    },
+    {
+      "name": "TVS Motor",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "request failed: ConnectionError: HTTPSConnectionPool(host='careers.tvsmotor.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='careers.tvsmotor.com', port=443): Failed to resolve 'careers.tvsmotor.com' ([Errno 11001] getaddrinfo failed)\"))"
+    },
+    {
+      "name": "UBS",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Udaan",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "request failed: ConnectTimeout: HTTPSConnectionPool(host='careers.udaan.com', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='careers.udaan.com', port=443) at 0x295dedfa510>, 'Connection to careers.udaan.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "name": "Ultraviolette Automotive",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Uniphore",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": "no India country facet; production must filter job locations"
+    },
+    {
+      "name": "UnitedHealth Group",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "Unity",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "UOB",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "request failed: ConnectionError: HTTPSConnectionPool(host='careers.uobgroup.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='careers.uobgroup.com', port=443): Failed to resolve 'careers.uobgroup.com' ([Errno 11001] getaddrinfo failed)\"))"
+    },
+    {
+      "name": "UPS",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "Urban Company",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Urban Ladder",
+      "status": "NO_PUBLIC_BOARD",
+      "resolved_status": null,
+      "reason": "User supplied an explicit no-public-board result; no URL was guessed."
+    },
+    {
+      "name": "UrbanPiper",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 404"
+    },
+    {
+      "name": "UST",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Vanguard",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "VerSe Innovation",
+      "status": "NO_PUBLIC_BOARD",
+      "resolved_status": null,
+      "reason": "User supplied an explicit no-public-board result; no URL was guessed."
+    },
+    {
+      "name": "Visteon",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "request failed: ConnectionError: HTTPSConnectionPool(host='careers.visteon.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='careers.visteon.com', port=443): Failed to resolve 'careers.visteon.com' ([Errno 11001] getaddrinfo failed)\"))"
+    },
+    {
+      "name": "Wakefit",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "WebEngage",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "Weights & Biases",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Wells Fargo",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Willis Towers Watson",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Wix",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Workiva",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "workday endpoint returned HTTP 422"
+    },
+    {
+      "name": "Xebia",
+      "status": "REDIRECT",
+      "resolved_status": "BROKEN",
+      "reason": "board identity mismatch: Xebia APAC"
+    },
+    {
+      "name": "Xilinx",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Yatra",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "request failed: ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+    },
+    {
+      "name": "Yellow.ai",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 404"
+    },
+    {
+      "name": "Yubi",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Yulu",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    },
+    {
+      "name": "ZEE5",
+      "status": "BLOCKED",
+      "resolved_status": null,
+      "reason": "official page returned HTTP 403"
+    },
+    {
+      "name": "Zendesk",
+      "status": "REDIRECT",
+      "resolved_status": "WORKING",
+      "reason": ""
+    },
+    {
+      "name": "Zensar Technologies",
+      "status": "BROKEN",
+      "resolved_status": null,
+      "reason": "request failed: ConnectionError: HTTPSConnectionPool(host='careers.zensar.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='careers.zensar.com', port=443): Failed to resolve 'careers.zensar.com' ([Errno 11001] getaddrinfo failed)\"))"
+    },
+    {
+      "name": "Zomato",
+      "status": "NO_PUBLIC_BOARD",
+      "resolved_status": null,
+      "reason": "User supplied an explicit no-public-board result; no URL was guessed."
+    },
+    {
+      "name": "ZS Associates",
+      "status": "REDIRECT",
+      "resolved_status": "DYNAMIC",
+      "reason": "official page exposes job-related links but needs a company-specific adapter"
+    },
+    {
+      "name": "Zypp Electric",
+      "status": "DYNAMIC",
+      "resolved_status": null,
+      "reason": "official page loads, but no stable machine-readable job list was proven"
+    }
+  ]
+}

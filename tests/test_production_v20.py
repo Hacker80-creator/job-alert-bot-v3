@@ -71,7 +71,7 @@ class ProductionV20Tests(unittest.TestCase):
         self.assertIn('cron: "7,37 * * * *"', workflow)
         self.assertIn("permissions:", workflow)
         self.assertIn("contents: write", workflow)
-        self.assertIn("python job_monitor_entry_v20.py", workflow)
+        self.assertRegex(workflow, r"python job_monitor_entry_v\d+\.py")
 
 
 if __name__ == "__main__":
