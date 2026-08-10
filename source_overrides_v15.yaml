@@ -1,0 +1,24 @@
+metadata:
+  verified_at: "2026-08-10"
+  note: "Replace four retired sources with live first-party feeds verified against current public job data."
+companies:
+  - name: "Uber"
+    ats: "oracle_hcm"
+    url: "https://iaziqy.fa.ocs.oraclecloud.com/hcmRestApi/resources/latest/recruitingCEJobRequisitions"
+    career_site_url: "https://iaziqy.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/UberCareers"
+    site_number: "UberCareers"
+    max_results_per_term: 48
+    enabled: true
+  - name: "Nutanix"
+    ats: "nutanix_sitemap"
+    url: "https://careers.nutanix.com/sitemap.xml"
+    enabled: true
+  - name: "CoinDCX"
+    ats: "coindcx_next_data"
+    url: "https://careers.coindcx.com/opportunities/openings"
+    enabled: true
+  - name: "Siemens Healthineers"
+    ats: "siemens_avature"
+    url: "https://jobs.siemens-healthineers.com/en_US/searchjobs/SearchJobs"
+    search_terms: ["data", "machine learning", "analytics", "AI"]
+    enabled: true

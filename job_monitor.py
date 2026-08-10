@@ -1038,7 +1038,9 @@ def main() -> int:
     maybe_send_health_summary(
         raw_count=len(all_jobs),
         matching_count=len(matching),
-        official_source_count=len(config["companies"]),
+        official_source_count=sum(
+            1 for company in config["companies"] if company.get("enabled", True)
+        ),
         allowlist_count=len(approved_company_names(config)),
     )
 
