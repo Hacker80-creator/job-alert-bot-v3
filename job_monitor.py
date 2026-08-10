@@ -20,7 +20,7 @@ from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Iterable
-from urllib.parse import parse_qsl, quote_plus, urlencode, urlsplit, urlunsplit
+from urllib.parse import parse_qsl, quote_plus, unquote, urlencode, urlsplit, urlunsplit
 
 import requests
 import yaml
@@ -128,13 +128,53 @@ def make_url_fingerprint(url: str) -> str:
     return hashlib.sha256(f"url|{canonical}".encode("utf-8")).hexdigest()[:24]
 
 
-def make_dedupe_keys(company: str, title: str, location: str, url: str = "") -> set[str]:
-    """Prefer a job-specific URL; use semantic identity only as a fallback."""
-    url_key = make_url_fingerprint(url)
-    if url_key:
-        return {url_key}
-    return {make_fingerprint(company, title, location)}
+def normalize_requisition_id(value: Any, *, allow_plain: bool = False) -> str:
+    """Extract a stable employer requisition ID without URL locale suffixes."""
+    text = unquote(str(value or ""))
+    patterns = (
+        r"(?<![a-z0-9])((?:jr|req|requisition|job)[-_ ]?\d{4,})(?![a-z0-9])",
+        r"(?<![a-z0-9])(r\d{6,})(?![a-z0-9])",
+    )
+    for pattern in patterns:
+        match = re.search(pattern, text, re.IGNORECASE)
+        if match:
+            return re.sub(r"[^a-z0-9]+", "", match.group(1).casefold())
+    plain = re.sub(r"[^a-z0-9]+", "", text.casefold())
+    if allow_plain and 4 <= len(plain) <= 64 and any(char.isdigit() for char in plain):
+        return plain
+    return ""
 
+
+def make_requisition_fingerprint(
+    company: str, requisition_id: str = "", url: str = ""
+) -> str:
+    identifier = normalize_requisition_id(requisition_id, allow_plain=True)
+    if not identifier:
+        identifier = normalize_requisition_id(url)
+    if not identifier:
+        return ""
+    normalized_company = re.sub(r"[^a-z0-9]+", " ", company.casefold()).strip()
+    return hashlib.sha256(
+        f"req|{normalized_company}|{identifier}".encode("utf-8")
+    ).hexdigest()[:24]
+
+
+def make_dedupe_keys(
+    company: str,
+    title: str,
+    location: str,
+    url: str = "",
+    requisition_id: str = "",
+) -> set[str]:
+    """Use requisition and canonical URL identities; semantic identity is fallback."""
+    keys = set()
+    requisition_key = make_requisition_fingerprint(company, requisition_id, url)
+    url_key = make_url_fingerprint(url)
+    if requisition_key:
+        keys.add(requisition_key)
+    if url_key:
+        keys.add(url_key)
+    return keys or {make_fingerprint(company, title, location)}
 
 def make_fingerprint(company: str, title: str, location: str) -> str:
     """Create a stable key that ignores URL and harmless punctuation changes."""
@@ -158,6 +198,7 @@ class Job:
     wlb_score: int = 3
     score: int = 0
     reasons: list[str] | None = None
+    requisition_id: str = ""
 
     @property
     def fingerprint(self) -> str:
@@ -165,12 +206,12 @@ class Job:
 
     @property
     def dedupe_keys(self) -> set[str]:
-        return make_dedupe_keys(self.company, self.title, self.location, self.url)
+        return make_dedupe_keys(self.company, self.title, self.location, self.url, self.requisition_id)
 
     @property
     def state_key(self) -> str:
         """Use a requisition-specific key so equal titles do not overwrite."""
-        return make_url_fingerprint(self.url) or self.fingerprint
+        return make_requisition_fingerprint(self.company, self.requisition_id, self.url) or make_url_fingerprint(self.url) or self.fingerprint
 
 def load_config() -> dict[str, Any]:
     with CONFIG_FILE.open("r", encoding="utf-8") as f:
@@ -200,6 +241,7 @@ def state_dedupe_keys(seen: dict[str, Any]) -> set[str]:
             str(record["title"]),
             str(record["location"]),
             str(record.get("url") or ""),
+            str(record.get("requisition_id") or ""),
         ))
     return keys
 
@@ -1112,20 +1154,26 @@ def discord_post(job: Job) -> bool:
     if not DISCORD_WEBHOOK_URL:
         print("ERROR: DISCORD_WEBHOOK_URL secret is missing")
         return False
-    reasons = "\n".join(f"• {r}" for r in (job.reasons or [])[:5])
+    reasons = "\n".join(f"\u2022 {r}" for r in (job.reasons or [])[:5])
+    job_id = normalize_requisition_id(job.requisition_id, allow_plain=True)
+    if not job_id:
+        job_id = normalize_requisition_id(job.url)
+    fields = [
+        {"name": "Location", "value": job.location[:1000] or "Not specified", "inline": True},
+        {"name": "Expected salary*", "value": expected_salary(job), "inline": True},
+        {"name": "Match score", "value": f"{job.score}/100", "inline": True},
+        {"name": "WLB priority", "value": f"{job.wlb_score}/5", "inline": True},
+        {"name": "Source", "value": job.source[:1000], "inline": False},
+    ]
+    if job_id:
+        fields.insert(1, {"name": "Job ID", "value": job_id.upper(), "inline": True})
     payload = {
         "embeds": [{
             "title": job.title[:250],
             "url": job.url,
             "description": f"**{job.company}**\n{reasons}",
             "color": 5814783,
-            "fields": [
-                {"name": "Location", "value": job.location[:1000] or "Not specified", "inline": True},
-                {"name": "Expected salary*", "value": expected_salary(job), "inline": True},
-                {"name": "Match score", "value": f"{job.score}/100", "inline": True},
-                {"name": "WLB priority", "value": f"{job.wlb_score}/5", "inline": True},
-                {"name": "Source", "value": job.source[:1000], "inline": False},
-            ],
+            "fields": fields,
             "footer": {"text": "*Salary is estimated unless marked Posted \u2022 scanned every 30 min"},
             "timestamp": datetime.now(timezone.utc).isoformat(),
         }]
@@ -1266,6 +1314,7 @@ def main() -> int:
                 "url": job.url,
                 "source": job.source,
                 "score": job.score,
+                "requisition_id": job.requisition_id,
             }
             seen_keys.update(job.dedupe_keys)
             # Persist immediately after Discord accepts an alert. The workflow's

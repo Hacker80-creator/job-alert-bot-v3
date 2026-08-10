@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import tempfile
 import unittest
+from unittest.mock import Mock, patch
 from pathlib import Path
 
 import job_monitor as bot
@@ -128,6 +129,64 @@ class ReliabilityTests(unittest.TestCase):
             "test",
         )
         self.assertFalse(changed.dedupe_keys.isdisjoint(bot.state_dedupe_keys(seen)))
+
+    def test_cross_domain_requisition_id_prevents_source_migration_duplicate(self) -> None:
+        old_url = (
+            "https://boeing.wd1.myworkdayjobs.com/EXTERNAL_CAREERS/job/"
+            "IND---Bangalore-India/Associate-AI-ML-Engineer_JR2026517898-2"
+        )
+        seen = {
+            "legacy-url-key": {
+                "company": "Boeing",
+                "title": "Associate AI/ML Engineer – Predictive Maintenance",
+                "location": "Bengaluru, Karnataka, India",
+                "url": old_url,
+            }
+        }
+        migrated = bot.Job(
+            "Boeing",
+            "Associate AI/ML Engineer – Predictive Maintenance",
+            "Bengaluru, Karnataka, India",
+            "https://jobs.boeing.com/job/bengaluru/associate-ai-ml-engineer/185/97556420896",
+            "Official careers: TalentBrew",
+            requisition_id="JR2026517898",
+        )
+        separate = bot.Job(
+            "Boeing",
+            migrated.title,
+            migrated.location,
+            "https://jobs.boeing.com/job/bengaluru/associate-ai-ml-engineer/185/99999999999",
+            migrated.source,
+            requisition_id="JR2026519999",
+        )
+        self.assertEqual("jr2026517898", bot.normalize_requisition_id(old_url))
+        self.assertFalse(
+            migrated.dedupe_keys.isdisjoint(bot.state_dedupe_keys(seen))
+        )
+        self.assertTrue(migrated.dedupe_keys.isdisjoint(separate.dedupe_keys))
+
+    def test_discord_embed_shows_available_job_id(self) -> None:
+        original_webhook = bot.DISCORD_WEBHOOK_URL
+        response = Mock(status_code=204, text="")
+        job = bot.Job(
+            "Boeing",
+            "Associate AI/ML Engineer",
+            "Bengaluru, India",
+            "https://jobs.boeing.com/job/bengaluru/ai-ml/185/97556420896",
+            "Official careers: TalentBrew",
+            requisition_id="JR2026517898",
+        )
+        try:
+            bot.DISCORD_WEBHOOK_URL = "https://discord.example/webhook"
+            with patch.object(bot.requests, "post", return_value=response) as post:
+                self.assertTrue(bot.discord_post(job))
+            fields = post.call_args.kwargs["json"]["embeds"][0]["fields"]
+            self.assertIn(
+                {"name": "Job ID", "value": "JR2026517898", "inline": True},
+                fields,
+            )
+        finally:
+            bot.DISCORD_WEBHOOK_URL = original_webhook
 
     def test_stringified_workday_location_is_cleaned(self) -> None:
         location = bot.flatten_location(

@@ -76,6 +76,10 @@ class SourceBatchV11Tests(unittest.TestCase):
             "title": "Data Analyst",
             "description": "Python SQL reporting and analytics",
             "url": "https://careers.example.com/job/bengaluru/data-analyst/123",
+            "identifier": {
+                "@type": "PropertyValue",
+                "value": "JR2026517898",
+            },
             "jobLocation": {
                 "@type": "Place",
                 "address": {
@@ -105,6 +109,7 @@ class SourceBatchV11Tests(unittest.TestCase):
         self.assertEqual(1, len(jobs))
         self.assertIn("Python SQL", jobs[0].description)
         self.assertIn("Bengaluru", jobs[0].location)
+        self.assertEqual("JR2026517898", jobs[0].requisition_id)
 
     def test_successfactors_search_reads_rows_and_description(self) -> None:
         company = {

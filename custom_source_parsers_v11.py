@@ -275,6 +275,10 @@ def parse_talentbrew_html(company: dict[str, Any]) -> list[bot.Job]:
             job.description = bot.clean_text(posting.get("description"))
             job.location = _schema_location(posting) or job.location
             job.url = str(posting.get("url") or job.url)
+            identifier = posting.get("identifier")
+            if isinstance(identifier, dict):
+                identifier = identifier.get("value") or identifier.get("name")
+            job.requisition_id = bot.clean_text(identifier)
         else:
             description = soup.select_one(".job-description, .job-description__content")
             if description:
