@@ -149,12 +149,15 @@ def parse_workday_india(company: dict[str, Any]) -> list[bot.Job]:
             if len(raw_jobs) < page_size or (total and offset + len(raw_jobs) >= total):
                 break
 
-    detail_budget = max(0, int(company.get("max_candidate_details", 40)))
+    detail_budget = max(0, int(company.get("max_candidate_details", 12)))
     detail_base = company["url"].rsplit("/jobs", 1)[0]
+    settings = bot.load_config()["settings"]
     for path, job in jobs_by_path.items():
         if detail_budget <= 0:
             break
         if not bot.is_target_title(job.title):
+            continue
+        if not bot.has_location_match(job.location, settings):
             continue
         try:
             detail = bot.get_json(detail_base + path)

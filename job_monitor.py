@@ -14,6 +14,7 @@ import os
 import re
 import sys
 import time
+import warnings
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -22,7 +23,7 @@ from urllib.parse import quote_plus
 
 import requests
 import yaml
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, MarkupResemblesLocatorWarning
 
 ROOT = Path(__file__).parent
 CONFIG_FILE = ROOT / "companies.yaml"
@@ -115,12 +116,24 @@ def clean_text(value: Any) -> str:
 
 
 def get_json(url: str, *, method: str = "GET", payload: dict[str, Any] | None = None) -> Any:
-    if method == "POST":
-        r = requests.post(url, json=payload or {}, headers=HEADERS, timeout=20)
-    else:
-        r = requests.get(url, headers=HEADERS, timeout=20)
-    r.raise_for_status()
-    return r.json()
+    for attempt in range(3):
+        if method == "POST":
+            response = requests.post(
+                url, json=payload or {}, headers=HEADERS, timeout=20
+            )
+        else:
+            response = requests.get(url, headers=HEADERS, timeout=20)
+
+        # Workday search POSTs occasionally return short-lived 429/5xx
+        # responses. Retry the bounded list query, but do not retry GET detail
+        # enrichment and amplify a tenant's rate limit.
+        retryable = method == "POST" and response.status_code in {429, 502, 503}
+        if retryable and attempt < 2:
+            time.sleep(1 + attempt * 2)
+            continue
+        response.raise_for_status()
+        return response.json()
+    raise RuntimeError("unreachable JSON retry state")
 
 
 def get_html(url: str) -> str:
@@ -666,7 +679,9 @@ def parse_html_search(company: dict[str, Any]) -> list[Job]:
     # Conservative fallback. Only use text from the link's nearest compact card;
     # whole-page text can attach an unrelated location to a blog or navigation link.
     page = get_html(company["url"])
-    soup = BeautifulSoup(page, "html.parser")
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", MarkupResemblesLocatorWarning)
+        soup = BeautifulSoup(page, "html.parser")
     results: list[Job] = []
     for a in soup.find_all("a", href=True):
         title = clean_text(a.get_text(" "))
@@ -765,7 +780,9 @@ def scrape_indeed_best_effort(config: dict[str, Any]) -> list[Job]:
         url = f"https://in.indeed.com/jobs?q={quote_plus(term)}&l=Bengaluru%2C+Karnataka&sort=date&fromage=1"
         try:
             page = get_html(url)
-            soup = BeautifulSoup(page, "html.parser")
+            with warnings.catch_warnings():
+                warnings.simplefilter("ignore", MarkupResemblesLocatorWarning)
+                soup = BeautifulSoup(page, "html.parser")
             cards = soup.select("div.job_seen_beacon, div.result, td.resultContent")
             for card in cards[:20]:
                 title = clean_text(card.select_one("h2, a[data-jk], span[title]") or card)

@@ -44,6 +44,7 @@ ALIASES = {
     "Broadcom": ["VMware by Broadcom"],
     "Shell": ["Shell Technology Centre Bangalore"],
     "Cigna": ["Evernorth Health Services"],
+    "Synopsys": ["Ansys"],
 }
 
 
@@ -64,11 +65,6 @@ def build_reviewed(raw_companies: list[dict[str, Any]]) -> list[dict[str, Any]]:
         record["name"] = canonical
         if canonical in ALIASES:
             record["aliases"] = ALIASES[canonical]
-
-        # Ansys already has a scoped scanner on the same TalentBrew portal.
-        # The complementary exclusion keeps the Synopsys scanner disjoint.
-        if canonical == "Synopsys":
-            record["excluded_keyword"] = "Ansys"
 
         if canonical in reviewed:
             if source_identity(reviewed[canonical]) != source_identity(record):

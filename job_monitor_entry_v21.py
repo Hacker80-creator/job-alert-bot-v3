@@ -22,7 +22,17 @@ OVERRIDES_FILE = ROOT / "source_overrides_v19.yaml"
 def load_final_config() -> dict:
     config = job_monitor_entry_v20.load_final_config()
     document = yaml.safe_load(OVERRIDES_FILE.read_text(encoding="utf-8")) or {}
-    return job_monitor_entry_v2.apply_overrides(config, document.get("companies", []))
+    config = job_monitor_entry_v2.apply_overrides(
+        config, document.get("companies", [])
+    )
+    # Synopsys and Ansys now share one first-party portal. Scan it once under
+    # the parent record; the Ansys label remains available as an alias.
+    config["companies"] = [
+        company
+        for company in config["companies"]
+        if str(company["name"]).casefold() != "ansys"
+    ]
+    return config
 
 
 if __name__ == "__main__":

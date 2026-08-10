@@ -14,9 +14,9 @@ class ProductionV21Tests(unittest.TestCase):
         }
 
     def test_registry_is_unique_and_counts_are_expected(self) -> None:
-        self.assertEqual(411, len(self.companies))
+        self.assertEqual(410, len(self.companies))
         self.assertEqual(
-            403,
+            402,
             sum(1 for item in self.companies.values() if item.get("enabled", True)),
         )
 
@@ -35,9 +35,9 @@ class ProductionV21Tests(unittest.TestCase):
                 for alias in aliases:
                     self.assertNotIn(alias, self.companies)
 
-    def test_synopsys_and_ansys_scopes_are_disjoint(self) -> None:
-        self.assertEqual("Ansys", self.companies["Ansys"]["required_keyword"])
-        self.assertEqual("Ansys", self.companies["Synopsys"]["excluded_keyword"])
+    def test_synopsys_and_ansys_share_one_scanner(self) -> None:
+        self.assertNotIn("Ansys", self.companies)
+        self.assertEqual(["Ansys"], self.companies["Synopsys"]["aliases"])
 
     def test_workflow_runs_v21_every_half_hour_with_write_permission(self) -> None:
         workflow = (
@@ -46,6 +46,7 @@ class ProductionV21Tests(unittest.TestCase):
         self.assertIn('cron: "7,37 * * * *"', workflow)
         self.assertIn("contents: write", workflow)
         self.assertIn("python job_monitor_entry_v21.py", workflow)
+        self.assertIn('MAX_SOURCE_WORKERS: "16"', workflow)
 
 
 if __name__ == "__main__":

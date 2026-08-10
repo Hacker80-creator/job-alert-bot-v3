@@ -698,7 +698,8 @@ companies:
   url: https://careers.synopsys.com/search-jobs
   career_site_url: https://careers.synopsys.com/search-jobs
   enabled: true
-  excluded_keyword: Ansys
+  aliases:
+  - Ansys
 - name: T. Rowe Price
   kind: product
   wlb_score: 3

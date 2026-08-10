@@ -43,7 +43,7 @@ jobs:
           SEND_STARTUP_SUMMARY: "false"
           SEND_DAILY_HEALTH: "true"
           DAILY_HEALTH_HOURS: "24"
-          MAX_SOURCE_WORKERS: "25"
+          MAX_SOURCE_WORKERS: "16"
           ENABLE_INDEED: "false"
         run: python job_monitor_entry_v21.py
 

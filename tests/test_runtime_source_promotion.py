@@ -43,8 +43,8 @@ class RuntimeSourcePromotionTests(unittest.TestCase):
         self.assertEqual("workday_search", self.by_name["Broadcom"]["ats"])
         self.assertEqual("workday_india", self.by_name["Shell"]["ats"])
 
-    def test_synopsys_excludes_ansys_scope(self) -> None:
-        self.assertEqual("Ansys", self.by_name["Synopsys"]["excluded_keyword"])
+    def test_synopsys_covers_ansys_as_one_portal_alias(self) -> None:
+        self.assertEqual(["Ansys"], self.by_name["Synopsys"]['aliases'])
 
 
 if __name__ == "__main__":
