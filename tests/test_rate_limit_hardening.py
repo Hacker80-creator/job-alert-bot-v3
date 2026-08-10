@@ -38,6 +38,20 @@ class RateLimitHardeningTests(unittest.TestCase):
             bot.get_json("https://example.com/job/one")
         request.assert_called_once()
 
+    def test_get_list_retries_transient_timeout(self) -> None:
+        with patch.object(
+            bot.requests,
+            "get",
+            side_effect=[
+                bot.requests.Timeout("temporary timeout"),
+                FakeResponse(200, {"jobs": [1]}),
+            ],
+        ) as request, patch.object(bot.time, "sleep") as sleep:
+            result = bot.get_json("https://example.com/jobs")
+        self.assertEqual({"jobs": [1]}, result)
+        self.assertEqual(2, request.call_count)
+        sleep.assert_called_once_with(1)
+
     def test_workday_india_skips_nonmatching_location_details(self) -> None:
         company = {
             "name": "Example",

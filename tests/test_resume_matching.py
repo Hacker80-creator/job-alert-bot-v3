@@ -50,6 +50,13 @@ class ResumeMatchingTests(unittest.TestCase):
             "Linux, Python, Ansible and Git.",
         )
 
+    def test_accepts_plain_engineer_with_strong_overlap_without_early_label(self) -> None:
+        self.assert_match(
+            "Engineer",
+            "Own CI/CD, deployment automation and containerization for Linux "
+            "build pipelines using Jenkins, Groovy, Docker, Python, Ansible and Git.",
+        )
+
     def test_accepts_compute_operations_role_matching_current_experience(self) -> None:
         self.assert_match(
             "Engineering Compute Operations Engineer",
@@ -89,6 +96,11 @@ class ResumeMatchingTests(unittest.TestCase):
             "Support Jenkins, Docker, Linux, Python and CI/CD systems.",
         )
 
+    def test_rejects_phd_specific_early_career_role(self) -> None:
+        self.assert_rejected(
+            "Software Engineer, AI/ML, PhD Early Career 2026",
+            "Early career role using Python and machine learning in Bengaluru.",
+        )
     def test_rejects_foreign_remote_role(self) -> None:
         self.assert_rejected(
             "Platform Engineer",

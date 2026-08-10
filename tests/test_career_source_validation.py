@@ -40,9 +40,9 @@ class FakeSession:
 class CareerSourceValidationTests(unittest.TestCase):
     def test_complete_mapping_is_unique_and_canonical(self) -> None:
         records = validation.read_mappings()
-        self.assertEqual(432, len(records))
-        self.assertEqual(432, len({item["name"].casefold() for item in records}))
-        self.assertEqual(26, sum(
+        self.assertEqual(433, len(records))
+        self.assertEqual(433, len({item["name"].casefold() for item in records}))
+        self.assertEqual(27, sum(
             bool(item["declared_no_public_board"]) for item in records
         ))
         self.assertIn("Dassault Systèmes", {item["name"] for item in records})

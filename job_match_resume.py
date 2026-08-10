@@ -33,6 +33,9 @@ NON_PROFILE_TITLE = re.compile(
     re.IGNORECASE,
 )
 EXPERIENCED_TITLE = re.compile(r"\badvisor\b", re.IGNORECASE)
+REQUIRED_DEGREE_TITLE = re.compile(
+    r"\b(?:ph\.?d\.?|doctorate|doctoral)\b", re.IGNORECASE
+)
 DESCRIPTION_SENIOR = re.compile(
     r"\b(?:senior contributor|senior[ -]level|seasoned professional|"
     r"experienced (?:software|platform|devops|data) engineer)\b",
@@ -157,8 +160,20 @@ def _resume_lane(job: bot.Job, settings: dict[str, Any]) -> tuple[int, list[str]
         if platform_title:
             qualified = len(platform_signals) >= 1 and len(profile_skills) >= 3
         else:
+            # Generic titles such as Qualcomm's "Engineer" are accepted only
+            # with either an early-career signal or very strong resume overlap.
+            # This keeps relevant platform/build roles without admitting generic
+            # embedded, support, or unrelated software-engineering openings.
             qualified = (
-                early and len(platform_signals) >= 2 and len(profile_skills) >= 4
+                (
+                    early
+                    and len(platform_signals) >= 2
+                    and len(profile_skills) >= 4
+                )
+                or (
+                    len(platform_signals) >= 3
+                    and len(profile_skills) >= 5
+                )
             )
         if qualified:
             score = 60
@@ -200,6 +215,8 @@ def _resume_lane(job: bot.Job, settings: dict[str, Any]) -> tuple[int, list[str]
 
 def resume_score_job(job: bot.Job, settings: dict[str, Any]) -> tuple[int, list[str]]:
     """Keep proven data/AI decisions, then evaluate the adjacent resume lane."""
+    if REQUIRED_DEGREE_TITLE.search(job.title or ""):
+        return 0, ["title requires a PhD/doctoral qualification not in the resume"]
     score, reasons = precision.precision_score_job(job, settings)
     if score:
         return score, reasons

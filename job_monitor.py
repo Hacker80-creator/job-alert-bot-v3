@@ -7,6 +7,7 @@ The bot is designed for GitHub Actions every 30 minutes.
 """
 from __future__ import annotations
 
+import ast
 import hashlib
 import html
 import json
@@ -19,7 +20,7 @@ from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Iterable
-from urllib.parse import quote_plus
+from urllib.parse import parse_qsl, quote_plus, urlencode, urlsplit, urlunsplit
 
 import requests
 import yaml
@@ -44,6 +45,95 @@ HEADERS = {
     "Accept": "application/json,text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
     "Accept-Language": "en-US,en;q=0.9",
 }
+
+
+def canonical_job_url(url: str) -> str:
+    """Normalize a job-specific public URL for cross-run deduplication."""
+    try:
+        parsed = urlsplit(str(url or "").strip())
+    except ValueError:
+        return ""
+    if parsed.scheme not in {"http", "https"} or not parsed.netloc:
+        return ""
+
+    path = re.sub(r"/+", "/", parsed.path or "/")
+    path = re.sub(r"/(?:en[-_][a-z]{2})(?=/)", "", path, flags=re.IGNORECASE)
+    path = re.sub(r"/apply(?=/|$)", "", path, flags=re.IGNORECASE)
+    path = path.rstrip("/") or "/"
+    query_items = []
+    for key, value in parse_qsl(parsed.query, keep_blank_values=True):
+        normalized_key = key.casefold()
+        if normalized_key.startswith("utm_") or normalized_key in {
+            "domain", "source", "src", "ref", "referrer", "gh_src", "tracking",
+            "q", "query", "keyword", "keywords", "location", "page", "lang", "hl",
+            "lastselectedfacet", "selectedcategoriesfacet", "track_view",
+        }:
+            continue
+        query_items.append((key, value))
+
+    query_names = {key.casefold() for key, _ in query_items}
+    job_marker = bool(re.search(
+        r"/(?:job|jobs|position|positions|posting|postings|requisition|"
+        r"requisitions|opening|openings)/[^/]+",
+        path,
+        re.IGNORECASE,
+    ))
+    identifier = bool(
+        re.search(r"[0-9a-f]{8}-[0-9a-f-]{20,}|\d{4,}|_[a-z]{0,3}\d{4,}", path, re.IGNORECASE)
+        or query_names.intersection({"id", "jobid", "job_id", "position_id", "opportunityid", "gh_jid"})
+    )
+    if not (job_marker or identifier):
+        return ""
+
+    normalized = urlunsplit((
+        parsed.scheme.casefold(),
+        parsed.netloc.casefold(),
+        path,
+        urlencode(sorted(query_items)),
+        "",
+    ))
+    return normalized.casefold()
+
+
+def is_public_job_url(url: str) -> bool:
+    """Return false for malformed links and known machine-only ATS endpoints."""
+    try:
+        parsed = urlsplit(str(url or "").strip())
+    except ValueError:
+        return False
+    if parsed.scheme not in {"http", "https"} or not parsed.netloc:
+        return False
+
+    host = parsed.netloc.casefold().split(":", 1)[0]
+    path = parsed.path.casefold()
+    if host in {
+        "api.smartrecruiters.com",
+        "api.lever.co",
+        "boards-api.greenhouse.io",
+    }:
+        return False
+    if any(marker in path for marker in (
+        "/wday/cxs/",
+        "/hcmrestapi/",
+        "/posting-api/job-board/",
+        "/recruiting/v2/api/feed/",
+    )):
+        return False
+    return True
+
+def make_url_fingerprint(url: str) -> str:
+    canonical = canonical_job_url(url)
+    if not canonical:
+        return ""
+    return hashlib.sha256(f"url|{canonical}".encode("utf-8")).hexdigest()[:24]
+
+
+def make_dedupe_keys(company: str, title: str, location: str, url: str = "") -> set[str]:
+    """Prefer a job-specific URL; use semantic identity only as a fallback."""
+    url_key = make_url_fingerprint(url)
+    if url_key:
+        return {url_key}
+    return {make_fingerprint(company, title, location)}
 
 
 def make_fingerprint(company: str, title: str, location: str) -> str:
@@ -73,6 +163,14 @@ class Job:
     def fingerprint(self) -> str:
         return make_fingerprint(self.company, self.title, self.location)
 
+    @property
+    def dedupe_keys(self) -> set[str]:
+        return make_dedupe_keys(self.company, self.title, self.location, self.url)
+
+    @property
+    def state_key(self) -> str:
+        """Use a requisition-specific key so equal titles do not overwrite."""
+        return make_url_fingerprint(self.url) or self.fingerprint
 
 def load_config() -> dict[str, Any]:
     with CONFIG_FILE.open("r", encoding="utf-8") as f:
@@ -83,21 +181,27 @@ def load_seen() -> dict[str, Any]:
     if STATE_FILE.exists():
         try:
             stored = json.loads(STATE_FILE.read_text(encoding="utf-8"))
-            if not isinstance(stored, dict):
-                return {}
-
-            # Migrate URL-based legacy keys so existing alerts stay deduplicated.
-            migrated: dict[str, Any] = {}
-            for old_key, record in stored.items():
-                if isinstance(record, dict) and all(record.get(k) for k in ("company", "title", "location")):
-                    key = make_fingerprint(record["company"], record["title"], record["location"])
-                    migrated[key] = record
-                else:
-                    migrated[old_key] = record
-            return migrated
+            return stored if isinstance(stored, dict) else {}
         except Exception:
             return {}
     return {}
+
+
+def state_dedupe_keys(seen: dict[str, Any]) -> set[str]:
+    """Build semantic and canonical-URL keys from persisted alert records."""
+    keys = set(seen)
+    for record in seen.values():
+        if not isinstance(record, dict):
+            continue
+        if not all(record.get(key) for key in ("company", "title", "location")):
+            continue
+        keys.update(make_dedupe_keys(
+            str(record["company"]),
+            str(record["title"]),
+            str(record["location"]),
+            str(record.get("url") or ""),
+        ))
+    return keys
 
 
 def save_seen(seen: dict[str, Any]) -> None:
@@ -117,12 +221,18 @@ def clean_text(value: Any) -> str:
 
 def get_json(url: str, *, method: str = "GET", payload: dict[str, Any] | None = None) -> Any:
     for attempt in range(3):
-        if method == "POST":
-            response = requests.post(
-                url, json=payload or {}, headers=HEADERS, timeout=20
-            )
-        else:
-            response = requests.get(url, headers=HEADERS, timeout=20)
+        try:
+            if method == "POST":
+                response = requests.post(
+                    url, json=payload or {}, headers=HEADERS, timeout=20
+                )
+            else:
+                response = requests.get(url, headers=HEADERS, timeout=20)
+        except (requests.Timeout, requests.ConnectionError):
+            if attempt >= 2:
+                raise
+            time.sleep(1 + attempt * 2)
+            continue
 
         # Workday search POSTs occasionally return short-lived 429/5xx
         # responses. Retry the bounded list query, but do not retry GET detail
@@ -143,13 +253,80 @@ def get_html(url: str) -> str:
 
 
 def flatten_location(value: Any) -> str:
+    if isinstance(value, str):
+        candidate = value.strip()
+        embedded = re.match(r"^(.*?)(\{.*\}|\[.*\])$", candidate, re.DOTALL)
+        prefix = clean_text(embedded.group(1)) if embedded else ""
+        structured = embedded.group(2) if embedded else candidate
+        if structured and structured[0] in "[{" and structured[-1] in "]}":
+            for loader in (json.loads, ast.literal_eval):
+                try:
+                    parsed = loader(structured)
+                except (ValueError, SyntaxError, TypeError, json.JSONDecodeError):
+                    continue
+                if isinstance(parsed, (dict, list)):
+                    # Workday sometimes appends a serialized country object to
+                    # an already complete location. Keep the readable prefix
+                    # because the metadata is redundant.
+                    return flatten_location(prefix) if prefix else flatten_location(parsed)
+        # Deduplicate repeated Workday locations joined with semicolons.
+        parts: list[str] = []
+        seen_parts: set[str] = set()
+        for item in candidate.split(";"):
+            part = clean_text(item)
+            normalized = normalize_match_text(part)
+            if part and normalized not in seen_parts:
+                parts.append(part)
+                seen_parts.add(normalized)
+        return "; ".join(parts)
     if isinstance(value, dict):
-        parts = [value.get(k) for k in ("name", "city", "region", "country", "location", "fullLocation", "formattedLocation")]
-        return clean_text(" ".join([str(p) for p in parts if p]))
+        values = [value.get(k) for k in (
+            "name", "descriptor", "city", "addressLocality", "region", "addressRegion",
+            "country", "addressCountry", "alpha2Code", "location", "fullLocation",
+            "formattedLocation",
+        )]
+        parts: list[str] = []
+        seen_parts: set[str] = set()
+        for item in values:
+            part = flatten_location(item) if item is not None else ""
+            normalized = normalize_match_text(part)
+            if part and normalized not in seen_parts:
+                parts.append(part)
+                seen_parts.add(normalized)
+        return clean_text(" ".join(parts))
     if isinstance(value, list):
-        return clean_text("; ".join(flatten_location(x) for x in value))
+        unique: list[str] = []
+        normalized_parts: list[str] = []
+        country_tokens = {"india", "in", "ind"}
+        for item in value:
+            part = flatten_location(item)
+            normalized = normalize_match_text(part)
+            if not part:
+                continue
+            skip = False
+            replace_index: int | None = None
+            for index, existing in enumerate(normalized_parts):
+                if normalized == existing:
+                    skip = True
+                    break
+                if normalized.startswith(existing + " "):
+                    suffix = normalized[len(existing):].strip().split()
+                    if suffix and set(suffix) <= country_tokens:
+                        skip = True
+                        break
+                if existing.startswith(normalized + " "):
+                    suffix = existing[len(normalized):].strip().split()
+                    if suffix and set(suffix) <= country_tokens:
+                        replace_index = index
+                        break
+            if replace_index is not None:
+                unique[replace_index] = part
+                normalized_parts[replace_index] = normalized
+            elif not skip:
+                unique.append(part)
+                normalized_parts.append(normalized)
+        return clean_text("; ".join(unique))
     return clean_text(value)
-
 
 def normalize_match_text(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", " ", value.casefold()).strip()
@@ -173,6 +350,8 @@ def has_location_match(location: str, settings: dict[str, Any]) -> bool:
 
     tokens = set(normalized.split())
     if "remote" in tokens and ("india" in tokens or "ind" in tokens):
+        return True
+    if "blr" in tokens and ("india" in tokens or "ind" in tokens):
         return True
 
     padded = f" {normalized} "
@@ -809,17 +988,17 @@ def scrape_indeed_best_effort(config: dict[str, Any]) -> list[Job]:
 
 def filter_and_score(jobs: Iterable[Job], settings: dict[str, Any]) -> list[Job]:
     output: list[Job] = []
-    seen_fp: set[str] = set()
+    seen_keys: set[str] = set()
     for job in jobs:
-        if not job.title or not job.url:
+        if not job.title or not is_public_job_url(job.url):
             continue
         score, reasons = score_job(job, settings)
         if score >= MIN_SCORE:
             job.score = score
             job.reasons = reasons
-            if job.fingerprint not in seen_fp:
+            if job.dedupe_keys.isdisjoint(seen_keys):
                 output.append(job)
-                seen_fp.add(job.fingerprint)
+                seen_keys.update(job.dedupe_keys)
     output.sort(key=lambda j: (j.score, j.wlb_score), reverse=True)
     return output
 
@@ -1001,6 +1180,7 @@ def main() -> int:
     SCAN_ERRORS.clear()
     config = load_config()
     seen = load_seen()
+    seen_keys = state_dedupe_keys(seen)
     settings = config["settings"]
     all_jobs: list[Job] = []
 
@@ -1016,10 +1196,8 @@ def main() -> int:
 
     new_jobs: list[Job] = []
     for job in matching:
-        fp = job.fingerprint
-        if fp not in seen:
+        if job.dedupe_keys.isdisjoint(seen_keys):
             new_jobs.append(job)
-
     print(f"Raw jobs: {len(all_jobs)} | Matching: {len(matching)} | New: {len(new_jobs)}")
 
     if SEND_STARTUP_SUMMARY:
@@ -1031,7 +1209,7 @@ def main() -> int:
         ok = discord_post(job)
         print(f"Alert {'sent' if ok else 'failed'}: {job.title} @ {job.company} ({job.score})")
         if ok:
-            seen[job.fingerprint] = {
+            seen[job.state_key] = {
                 "first_seen_utc": now,
                 "company": job.company,
                 "title": job.title,
@@ -1040,6 +1218,7 @@ def main() -> int:
                 "source": job.source,
                 "score": job.score,
             }
+            seen_keys.update(job.dedupe_keys)
             # Persist immediately after Discord accepts an alert. The workflow's
             # always-run state step commits this even if a later alert fails.
             save_seen(seen)

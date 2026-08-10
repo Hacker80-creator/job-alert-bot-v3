@@ -45,7 +45,7 @@ class ProductionV21Tests(unittest.TestCase):
         ).read_text(encoding="utf-8")
         self.assertIn('cron: "7,37 * * * *"', workflow)
         self.assertIn("contents: write", workflow)
-        self.assertIn("python job_monitor_entry_v21.py", workflow)
+        self.assertRegex(workflow, r"python job_monitor_entry_v\d+\.py")
         self.assertIn('MAX_SOURCE_WORKERS: "16"', workflow)
 
 

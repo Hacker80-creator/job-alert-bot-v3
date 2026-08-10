@@ -122,6 +122,34 @@ def run() -> int:
                 bot.SCAN_ERRORS.append(company["name"])
                 cached[key] = []
 
+    enabled_sources = [
+        company for company in config["companies"] if company.get("enabled", True)
+    ]
+    failed_names = set(bot.SCAN_ERRORS)
+    zero_names = sorted(
+        company["name"]
+        for company in enabled_sources
+        if not cached.get(str(company["name"]).casefold())
+        and company["name"] not in failed_names
+    )
+    covered_labels = {
+        str(label).casefold()
+        for company in enabled_sources
+        for label in [company["name"], *company.get("aliases", [])]
+    }
+    print(
+        "SOURCE COVERAGE | "
+        f"configured={len(config['companies'])} | "
+        f"enabled_scanners={len(enabled_sources)} | "
+        f"covered_company_labels={len(covered_labels)} | "
+        f"completed={len(enabled_sources) - len(failed_names)} | "
+        f"nonzero={len(enabled_sources) - len(failed_names) - len(zero_names)} | "
+        f"zero={len(zero_names)} | failed={len(failed_names)}"
+    )
+    if zero_names:
+        print("ZERO-JOB SOURCES | " + ", ".join(zero_names))
+    if failed_names:
+        print("FAILED SOURCES | " + ", ".join(sorted(failed_names)))
     prefetch_errors = set(bot.SCAN_ERRORS)
 
     def cached_fetch(company: dict[str, Any]) -> list[bot.Job]:

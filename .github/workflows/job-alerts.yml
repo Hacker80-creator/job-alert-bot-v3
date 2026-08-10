@@ -45,7 +45,7 @@ jobs:
           DAILY_HEALTH_HOURS: "24"
           MAX_SOURCE_WORKERS: "16"
           ENABLE_INDEED: "false"
-        run: python job_monitor_entry_v21.py
+        run: python job_monitor_entry_v22.py
 
       - name: Persist deduplication state
         if: ${{ always() }}

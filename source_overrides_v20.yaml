@@ -1,0 +1,182 @@
+metadata:
+  verified_at: "2026-08-11"
+  note: "Replace legacy zero-result HTML fallbacks with live first-party ATS feeds."
+
+companies:
+  - name: "PayPal"
+    ats: "eightfold"
+    url: "https://paypal.eightfold.ai/api/pcsx/search"
+    career_site_url: "https://paypal.eightfold.ai/careers"
+    domain: "paypal.com"
+    search_terms:
+      - "data scientist"
+      - "machine learning"
+      - "data analyst"
+      - "data engineer"
+      - "MLOps"
+      - "DevOps"
+      - "platform engineer"
+      - "automation engineer"
+    max_results_per_search: 30
+    enabled: true
+
+  - name: "Adobe"
+    ats: "workday_search"
+    url: "https://adobe.wd5.myworkdayjobs.com/wday/cxs/adobe/external_experienced/jobs"
+    career_site_url: "https://adobe.wd5.myworkdayjobs.com/en-US/external_experienced"
+    max_results_per_term: 60
+    enabled: true
+
+  - name: "Mastercard"
+    ats: "workday_search"
+    url: "https://mastercard.wd1.myworkdayjobs.com/wday/cxs/mastercard/CorporateCareers/jobs"
+    career_site_url: "https://mastercard.wd1.myworkdayjobs.com/en-US/CorporateCareers"
+    max_results_per_term: 60
+    enabled: true
+
+  - name: "Philips"
+    ats: "workday_search"
+    url: "https://philips.wd3.myworkdayjobs.com/wday/cxs/philips/jobs-and-careers/jobs"
+    career_site_url: "https://philips.wd3.myworkdayjobs.com/en-US/jobs-and-careers"
+    max_results_per_term: 60
+    enabled: true
+
+  - name: "Oracle"
+    ats: "oracle_hcm"
+    url: "https://eeho.fa.us2.oraclecloud.com/hcmRestApi/resources/latest/recruitingCEJobRequisitions"
+    career_site_url: "https://careers.oracle.com/en/sites/jobsearch"
+    site_number: "CX_45001"
+    search_terms:
+      - "data"
+      - "machine learning"
+      - "AI"
+      - "analytics"
+      - "data engineer"
+      - "DevOps"
+      - "platform engineer"
+      - "automation engineer"
+    max_results_per_term: 48
+    enabled: true
+
+  - name: "Google"
+    ats: "google_careers_html"
+    url: "https://www.google.com/about/careers/applications/jobs/results/"
+    career_site_url: "https://www.google.com/about/careers/applications/jobs/results/"
+    search_location: "Bengaluru, Karnataka, India"
+    search_terms:
+      - "data"
+      - "machine learning"
+      - "analytics"
+      - "AI"
+      - "data engineer"
+      - "DevOps"
+      - "platform engineer"
+      - "automation engineer"
+    max_pages_per_term: 2
+    max_details: 200
+    detail_workers: 8
+    enabled: true
+
+  - name: "CGI"
+    ats: "njoyn_html"
+    url: "https://cgi.njoyn.com/corp/xweb/xweb.asp?CLID=21001&CountryID=IN&page=joblisting"
+    career_site_url: "https://cgi.njoyn.com/corp/xweb/xweb.asp?CLID=21001&CountryID=IN&page=joblisting"
+    enabled: true
+  - name: "Salesforce"
+    ats: "workday_search"
+    url: "https://salesforce.wd12.myworkdayjobs.com/wday/cxs/salesforce/External_Career_Site/jobs"
+    career_site_url: "https://salesforce.wd12.myworkdayjobs.com/en-US/External_Career_Site"
+    search_terms:
+      - "data"
+      - "machine learning"
+      - "AI"
+      - "analytics"
+      - "data engineer"
+      - "DevOps"
+      - "platform engineer"
+      - "automation engineer"
+    max_results_per_term: 60
+    enabled: true
+
+  - name: "Akamai"
+    ats: "oracle_hcm"
+    url: "https://fa-extu-saasfaprod1.fa.ocs.oraclecloud.com/hcmRestApi/resources/latest/recruitingCEJobRequisitions"
+    career_site_url: "https://jobs.akamai.com/en/sites/CX_1"
+    site_number: "CX_1"
+    search_terms:
+      - "data"
+      - "machine learning"
+      - "AI"
+      - "analytics"
+      - "data engineer"
+      - "DevOps"
+      - "platform engineer"
+      - "automation engineer"
+    max_results_per_term: 48
+    enabled: true
+
+  - name: "HubSpot"
+    ats: "greenhouse"
+    slug: "hubspotjobs"
+    career_site_url: "https://www.hubspot.com/careers/jobs/all"
+    enabled: true
+
+  - name: "MakeMyTrip"
+    ats: "makemytrip_api"
+    url: "https://careers.makemytrip.com/api/jobs"
+    detail_url: "https://careers.makemytrip.com/api/jobDetails"
+    career_site_url: "https://careers.makemytrip.com"
+    max_candidate_details: 30
+    enabled: true
+
+  - name: "Zoho"
+    ats: "zoho_careers_html"
+    url: "https://careers.zohocorp.com/jobs/Careers"
+    career_site_url: "https://careers.zohocorp.com/jobs/Careers"
+    enabled: true
+
+  - name: "Walmart Global Tech"
+    ats: "walmart_graphql"
+    url: "https://careers.walmart.com/api/graphql"
+    career_site_url: "https://careers.walmart.com"
+    search_query_id: "7f8023e8-44dc-4292-aa8b-2987b977b67a"
+    detail_query_id: "db54b06d-3bde-432b-a303-cf94499f261a"
+    search_terms:
+      - "data"
+      - "machine learning"
+      - "AI"
+      - "analytics"
+      - "data engineer"
+      - "DevOps"
+      - "platform engineer"
+      - "automation engineer"
+    max_results_per_term: 40
+    enabled: true
+  - name: "Booking.com"
+    ats: "jibe_api"
+    url: "https://jobs.booking.com/api/jobs"
+    career_site_url: "https://jobs.booking.com/booking/jobs"
+    page_size: 100
+    max_results: 500
+    enabled: true
+
+  - name: "OneStream"
+    ats: "ukg_jobboard"
+    url: "https://recruiting.ultipro.com/ONE1018ONSO/JobBoard/1955ffa6-bda6-4c95-8412-2c731d693ab2/JobBoardView/LoadSearchResults"
+    career_site_url: "https://recruiting.ultipro.com/ONE1018ONSO/JobBoard/1955ffa6-bda6-4c95-8412-2c731d693ab2"
+    page_size: 50
+    max_results: 300
+    enabled: true
+  - name: "Flipkart"
+    enabled: false
+    source_status: "dynamic_no_direct_urls"
+    source_note: "Official jobslist advertises openings but currently renders only truncated cards without a stable job-specific or apply URL. Disabled to prevent non-actionable alerts."
+  - name: "Myntra"
+    enabled: false
+    source_status: "login_required"
+    source_note: "Current vacancies are only exposed through LinkedIn and require sign-in. Disabled because this bot promises public, directly usable application links."
+
+  - name: "FreshToHome"
+    enabled: false
+    source_status: "no_public_board"
+    source_note: "Official site publishes a careers email but no public searchable openings board."
