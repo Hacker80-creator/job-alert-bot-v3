@@ -1,8 +1,6 @@
 {
   "allowlist_count": 796,
-  "failed_sources": [
-    "Qualcomm"
-  ],
-  "last_notice_utc": "2026-08-10T19:30:55.633569+00:00",
+  "failed_sources": [],
+  "last_notice_utc": "2026-08-10T20:08:15.008827+00:00",
   "official_source_count": 400
 }
