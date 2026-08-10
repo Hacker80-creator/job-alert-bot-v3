@@ -1,0 +1,14 @@
+metadata:
+  verified_at: "2026-08-10"
+  note: "Replace retired Atlassian Lever and Chargebee Greenhouse boards with live first-party career sources."
+companies:
+  - name: "Atlassian"
+    ats: "atlassian_listings"
+    url: "https://www.atlassian.com/endpoint/careers/listings"
+    career_site_url: "https://www.atlassian.com/company/careers/all-jobs"
+    enabled: true
+  - name: "Chargebee"
+    ats: "successfactors_html"
+    url: "https://jobs.chargebee.com/search/?q=&locationsearch="
+    career_site_url: "https://jobs.chargebee.com/"
+    enabled: true

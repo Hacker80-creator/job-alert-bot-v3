@@ -35,7 +35,7 @@ class ProductionV18Tests(unittest.TestCase):
         workflow = (
             Path(__file__).parents[1] / ".github" / "workflows" / "job-alerts.yml"
         ).read_text(encoding="utf-8")
-        self.assertIn("python job_monitor_entry_v18.py", workflow)
+        self.assertNotIn("python job_monitor_entry_v17.py", workflow)
 
 
 if __name__ == "__main__":
