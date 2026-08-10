@@ -1,6 +1,6 @@
 """Truthful, format-preserving resume tailoring for Discord job alerts.
 
-Claude proposes structured edits. Deterministic validation checks every
+Gemini proposes structured edits. Deterministic validation checks every
 proposal against the immutable master before modifying a copy.
 """
 from __future__ import annotations
@@ -26,10 +26,10 @@ from docx.text.paragraph import Paragraph
 ROOT = Path(__file__).parent
 DEFAULT_MASTER_RESUME = ROOT / "resume" / "master_resume.docx"
 DEFAULT_OUTPUT_DIR = ROOT / "resumes" / "generated"
-ANTHROPIC_MESSAGES_URL = "https://api.anthropic.com/v1/messages"
-PRIMARY_MODEL = os.getenv("CLAUDE_PRIMARY_MODEL", "claude-sonnet-4-6").strip()
+GEMINI_INTERACTIONS_URL = "https://generativelanguage.googleapis.com/v1beta/interactions"
+PRIMARY_MODEL = os.getenv("GEMINI_PRIMARY_MODEL", "gemini-3.6-flash").strip()
 FALLBACK_MODEL = os.getenv(
-    "CLAUDE_FALLBACK_MODEL", "claude-haiku-4-5-20251001"
+    "GEMINI_FALLBACK_MODEL", "gemini-3.5-flash-lite"
 ).strip()
 REQUIRED_HEADINGS = (
     "PROFESSIONAL SUMMARY",
@@ -201,6 +201,15 @@ def _package_entries(path: Path) -> tuple[str, ...]:
         return tuple(sorted(archive.namelist()))
 
 
+def _preserve_only_part_hashes(path: Path) -> tuple[tuple[str, str], ...]:
+    with zipfile.ZipFile(path) as archive:
+        return tuple(
+            (name, hashlib.sha256(archive.read(name)).hexdigest())
+            for name in sorted(archive.namelist())
+            if name != "word/document.xml"
+        )
+
+
 def _hyperlink_targets(path: Path) -> tuple[str, ...]:
     relationship_part = "word/_rels/document.xml.rels"
     with zipfile.ZipFile(path) as archive:
@@ -333,7 +342,11 @@ def build_prompt(template: TemplateSnapshot, job: Any) -> str:
 NON-NEGOTIABLE RULES
 - The master resume is the only factual source of truth.
 - Never invent experience, tools, cloud platforms, metrics, dates, education, titles, certifications, or responsibilities.
-- Every rewritten summary or bullet must include exact evidence quotes copied from the master resume.
+- Every rewritten summary must include exact evidence quotes copied from the master resume.
+- Every rewritten bullet must include exact evidence quotes copied from that same indexed source bullet.
+- Never use the job description as factual evidence about the candidate.
+- ATS alignment may use only truthful keywords already supported by the cited evidence.
+- If a field cannot be improved safely, keep it unchanged or omit its rewrite proposal.
 - Keep the summary no longer than the existing summary.
 - Keep every bullet no longer than its source bullet.
 - Use only skill names from ALLOWED SKILLS in skill_priorities and supported_skills.
@@ -371,41 +384,47 @@ MASTER RESUME FACTS
 def _response_json(response: requests.Response) -> dict[str, Any]:
     response.raise_for_status()
     payload = response.json()
-    if payload.get("stop_reason") in {"refusal", "max_tokens"}:
+    status = str(payload.get("status", "") or "").casefold()
+    if status and status != "completed":
         raise ResumeTailoringError(
-            f"Claude stopped without a usable plan: {payload.get('stop_reason')}"
+            f"Gemini stopped without a usable plan: {status}"
         )
-    text_blocks = [
-        block.get("text", "")
-        for block in payload.get("content", [])
-        if isinstance(block, dict) and block.get("type") == "text"
-    ]
+    text_blocks: list[str] = []
+    for step in payload.get("steps", []):
+        if not isinstance(step, dict) or step.get("type") != "model_output":
+            continue
+        for block in step.get("content", []):
+            if isinstance(block, dict) and block.get("type") == "text":
+                text_blocks.append(str(block.get("text", "")))
+    if not text_blocks and isinstance(payload.get("output_text"), str):
+        text_blocks.append(payload["output_text"])
     if not text_blocks:
-        raise ResumeTailoringError("Claude returned no structured text")
+        raise ResumeTailoringError("Gemini returned no structured text")
     result = json.loads("".join(text_blocks))
     if not isinstance(result, dict):
-        raise ResumeTailoringError("Claude response was not a JSON object")
+        raise ResumeTailoringError("Gemini response was not a JSON object")
     return result
 
 
 def _call_model(model: str, prompt: str, api_key: str) -> dict[str, Any]:
     response = requests.post(
-        ANTHROPIC_MESSAGES_URL,
+        GEMINI_INTERACTIONS_URL,
         headers={
-            "x-api-key": api_key,
-            "anthropic-version": "2023-06-01",
+            "x-goog-api-key": api_key,
             "content-type": "application/json",
         },
         json={
             "model": model,
-            "max_tokens": 3_500,
-            "system": (
+            "system_instruction": (
                 "You are a truthful resume editor. Optimize relevance without "
-                "adding any claim not explicitly supported by the supplied master resume."
+                "adding any claim not explicitly supported by exact evidence from "
+                "the supplied master resume. Return only schema-valid JSON."
             ),
-            "messages": [{"role": "user", "content": prompt}],
-            "output_config": {
-                "format": {"type": "json_schema", "schema": TAILOR_SCHEMA}
+            "input": {"parts": [{"text": prompt}]},
+            "response_format": {
+                "type": "text",
+                "mime_type": "application/json",
+                "schema": TAILOR_SCHEMA,
             },
         },
         timeout=(15, 120),
@@ -426,9 +445,9 @@ def request_tailoring_plan(
     *,
     api_key: str | None = None,
 ) -> tuple[dict[str, Any], str, tuple[str, ...]]:
-    key = (api_key if api_key is not None else os.getenv("ANTHROPIC_API_KEY", "")).strip()
+    key = (api_key if api_key is not None else os.getenv("GEMINI_API_KEY", "")).strip()
     if not key:
-        raise ResumeTailoringError("ANTHROPIC_API_KEY is missing")
+        raise ResumeTailoringError("GEMINI_API_KEY is missing")
     prompt = build_prompt(template, job)
     warnings: list[str] = []
     models = tuple(dict.fromkeys(model for model in (PRIMARY_MODEL, FALLBACK_MODEL) if model))
@@ -437,7 +456,7 @@ def request_tailoring_plan(
             return _call_model(model, prompt, key), model, tuple(warnings)
         except Exception as exc:
             warnings.append(f"{model} failed: {type(exc).__name__}")
-    raise ResumeTailoringError("; ".join(warnings) or "No Claude model configured")
+    raise ResumeTailoringError("; ".join(warnings) or "No Gemini model configured")
 
 
 def _numbers(value: str) -> set[str]:
@@ -470,6 +489,7 @@ def _claim_is_grounded(
     template: TemplateSnapshot,
     *,
     max_length: int,
+    allowed_evidence_text: str | None = None,
 ) -> bool:
     if not isinstance(text, str) or not text.strip() or len(text) > max_length:
         return False
@@ -478,16 +498,18 @@ def _claim_is_grounded(
         return False
     if any(marker in text for marker in ("\u200b", "\u200c", "\u200d")):
         return False
-    if not _evidence_is_valid(evidence, template.full_text):
+    evidence_source = allowed_evidence_text or template.full_text
+    if not _evidence_is_valid(evidence, evidence_source):
         return False
-    if not _numbers(text).issubset(_numbers(template.full_text)):
+    evidence_text = " ".join(str(value) for value in evidence)
+    if not _numbers(text).issubset(_numbers(evidence_text)):
         return False
     for term in KNOWN_TECH_TERMS:
-        if _contains_phrase(text, term) and not _contains_phrase(template.full_text, term):
+        if _contains_phrase(text, term) and not _contains_phrase(evidence_text, term):
             return False
     proposal_tokens = _tokens(text)
     if proposal_tokens:
-        supported_tokens = _tokens(template.full_text + " " + " ".join(evidence))
+        supported_tokens = _tokens(evidence_text)
         novel_ratio = len(proposal_tokens - supported_tokens) / len(proposal_tokens)
         if novel_ratio > 0.35:
             return False
@@ -600,6 +622,7 @@ def validate_plan(
             if _claim_is_grounded(
                 proposed_text, proposal.get("evidence"), template,
                 max_length=len(source),
+                allowed_evidence_text=source,
             ):
                 accepted.append({
                     "index": local_index,
@@ -760,6 +783,29 @@ def output_filename(job: Any) -> str:
     ))
 
 
+def _restore_preserve_only_parts(master_path: Path, output_path: Path) -> None:
+    """Keep every package part except the edited document XML byte-for-byte."""
+    temporary_path = output_path.with_name(f".{output_path.name}.building")
+    try:
+        with (
+            zipfile.ZipFile(master_path) as master_archive,
+            zipfile.ZipFile(output_path) as generated_archive,
+        ):
+            generated_document_xml = generated_archive.read("word/document.xml")
+            with zipfile.ZipFile(temporary_path, "w") as rebuilt:
+                for item in master_archive.infolist():
+                    content = (
+                        generated_document_xml
+                        if item.filename == "word/document.xml"
+                        else master_archive.read(item.filename)
+                    )
+                    rebuilt.writestr(item, content)
+        os.replace(temporary_path, output_path)
+    finally:
+        if temporary_path.exists():
+            temporary_path.unlink()
+
+
 def render_tailored_resume(
     template: TemplateSnapshot,
     plan: dict[str, Any],
@@ -796,6 +842,7 @@ def render_tailored_resume(
     for heading_index in template.headings.values():
         paragraphs[heading_index].paragraph_format.keep_with_next = True
     document.save(output_path)
+    _restore_preserve_only_parts(template.path, output_path)
     return output_path
 
 
@@ -809,6 +856,8 @@ def validate_generated_resume(
         raise ResumeTailoringError("Master resume changed during tailoring")
     if _package_entries(output) != template.package_entries:
         raise ResumeTailoringError("DOCX package structure changed unexpectedly")
+    if _preserve_only_part_hashes(output) != _preserve_only_part_hashes(template.path):
+        raise ResumeTailoringError("Generated resume changed preserve-only DOCX parts")
     if _hyperlink_targets(output) != template.hyperlink_targets:
         raise ResumeTailoringError("Generated resume hyperlinks changed")
     generated = Document(output)

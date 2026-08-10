@@ -79,19 +79,22 @@ Name: DISCORD_WEBHOOK_URL
 Secret: paste your Discord webhook URL
 ```
 
-### 3a. Add the Claude API secret for tailored resume attachments
+### 3a. Add the Gemini API secret for tailored resume attachments
 
-Create an Anthropic API key, then add one more repository secret:
+Create a Gemini Developer API key in Google AI Studio, then add one more
+repository secret:
 
 ```text
-Name: ANTHROPIC_API_KEY
-Secret: paste your Anthropic API key
+Name: GEMINI_API_KEY
+Secret: paste your Gemini API key
 ```
 
-Production uses `claude-sonnet-4-6` first and automatically falls back to
-`claude-haiku-4-5-20251001`. The committed `resume/master_resume.docx` is the
-immutable formatting and factual source; every alert edits a copy and attaches
-the generated DOCX without suppressing the normal job card if tailoring fails.
+Production uses `gemini-3.6-flash` first and automatically falls back to
+`gemini-3.5-flash-lite`. Both support structured output. The committed
+`resume/master_resume.docx` is the immutable formatting and factual source;
+every alert edits a copy and attaches the generated DOCX without suppressing
+the normal job card if tailoring fails. Free-tier Gemini requests are subject
+to Google project quotas and may be used by Google to improve its products.
 
 Manual runs from a non-`main` branch send one clearly labeled resume integration
 test only. They do not scan companies or update the production deduplication

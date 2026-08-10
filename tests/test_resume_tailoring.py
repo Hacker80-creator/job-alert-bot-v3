@@ -4,6 +4,7 @@ import hashlib
 import json
 import tempfile
 import unittest
+import zipfile
 from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import Mock, patch
@@ -60,6 +61,14 @@ class ResumeTailoringTests(unittest.TestCase):
             self.assertIn("Python", result.supported_skills)
             self.assertIn("AWS", result.important_gaps)
             tailor.validate_generated_resume(self.template, result.path)
+            with zipfile.ZipFile(MASTER) as master_zip, zipfile.ZipFile(result.path) as generated_zip:
+                for name in master_zip.namelist():
+                    if name != "word/document.xml":
+                        self.assertEqual(
+                            master_zip.read(name),
+                            generated_zip.read(name),
+                            f"preserve-only DOCX part changed: {name}",
+                        )
             generated = Document(result.path)
             self.assertEqual(len(master_doc.paragraphs), len(generated.paragraphs))
             self.assertEqual(
@@ -100,7 +109,7 @@ class ResumeTailoringTests(unittest.TestCase):
         self.assertTrue(any("unsafe summary" in warning for warning in warnings))
         self.assertTrue(any("experience_bullets" in warning for warning in warnings))
 
-    def test_primary_model_falls_back_to_haiku(self) -> None:
+    def test_primary_model_falls_back_to_flash_lite(self) -> None:
         raw = tailor.safe_plan(self.template, make_job())
         with patch.object(
             tailor, "_call_model", side_effect=[RuntimeError("primary down"), raw]
@@ -109,9 +118,52 @@ class ResumeTailoringTests(unittest.TestCase):
                 self.template, make_job(), api_key="test-key"
             )
         self.assertEqual(raw, plan)
-        self.assertEqual("claude-haiku-4-5-20251001", model)
+        self.assertEqual("gemini-3.5-flash-lite", model)
         self.assertEqual(2, call.call_count)
-        self.assertTrue(any("claude-sonnet-4-6" in warning for warning in warnings))
+        self.assertTrue(any("gemini-3.6-flash" in warning for warning in warnings))
+
+    def test_gemini_request_uses_schema_and_secret_header(self) -> None:
+        raw = tailor.safe_plan(self.template, make_job())
+        response = Mock()
+        response.json.return_value = {
+            "status": "completed",
+            "steps": [{
+                "type": "model_output",
+                "content": [{"type": "text", "text": json.dumps(raw)}],
+            }],
+        }
+        with patch.object(tailor.requests, "post", return_value=response) as post:
+            self.assertEqual(
+                raw,
+                tailor._call_model("gemini-3.6-flash", "prompt", "test-secret"),
+            )
+        kwargs = post.call_args.kwargs
+        self.assertEqual("test-secret", kwargs["headers"]["x-goog-api-key"])
+        self.assertNotIn("test-secret", post.call_args.args[0])
+        self.assertEqual(
+            "application/json",
+            kwargs["json"]["response_format"]["mime_type"],
+        )
+        self.assertEqual(
+            tailor.TAILOR_SCHEMA,
+            kwargs["json"]["response_format"]["schema"],
+        )
+
+    def test_metric_or_skill_cannot_move_between_bullets(self) -> None:
+        job = make_job()
+        first = self.template.paragraphs[self.template.experience_indices[0]]
+        second = self.template.paragraphs[self.template.experience_indices[1]]
+        raw = tailor.safe_plan(self.template, job)
+        raw["experience_bullets"] = [{
+            "index": 1,
+            "text": "•  Containerized 20+ repositories using Docker.",
+            "evidence": [second],
+        }]
+        plan, warnings = tailor.validate_plan(raw, self.template, job)
+        self.assertIn("20+", first)
+        self.assertNotIn("20+", second)
+        self.assertEqual([], plan["experience_bullets"])
+        self.assertTrue(any("experience_bullets[1]" in value for value in warnings))
 
     def test_output_name_contains_company_role_and_job_id(self) -> None:
         filename = tailor.output_filename(make_job())
@@ -133,7 +185,7 @@ class ResumeTailoringTests(unittest.TestCase):
             path=MASTER,
             supported_skills=("Python", "SQL"),
             important_gaps=("AWS",),
-            model="claude-sonnet-4-6",
+            model="gemini-3.6-flash",
         )
         original_webhook = bot.DISCORD_WEBHOOK_URL
         try:
@@ -175,9 +227,10 @@ class ResumeTailoringTests(unittest.TestCase):
         self.assertIn("ref: ${{ github.ref }}", workflow)
         self.assertIn("github.ref_name != 'main'", workflow)
         self.assertIn("always() && github.ref_name == 'main'", workflow)
-        self.assertIn("ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}", workflow)
-        self.assertIn('CLAUDE_PRIMARY_MODEL: "claude-sonnet-4-6"', workflow)
-        self.assertIn('CLAUDE_FALLBACK_MODEL: "claude-haiku-4-5-20251001"', workflow)
+        self.assertIn("GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}", workflow)
+        self.assertIn('GEMINI_PRIMARY_MODEL: "gemini-3.6-flash"', workflow)
+        self.assertIn('GEMINI_FALLBACK_MODEL: "gemini-3.5-flash-lite"', workflow)
+        self.assertNotIn("ANTHROPIC_API_KEY", workflow)
 
 
 if __name__ == "__main__":

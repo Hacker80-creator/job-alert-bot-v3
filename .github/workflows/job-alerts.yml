@@ -43,9 +43,9 @@ jobs:
         if: ${{ github.event_name == 'workflow_dispatch' && github.ref_name != 'main' }}
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          CLAUDE_PRIMARY_MODEL: "claude-sonnet-4-6"
-          CLAUDE_FALLBACK_MODEL: "claude-haiku-4-5-20251001"
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_PRIMARY_MODEL: "gemini-3.6-flash"
+          GEMINI_FALLBACK_MODEL: "gemini-3.5-flash-lite"
           MASTER_RESUME_PATH: "resume/master_resume.docx"
           TAILORED_RESUME_DIR: ${{ runner.temp }}/tailored-resumes
         run: python resume_test_alert.py
@@ -54,13 +54,13 @@ jobs:
         if: ${{ github.ref_name == 'main' }}
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           ENABLE_RESUME_TAILORING: "true"
-          CLAUDE_PRIMARY_MODEL: "claude-sonnet-4-6"
-          CLAUDE_FALLBACK_MODEL: "claude-haiku-4-5-20251001"
+          GEMINI_PRIMARY_MODEL: "gemini-3.6-flash"
+          GEMINI_FALLBACK_MODEL: "gemini-3.5-flash-lite"
           MASTER_RESUME_PATH: "resume/master_resume.docx"
           TAILORED_RESUME_DIR: ${{ runner.temp }}/tailored-resumes
-          RESUME_TAILOR_WORKERS: "5"
+          RESUME_TAILOR_WORKERS: "2"
           MIN_SCORE: "70"
           MAX_ALERTS_PER_RUN: "15"
           SEND_STARTUP_SUMMARY: "false"

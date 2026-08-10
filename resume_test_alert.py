@@ -8,8 +8,8 @@ from resume_tailor import generate_tailored_resume
 
 
 def main() -> int:
-    if not os.getenv("ANTHROPIC_API_KEY", "").strip():
-        print("ERROR: ANTHROPIC_API_KEY repository secret is missing")
+    if not os.getenv("GEMINI_API_KEY", "").strip():
+        print("ERROR: GEMINI_API_KEY repository secret is missing")
         return 2
     if not bot.DISCORD_WEBHOOK_URL:
         print("ERROR: DISCORD_WEBHOOK_URL repository secret is missing")
@@ -31,7 +31,7 @@ def main() -> int:
         score=100,
         reasons=[
             "branch-only resume integration test",
-            "validates Claude, DOCX generation and Discord upload",
+            "validates Gemini, grounded DOCX generation and Discord upload",
             "does not scan jobs or update deduplication state",
         ],
         requisition_id="RESUME-TEST-001",
