@@ -1,9 +1,6 @@
 {
-  "allowlist_count": 794,
-  "failed_sources": [
-    "Dream11",
-    "Zepto"
-  ],
-  "last_notice_utc": "2026-08-10T16:43:09.518791+00:00",
-  "official_source_count": 262
+  "allowlist_count": 795,
+  "failed_sources": [],
+  "last_notice_utc": "2026-08-10T17:23:12.409920+00:00",
+  "official_source_count": 297
 }

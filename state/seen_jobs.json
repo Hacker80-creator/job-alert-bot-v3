@@ -26,6 +26,15 @@
     "title": "Technical Support Engineer 1",
     "url": "https://job-boards.greenhouse.io/twilio/jobs/8016229"
   },
+  "0bef99144947a32e0081dc3e": {
+    "company": "Airbus India",
+    "first_seen_utc": "2026-08-10T17:22:58.491180+00:00",
+    "location": "Bangalore Area; {'descriptor': 'India', 'id': 'c4f78be1a8f14da0ab49ce1162348a5e', 'alpha2Code': 'IN'};",
+    "score": 100,
+    "source": "Official careers: Workday India facet",
+    "title": "Data Scientist - Air Systems",
+    "url": "https://ag.wd3.myworkdayjobs.com/Airbus/job/Bangalore-Area/Data-Scientist---Air-Systems_JR10416662-1"
+  },
   "0f768458ccc6d60d96e1aa3b": {
     "company": "UiPath",
     "first_seen_utc": "2026-08-05T18:10:13.388953+00:00",
@@ -34,6 +43,15 @@
     "source": "Official careers: Ashby",
     "title": "Associate RPA Developer",
     "url": "https://jobs.ashbyhq.com/uipath/bf05f562-f877-48ee-aaf0-26693e507376"
+  },
+  "0fb0931629c62da245962ff9": {
+    "company": "Boeing",
+    "first_seen_utc": "2026-08-10T17:22:58.491180+00:00",
+    "location": "IND - Bangalore, India; {'descriptor': 'India', 'id': 'c4f78be1a8f14da0ab49ce1162348a5e', 'alpha2Code': 'IN'};",
+    "score": 100,
+    "source": "Official careers: Workday India facet",
+    "title": "Associate AI/ML Engineer \u2013 Predictive Maintenance",
+    "url": "https://boeing.wd1.myworkdayjobs.com/EXTERNAL_CAREERS/job/IND---Bangalore-India/Associate-AI-ML-Engineer---Predictive-Maintenance_JR2026517898-2"
   },
   "119a317301cf2c884d1412bb": {
     "company": "Amazon",
@@ -52,6 +70,15 @@
     "source": "Official careers: Greenhouse",
     "title": "Product Analyst II",
     "url": "https://job-boards.greenhouse.io/glance/jobs/7984518"
+  },
+  "1ca2b565d3b47bf4c77e127c": {
+    "company": "Amadeus",
+    "first_seen_utc": "2026-08-10T17:22:58.491180+00:00",
+    "location": "Bangalore; {'descriptor': 'India', 'id': 'c4f78be1a8f14da0ab49ce1162348a5e', 'alpha2Code': 'IN'};",
+    "score": 90,
+    "source": "Official careers: Workday India facet",
+    "title": "Data Engineer 3",
+    "url": "https://amadeus.wd502.myworkdayjobs.com/jobs/job/Bangalore/Data-Engineer-3_R36099-1"
   },
   "1ecdc74c9caf3066669762ce": {
     "company": "Moody's",
@@ -125,6 +152,15 @@
     "title": "Data scientist",
     "url": "https://lseg.wd3.myworkdayjobs.com/en-US/Careers/job/IND-Bangalore-TowerERMZ-Infin/Data-scientist_R0121914"
   },
+  "2ba90711816da3305a1894e5": {
+    "company": "AstraZeneca",
+    "first_seen_utc": "2026-08-10T17:22:58.491180+00:00",
+    "location": "Bangalore; India",
+    "score": 100,
+    "source": "Official careers: TalentBrew",
+    "title": "Associate - Data Analyst",
+    "url": "https://careers.astrazeneca.com/job/bengaluru/associate-data-analyst/7684/99007909856"
+  },
   "2f542a959cc55a302ac3a6cf": {
     "company": "Databricks",
     "first_seen_utc": "2026-08-05T14:24:32.252960+00:00",
@@ -187,6 +223,24 @@
     "source": "Official careers: Greenhouse",
     "title": "Machine Learning Engineer",
     "url": "https://www.coinbase.com/careers/positions/7985187?gh_jid=7985187"
+  },
+  "3a5b9086c831f5cda8984984": {
+    "company": "Airbus India",
+    "first_seen_utc": "2026-08-10T17:22:58.491180+00:00",
+    "location": "Bangalore Area",
+    "score": 75,
+    "source": "Official careers: Workday India facet",
+    "title": "Business Analyst",
+    "url": "https://ag.wd3.myworkdayjobs.com/en-US/Airbus/job/Bangalore-Area/Business-Analyst_JR10402179"
+  },
+  "3d2a3fa683bc9feb3d60b281": {
+    "company": "Barclays",
+    "first_seen_utc": "2026-08-10T17:22:58.491180+00:00",
+    "location": "Bengaluru; Karn\u0101taka; India",
+    "score": 95,
+    "source": "Official careers: TalentBrew",
+    "title": "Data Engineer",
+    "url": "https://search.jobs.barclays/job/bengaluru/data-engineer/13015/88646727872"
   },
   "3e6f290fa4c50219fa377b1b": {
     "company": "Bosch Group",
@@ -268,6 +322,24 @@
     "source": "Official careers: Greenhouse",
     "title": "Associate Application Engineer",
     "url": "https://job-boards.greenhouse.io/twilio/jobs/8048659"
+  },
+  "507229a62648f710dcdb7965": {
+    "company": "Barclays",
+    "first_seen_utc": "2026-08-10T17:22:58.491180+00:00",
+    "location": "Bengaluru; Karn\u0101taka; India; Pune; Maharashtra; India",
+    "score": 75,
+    "source": "Official careers: TalentBrew",
+    "title": "Engineer - AI Platform",
+    "url": "https://search.jobs.barclays/job/bengaluru/engineer-ai-platform/13015/93001881504"
+  },
+  "511469ca332b9ca3777a8bf8": {
+    "company": "Airbus India",
+    "first_seen_utc": "2026-08-10T17:22:58.491180+00:00",
+    "location": "Bangalore Area",
+    "score": 75,
+    "source": "Official careers: Workday India facet",
+    "title": "Airframe Business Analyst - 3DX Collab",
+    "url": "https://ag.wd3.myworkdayjobs.com/en-US/Airbus/job/Bangalore-Area/Airframe-Business-Analyst---3DX-Collab_JR10422486"
   },
   "56e2b132e563699b342dcaef": {
     "company": "Citi",
@@ -584,6 +656,15 @@
     "title": "Business Analyst, WHS Data",
     "url": "https://www.amazon.jobs/en/jobs/10462523/business-analyst-whs-data"
   },
+  "9decf084ba9bfcf4f110a3c1": {
+    "company": "Airbus India",
+    "first_seen_utc": "2026-08-10T17:22:58.491180+00:00",
+    "location": "Bangalore Area; {'descriptor': 'India', 'id': 'c4f78be1a8f14da0ab49ce1162348a5e', 'alpha2Code': 'IN'};",
+    "score": 100,
+    "source": "Official careers: Workday India facet",
+    "title": "AI/ML Engineer - Methods & Tools",
+    "url": "https://ag.wd3.myworkdayjobs.com/Airbus/job/Bangalore-Area/AI-ML-Engineer---Methods---Tools_JR10424041"
+  },
   "a23c752522c7ab970feff164": {
     "company": "Capco",
     "first_seen_utc": "2026-08-05T16:20:45.242795+00:00",
@@ -692,6 +773,15 @@
     "title": "Engineer",
     "url": "https://careers.qualcomm.com/careers/job/446719814299?domain=qualcomm.com"
   },
+  "c7fefebfaec83b41aac9823d": {
+    "company": "Airbus India",
+    "first_seen_utc": "2026-08-10T17:22:58.491180+00:00",
+    "location": "Bangalore Area",
+    "score": 75,
+    "source": "Official careers: Workday India facet",
+    "title": "Business Analyst - Methods & Tools",
+    "url": "https://ag.wd3.myworkdayjobs.com/en-US/Airbus/job/Bangalore-Area/Business-Analyst----Methods---Tools_JR10415612"
+  },
   "cc307ac8235de85990837f94": {
     "company": "Capco",
     "first_seen_utc": "2026-08-06T07:22:15.275688+00:00",
@@ -718,6 +808,15 @@
     "source": "Official careers: Siemens Healthineers Avature",
     "title": "AI Data Analytics Engineer",
     "url": "https://jobs.siemens-healthineers.com/en_US/searchjobs/JobDetail/508263"
+  },
+  "d3f8e2f86bb6e074cca9f448": {
+    "company": "Alstom",
+    "first_seen_utc": "2026-08-10T17:22:58.491180+00:00",
+    "location": "Bangalore, KA, IN",
+    "score": 95,
+    "source": "Official careers: SAP SuccessFactors",
+    "title": "DevOps Engineer",
+    "url": "https://jobsearch.alstom.com/job/Bangalore-DevOps-Engineer-KA/1364740233/"
   },
   "da2d1bd97d1e1089e70a1405": {
     "company": "Capco",
