@@ -852,6 +852,10 @@ def expected_salary(job: Job) -> str:
         low, high = 8, 18
     elif "analytics engineer" in title:
         low, high = 8, 16
+    elif any(term in title for term in ("data engineer", "data platform engineer", "data pipeline engineer")):
+        low, high = 8, 18
+    elif any(term in title for term in ("devops", "platform engineer", "build engineer", "release engineer", "automation engineer", "site reliability", "compute operations")):
+        low, high = 7, 16
     elif any(term in title for term in ("data analyst", "product analyst", "business analyst", "bi analyst", "insights analyst", "business intelligence")):
         low, high = 6, 14
     else:

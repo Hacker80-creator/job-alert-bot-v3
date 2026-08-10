@@ -17,7 +17,9 @@ BASE_PARSE_WORKDAY = bot.parse_workday_search
 BASE_PARSE_SMARTRECRUITERS = bot.parse_smartrecruiters
 
 GENERIC_TECH_TITLE = re.compile(
-    r"\b(?:engineer|developer|technical analyst|program analyst|research associate)\b",
+    r"\b(?:engineer|developer|technical analyst|program analyst|research associate|"
+    r"(?:devops|platform|automation|cloud|infrastructure) specialist|"
+    r"(?:systems|devops) administrator|graduate engineer|engineering apprentice)\b",
     re.IGNORECASE,
 )
 DOMAIN_SIGNALS = (

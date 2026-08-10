@@ -16,7 +16,7 @@ settings:
     - "noida"
     - "delhi"
     - "kolkata"
-  target_profile: "Entry level or early career Data Scientist, Data Analyst, ML Engineer, Applied Scientist, Analytics Engineer, BI Analyst, Product Analyst, Decision Scientist. Skills: Python, SQL, statistics, pandas, numpy, machine learning, power bi, tableau, experimentation, dashboards, analytics, data visualization. Location Bangalore Bengaluru or Remote India. 0 to 3 years experience."
+  target_profile: "Entry level or early career Data Scientist, Data Analyst, Data Engineer, ML/AI/MLOps Engineer, Applied Scientist, Analytics/BI Analyst, DevOps Engineer, Platform Engineer, Build/Release Engineer, Automation Engineer, and Compute Operations Engineer. Resume skills include Python, SQL, Pandas, NumPy, machine learning, statistics, Power BI, Git, GitHub, Jenkins, Groovy, Docker, Podman, Linux/RHEL, JFrog Artifactory, Ansible, Bash, and YAML. Location Bangalore Bengaluru or Remote India. 0 to 3 years experience."
   blocked_title_terms:
     - "senior"
     - "sr."

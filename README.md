@@ -12,6 +12,7 @@ This bot checks official company career feeds every 30 minutes and sends matchin
 - Indeed support exists as an optional fallback, but it is disabled in the production workflow.
 - LinkedIn and Naukri are not scraped by default because they often require login, block automation, and are unreliable from GitHub Actions.
 - Filters for Bangalore / Bengaluru / Remote India.
+- Adds strict resume-aware matching for data engineering, MLOps, DevOps, platform, build/release, automation, and compute-operations roles.
 - Scores jobs using title + location + description + skills + early-career signal.
 - Rejects senior / principal / lead / manager roles.
 - Gives a small priority boost to companies marked with better work-life-balance priority.
@@ -24,7 +25,7 @@ This bot checks official company career feeds every 30 minutes and sends matchin
 
 This is not magic. Official ATS APIs like Greenhouse, Lever, Ashby, SmartRecruiters and some Workday endpoints are reliable. Dynamic pages, LinkedIn and Indeed can break or block requests. The bot logs failures and continues instead of crashing.
 
-The supplied company list contains 794 approved names, but approval is not the same as source coverage. The production registry currently has 260 enabled direct sources. Names without a configured direct source are not scanned while `ENABLE_INDEED` is `false`. CGI's Njoyn site can block cloud requests, so CGI is best-effort.
+The supplied company list contains 794 approved names, but approval is not the same as source coverage. The production registry currently has 262 enabled direct sources, including first-party Dell Technologies and Intel feeds. Names without a configured direct source are not scanned while `ENABLE_INDEED` is `false`. CGI's Njoyn site can block cloud requests, so CGI is best-effort.
 
 Work-life balance is only a ranking signal. It is not a guarantee because WLB depends heavily on team, manager, project and deadline pressure.
 

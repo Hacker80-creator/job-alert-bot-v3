@@ -77,7 +77,7 @@ def parse_workday_faceted_complete(company: dict[str, Any]) -> list[bot.Job]:
     for path, job in by_path.items():
         if detail_budget <= 0:
             break
-        if not expanded.expanded_is_target_title(job.title):
+        if not bot.is_target_title(job.title):
             continue
         if not bot.has_location_match(job.location, settings):
             continue
