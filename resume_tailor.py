@@ -468,7 +468,8 @@ def request_tailoring_plan(
         try:
             return _call_model(model, prompt, key), model, tuple(warnings)
         except Exception as exc:
-            warnings.append(f"{model} failed: {type(exc).__name__}")
+            detail = str(exc).strip() or type(exc).__name__
+            warnings.append(f"{model} failed: {detail[:600]}")
     raise ResumeTailoringError("; ".join(warnings) or "No Gemini model configured")
 
 

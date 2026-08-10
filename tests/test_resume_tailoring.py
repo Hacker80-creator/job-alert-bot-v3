@@ -120,7 +120,10 @@ class ResumeTailoringTests(unittest.TestCase):
         self.assertEqual(raw, plan)
         self.assertEqual("gemini-3.5-flash-lite", model)
         self.assertEqual(2, call.call_count)
-        self.assertTrue(any("gemini-3.6-flash" in warning for warning in warnings))
+        self.assertIn(
+            "gemini-3.6-flash failed: primary down",
+            warnings,
+        )
 
     def test_gemini_request_uses_schema_and_secret_header(self) -> None:
         raw = tailor.safe_plan(self.template, make_job())
