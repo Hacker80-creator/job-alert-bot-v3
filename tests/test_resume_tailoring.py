@@ -138,6 +138,8 @@ class ResumeTailoringTests(unittest.TestCase):
                 tailor._call_model("gemini-3.6-flash", "prompt", "test-secret"),
             )
         kwargs = post.call_args.kwargs
+        self.assertEqual(tailor.GEMINI_INTERACTIONS_URL, post.call_args.args[0])
+        self.assertEqual("prompt", kwargs["json"]["input"])
         self.assertEqual("test-secret", kwargs["headers"]["x-goog-api-key"])
         self.assertNotIn("test-secret", post.call_args.args[0])
         self.assertEqual(
@@ -148,6 +150,23 @@ class ResumeTailoringTests(unittest.TestCase):
             tailor.TAILOR_SCHEMA,
             kwargs["json"]["response_format"]["schema"],
         )
+
+    def test_gemini_error_exposes_safe_api_message(self) -> None:
+        response = Mock(
+            ok=False,
+            status_code=403,
+        )
+        response.json.return_value = {
+            "error": {
+                "code": "permission_denied",
+                "message": "API key lacks access",
+            }
+        }
+        with self.assertRaisesRegex(
+            tailor.ResumeTailoringError,
+            r"HTTP 403.*permission_denied.*lacks access",
+        ):
+            tailor._response_json(response)
 
     def test_metric_or_skill_cannot_move_between_bullets(self) -> None:
         job = make_job()

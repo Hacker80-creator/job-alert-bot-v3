@@ -26,7 +26,7 @@ from docx.text.paragraph import Paragraph
 ROOT = Path(__file__).parent
 DEFAULT_MASTER_RESUME = ROOT / "resume" / "master_resume.docx"
 DEFAULT_OUTPUT_DIR = ROOT / "resumes" / "generated"
-GEMINI_INTERACTIONS_URL = "https://generativelanguage.googleapis.com/v1beta/interactions"
+GEMINI_INTERACTIONS_URL = "https://generativelanguage.googleapis.com/v1beta2/interactions"
 PRIMARY_MODEL = os.getenv("GEMINI_PRIMARY_MODEL", "gemini-3.6-flash").strip()
 FALLBACK_MODEL = os.getenv(
     "GEMINI_FALLBACK_MODEL", "gemini-3.5-flash-lite"
@@ -382,7 +382,20 @@ MASTER RESUME FACTS
 
 
 def _response_json(response: requests.Response) -> dict[str, Any]:
-    response.raise_for_status()
+    if not response.ok:
+        message = ""
+        try:
+            error = response.json().get("error", {})
+            if isinstance(error, dict):
+                code = str(error.get("code", "") or "").strip()
+                detail = str(error.get("message", "") or "").strip()
+                message = ": ".join(value for value in (code, detail) if value)
+        except (ValueError, AttributeError):
+            pass
+        raise ResumeTailoringError(
+            f"Gemini API HTTP {response.status_code}"
+            + (f" ({message[:500]})" if message else "")
+        )
     payload = response.json()
     status = str(payload.get("status", "") or "").casefold()
     if status and status != "completed":
@@ -420,7 +433,7 @@ def _call_model(model: str, prompt: str, api_key: str) -> dict[str, Any]:
                 "adding any claim not explicitly supported by exact evidence from "
                 "the supplied master resume. Return only schema-valid JSON."
             ),
-            "input": {"parts": [{"text": prompt}]},
+            "input": prompt,
             "response_format": {
                 "type": "text",
                 "mime_type": "application/json",
