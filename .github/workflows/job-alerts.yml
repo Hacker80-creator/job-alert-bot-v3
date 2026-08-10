@@ -22,9 +22,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
         with:
-          # Resolve main when this queued job actually starts. The event SHA may
-          # predate the previous run's seen-state commit.
-          ref: main
+          # Resolve the selected branch when this queued job actually starts.
+          # Scheduled production runs always select the repository default branch.
+          ref: ${{ github.ref }}
           fetch-depth: 0
           persist-credentials: true
 
@@ -39,9 +39,28 @@ jobs:
       - name: Run reliability tests
         run: python -m unittest discover -s tests -v
 
-      - name: Scan official career feeds
+      - name: Send branch-only resume integration test
+        if: ${{ github.event_name == 'workflow_dispatch' && github.ref_name != 'main' }}
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CLAUDE_PRIMARY_MODEL: "claude-sonnet-4-6"
+          CLAUDE_FALLBACK_MODEL: "claude-haiku-4-5-20251001"
+          MASTER_RESUME_PATH: "resume/master_resume.docx"
+          TAILORED_RESUME_DIR: ${{ runner.temp }}/tailored-resumes
+        run: python resume_test_alert.py
+
+      - name: Scan official career feeds
+        if: ${{ github.ref_name == 'main' }}
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ENABLE_RESUME_TAILORING: "true"
+          CLAUDE_PRIMARY_MODEL: "claude-sonnet-4-6"
+          CLAUDE_FALLBACK_MODEL: "claude-haiku-4-5-20251001"
+          MASTER_RESUME_PATH: "resume/master_resume.docx"
+          TAILORED_RESUME_DIR: ${{ runner.temp }}/tailored-resumes
+          RESUME_TAILOR_WORKERS: "5"
           MIN_SCORE: "70"
           MAX_ALERTS_PER_RUN: "15"
           SEND_STARTUP_SUMMARY: "false"
@@ -52,7 +71,7 @@ jobs:
         run: python job_monitor_entry_v22.py
 
       - name: Persist deduplication state
-        if: ${{ always() }}
+        if: ${{ always() && github.ref_name == 'main' }}
         run: |
           if [[ -z $(git status --porcelain state/) ]]; then
             echo "No state changes"

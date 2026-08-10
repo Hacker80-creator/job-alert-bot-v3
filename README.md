@@ -79,6 +79,24 @@ Name: DISCORD_WEBHOOK_URL
 Secret: paste your Discord webhook URL
 ```
 
+### 3a. Add the Claude API secret for tailored resume attachments
+
+Create an Anthropic API key, then add one more repository secret:
+
+```text
+Name: ANTHROPIC_API_KEY
+Secret: paste your Anthropic API key
+```
+
+Production uses `claude-sonnet-4-6` first and automatically falls back to
+`claude-haiku-4-5-20251001`. The committed `resume/master_resume.docx` is the
+immutable formatting and factual source; every alert edits a copy and attaches
+the generated DOCX without suppressing the normal job card if tailoring fails.
+
+Manual runs from a non-`main` branch send one clearly labeled resume integration
+test only. They do not scan companies or update the production deduplication
+state. After the branch test succeeds, merge it and run `main` manually once.
+
 ### 4. Allow state saving
 
 In GitHub repository:

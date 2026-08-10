@@ -39,6 +39,8 @@ SEND_STARTUP_SUMMARY = os.getenv("SEND_STARTUP_SUMMARY", "false").lower() == "tr
 SEND_DAILY_HEALTH = os.getenv("SEND_DAILY_HEALTH", "true").lower() == "true"
 DAILY_HEALTH_HOURS = int(os.getenv("DAILY_HEALTH_HOURS", "24"))
 ENABLE_INDEED = os.getenv("ENABLE_INDEED", "true").lower() == "true"
+ENABLE_RESUME_TAILORING = os.getenv("ENABLE_RESUME_TAILORING", "false").lower() == "true"
+RESUME_TAILOR_WORKERS = max(1, int(os.getenv("RESUME_TAILOR_WORKERS", "3")))
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (compatible; SuriJobAlertBot/3.0; +https://github.com/)",
@@ -1150,7 +1152,42 @@ def expected_salary(job: Job) -> str:
     return f"Est. \u20b9{low}\u2013{high} LPA"
 
 
-def discord_post(job: Job) -> bool:
+def prepare_tailored_resumes(jobs: list[Job]) -> dict[int, Any]:
+    """Generate attachments concurrently without delaying individual delivery."""
+    if not ENABLE_RESUME_TAILORING or not jobs:
+        return {}
+    try:
+        from concurrent.futures import ThreadPoolExecutor, as_completed
+
+        from resume_tailor import generate_tailored_resume
+    except Exception as exc:
+        print(f"WARN resume tailoring unavailable: {type(exc).__name__}")
+        return {}
+
+    generated: dict[int, Any] = {}
+    with ThreadPoolExecutor(max_workers=min(RESUME_TAILOR_WORKERS, len(jobs))) as pool:
+        futures = {pool.submit(generate_tailored_resume, job): job for job in jobs}
+        for future in as_completed(futures):
+            job = futures[future]
+            try:
+                result = future.result()
+                generated[id(job)] = result
+                warning_count = len(getattr(result, "warnings", ()))
+                print(
+                    f"Resume ready: {job.title} @ {job.company} | "
+                    f"model={getattr(result, 'model', 'unknown')} | "
+                    f"warnings={warning_count}"
+                )
+            except Exception as exc:
+                # Resume generation must never suppress the job alert.
+                print(
+                    f"WARN resume failed for {job.title} @ {job.company}: "
+                    f"{type(exc).__name__}"
+                )
+    return generated
+
+
+def discord_post(job: Job, tailored_resume: Any | None = None) -> bool:
     if not DISCORD_WEBHOOK_URL:
         print("ERROR: DISCORD_WEBHOOK_URL secret is missing")
         return False
@@ -1167,6 +1204,32 @@ def discord_post(job: Job) -> bool:
     ]
     if job_id:
         fields.insert(1, {"name": "Job ID", "value": job_id.upper(), "inline": True})
+    attachment_path: Path | None = None
+    if tailored_resume is not None:
+        candidate_path = Path(str(getattr(tailored_resume, "path", "")))
+        if candidate_path.is_file():
+            attachment_path = candidate_path
+            supported = tuple(getattr(tailored_resume, "supported_skills", ()))
+            gaps = tuple(getattr(tailored_resume, "important_gaps", ()))
+            fields.extend([
+                {
+                    "name": "Resume-supported skills",
+                    "value": ", ".join(supported)[:1000] or "No explicit overlap found in the available JD",
+                    "inline": False,
+                },
+                {
+                    "name": "Important gaps",
+                    "value": ", ".join(gaps)[:1000] or "No important gap identified from the available JD",
+                    "inline": False,
+                },
+                {
+                    "name": "Tailored resume",
+                    "value": f"Attached • {getattr(tailored_resume, 'model', 'safe-template')}",
+                    "inline": False,
+                },
+            ])
+        else:
+            print(f"WARN tailored resume attachment is missing for {job.title} @ {job.company}")
     payload = {
         "embeds": [{
             "title": job.title[:250],
@@ -1178,7 +1241,25 @@ def discord_post(job: Job) -> bool:
             "timestamp": datetime.now(timezone.utc).isoformat(),
         }]
     }
-    r = requests.post(DISCORD_WEBHOOK_URL, json=payload, timeout=15)
+    try:
+        if attachment_path is None:
+            r = requests.post(DISCORD_WEBHOOK_URL, json=payload, timeout=15)
+        else:
+            r = requests.post(
+                DISCORD_WEBHOOK_URL,
+                data={"payload_json": json.dumps(payload)},
+                files={
+                    "files[0]": (
+                        attachment_path.name,
+                        attachment_path.read_bytes(),
+                        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                    )
+                },
+                timeout=30,
+            )
+    except Exception as exc:
+        print(f"ERROR Discord request failed: {type(exc).__name__}")
+        return False
     if r.status_code not in (200, 204):
         print(f"ERROR Discord response {r.status_code}: {r.text[:500]}")
         return False
@@ -1302,8 +1383,9 @@ def main() -> int:
 
     failed_alerts = 0
     attempted_jobs = new_jobs[:MAX_ALERTS_PER_RUN]
+    tailored_resumes = prepare_tailored_resumes(attempted_jobs)
     for job in attempted_jobs:
-        ok = discord_post(job)
+        ok = discord_post(job, tailored_resumes.get(id(job)))
         print(f"Alert {'sent' if ok else 'failed'}: {job.title} @ {job.company} ({job.score})")
         if ok:
             seen[job.state_key] = {
