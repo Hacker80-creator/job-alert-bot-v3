@@ -26,7 +26,7 @@ from docx.text.paragraph import Paragraph
 ROOT = Path(__file__).parent
 DEFAULT_MASTER_RESUME = ROOT / "resume" / "master_resume.docx"
 DEFAULT_OUTPUT_DIR = ROOT / "resumes" / "generated"
-GEMINI_INTERACTIONS_URL = "https://generativelanguage.googleapis.com/v1beta2/interactions"
+GEMINI_INTERACTIONS_URL = "https://generativelanguage.googleapis.com/v1beta/interactions"
 PRIMARY_MODEL = os.getenv("GEMINI_PRIMARY_MODEL", "gemini-3.6-flash").strip()
 FALLBACK_MODEL = os.getenv(
     "GEMINI_FALLBACK_MODEL", "gemini-3.5-flash-lite"

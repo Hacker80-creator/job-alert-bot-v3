@@ -141,7 +141,10 @@ class ResumeTailoringTests(unittest.TestCase):
                 tailor._call_model("gemini-3.6-flash", "prompt", "test-secret"),
             )
         kwargs = post.call_args.kwargs
-        self.assertEqual(tailor.GEMINI_INTERACTIONS_URL, post.call_args.args[0])
+        self.assertEqual(
+            "https://generativelanguage.googleapis.com/v1beta/interactions",
+            post.call_args.args[0],
+        )
         self.assertEqual("prompt", kwargs["json"]["input"])
         self.assertEqual("test-secret", kwargs["headers"]["x-goog-api-key"])
         self.assertNotIn("test-secret", post.call_args.args[0])
