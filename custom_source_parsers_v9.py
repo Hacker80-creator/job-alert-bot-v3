@@ -165,11 +165,32 @@ def parse_siemens_avature(company: dict[str, Any]) -> list[bot.Job]:
     return list(jobs_by_url.values())
 
 
+def parse_greenhouse_lightweight(company: dict[str, Any]) -> list[bot.Job]:
+    """Use Greenhouse's metadata-only payload for unusually large boards."""
+    url = f"https://boards-api.greenhouse.io/v1/boards/{company['slug']}/jobs?content=false"
+    response = requests.get(url, headers=HEADERS, timeout=30)
+    response.raise_for_status()
+    jobs: list[bot.Job] = []
+    for item in response.json().get("jobs", []):
+        jobs.append(bot.Job(
+            company=company["name"],
+            title=bot.clean_text(item.get("title")),
+            location=bot.flatten_location(item.get("location")),
+            url=str(item.get("absolute_url") or ""),
+            source="Official careers: Greenhouse",
+            description="",
+            department=bot.flatten_location(item.get("departments")),
+            wlb_score=company.get("wlb_score", 3),
+        ))
+    return jobs
+
+
 def fetch_company_jobs_with_custom_v9(company: dict[str, Any]) -> list[bot.Job]:
     parser = {
         "nutanix_sitemap": parse_nutanix_sitemap,
         "coindcx_next_data": parse_coindcx_next_data,
         "siemens_avature": parse_siemens_avature,
+        "greenhouse_lightweight": parse_greenhouse_lightweight,
     }.get(company.get("ats"))
     if parser is None:
         return BASE_CUSTOM_FETCH(company)

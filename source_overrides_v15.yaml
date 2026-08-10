@@ -1,7 +1,11 @@
 metadata:
   verified_at: "2026-08-10"
-  note: "Replace four retired sources with live first-party feeds verified against current public job data."
+  note: "Replace retired or oversized sources with live first-party feeds verified against current public job data."
 companies:
+  - name: "Instacart"
+    ats: "greenhouse_lightweight"
+    slug: "instacart"
+    enabled: true
   - name: "Uber"
     ats: "oracle_hcm"
     url: "https://iaziqy.fa.ocs.oraclecloud.com/hcmRestApi/resources/latest/recruitingCEJobRequisitions"

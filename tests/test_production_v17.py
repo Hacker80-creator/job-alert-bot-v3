@@ -15,6 +15,7 @@ class ProductionV17Tests(unittest.TestCase):
         self.assertEqual("nutanix_sitemap", companies["Nutanix"]["ats"])
         self.assertEqual("coindcx_next_data", companies["CoinDCX"]["ats"])
         self.assertEqual("siemens_avature", companies["Siemens Healthineers"]["ats"])
+        self.assertEqual("greenhouse_lightweight", companies["Instacart"]["ats"])
 
     def test_override_preserves_unique_source_registry(self) -> None:
         companies = job_monitor_entry_v17.load_final_config()["companies"]
