@@ -1,4 +1,5 @@
 .env
+resumes/generated/
 __pycache__/
 *.pyc
 *.log

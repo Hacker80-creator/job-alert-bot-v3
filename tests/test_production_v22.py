@@ -84,7 +84,9 @@ class ProductionV22Tests(unittest.TestCase):
             entry,
         )
         self.assertIn('MAX_SOURCE_WORKERS: "16"', workflow)
-        self.assertIn("ref: main", workflow)
+        self.assertIn("ref: ${{ github.ref }}", workflow)
+        self.assertIn("github.ref_name != 'main'", workflow)
+        self.assertIn("github.ref_name == 'main'", workflow)
         self.assertIn("fetch-depth: 0", workflow)
         self.assertIn("python merge_job_state.py", workflow)
         self.assertIn("git checkout -B job-alert-state origin/main", workflow)
