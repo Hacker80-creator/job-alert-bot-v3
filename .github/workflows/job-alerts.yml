@@ -22,6 +22,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
         with:
+          # Resolve main when this queued job actually starts. The event SHA may
+          # predate the previous run's seen-state commit.
+          ref: main
+          fetch-depth: 0
           persist-credentials: true
 
       - name: Set up Python
@@ -50,13 +54,41 @@ jobs:
       - name: Persist deduplication state
         if: ${{ always() }}
         run: |
-          if [[ -n $(git status --porcelain state/) ]]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [[ -z $(git status --porcelain state/) ]]; then
+            echo "No state changes"
+            exit 0
+          fi
+
+          generated_state="$RUNNER_TEMP/job-alert-generated-state"
+          mkdir -p "$generated_state"
+          cp state/*.json "$generated_state"/
+          git restore --source=HEAD --staged --worktree -- state/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # A code push can advance main while a six-minute scan is running.
+          # Re-read main, union its seen jobs with this run, and retry a
+          # rejected push without ever discarding accepted Discord alerts.
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git checkout -B job-alert-state origin/main
+            python merge_job_state.py \
+              --generated-dir "$generated_state" \
+              --state-dir state
+
+            if [[ -z $(git status --porcelain state/) ]]; then
+              echo "Generated state is already present on main"
+              exit 0
+            fi
+
             git add state/
             git commit -m "Update job bot persistent state"
-            git pull --rebase origin main
-            git push
-          else
-            echo "No state changes"
-          fi
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            echo "State push raced with another main update; retrying ($attempt/3)"
+            sleep $((attempt * 2))
+          done
+
+          echo "ERROR: unable to persist deduplication state after 3 attempts"
+          exit 1

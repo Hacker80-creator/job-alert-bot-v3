@@ -84,6 +84,11 @@ class ProductionV22Tests(unittest.TestCase):
             entry,
         )
         self.assertIn('MAX_SOURCE_WORKERS: "16"', workflow)
+        self.assertIn("ref: main", workflow)
+        self.assertIn("fetch-depth: 0", workflow)
+        self.assertIn("python merge_job_state.py", workflow)
+        self.assertIn("git checkout -B job-alert-state origin/main", workflow)
+        self.assertNotIn("git pull --rebase origin main", workflow)
 
 
 if __name__ == "__main__":
