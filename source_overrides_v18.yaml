@@ -1,0 +1,325 @@
+metadata:
+  verified_at: "2026-08-10"
+  note: "Verified first-party sources from the first two user-supplied career-link batches."
+companies:
+  - name: "Dream11"
+    ats: "trakstar_rss"
+    url: "https://dream11.hire.trakstar.com/jobfeeds/dream11"
+    career_site_url: "https://dream11.hire.trakstar.com/"
+    max_age_days: 180
+    enabled: true
+  - name: "Zepto"
+    enabled: false
+    source_status: "fallback_only"
+    source_note: "TalentRecruit blocks normal HTTP clients; retired Greenhouse board disabled until a stable first-party feed is verified."
+
+  - name: "Boeing"
+    ats: "workday_india"
+    url: "https://boeing.wd1.myworkdayjobs.com/wday/cxs/boeing/EXTERNAL_CAREERS/jobs"
+    career_site_url: "https://boeing.wd1.myworkdayjobs.com/en-US/EXTERNAL_CAREERS"
+    max_results_per_term: 60
+    enabled: true
+  - name: "Cadence"
+    ats: "workday_india"
+    url: "https://cadence.wd1.myworkdayjobs.com/wday/cxs/cadence/External_Careers/jobs"
+    career_site_url: "https://cadence.wd1.myworkdayjobs.com/en-US/External_Careers"
+    max_results_per_term: 60
+    enabled: true
+  - name: "Autodesk"
+    kind: "product_engineering"
+    wlb_score: 4
+    ats: "workday_india"
+    url: "https://autodesk.wd1.myworkdayjobs.com/wday/cxs/autodesk/Ext/jobs"
+    career_site_url: "https://autodesk.wd1.myworkdayjobs.com/en-US/Ext"
+    enabled: true
+  - name: "Analog Devices"
+    kind: "product_semiconductor"
+    wlb_score: 4
+    ats: "workday_india"
+    url: "https://analogdevices.wd1.myworkdayjobs.com/wday/cxs/analogdevices/External/jobs"
+    career_site_url: "https://analogdevices.wd1.myworkdayjobs.com/en-US/External"
+    enabled: true
+  - name: "Airbus India"
+    kind: "product_engineering"
+    wlb_score: 4
+    ats: "workday_india"
+    url: "https://ag.wd3.myworkdayjobs.com/wday/cxs/ag/Airbus/jobs"
+    career_site_url: "https://ag.wd3.myworkdayjobs.com/en-US/Airbus"
+    enabled: true
+  - name: "Broadridge"
+    kind: "product_fintech"
+    wlb_score: 4
+    ats: "workday_india"
+    url: "https://broadridge.wd5.myworkdayjobs.com/wday/cxs/broadridge/Careers/jobs"
+    career_site_url: "https://broadridge.wd5.myworkdayjobs.com/en-US/Careers"
+    enabled: true
+  - name: "CME Group"
+    kind: "product_fintech"
+    wlb_score: 4
+    ats: "workday_india"
+    url: "https://cmegroup.wd1.myworkdayjobs.com/wday/cxs/cmegroup/cme_careers/jobs"
+    career_site_url: "https://cmegroup.wd1.myworkdayjobs.com/en-US/cme_careers"
+    enabled: true
+  - name: "Ciena"
+    kind: "product_networking"
+    wlb_score: 4
+    ats: "workday_india"
+    url: "https://ciena.wd5.myworkdayjobs.com/wday/cxs/ciena/Careers/jobs"
+    career_site_url: "https://ciena.wd5.myworkdayjobs.com/en-US/Careers"
+    enabled: true
+  - name: "3M"
+    kind: "product_engineering"
+    wlb_score: 4
+    ats: "workday_india"
+    url: "https://3m.wd1.myworkdayjobs.com/wday/cxs/3m/Search/jobs"
+    career_site_url: "https://3m.wd1.myworkdayjobs.com/en-US/Search"
+    enabled: true
+  - name: "Agilent Technologies"
+    kind: "product_life_sciences"
+    wlb_score: 4
+    ats: "workday_india"
+    url: "https://agilent.wd5.myworkdayjobs.com/wday/cxs/agilent/Agilent_Careers/jobs"
+    career_site_url: "https://agilent.wd5.myworkdayjobs.com/en-US/Agilent_Careers"
+    enabled: true
+  - name: "Alteryx"
+    kind: "product_data"
+    wlb_score: 4
+    ats: "workday_india"
+    url: "https://alteryx.wd108.myworkdayjobs.com/wday/cxs/alteryx/AlteryxCareers/jobs"
+    career_site_url: "https://alteryx.wd108.myworkdayjobs.com/en-US/AlteryxCareers"
+    enabled: true
+  - name: "Amadeus"
+    kind: "product_travel_technology"
+    wlb_score: 4
+    ats: "workday_india"
+    url: "https://amadeus.wd502.myworkdayjobs.com/wday/cxs/amadeus/jobs/jobs"
+    career_site_url: "https://amadeus.wd502.myworkdayjobs.com/en-US/jobs"
+    enabled: true
+  - name: "CVS Health"
+    kind: "product_healthcare"
+    wlb_score: 3
+    ats: "workday_india"
+    url: "https://cvshealth.wd1.myworkdayjobs.com/wday/cxs/cvshealth/CVS_Health_Careers/jobs"
+    career_site_url: "https://cvshealth.wd1.myworkdayjobs.com/en-US/CVS_Health_Careers"
+    enabled: true
+  - name: "Chegg"
+    kind: "product_edtech"
+    wlb_score: 3
+    ats: "workday_india"
+    url: "https://osv-chegg.wd5.myworkdayjobs.com/wday/cxs/osv_chegg/Chegg/jobs"
+    career_site_url: "https://osv-chegg.wd5.myworkdayjobs.com/en-US/Chegg"
+    enabled: true
+
+  - name: "Arm"
+    kind: "product_semiconductor"
+    wlb_score: 4
+    ats: "talentbrew_html"
+    url: "https://careers.arm.com/en/search-jobs"
+    career_site_url: "https://careers.arm.com/en/search-jobs"
+    enabled: true
+  - name: "Ansys"
+    kind: "product_engineering"
+    wlb_score: 4
+    ats: "talentbrew_html"
+    url: "https://careers.synopsys.com/search-jobs"
+    career_site_url: "https://careers.synopsys.com/search-jobs"
+    required_keyword: "Ansys"
+    enabled: true
+  - name: "AstraZeneca"
+    kind: "product_life_sciences"
+    wlb_score: 4
+    ats: "talentbrew_html"
+    url: "https://careers.astrazeneca.com/search-jobs"
+    career_site_url: "https://careers.astrazeneca.com/search-jobs"
+    enabled: true
+  - name: "Barclays"
+    kind: "product_fintech"
+    wlb_score: 3
+    ats: "talentbrew_html"
+    url: "https://search.jobs.barclays/search-jobs"
+    career_site_url: "https://search.jobs.barclays/search-jobs"
+    enabled: true
+  - name: "BlackRock"
+    kind: "product_fintech"
+    wlb_score: 4
+    ats: "talentbrew_html"
+    url: "https://careers.blackrock.com/search-jobs"
+    career_site_url: "https://careers.blackrock.com/search-jobs"
+    enabled: true
+  - name: "Capital One"
+    kind: "product_fintech"
+    wlb_score: 4
+    ats: "talentbrew_html"
+    url: "https://www.capitalonecareers.com/search-jobs"
+    career_site_url: "https://www.capitalonecareers.com/search-jobs"
+    enabled: true
+  - name: "Carrier"
+    kind: "product_engineering"
+    wlb_score: 4
+    ats: "talentbrew_html"
+    url: "https://jobs.carrier.com/en/search-jobs"
+    career_site_url: "https://jobs.carrier.com/en/search-jobs"
+    enabled: true
+  - name: "Charles Schwab"
+    kind: "product_fintech"
+    wlb_score: 4
+    ats: "talentbrew_html"
+    url: "https://www.schwabjobs.com/search-jobs"
+    career_site_url: "https://www.schwabjobs.com/search-jobs"
+    enabled: true
+  - name: "Amgen India"
+    kind: "product_life_sciences"
+    wlb_score: 4
+    ats: "talentbrew_html"
+    url: "https://careers.amgen.com/en/search-jobs"
+    career_site_url: "https://careers.amgen.com/en/search-jobs"
+    enabled: true
+  - name: "Becton Dickinson"
+    kind: "product_life_sciences"
+    wlb_score: 4
+    ats: "talentbrew_html"
+    url: "https://jobs.bd.com/en/search-jobs"
+    career_site_url: "https://jobs.bd.com/en/search-jobs"
+    enabled: true
+
+  - name: "Alstom"
+    kind: "product_engineering"
+    wlb_score: 4
+    ats: "successfactors_search"
+    url: "https://jobsearch.alstom.com/search/"
+    career_site_url: "https://jobsearch.alstom.com/"
+    enabled: true
+  - name: "Bayer"
+    kind: "product_life_sciences"
+    wlb_score: 4
+    ats: "successfactors_search"
+    url: "https://jobs.bayer.com/search/"
+    career_site_url: "https://jobs.bayer.com/"
+    enabled: true
+  - name: "Boston Scientific"
+    kind: "product_life_sciences"
+    wlb_score: 4
+    ats: "successfactors_search"
+    url: "https://jobs.bostonscientific.com/search/"
+    career_site_url: "https://jobs.bostonscientific.com/"
+    enabled: true
+  - name: "ANZ"
+    kind: "product_fintech"
+    wlb_score: 4
+    ats: "successfactors_search"
+    url: "https://careers.anz.com/search/"
+    career_site_url: "https://careers.anz.com/"
+    enabled: true
+  - name: "Adidas"
+    kind: "product_retail"
+    wlb_score: 4
+    ats: "successfactors_search"
+    url: "https://jobs.adidas-group.com/adidas/search/"
+    career_site_url: "https://careers.adidas-group.com/"
+    enabled: true
+  - name: "Avaya"
+    kind: "product_communications"
+    wlb_score: 3
+    ats: "successfactors_search"
+    url: "https://careers.avaya.com/search/"
+    career_site_url: "https://careers.avaya.com/"
+    enabled: true
+  - name: "Bentley Systems"
+    kind: "product_engineering"
+    wlb_score: 4
+    ats: "successfactors_search"
+    url: "https://jobs.bentley.com/search/"
+    career_site_url: "https://jobs.bentley.com/"
+    enabled: true
+
+  - name: "Baker Hughes"
+    kind: "product_engineering"
+    wlb_score: 3
+    ats: "phenom"
+    url: "https://careers.bakerhughes.com/widgets"
+    career_site_url: "https://careers.bakerhughes.com/global/en"
+    enabled: true
+  - name: "Cboe Global Markets"
+    kind: "product_fintech"
+    wlb_score: 4
+    ats: "phenom"
+    url: "https://careers.cboe.com/widgets"
+    career_site_url: "https://careers.cboe.com/us/en"
+    locale: "en_us"
+    enabled: true
+  - name: "Circle"
+    kind: "product_fintech"
+    wlb_score: 4
+    ats: "phenom"
+    url: "https://careers.circle.com/widgets"
+    career_site_url: "https://careers.circle.com/us/en"
+    locale: "en_us"
+    enabled: true
+  - name: "Allianz Technology"
+    kind: "product_fintech"
+    wlb_score: 4
+    ats: "phenom"
+    url: "https://careers.allianz.com/widgets"
+    career_site_url: "https://careers.allianz.com/global/en"
+    enabled: true
+
+  - name: "BNY Mellon"
+    kind: "product_fintech"
+    wlb_score: 4
+    ats: "oracle_hcm"
+    url: "https://eofe.fa.us2.oraclecloud.com/hcmRestApi/resources/latest/recruitingCEJobRequisitions"
+    career_site_url: "https://eofe.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BNY-Careers"
+    site_number: "BNY-Careers"
+    max_results_per_term: 48
+    enabled: true
+  - name: "C3 AI"
+    kind: "product_ai"
+    wlb_score: 3
+    ats: "greenhouse"
+    slug: "c3iot"
+    enabled: true
+  - name: "Affine"
+    kind: "product_data"
+    wlb_score: 4
+    ats: "sensehq_next_data"
+    url: "https://affine.sensehq.com/careers"
+    career_site_url: "https://affine.sensehq.com/careers"
+    enabled: true
+  - name: "BlackBuck"
+    kind: "product_logistics"
+    wlb_score: 3
+    enabled: false
+    source_status: "fallback_only"
+    career_site_url: "https://blackbuck.com/team-blackbuck.html"
+    source_note: "Official join page has no verified public live openings board."
+  - name: "Bounce"
+    kind: "product_mobility"
+    wlb_score: 3
+    enabled: false
+    source_status: "fallback_only"
+    source_note: "No verified public official live jobs board; product website must not be scraped as a feed."
+  - name: "Capillary Technologies"
+    kind: "product_saas"
+    wlb_score: 3
+    enabled: false
+    source_status: "fallback_only"
+    career_site_url: "https://www.capillarytech.com/careers/"
+    source_note: "Official careers page says its new careers experience is being built."
+  - name: "Carrefour"
+    kind: "product_retail"
+    wlb_score: 3
+    enabled: false
+    source_status: "fallback_only"
+    source_note: "No suitable public India or Bengaluru live job-search board verified."
+  - name: "Cartesian Consulting"
+    kind: "product_data"
+    wlb_score: 3
+    enabled: false
+    source_status: "fallback_only"
+    source_note: "Rebranded as SOLUS AI; no standalone current public jobs feed verified."
+  - name: "BluSmart"
+    kind: "product_mobility"
+    wlb_score: 2
+    enabled: false
+    source_status: "disabled"
+    source_note: "Disabled after operations suspension and insolvency proceedings; do not scan."

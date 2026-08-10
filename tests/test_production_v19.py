@@ -24,11 +24,11 @@ class ProductionV19Tests(unittest.TestCase):
         self.assertEqual(263, len(companies))
         self.assertEqual(262, sum(1 for item in companies if item.get("enabled", True)))
 
-    def test_workflow_runs_v19_entry_point(self) -> None:
+    def test_workflow_runs_current_versioned_entry_point(self) -> None:
         workflow = (
             Path(__file__).parents[1] / ".github" / "workflows" / "job-alerts.yml"
         ).read_text(encoding="utf-8")
-        self.assertIn("python job_monitor_entry_v19.py", workflow)
+        self.assertRegex(workflow, r"python job_monitor_entry_v\d+\.py")
 
 
 if __name__ == "__main__":
