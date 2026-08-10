@@ -1,0 +1,90 @@
+name: Validate 432 official career sources
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: career-source-runtime-validation
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    name: Validate batch ${{ matrix.batch }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      max-parallel: 18
+      matrix:
+        # 18 batches x 25 slots covers all 432 supplied mappings.
+        batch: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Validate one 25-company batch
+        run: >-
+          python career_source_validation.py
+          --batch-index ${{ matrix.batch }}
+          --batch-size 25
+          --workers 8
+          --output part-${{ matrix.batch }}.json
+
+      - name: Upload batch result
+        uses: actions/upload-artifact@v4
+        with:
+          name: career-source-validation-${{ matrix.batch }}
+          path: part-${{ matrix.batch }}.json
+          retention-days: 7
+
+  merge:
+    name: Merge all 432 validation results
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Download every batch
+        uses: actions/download-artifact@v4
+        with:
+          pattern: career-source-validation-*
+          path: validation-results
+          merge-multiple: true
+
+      - name: Merge only complete results
+        run: >-
+          python career_source_validation.py
+          --merge-dir validation-results
+          --expected-parts 18
+          --output career_source_runtime_status.yaml
+
+      - name: Upload runtime status and parser-supported candidates
+        uses: actions/upload-artifact@v4
+        with:
+          name: career-source-runtime-results
+          path: |
+            career_source_runtime_status.yaml
+            career_source_runtime_status.summary.json
+            career_source_promotable.yaml
+          retention-days: 7
