@@ -24,11 +24,11 @@ class ProductionV28Tests(unittest.TestCase):
         self.assertTrue(self.companies["Enphase Energy"]["enabled"])
         self.assertTrue(self.companies["Pegasystems"]["enabled"])
 
-    def test_workflow_runs_v28(self) -> None:
+    def test_workflow_runs_v28_or_newer(self) -> None:
         workflow = (
             Path(__file__).parents[1] / ".github" / "workflows" / "job-alerts.yml"
         ).read_text(encoding="utf-8")
-        self.assertIn("python job_monitor_entry_v28.py", workflow)
+        self.assertRegex(workflow, r"python job_monitor_entry_v(?:2[8-9]|[3-9]\d+)\.py")
         self.assertIn('cron: "7,37 * * * *"', workflow)
         self.assertIn("contents: write", workflow)
 
