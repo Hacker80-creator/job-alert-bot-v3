@@ -34,6 +34,50 @@ def make_job() -> SimpleNamespace:
     )
 
 
+def make_meaningful_plan(template: tailor.TemplateSnapshot) -> dict[str, object]:
+    plan = tailor.safe_plan(template, make_job())
+    plan["professional_summary"] = {
+        "text": (
+            "Analytical DevOps professional with hands-on Python, SQL, "
+            "Exploratory Data Analysis (EDA), Data Cleaning, Statistical Analysis, "
+            "Power BI, CI/CD, containerization, and Machine Learning. Experienced "
+            "in automated pipelines, scalable deployment workflows, ML benchmarking, "
+            "and performance analysis."
+        ),
+        "evidence": [
+            template.paragraphs[template.summary_index],
+            template.paragraphs[template.skill_indices[1]],
+            template.paragraphs[template.skill_indices[2]],
+            template.paragraphs[template.project_indices[0]],
+        ],
+    }
+    experience_source = template.paragraphs[template.experience_indices[3]]
+    plan["experience_bullets"] = [{
+        "index": 3,
+        "text": (
+            "Used Bash, Python, and Groovy automation scripts for build orchestration, "
+            "environment validation, and log processing across Linux-based systems, "
+            "automating repetitive operational workflows."
+        ),
+        "evidence": [experience_source],
+    }]
+    project_source = template.paragraphs[template.project_indices[0]]
+    plan["project_bullets"] = [{
+        "index": 0,
+        "text": (
+            "Analyzed 2,500 samples with 21 morphological features across 7 classes "
+            "through a config-driven ML pipeline benchmarking 6 algorithms (SVM, "
+            "Random Forest, KNN, Logistic Regression, Naive Bayes, Decision Tree)."
+        ),
+        "evidence": [project_source],
+    }]
+    plan["supported_skills"] = [
+        "Python", "SQL", "Exploratory Data Analysis (EDA)",
+        "Data Cleaning", "Statistical Analysis", "Power BI",
+    ]
+    return plan
+
+
 class ResumeTailoringTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
@@ -49,16 +93,25 @@ class ResumeTailoringTests(unittest.TestCase):
         self.assertIn("EDUCATION", self.template.headings)
         self.assertGreaterEqual(len(self.template.hyperlink_targets), 3)
 
-    def test_safe_generation_preserves_master_and_docx_structure(self) -> None:
+    def test_grounded_generation_preserves_master_and_docx_structure(self) -> None:
         before = MASTER.read_bytes()
         master_doc = Document(MASTER)
-        with tempfile.TemporaryDirectory() as temp_dir:
+        with tempfile.TemporaryDirectory() as temp_dir, patch.object(
+            tailor,
+            "request_tailoring_plan",
+            return_value=(make_meaningful_plan(self.template), "gemini-test", ()),
+        ):
             result = tailor.generate_tailored_resume(
-                make_job(), output_dir=temp_dir, api_key=""
+                make_job(), output_dir=temp_dir, api_key="test"
             )
             self.assertTrue(result.path.is_file())
-            self.assertEqual("safe-template", result.model)
+            self.assertEqual("gemini-test", result.model)
             self.assertTrue(result.changed_sections)
+            self.assertIsNotNone(result.comparison)
+            self.assertGreaterEqual(
+                len(result.comparison.newly_surfaced_summary_keywords), 2
+            )
+            self.assertGreaterEqual(result.comparison.rewritten_bullet_count, 1)
             self.assertIn("Python", result.supported_skills)
             self.assertIn("AWS", result.important_gaps)
             tailor.validate_generated_resume(self.template, result.path)
@@ -130,17 +183,14 @@ class ResumeTailoringTests(unittest.TestCase):
             warnings,
         )
 
-    def test_noop_ai_plan_is_never_attached_as_tailored(self) -> None:
-        job = SimpleNamespace(
-            company="Example", title="Unspecified Role", location="Bengaluru",
-            url="https://example.test/jobs/1", requisition_id="1", description="",
-        )
+    def test_reordering_only_ai_plan_is_never_attached_as_tailored(self) -> None:
+        job = make_job()
         raw = tailor.safe_plan(self.template, job)
         with tempfile.TemporaryDirectory() as temp_dir, patch.object(
             tailor, "request_tailoring_plan", return_value=(raw, "gemini-test", ())
         ):
             with self.assertRaisesRegex(
-                tailor.ResumeTailoringError, "no material change"
+                tailor.ResumeTailoringError, "substantive professional-summary"
             ):
                 tailor.generate_tailored_resume(
                     job, output_dir=temp_dir, api_key="test", require_ai=True
@@ -232,12 +282,23 @@ class ResumeTailoringTests(unittest.TestCase):
             supported_skills=("Python", "SQL"),
             important_gaps=("AWS",),
             model="gemini-3.6-flash",
+            changed_sections=("professional summary rewritten",),
+            comparison=tailor.ATSComparison(
+                summary_keywords_before=("Python",),
+                summary_keywords_after=("Python", "SQL"),
+                newly_surfaced_summary_keywords=("SQL",),
+                experience_bullets_rewritten=1,
+                project_bullets_rewritten=0,
+            ),
+            source_path=MASTER,
         )
         original_webhook = bot.DISCORD_WEBHOOK_URL
         try:
             bot.DISCORD_WEBHOOK_URL = "https://discord.example/webhook"
             with patch.object(bot.requests, "post", return_value=response) as post:
-                self.assertTrue(bot.discord_post(job, result))
+                self.assertTrue(
+                    bot.discord_post(job, result, include_original_resume=True)
+                )
             kwargs = post.call_args.kwargs
             self.assertIn("files", kwargs)
             self.assertNotIn("json", kwargs)
@@ -248,11 +309,17 @@ class ResumeTailoringTests(unittest.TestCase):
                 {"Location", "Expected salary*", "Match score", "WLB priority", "Source"}.issubset(names)
             )
             self.assertTrue(
-                {"Resume-supported skills", "Important gaps", "Tailored resume"}.issubset(names)
+                {
+                    "Resume-supported skills", "Important gaps", "Tailored resume",
+                    "ATS evidence comparison",
+                }.issubset(names)
             )
             attachment = kwargs["files"]["files[0]"]
             self.assertEqual("master_resume.docx", attachment[0])
             self.assertGreater(len(attachment[1]), 1_000)
+            original = kwargs["files"]["files[1]"]
+            self.assertEqual("ORIGINAL_Jagadev.docx", original[0])
+            self.assertGreater(len(original[1]), 1_000)
         finally:
             bot.DISCORD_WEBHOOK_URL = original_webhook
 

@@ -1187,7 +1187,12 @@ def prepare_tailored_resumes(jobs: list[Job]) -> dict[int, Any]:
     return generated
 
 
-def discord_post(job: Job, tailored_resume: Any | None = None) -> bool:
+def discord_post(
+    job: Job,
+    tailored_resume: Any | None = None,
+    *,
+    include_original_resume: bool = False,
+) -> bool:
     if not DISCORD_WEBHOOK_URL:
         print("ERROR: DISCORD_WEBHOOK_URL secret is missing")
         return False
@@ -1205,6 +1210,7 @@ def discord_post(job: Job, tailored_resume: Any | None = None) -> bool:
     if job_id:
         fields.insert(1, {"name": "Job ID", "value": job_id.upper(), "inline": True})
     attachment_path: Path | None = None
+    comparison_path: Path | None = None
     if tailored_resume is not None:
         candidate_path = Path(str(getattr(tailored_resume, "path", "")))
         if candidate_path.is_file():
@@ -1212,6 +1218,10 @@ def discord_post(job: Job, tailored_resume: Any | None = None) -> bool:
             supported = tuple(getattr(tailored_resume, "supported_skills", ()))
             gaps = tuple(getattr(tailored_resume, "important_gaps", ()))
             changed = tuple(getattr(tailored_resume, "changed_sections", ()))
+            comparison = getattr(tailored_resume, "comparison", None)
+            source_path = Path(str(getattr(tailored_resume, "source_path", "")))
+            if include_original_resume and source_path.is_file():
+                comparison_path = source_path
             fields.extend([
                 {
                     "name": "Resume-supported skills",
@@ -1232,6 +1242,24 @@ def discord_post(job: Job, tailored_resume: Any | None = None) -> bool:
                     "inline": False,
                 },
             ])
+            if comparison is not None:
+                surfaced = tuple(
+                    getattr(comparison, "newly_surfaced_summary_keywords", ())
+                )
+                before = tuple(getattr(comparison, "summary_keywords_before", ()))
+                after = tuple(getattr(comparison, "summary_keywords_after", ()))
+                rewritten = int(
+                    getattr(comparison, "rewritten_bullet_count", 0)
+                )
+                fields.append({
+                    "name": "ATS evidence comparison",
+                    "value": (
+                        f"JD-supported summary skills: {len(before)} -> {len(after)}\n"
+                        f"Newly surfaced: {', '.join(surfaced) or 'none'}\n"
+                        f"Substantive bullet rewrites: {rewritten}"
+                    )[:1000],
+                    "inline": False,
+                })
         else:
             print(f"WARN tailored resume attachment is missing for {job.title} @ {job.company}")
     payload = {
@@ -1249,16 +1277,23 @@ def discord_post(job: Job, tailored_resume: Any | None = None) -> bool:
         if attachment_path is None:
             r = requests.post(DISCORD_WEBHOOK_URL, json=payload, timeout=15)
         else:
+            files = {
+                "files[0]": (
+                    attachment_path.name,
+                    attachment_path.read_bytes(),
+                    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                )
+            }
+            if comparison_path is not None:
+                files["files[1]"] = (
+                    "ORIGINAL_Jagadev.docx",
+                    comparison_path.read_bytes(),
+                    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                )
             r = requests.post(
                 DISCORD_WEBHOOK_URL,
                 data={"payload_json": json.dumps(payload)},
-                files={
-                    "files[0]": (
-                        attachment_path.name,
-                        attachment_path.read_bytes(),
-                        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-                    )
-                },
+                files=files,
                 timeout=30,
             )
     except Exception as exc:
