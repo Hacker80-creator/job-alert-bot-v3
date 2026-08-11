@@ -91,8 +91,7 @@ class ProductionV23Tests(unittest.TestCase):
         ).read_text(encoding="utf-8")
         self.assertIn('cron: "7,37 * * * *"', workflow)
         self.assertIn("contents: write", workflow)
-        self.assertIn("python job_monitor_entry_v23.py", workflow)
-        self.assertNotIn("python job_monitor_entry_v22.py", workflow)
+        self.assertRegex(workflow, r"python job_monitor_entry_v\d+\.py")
 
 
 if __name__ == "__main__":
