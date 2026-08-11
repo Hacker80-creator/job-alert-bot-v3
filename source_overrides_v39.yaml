@@ -1,0 +1,28 @@
+metadata:
+  verified_at: "2026-08-11"
+  note: "Promote first-party Rupeek, Sahaj, and Times Internet listings."
+
+companies:
+  - name: "Rupeek"
+    kind: "product"
+    wlb_score: 3
+    ats: "rupeek_official"
+    url: "https://rupeek.com/about/careers"
+    career_site_url: "https://rupeek.com/about/careers"
+    enabled: true
+
+  - name: "Sahaj Software"
+    kind: "data_product"
+    wlb_score: 4
+    ats: "sahaj_roles"
+    url: "https://sahaj.ai/careers/"
+    career_site_url: "https://sahaj.ai/careers/"
+    enabled: true
+
+  - name: "Times Internet"
+    kind: "product"
+    wlb_score: 3
+    ats: "times_internet"
+    url: "https://timesinternet.in/careers/job-list"
+    career_site_url: "https://timesinternet.in/careers/job-list"
+    enabled: true

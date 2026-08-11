@@ -1,0 +1,437 @@
+metadata:
+  verified_at: "2026-08-11"
+  note: "Promote the second dynamic-source batch through live ATS backends."
+
+companies:
+  - name: "H2O.ai"
+    kind: "product"
+    wlb_score: 4
+    ats: "applytojob_html"
+    url: "https://h2oai.applytojob.com/"
+    career_site_url: "https://h2oai.applytojob.com/"
+    max_candidate_details: 25
+    enabled: true
+
+  - name: "John Deere"
+    kind: "product_gcc"
+    wlb_score: 4
+    ats: "jobs2web_rss"
+    url: "https://jobs.deere.com/services/rss/job/"
+    career_site_url: "https://jobs.deere.com/"
+    max_pages_per_term: 2
+    enabled: true
+
+  - name: "Locus"
+    kind: "product"
+    wlb_score: 3
+    ats: "smartrecruiters"
+    slug: "locussh1"
+    career_site_url: "https://careers.smartrecruiters.com/locussh1"
+    enabled: true
+
+  - name: "Magna International"
+    kind: "product_gcc"
+    wlb_score: 3
+    ats: "workday_search"
+    url: "https://wd3.myworkdaysite.com/wday/cxs/magna/Magna/jobs"
+    career_site_url: "https://wd3.myworkdaysite.com/en-US/recruiting/magna/Magna"
+    max_results_per_term: 60
+    enabled: true
+
+  - name: "Nokia"
+    kind: "product_gcc"
+    wlb_score: 4
+    ats: "oracle_hcm"
+    url: "https://fa-evmr-saasfaprod1.fa.ocs.oraclecloud.com/hcmRestApi/resources/latest/recruitingCEJobRequisitions"
+    career_site_url: "https://jobs.nokia.com/en/sites/CX_1"
+    site_number: "CX_1"
+    max_results_per_term: 48
+    enabled: true
+
+  - name: "Siemens Energy"
+    kind: "product_gcc"
+    wlb_score: 3
+    ats: "avature_html"
+    url: "https://jobs.siemens-energy.com/en_US/jobs/Jobs"
+    career_site_url: "https://jobs.siemens-energy.com/en_US/jobs"
+    max_candidate_details: 80
+    enabled: true
+
+  - name: "STMicroelectronics"
+    kind: "product_gcc"
+    wlb_score: 4
+    ats: "eightfold_html"
+    url: "https://stmicroelectronics.eightfold.ai/careers"
+    career_site_url: "https://stmicroelectronics.eightfold.ai/careers"
+    max_candidate_details: 30
+    enabled: true
+
+  - name: "Texas Instruments"
+    kind: "product_gcc"
+    wlb_score: 4
+    ats: "oracle_hcm"
+    url: "https://edbz.fa.us2.oraclecloud.com/hcmRestApi/resources/latest/recruitingCEJobRequisitions"
+    career_site_url: "https://careers.ti.com/en/sites/CX"
+    site_number: "CX"
+    max_results_per_term: 48
+    enabled: true
+
+  - name: "Salesforce"
+    aliases:
+      - "MuleSoft"
+      - "Slack"
+      - "Tableau"
+      - "Informatica"
+
+  - name: "AMD"
+    kind: "product_gcc"
+    wlb_score: 4
+    ats: "jibe_api"
+    url: "https://careers.amd.com/api/jobs"
+    career_site_url: "https://careers.amd.com/careers-home/jobs"
+    query_params:
+      country: "India"
+    page_size: 100
+    max_results: 500
+    aliases:
+      - "Xilinx"
+    enabled: true
+
+  - name: "Costco Wholesale"
+    kind: "product"
+    wlb_score: 4
+    ats: "jibe_api"
+    url: "https://careers.costco.com/api/jobs"
+    career_site_url: "https://careers.costco.com/"
+    query_params:
+      country: "India"
+    page_size: 100
+    max_results: 500
+    enabled: true
+
+  - name: "DocuSign"
+    kind: "product"
+    wlb_score: 4
+    ats: "jibe_api"
+    url: "https://careers.docusign.com/api/jobs"
+    career_site_url: "https://careers.docusign.com/careers-home/jobs"
+    query_params:
+      country: "India"
+    page_size: 100
+    max_results: 500
+    enabled: true
+
+  - name: "ET Money"
+    kind: "product"
+    wlb_score: 3
+    ats: "zoho_careers_html"
+    url: "https://etmoney.zohorecruit.in/jobs/Careers"
+    career_site_url: "https://etmoney.zohorecruit.in/jobs/Careers"
+    enabled: true
+
+  - name: "Ganit"
+    kind: "data_product"
+    wlb_score: 3
+    ats: "zoho_careers_html"
+    url: "https://ganitinc.zohorecruit.in/jobs/Careers"
+    career_site_url: "https://ganitinc.zohorecruit.in/jobs/Careers"
+    enabled: true
+
+  - name: "GitHub"
+    kind: "product"
+    wlb_score: 4
+    ats: "jibe_api"
+    url: "https://www.github.careers/api/jobs"
+    career_site_url: "https://www.github.careers/careers-home/jobs"
+    query_params:
+      country: "India"
+    page_size: 100
+    max_results: 500
+    enabled: true
+
+  - name: "Global Payments"
+    kind: "product_bfsi"
+    wlb_score: 3
+    ats: "workday_multi"
+    max_results_per_term: 60
+    sources:
+      - label: "TSYS"
+        url: "https://tsys.wd1.myworkdayjobs.com/wday/cxs/tsys/TSYS/jobs"
+        career_site_url: "https://tsys.wd1.myworkdayjobs.com/TSYS"
+      - label: "Worldpay"
+        url: "https://worldpay.wd5.myworkdayjobs.com/wday/cxs/worldpay/Worldpay_External_Careers_Site/jobs"
+        career_site_url: "https://worldpay.wd5.myworkdayjobs.com/Worldpay_External_Careers_Site"
+    enabled: true
+
+  - name: "Increff"
+    kind: "product"
+    wlb_score: 3
+    ats: "zoho_careers_html"
+    url: "https://increff.zohorecruit.com/jobs/Careers"
+    career_site_url: "https://increff.zohorecruit.com/jobs/Careers"
+    enabled: true
+
+  - name: "Intercom"
+    kind: "product"
+    wlb_score: 4
+    ats: "greenhouse"
+    slug: "intercom"
+    career_site_url: "https://fin.ai/careers"
+    enabled: true
+
+  - name: "Intercontinental Exchange"
+    kind: "product_bfsi"
+    wlb_score: 4
+    ats: "jibe_api"
+    url: "https://careers.ice.com/api/jobs"
+    career_site_url: "https://careers.ice.com/jobs"
+    query_params:
+      country: "India"
+    page_size: 100
+    max_results: 500
+    enabled: true
+
+  - name: "Keysight Technologies"
+    kind: "product_gcc"
+    wlb_score: 4
+    ats: "jibe_api"
+    url: "https://jobs.keysight.com/api/jobs"
+    career_site_url: "https://jobs.keysight.com/external"
+    query_params:
+      country: "India"
+    page_size: 100
+    max_results: 500
+    enabled: true
+
+  - name: "Netflix"
+    kind: "product"
+    wlb_score: 3
+    ats: "eightfold_html"
+    url: "https://explore.jobs.netflix.net/careers"
+    career_site_url: "https://explore.jobs.netflix.net/careers"
+    max_candidate_details: 30
+    enabled: true
+
+  - name: "Presidio"
+    kind: "product_services"
+    wlb_score: 3
+    ats: "ukg_jobboard"
+    url: "https://recruiting.ultipro.com/PRE1019PRSD/JobBoard/4c05f321-903e-43d5-a4c0-5d9dd55dc34d/JobBoardView/LoadSearchResults"
+    career_site_url: "https://recruiting.ultipro.com/PRE1019PRSD/JobBoard/4c05f321-903e-43d5-a4c0-5d9dd55dc34d"
+    page_size: 50
+    max_results: 300
+    enabled: true
+
+  - name: "Principal Financial Group"
+    kind: "product_bfsi"
+    wlb_score: 4
+    ats: "jibe_api"
+    url: "https://careers.principal.com/api/jobs"
+    career_site_url: "https://careers.principal.com/careers-home"
+    query_params:
+      country: "India"
+    page_size: 100
+    max_results: 500
+    enabled: true
+
+  - name: "Snap"
+    kind: "product"
+    wlb_score: 3
+    ats: "workday_search"
+    url: "https://wd1.myworkdaysite.com/wday/cxs/snapchat/snap/jobs"
+    career_site_url: "https://wd1.myworkdaysite.com/recruiting/snapchat/snap"
+    max_results_per_term: 60
+    enabled: true
+
+  - name: "ZS Associates"
+    kind: "data_consulting"
+    wlb_score: 3
+    ats: "jibe_api"
+    url: "https://jobs.zs.com/api/jobs"
+    career_site_url: "https://jobs.zs.com/jobs"
+    query_params:
+      country: "India"
+    page_size: 100
+    max_results: 500
+    enabled: true
+
+  - name: "Hitachi Energy"
+    kind: "product_gcc"
+    wlb_score: 4
+    ats: "workday_search"
+    url: "https://hitachi.wd1.myworkdayjobs.com/wday/cxs/hitachi/hitachi/jobs"
+    career_site_url: "https://hitachi.wd1.myworkdayjobs.com/hitachi"
+    max_results_per_term: 60
+    enabled: true
+
+  - name: "Qatar Airways Technology"
+    kind: "product_gcc"
+    wlb_score: 3
+    ats: "avature_html"
+    url: "https://careers.qatarairways.com/global/SearchJobs"
+    career_site_url: "https://careers.qatarairways.com/global"
+    max_candidate_details: 60
+    enabled: true
+
+  - name: "Remitly"
+    kind: "product_bfsi"
+    wlb_score: 4
+    ats: "workday_search"
+    url: "https://remitly.wd5.myworkdayjobs.com/wday/cxs/remitly/Remitly_Careers/jobs"
+    career_site_url: "https://remitly.wd5.myworkdayjobs.com/Remitly_Careers"
+    max_results_per_term: 60
+    enabled: true
+
+  - name: "TotalEnergies"
+    kind: "product_gcc"
+    wlb_score: 3
+    ats: "avature_html"
+    url: "https://jobs.totalenergies.com/en_US/careers/SearchJobs"
+    career_site_url: "https://jobs.totalenergies.com/en_US/careers"
+    max_candidate_details: 80
+    enabled: true
+
+  - name: "Trellix"
+    kind: "product"
+    wlb_score: 3
+    ats: "workday_search"
+    url: "https://trellix.wd1.myworkdayjobs.com/wday/cxs/trellix/EnterpriseCareers/jobs"
+    career_site_url: "https://trellix.wd1.myworkdayjobs.com/EnterpriseCareers"
+    max_results_per_term: 60
+    enabled: true
+
+  - name: "Vanguard"
+    kind: "product_bfsi"
+    wlb_score: 4
+    ats: "workday_search"
+    url: "https://vanguard.wd5.myworkdayjobs.com/wday/cxs/vanguard/vanguard_external/jobs"
+    career_site_url: "https://vanguard.wd5.myworkdayjobs.com/vanguard_external"
+    max_results_per_term: 60
+    enabled: true
+
+  - name: "Equifax"
+    kind: "data_product_bfsi"
+    wlb_score: 4
+    ats: "direct_job_html"
+    url: "https://careers.equifax.com/en/jobs/"
+    career_site_url: "https://careers.equifax.com/en/jobs/"
+    max_candidate_details: 40
+    enabled: true
+
+  - name: "Etsy"
+    kind: "product"
+    wlb_score: 4
+    ats: "direct_job_html"
+    url: "https://careers.etsy.com/jobs/search"
+    career_site_url: "https://careers.etsy.com/jobs/search"
+    max_candidate_details: 40
+    enabled: true
+
+  - name: "Gramener"
+    kind: "data_product"
+    wlb_score: 3
+    ats: "direct_job_html"
+    url: "https://gramener.com/careers/"
+    career_site_url: "https://gramener.com/careers/"
+    max_candidate_details: 30
+    title_cleanup_locations:
+      - "Hyderabad"
+      - "Bangalore"
+      - "Bengaluru"
+      - "Chennai"
+      - "Noida"
+      - "Mumbai"
+    enabled: true
+
+  - name: "Indium Software"
+    kind: "data_services"
+    wlb_score: 3
+    ats: "direct_job_html"
+    url: "https://www.indiumsoftware.com/jobs/"
+    career_site_url: "https://www.indiumsoftware.com/jobs/"
+    max_candidate_details: 40
+    enabled: true
+
+  - name: "Macquarie Group"
+    kind: "product_bfsi"
+    wlb_score: 4
+    ats: "avature_html"
+    url: "https://recruitment.macquarie.com/en_US/careers/SearchJobs"
+    career_site_url: "https://recruitment.macquarie.com/en_US/careers/SearchJobs"
+    max_candidate_details: 60
+    enabled: true
+
+  - name: "Novartis"
+    kind: "product_gcc"
+    wlb_score: 4
+    ats: "direct_job_html"
+    url: "https://www.novartis.com/careers/career-search"
+    career_site_url: "https://www.novartis.com/careers/career-search"
+    max_candidate_details: 40
+    enabled: true
+
+  - name: "Salesloft"
+    kind: "product"
+    wlb_score: 4
+    ats: "greenhouse"
+    slug: "salesloft"
+    career_site_url: "https://www.salesloft.com/company/careers"
+    enabled: true
+
+  - name: "SentinelOne"
+    kind: "product"
+    wlb_score: 3
+    ats: "direct_job_html"
+    url: "https://www.sentinelone.com/jobs/"
+    career_site_url: "https://www.sentinelone.com/jobs/"
+    max_candidate_details: 60
+    enabled: true
+
+  - name: "Shopify"
+    kind: "product"
+    wlb_score: 4
+    ats: "direct_job_html"
+    url: "https://www.shopify.com/careers"
+    career_site_url: "https://www.shopify.com/careers"
+    max_candidate_details: 40
+    enabled: true
+
+  - name: "CitiusTech"
+    kind: "data_services"
+    wlb_score: 3
+    ats: "ripplehire"
+    url: "https://citiustech.ripplehire.com/candidate/"
+    career_site_url: "https://citiustech.ripplehire.com/candidate/?token=bCKlfz3OO8vQIgiM2vuI&source=CAREERSITE#list"
+    token: "bCKlfz3OO8vQIgiM2vuI"
+    source: "CAREERSITE"
+    page_size: 100
+    max_results: 500
+    max_candidate_details: 30
+    enabled: true
+
+  - name: "Dream Sports"
+    kind: "product"
+    wlb_score: 3
+    ats: "trakstar_html"
+    url: "https://dream11.hire.trakstar.com/"
+    career_site_url: "https://dream11.hire.trakstar.com/"
+    max_candidate_details: 30
+    enabled: true
+
+  - name: "Ninjacart"
+    kind: "product"
+    wlb_score: 3
+    ats: "freshteam_html"
+    url: "https://ninjacart.freshteam.com/jobs"
+    career_site_url: "https://ninjacart.freshteam.com/jobs"
+    max_candidate_details: 30
+    enabled: true
+
+  - name: "Wells Fargo"
+    kind: "data_product_bfsi"
+    wlb_score: 4
+    ats: "direct_job_html"
+    url: "https://www.wellsfargojobs.com/en/jobs/"
+    career_site_url: "https://www.wellsfargojobs.com/en/jobs/"
+    max_candidate_details: 40
+    enabled: true

@@ -1,0 +1,23 @@
+metadata:
+  verified_at: "2026-08-11"
+  note: "Promote Klarna's Deel board and Hasura/PromptQL's Gem board."
+
+companies:
+  - name: "Klarna"
+    kind: "product"
+    wlb_score: 4
+    ats: "deel_next"
+    url: "https://jobs.deel.com/job-boards/klarna"
+    career_site_url: "https://jobs.deel.com/klarna/"
+    max_candidate_details: 30
+    enabled: true
+
+  - name: "Hasura"
+    aliases:
+      - "PromptQL"
+    kind: "data_product"
+    wlb_score: 4
+    ats: "gem_public"
+    slug: "promptql"
+    career_site_url: "https://jobs.gem.com/promptql"
+    enabled: true

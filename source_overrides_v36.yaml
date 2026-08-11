@@ -1,0 +1,29 @@
+metadata:
+  verified_at: "2026-08-11"
+  note: "Promote stable first-party job pages for CredAble, DataWeave, and Nykaa."
+
+companies:
+  - name: "CredAble"
+    kind: "product"
+    wlb_score: 3
+    ats: "wordpress_job_links"
+    url: "https://credable.in/career/"
+    career_site_url: "https://credable.in/career/"
+    enabled: true
+
+  - name: "DataWeave"
+    kind: "data_product"
+    wlb_score: 4
+    ats: "dataweave_jobs"
+    url: "https://dataweave.com/in/careers"
+    career_site_url: "https://dataweave.com/in/careers"
+    enabled: true
+
+  - name: "Nykaa"
+    kind: "product"
+    wlb_score: 3
+    ats: "skima_html"
+    url: "https://careers.nykaa.com/"
+    career_site_url: "https://careers.nykaa.com/"
+    max_pages: 10
+    enabled: true

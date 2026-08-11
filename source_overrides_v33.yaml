@@ -1,0 +1,82 @@
+metadata:
+  verified_at: "2026-08-11"
+  note: "Promote recovered Zwayam and Keka public career feeds."
+
+companies:
+  - name: "Cyient"
+    kind: "services"
+    wlb_score: 3
+    ats: "tavant_browser_transport"
+    url: "https://public.zwayam.com/jobs/search"
+    career_site_url: "https://careers.cyient.com/cyient"
+    domain: "careers.cyient.com"
+    company_id: "MTU0ODY="
+    read_timeout_seconds: 30
+    max_results: 500
+    enabled: true
+
+  - name: "Curefit"
+    kind: "product"
+    wlb_score: 3
+    ats: "tavant_browser_transport"
+    url: "https://public.zwayam.com/jobs/search"
+    career_site_url: "https://careers.cult.fit/cult"
+    domain: "careers.cult.fit"
+    company_id: "MTU0NzA="
+    read_timeout_seconds: 30
+    max_results: 500
+    enabled: true
+
+  - name: "Info Edge"
+    aliases:
+      - "Naukri.com"
+    kind: "product"
+    wlb_score: 3
+    ats: "tavant_browser_transport"
+    url: "https://public.zwayam.com/jobs/search"
+    career_site_url: "https://careers.infoedge.com/infoedge"
+    domain: "careers.infoedge.com"
+    company_id: "MTU1Nzg="
+    read_timeout_seconds: 30
+    max_results: 500
+    enabled: true
+
+  - name: "Livspace"
+    kind: "product"
+    wlb_score: 3
+    ats: "tavant_browser_transport"
+    url: "https://public.zwayam.com/jobs/search"
+    career_site_url: "https://careers.livspace.com/livspace"
+    domain: "careers.livspace.com"
+    company_id: "MTU5MTk="
+    read_timeout_seconds: 30
+    max_results: 500
+    enabled: true
+
+  - name: "Torry Harris Integration Solutions"
+    kind: "services"
+    wlb_score: 3
+    ats: "tavant_browser_transport"
+    url: "https://public.zwayam.com/jobs/search"
+    career_site_url: "https://careers.torryharris.com/torryharris"
+    domain: "careers.torryharris.com"
+    company_id: "MTUxNjE="
+    read_timeout_seconds: 30
+    max_results: 500
+    enabled: true
+
+  - name: "Jupiter Money"
+    kind: "product"
+    wlb_score: 3
+    ats: "keka_embed"
+    career_site_url: "https://jupiter.keka.com/careers/"
+    identifier: "b5279857-cf81-4dde-a215-fc48957ee2b5"
+    enabled: true
+
+  - name: "Open Financial Technologies"
+    kind: "product"
+    wlb_score: 3
+    ats: "keka_embed"
+    career_site_url: "https://openfinancial.keka.com/careers/"
+    identifier: "161570d3-d2be-4e8c-b233-d006f70cd371"
+    enabled: true

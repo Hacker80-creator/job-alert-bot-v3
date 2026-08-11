@@ -1,0 +1,23 @@
+metadata:
+  verified_at: "2026-08-11"
+  note: "Promote MoEngage's official Trakstar board and HealthifyMe's structured official listing."
+
+companies:
+  - name: "MoEngage"
+    kind: "product"
+    wlb_score: 4
+    ats: "trakstar_html"
+    url: "https://moengage.hire.trakstar.com/"
+    career_site_url: "https://www.moengage.com/careers/"
+    max_candidate_details: 30
+    enabled: true
+
+  - name: "HealthifyMe"
+    kind: "product"
+    wlb_score: 3
+    ats: "listing_jsonld"
+    url: "https://www.healthifyme.com/careers/"
+    career_site_url: "https://www.healthifyme.com/careers/"
+    max_posting_age_days: 365
+    source_status: "verified_no_current_jobs"
+    enabled: true

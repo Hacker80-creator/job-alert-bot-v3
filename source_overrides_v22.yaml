@@ -1,0 +1,36 @@
+metadata:
+  verified_at: "2026-08-11"
+  note: "Promote compatible server-rendered Avature portals discovered in the dynamic-source cluster."
+
+companies:
+  - name: "Bloomberg"
+    kind: "data_product_bfsi"
+    wlb_score: 4
+    ats: "avature_html"
+    url: "https://bloomberg.avature.net/careers/SearchJobs/"
+    career_site_url: "https://bloomberg.avature.net/careers/SearchJobs/"
+    enabled: true
+
+  - name: "Electronic Arts"
+    kind: "product"
+    wlb_score: 3
+    ats: "avature_html"
+    url: "https://jobs.ea.com/en_US/careers/SearchJobs"
+    career_site_url: "https://jobs.ea.com/en_US/careers"
+    enabled: true
+
+  - name: "Lenovo"
+    kind: "product"
+    wlb_score: 3
+    ats: "avature_html"
+    url: "https://jobs.lenovo.com/en_US/careers/SearchJobs"
+    career_site_url: "https://jobs.lenovo.com/en_US/careers/SearchJobs"
+    enabled: true
+
+  - name: "Tesco Bengaluru"
+    kind: "product_gcc"
+    wlb_score: 4
+    ats: "avature_html"
+    url: "https://careers.tesco.com/en_GB/careers/SearchJobs"
+    career_site_url: "https://careers.tesco.com/en_GB/careers/searchjobs"
+    enabled: true
