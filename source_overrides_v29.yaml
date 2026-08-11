@@ -1,0 +1,36 @@
+metadata:
+  verified_at: "2026-08-11"
+  note: "Promote the verified Flipkart TurboHire board, Globant job sitemap, and WTW India search."
+
+companies:
+  - name: "Flipkart"
+    aliases:
+      - "Cleartrip"
+    kind: "product"
+    wlb_score: 3
+    ats: "turbohire_api"
+    org_id: "4d757ba0-3d57-448a-b82c-238ed87ac90f"
+    page_type: 0
+    url: "https://thapi.azurewebsites.net/api/careerpagev2/filteredjobs"
+    career_site_url: "https://flipkart.turbohire.co/dashboardv2?orgId=4d757ba0-3d57-448a-b82c-238ed87ac90f&type=0"
+    enabled: true
+
+  - name: "Globant"
+    kind: "data_services"
+    wlb_score: 3
+    ats: "next_sitemap"
+    url: "https://career.globant.com/sitemap.xml"
+    career_site_url: "https://career.globant.com/"
+    max_job_pages: 40
+    enabled: true
+
+  - name: "Willis Towers Watson"
+    aliases:
+      - "WTW"
+    kind: "product_bfsi"
+    wlb_score: 4
+    ats: "direct_job_html"
+    url: "https://careers.wtwco.com/jobs/search?country_codes%5B%5D=IN&page=1&query=data"
+    career_site_url: "https://careers.wtwco.com/jobs/search?country_codes%5B%5D=IN&page=1"
+    max_candidate_details: 20
+    enabled: true

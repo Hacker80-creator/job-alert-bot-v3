@@ -68,7 +68,7 @@ jobs:
           DAILY_HEALTH_HOURS: "24"
           MAX_SOURCE_WORKERS: "16"
           ENABLE_INDEED: "false"
-        run: python job_monitor_entry_v30.py
+        run: python job_monitor_entry_v31.py
 
       - name: Persist deduplication state
         if: ${{ always() && github.ref_name == 'main' }}

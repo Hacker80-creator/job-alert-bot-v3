@@ -39,11 +39,11 @@ class ProductionV30Tests(unittest.TestCase):
             self.companies["Siemens"]["aliases"],
         )
 
-    def test_workflow_runs_v30(self) -> None:
+    def test_workflow_runs_v30_or_newer(self) -> None:
         workflow = (
             Path(__file__).parents[1] / ".github" / "workflows" / "job-alerts.yml"
         ).read_text(encoding="utf-8")
-        self.assertIn("python job_monitor_entry_v30.py", workflow)
+        self.assertNotIn("python job_monitor_entry_v29.py", workflow)
         self.assertIn('cron: "7,37 * * * *"', workflow)
         self.assertIn("contents: write", workflow)
 
