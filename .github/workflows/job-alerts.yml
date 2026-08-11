@@ -2,6 +2,12 @@ name: Bangalore product data job alerts
 
 on:
   workflow_dispatch:
+    inputs:
+      send_resume_test:
+        description: "Send the feature-branch resume integration alert"
+        required: false
+        default: false
+        type: boolean
   schedule:
     # Every 30 minutes. GitHub may delay scheduled jobs slightly.
     - cron: "7,37 * * * *"
@@ -40,7 +46,7 @@ jobs:
         run: python -m unittest discover -s tests -v
 
       - name: Send branch-only resume integration test
-        if: ${{ github.event_name == 'workflow_dispatch' && github.ref_name != 'main' }}
+        if: ${{ github.event_name == 'workflow_dispatch' && github.ref_name != 'main' && inputs.send_resume_test }}
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -49,6 +55,34 @@ jobs:
           MASTER_RESUME_PATH: "resume/master_resume.docx"
           TAILORED_RESUME_DIR: ${{ runner.temp }}/tailored-resumes
         run: python resume_test_alert.py
+
+      - name: Live-test feature-branch source batch
+        if: ${{ github.event_name == 'workflow_dispatch' && github.ref_name != 'main' }}
+        run: >-
+          python branch_source_validation.py
+          --overrides-file source_overrides_v30.yaml
+          --output branch_source_validation.summary.json
+          --workers 8
+
+      - name: Deep-probe next 50 unresolved dynamic companies
+        if: ${{ github.event_name == 'workflow_dispatch' && github.ref_name != 'main' }}
+        run: >-
+          python dynamic_source_probe.py
+          --batch-index 0
+          --batch-size 50
+          --workers 16
+          --output dynamic_source_probe.summary.json
+
+      - name: Upload feature-branch source validation
+        if: ${{ always() && github.event_name == 'workflow_dispatch' && github.ref_name != 'main' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: branch-source-validation
+          path: |
+            branch_source_validation.summary.json
+            dynamic_source_probe.summary.json
+          if-no-files-found: error
+          retention-days: 7
 
       - name: Scan official career feeds
         if: ${{ github.ref_name == 'main' }}

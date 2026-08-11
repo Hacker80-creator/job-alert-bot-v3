@@ -2,6 +2,8 @@
 resumes/generated/
 __pycache__/
 *.pyc
+branch_source_validation.summary.json
+dynamic_source_probe.summary.json
 *.log
 .venv/
 companies.json

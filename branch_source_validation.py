@@ -1,0 +1,134 @@
+"""Live-test a feature-branch source batch without alerts or state writes."""
+from __future__ import annotations
+
+import argparse
+import json
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from pathlib import Path
+from typing import Any
+
+import yaml
+
+import custom_source_parsers_v19
+import job_match_expanded as expanded
+import job_monitor as bot
+import job_monitor_entry
+import job_monitor_entry_v32
+
+
+ROOT = Path(__file__).parent
+
+
+def source_names(path: Path) -> list[str]:
+    document = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    return [
+        str(company["name"])
+        for company in document.get("companies", [])
+        if company.get("enabled", True)
+    ]
+
+
+def validate_source(company: dict[str, Any]) -> dict[str, Any]:
+    try:
+        jobs = custom_source_parsers_v19.fetch_company_jobs_with_custom_v19(company)
+    except Exception as exc:  # Defensive: custom adapters normally contain errors.
+        return {
+            "name": company["name"],
+            "status": "FAILED",
+            "job_count": 0,
+            "error": f"{type(exc).__name__}: {exc}",
+        }
+    return {
+        "name": company["name"],
+        "status": "WORKING" if jobs else "NO_JOBS",
+        "job_count": len(jobs),
+        "sample_jobs": [
+            {
+                "title": job.title,
+                "location": job.location,
+                "url": job.url,
+            }
+            for job in jobs[:3]
+        ],
+    }
+
+
+def run(overrides_file: Path, output: Path, workers: int) -> int:
+    bot.parse_workday_search = expanded.parse_workday_with_generic_details
+    bot.parse_smartrecruiters = expanded.parse_smartrecruiters_with_generic_details
+    bot.parse_lever = job_monitor_entry.parse_lever_with_region
+    bot.SCAN_ERRORS.clear()
+
+    companies = {
+        company["name"]: company
+        for company in job_monitor_entry_v32.load_final_config()["companies"]
+    }
+    names = source_names(overrides_file)
+    missing = [name for name in names if name not in companies]
+    disabled = [
+        name for name in names
+        if name in companies and not companies[name].get("enabled", True)
+    ]
+    results: list[dict[str, Any]] = []
+    selected = [companies[name] for name in names if name in companies and name not in disabled]
+    with ThreadPoolExecutor(max_workers=max(1, workers)) as pool:
+        futures = {pool.submit(validate_source, company): company["name"] for company in selected}
+        for future in as_completed(futures):
+            result = future.result()
+            print(
+                f"{result['status']} {result['name']}: "
+                f"{result['job_count']} raw jobs",
+                flush=True,
+            )
+            results.append(result)
+
+    failed_names = {
+        company["name"]
+        for company in selected
+        if any(
+            company["name"].casefold() in error.casefold()
+            for error in bot.SCAN_ERRORS
+        )
+    }
+    for result in results:
+        if result["name"] in failed_names:
+            result["status"] = "FAILED"
+
+    results.sort(key=lambda item: item["name"].casefold())
+    summary = {
+        "requested": len(names),
+        "completed": len(results),
+        "working": sum(item["status"] == "WORKING" for item in results),
+        "no_jobs": sum(item["status"] == "NO_JOBS" for item in results),
+        "failed": sum(item["status"] == "FAILED" for item in results),
+        "missing": missing,
+        "disabled": disabled,
+        "results": results,
+    }
+    output.write_text(json.dumps(summary, indent=2), encoding="utf-8")
+    print(
+        "BRANCH_SOURCE_SUMMARY "
+        f"requested={summary['requested']} completed={summary['completed']} "
+        f"working={summary['working']} no_jobs={summary['no_jobs']} "
+        f"failed={summary['failed']} missing={len(missing)} disabled={len(disabled)}"
+    )
+    return 1 if summary["failed"] or missing or disabled else 0
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--overrides-file", type=Path,
+        default=ROOT / "source_overrides_v30.yaml",
+    )
+    parser.add_argument(
+        "--output", type=Path,
+        default=ROOT / "branch_source_validation.summary.json",
+    )
+    parser.add_argument("--workers", type=int, default=8)
+    args = parser.parse_args()
+    return run(args.overrides_file, args.output, args.workers)
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
