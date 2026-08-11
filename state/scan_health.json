@@ -1,6 +1,8 @@
 {
   "allowlist_count": 796,
-  "failed_sources": [],
-  "last_notice_utc": "2026-08-11T04:09:00.981965+00:00",
+  "failed_sources": [
+    "Dell Technologies"
+  ],
+  "last_notice_utc": "2026-08-11T05:21:39.946591+00:00",
   "official_source_count": 400
 }
