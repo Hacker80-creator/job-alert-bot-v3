@@ -58,6 +58,7 @@ class ResumeTailoringTests(unittest.TestCase):
             )
             self.assertTrue(result.path.is_file())
             self.assertEqual("safe-template", result.model)
+            self.assertTrue(result.changed_sections)
             self.assertIn("Python", result.supported_skills)
             self.assertIn("AWS", result.important_gaps)
             tailor.validate_generated_resume(self.template, result.path)
@@ -70,6 +71,10 @@ class ResumeTailoringTests(unittest.TestCase):
                             f"preserve-only DOCX part changed: {name}",
                         )
             generated = Document(result.path)
+            self.assertNotEqual(
+                [paragraph.text for paragraph in master_doc.paragraphs],
+                [paragraph.text for paragraph in generated.paragraphs],
+            )
             self.assertEqual(len(master_doc.paragraphs), len(generated.paragraphs))
             self.assertEqual(
                 [(s.page_width, s.page_height, s.left_margin, s.right_margin) for s in master_doc.sections],
@@ -124,6 +129,22 @@ class ResumeTailoringTests(unittest.TestCase):
             "gemini-3.6-flash failed: primary down",
             warnings,
         )
+
+    def test_noop_ai_plan_is_never_attached_as_tailored(self) -> None:
+        job = SimpleNamespace(
+            company="Example", title="Unspecified Role", location="Bengaluru",
+            url="https://example.test/jobs/1", requisition_id="1", description="",
+        )
+        raw = tailor.safe_plan(self.template, job)
+        with tempfile.TemporaryDirectory() as temp_dir, patch.object(
+            tailor, "request_tailoring_plan", return_value=(raw, "gemini-test", ())
+        ):
+            with self.assertRaisesRegex(
+                tailor.ResumeTailoringError, "no material change"
+            ):
+                tailor.generate_tailored_resume(
+                    job, output_dir=temp_dir, api_key="test", require_ai=True
+                )
 
     def test_gemini_request_uses_schema_and_secret_header(self) -> None:
         raw = tailor.safe_plan(self.template, make_job())

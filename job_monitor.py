@@ -1211,6 +1211,7 @@ def discord_post(job: Job, tailored_resume: Any | None = None) -> bool:
             attachment_path = candidate_path
             supported = tuple(getattr(tailored_resume, "supported_skills", ()))
             gaps = tuple(getattr(tailored_resume, "important_gaps", ()))
+            changed = tuple(getattr(tailored_resume, "changed_sections", ()))
             fields.extend([
                 {
                     "name": "Resume-supported skills",
@@ -1224,7 +1225,10 @@ def discord_post(job: Job, tailored_resume: Any | None = None) -> bool:
                 },
                 {
                     "name": "Tailored resume",
-                    "value": f"Attached • {getattr(tailored_resume, 'model', 'safe-template')}",
+                    "value": (
+                        f"Attached • {getattr(tailored_resume, 'model', 'safe-template')}"
+                        f" • Changed: {', '.join(changed) or 'not reported'}"
+                    ),
                     "inline": False,
                 },
             ])

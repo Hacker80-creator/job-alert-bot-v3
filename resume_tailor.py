@@ -153,6 +153,7 @@ class TailoredResume:
     important_gaps: tuple[str, ...]
     model: str
     warnings: tuple[str, ...] = ()
+    changed_sections: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -560,6 +561,23 @@ def _skills_in_job(template: TemplateSnapshot, description: str) -> list[str]:
     return matches
 
 
+def _relevance_order(
+    template: TemplateSnapshot, indices: tuple[int, ...], description: str
+) -> list[int]:
+    """Rank existing truthful bullets by JD overlap without rewriting claims."""
+    description_tokens = _tokens(description)
+    supported_skills = _skills_in_job(template, description)
+    scored: list[tuple[int, int, int]] = []
+    for local_index, paragraph_index in enumerate(indices):
+        text = template.paragraphs[paragraph_index]
+        skill_score = sum(
+            1 for skill in supported_skills if _contains_phrase(text, skill)
+        )
+        token_score = len(_tokens(text) & description_tokens)
+        scored.append((-skill_score, -token_score, local_index))
+    return [local_index for _, _, local_index in sorted(scored)]
+
+
 def safe_plan(template: TemplateSnapshot, job: Any) -> dict[str, Any]:
     context = _job_context(job)
     supported = _skills_in_job(template, context.description)
@@ -576,9 +594,13 @@ def safe_plan(template: TemplateSnapshot, job: Any) -> dict[str, Any]:
         },
         "skill_priorities": supported,
         "experience_bullets": [],
-        "experience_order": list(range(len(template.experience_indices))),
+        "experience_order": _relevance_order(
+            template, template.experience_indices, context.description
+        ),
         "project_bullets": [],
-        "project_order": list(range(len(template.project_indices))),
+        "project_order": _relevance_order(
+            template, template.project_indices, context.description
+        ),
         "supported_skills": supported[:8],
         "important_gaps": gaps,
     }
@@ -648,12 +670,11 @@ def validate_plan(
                 warnings.append(f"unsafe {key}[{local_index}] proposal rejected")
         result[key] = accepted
 
-    result["experience_order"] = _valid_permutation(
-        raw_plan.get("experience_order"), len(template.experience_indices)
-    )
-    result["project_order"] = _valid_permutation(
-        raw_plan.get("project_order"), len(template.project_indices)
-    )
+    # Deterministic evidence-only ranking is safer and more consistent than
+    # accepting an arbitrary model order. It also ensures the fallback can
+    # materially tailor a resume without inventing or rewriting any claim.
+    result["experience_order"] = fallback["experience_order"]
+    result["project_order"] = fallback["project_order"]
 
     context = _job_context(job)
     supported: list[str] = []
@@ -903,6 +924,28 @@ def validate_generated_resume(
     return ()
 
 
+def material_changes(
+    template: TemplateSnapshot, output_path: Path | str
+) -> tuple[str, ...]:
+    generated = Document(Path(output_path).resolve())
+    current = tuple(paragraph.text for paragraph in generated.paragraphs)
+    original = template.paragraphs
+    changes: list[str] = []
+    if current[template.summary_index] != original[template.summary_index]:
+        changes.append("professional summary")
+    if any(current[index] != original[index] for index in template.skill_indices):
+        changes.append("skill priority")
+    experience_start = template.headings["EXPERIENCE"] + 1
+    experience_end = template.headings["PROJECTS"]
+    if current[experience_start:experience_end] != original[experience_start:experience_end]:
+        changes.append("experience priority")
+    project_start = template.headings["PROJECTS"] + 1
+    project_end = template.headings["EDUCATION"]
+    if current[project_start:project_end] != original[project_start:project_end]:
+        changes.append("project priority")
+    return tuple(changes)
+
+
 def generate_tailored_resume(
     job: Any,
     *,
@@ -935,19 +978,18 @@ def generate_tailored_resume(
     try:
         output_path = render_tailored_resume(template, plan, job, destination)
         validate_generated_resume(template, output_path)
+        changed_sections = material_changes(template, output_path)
+        if not changed_sections:
+            raise ResumeTailoringError(
+                "Tailoring produced no material change; refusing unchanged attachment"
+            )
     except Exception as exc:
-        if require_ai:
-            raise ResumeTailoringError(str(exc)) from exc
-        warnings.append(f"safe edits rejected: {type(exc).__name__}")
-        output_path = Path(destination).resolve() / output_filename(job)
-        output_path.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(template.path, output_path)
-        validate_generated_resume(template, output_path)
-        model = "safe-template"
+        raise ResumeTailoringError(str(exc)) from exc
     return TailoredResume(
         path=output_path,
         supported_skills=tuple(plan.get("supported_skills", ()))[:8],
         important_gaps=tuple(plan.get("important_gaps", ()))[:5],
         model=model,
         warnings=tuple(warnings),
+        changed_sections=changed_sections,
     )

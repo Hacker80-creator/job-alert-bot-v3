@@ -39,7 +39,8 @@ def main() -> int:
     result = generate_tailored_resume(job, require_ai=True)
     print(
         f"Test resume generated | model={result.model} | "
-        f"warnings={len(result.warnings)}"
+        f"warnings={len(result.warnings)} | "
+        f"changed={','.join(result.changed_sections)}"
     )
     if not bot.discord_post(job, result):
         print("ERROR: Discord rejected the resume test alert")
