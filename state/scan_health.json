@@ -1,9 +1,6 @@
 {
   "allowlist_count": 796,
-  "failed_sources": [
-    "Alstom",
-    "Dell Technologies"
-  ],
-  "last_notice_utc": "2026-08-11T02:25:21.185463+00:00",
+  "failed_sources": [],
+  "last_notice_utc": "2026-08-11T04:09:00.981965+00:00",
   "official_source_count": 400
 }
