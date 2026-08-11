@@ -37,11 +37,18 @@ def main() -> int:
         requisition_id="RESUME-TEST-001",
     )
     result = generate_tailored_resume(job, require_ai=True)
+    comparison = result.comparison
     print(
         f"Test resume generated | model={result.model} | "
-        f"warnings={len(result.warnings)}"
+        f"warnings={len(result.warnings)} | "
+        f"changed={','.join(result.changed_sections)} | "
+        f"summary_keywords="
+        f"{len(comparison.summary_keywords_before) if comparison else 0}->"
+        f"{len(comparison.summary_keywords_after) if comparison else 0} | "
+        f"rewritten_bullets="
+        f"{comparison.rewritten_bullet_count if comparison else 0}"
     )
-    if not bot.discord_post(job, result):
+    if not bot.discord_post(job, result, include_original_resume=True):
         print("ERROR: Discord rejected the resume test alert")
         return 1
     print("Resume integration test sent to Discord")

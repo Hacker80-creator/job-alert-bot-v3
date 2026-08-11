@@ -12,6 +12,7 @@ import re
 import shutil
 import time
 import zipfile
+from collections import Counter
 from copy import deepcopy
 from dataclasses import dataclass
 from pathlib import Path
@@ -147,12 +148,28 @@ class TemplateSnapshot:
 
 
 @dataclass(frozen=True)
+class ATSComparison:
+    summary_keywords_before: tuple[str, ...]
+    summary_keywords_after: tuple[str, ...]
+    newly_surfaced_summary_keywords: tuple[str, ...]
+    experience_bullets_rewritten: int
+    project_bullets_rewritten: int
+
+    @property
+    def rewritten_bullet_count(self) -> int:
+        return self.experience_bullets_rewritten + self.project_bullets_rewritten
+
+
+@dataclass(frozen=True)
 class TailoredResume:
     path: Path
     supported_skills: tuple[str, ...]
     important_gaps: tuple[str, ...]
     model: str
     warnings: tuple[str, ...] = ()
+    changed_sections: tuple[str, ...] = ()
+    comparison: ATSComparison | None = None
+    source_path: Path | None = None
 
 
 @dataclass(frozen=True)
@@ -337,6 +354,13 @@ def _indexed_bullets(template: TemplateSnapshot, indices: tuple[int, ...]) -> st
 def build_prompt(template: TemplateSnapshot, job: Any) -> str:
     context = _job_context(job)
     description = context.description[:18_000]
+    supported_skills = _skills_in_job(template, description)
+    summary_skills = [
+        skill
+        for skill in supported_skills
+        if not _contains_phrase(template.paragraphs[template.summary_index], skill)
+    ]
+    required_summary_skills = min(2, len(summary_skills))
     return f"""Tailor a resume conservatively for the job below.
 
 NON-NEGOTIABLE RULES
@@ -355,6 +379,19 @@ NON-NEGOTIABLE RULES
 - Preserve all bullet indices. Order arrays must be complete permutations of the supplied indices.
 - Return only the requested schema-constrained JSON.
 
+ACCEPTANCE GATE
+- A plan that only reorders skills or bullets is invalid.
+- Substantially rewrite CURRENT SUMMARY while preserving its facts and length limit.
+- Surface at least {required_summary_skills} skill(s) from SUMMARY SKILLS TO SURFACE in the rewritten summary.
+- Substantively rewrite at least one relevant experience or project bullet using only that bullet's facts.
+- Propose no more than one experience-bullet rewrite and one project-bullet rewrite.
+- Leave an already clear bullet unchanged unless the rewrite materially improves relevance to this job.
+- Use plain, natural professional English. Never replace a clear verb solely with a thesaurus synonym.
+- Prefer direct wording such as "improve" and "reduce" over awkward alternatives.
+- Keep every original number, tool and outcome attached to its original indexed bullet.
+- Do not return the current summary verbatim, merely rearrange its words, or copy a bullet unchanged.
+- Prefer concise ATS language from the job description only when exact master-resume evidence supports it.
+
 JOB
 Company: {context.company}
 Title: {context.title}
@@ -366,6 +403,12 @@ Description:
 
 ALLOWED SKILLS
 {json.dumps(template.skill_catalog, ensure_ascii=False)}
+
+JD-SUPPORTED ALLOWED SKILLS
+{json.dumps(supported_skills, ensure_ascii=False)}
+
+SUMMARY SKILLS TO SURFACE
+{json.dumps(summary_skills, ensure_ascii=False)}
 
 CURRENT SUMMARY
 {template.paragraphs[template.summary_index]}
@@ -431,7 +474,9 @@ def _call_model(model: str, prompt: str, api_key: str) -> dict[str, Any]:
             "system_instruction": (
                 "You are a truthful resume editor. Optimize relevance without "
                 "adding any claim not explicitly supported by exact evidence from "
-                "the supplied master resume. Return only schema-valid JSON."
+                "the supplied master resume. Use concise, plain professional English; "
+                "do not make cosmetic thesaurus substitutions. Return only "
+                "schema-valid JSON."
             ),
             "input": prompt,
             "response_format": {
@@ -483,6 +528,16 @@ def _tokens(value: str) -> set[str]:
         for token in re.findall(r"[a-z][a-z0-9+#./-]{2,}", value.casefold())
         if token not in STOPWORDS
     }
+
+
+def _semantic_signature(value: str) -> tuple[tuple[str, int], ...]:
+    """Ignore punctuation and word order when detecting substantive edits."""
+    tokens = [
+        token
+        for token in re.findall(r"[a-z][a-z0-9+#./-]{2,}", value.casefold())
+        if token not in STOPWORDS
+    ]
+    return tuple(sorted(Counter(tokens).items()))
 
 
 def _evidence_is_valid(evidence: Any, master_text: str) -> bool:
@@ -560,6 +615,67 @@ def _skills_in_job(template: TemplateSnapshot, description: str) -> list[str]:
     return matches
 
 
+def _role_relevance_score(text: str, context: JobContext) -> int:
+    """Add role-aware evidence weight without changing any resume claim."""
+    title = _normalize(context.title)
+    analytics_role = any(
+        value in title
+        for value in (
+            "analyst", "analytics", "business intelligence", "data scientist",
+            "decision scientist", "insights",
+        )
+    )
+    ml_role = any(
+        value in title
+        for value in ("machine learning", "ml engineer", "ai engineer", "applied scientist")
+    )
+    devops_role = any(
+        value in title
+        for value in ("devops", "platform engineer", "site reliability", "mlops")
+    )
+    score = 0
+    if analytics_role:
+        positive = (
+            "analysis", "analytical", "statistical", "accuracy", "samples",
+            "features", "cross-validation", "model", "algorithms", "benchmarking",
+            "chart", "insights", "python", "sql", "log processing",
+        )
+        deprioritized = ("ci/cd", "docker", "jenkins", "artifact lifecycle")
+        score += 4 * sum(_contains_phrase(text, value) for value in positive)
+        score -= 3 * sum(_contains_phrase(text, value) for value in deprioritized)
+    if ml_role:
+        positive = (
+            "machine learning", "ml pipeline", "model", "accuracy", "algorithms",
+            "cross-validation", "scikit-learn", "python", "samples", "features",
+        )
+        score += 4 * sum(_contains_phrase(text, value) for value in positive)
+    if devops_role:
+        positive = (
+            "ci/cd", "docker", "jenkins", "linux", "ansible", "jfrog",
+            "artifact", "containerized", "build orchestration", "automation",
+        )
+        score += 4 * sum(_contains_phrase(text, value) for value in positive)
+    return score
+
+
+def _relevance_order(
+    template: TemplateSnapshot, indices: tuple[int, ...], context: JobContext
+) -> list[int]:
+    """Rank existing truthful bullets by JD overlap and target-role evidence."""
+    description_tokens = _tokens(context.description)
+    supported_skills = _skills_in_job(template, context.description)
+    scored: list[tuple[int, int, int, int]] = []
+    for local_index, paragraph_index in enumerate(indices):
+        text = template.paragraphs[paragraph_index]
+        skill_score = sum(
+            1 for skill in supported_skills if _contains_phrase(text, skill)
+        )
+        token_score = len(_tokens(text) & description_tokens)
+        role_score = _role_relevance_score(text, context)
+        scored.append((-role_score, -skill_score, -token_score, local_index))
+    return [local_index for _, _, _, local_index in sorted(scored)]
+
+
 def safe_plan(template: TemplateSnapshot, job: Any) -> dict[str, Any]:
     context = _job_context(job)
     supported = _skills_in_job(template, context.description)
@@ -576,9 +692,13 @@ def safe_plan(template: TemplateSnapshot, job: Any) -> dict[str, Any]:
         },
         "skill_priorities": supported,
         "experience_bullets": [],
-        "experience_order": list(range(len(template.experience_indices))),
+        "experience_order": _relevance_order(
+            template, template.experience_indices, context
+        ),
         "project_bullets": [],
-        "project_order": list(range(len(template.project_indices))),
+        "project_order": _relevance_order(
+            template, template.project_indices, context
+        ),
         "supported_skills": supported[:8],
         "important_gaps": gaps,
     }
@@ -592,16 +712,21 @@ def validate_plan(
     result = dict(fallback)
     summary = raw_plan.get("professional_summary")
     original_summary = template.paragraphs[template.summary_index]
+    summary_text = (
+        str(summary.get("text", "")).strip()
+        if isinstance(summary, dict)
+        else ""
+    )
     if isinstance(summary, dict) and _claim_is_grounded(
-        summary.get("text"), summary.get("evidence"), template,
+        summary_text, summary.get("evidence"), template,
         max_length=len(original_summary),
-    ):
+    ) and _semantic_signature(summary_text) != _semantic_signature(original_summary):
         result["professional_summary"] = {
-            "text": summary["text"].strip(),
+            "text": summary_text,
             "evidence": list(summary["evidence"]),
         }
     else:
-        warnings.append("unsafe summary proposal rejected")
+        warnings.append("unsafe summary proposal rejected (including unchanged text)")
 
     lookup = _skill_lookup(template)
     priorities: list[str] = []
@@ -637,7 +762,7 @@ def validate_plan(
                 proposed_text, proposal.get("evidence"), template,
                 max_length=len(source),
                 allowed_evidence_text=source,
-            ):
+            ) and _semantic_signature(proposed_text) != _semantic_signature(source):
                 accepted.append({
                     "index": local_index,
                     "text": proposed_text,
@@ -645,15 +770,28 @@ def validate_plan(
                 })
                 seen_indices.add(local_index)
             else:
-                warnings.append(f"unsafe {key}[{local_index}] proposal rejected")
-        result[key] = accepted
+                warnings.append(
+                    f"unsafe or unchanged {key}[{local_index}] proposal rejected"
+                )
+        order_key = (
+            "experience_order" if key == "experience_bullets" else "project_order"
+        )
+        relevance_rank = {
+            local_index: rank
+            for rank, local_index in enumerate(fallback[order_key])
+        }
+        accepted.sort(key=lambda item: relevance_rank[item["index"]])
+        if len(accepted) > 1:
+            warnings.append(
+                f"{key} limited to the single most role-relevant grounded rewrite"
+            )
+        result[key] = accepted[:1]
 
-    result["experience_order"] = _valid_permutation(
-        raw_plan.get("experience_order"), len(template.experience_indices)
-    )
-    result["project_order"] = _valid_permutation(
-        raw_plan.get("project_order"), len(template.project_indices)
-    )
+    # Deterministic evidence-only ranking is safer and more consistent than
+    # accepting an arbitrary model order. It also ensures the fallback can
+    # materially tailor a resume without inventing or rewriting any claim.
+    result["experience_order"] = fallback["experience_order"]
+    result["project_order"] = fallback["project_order"]
 
     context = _job_context(job)
     supported: list[str] = []
@@ -903,6 +1041,124 @@ def validate_generated_resume(
     return ()
 
 
+def _skill_hits(text: str, skills: list[str]) -> tuple[str, ...]:
+    return tuple(skill for skill in skills if _contains_phrase(text, skill))
+
+
+def _substantive_rewrite_count(
+    original_values: tuple[str, ...], current_values: tuple[str, ...]
+) -> int:
+    """Count content edits while treating pure reordering as unchanged."""
+    remaining = Counter(_semantic_signature(value) for value in original_values)
+    rewritten = 0
+    for value in current_values:
+        signature = _semantic_signature(value)
+        if remaining[signature]:
+            remaining[signature] -= 1
+        else:
+            rewritten += 1
+    return rewritten
+
+
+def compare_ats_alignment(
+    template: TemplateSnapshot, output_path: Path | str, job: Any
+) -> ATSComparison:
+    generated = Document(Path(output_path).resolve())
+    current = tuple(paragraph.text for paragraph in generated.paragraphs)
+    supported = _skills_in_job(template, _job_context(job).description)
+    before_summary = template.paragraphs[template.summary_index]
+    after_summary = current[template.summary_index]
+    before_hits = _skill_hits(before_summary, supported)
+    after_hits = _skill_hits(after_summary, supported)
+    before_normalized = {_normalize(value) for value in before_hits}
+    added = tuple(
+        value for value in after_hits if _normalize(value) not in before_normalized
+    )
+    original_experience = tuple(
+        template.paragraphs[index] for index in template.experience_indices
+    )
+    current_experience = tuple(current[index] for index in template.experience_indices)
+    original_projects = tuple(
+        template.paragraphs[index] for index in template.project_indices
+    )
+    current_projects = tuple(current[index] for index in template.project_indices)
+    return ATSComparison(
+        summary_keywords_before=before_hits,
+        summary_keywords_after=after_hits,
+        newly_surfaced_summary_keywords=added,
+        experience_bullets_rewritten=_substantive_rewrite_count(
+            original_experience, current_experience
+        ),
+        project_bullets_rewritten=_substantive_rewrite_count(
+            original_projects, current_projects
+        ),
+    )
+
+
+def validate_meaningful_ats_improvement(
+    template: TemplateSnapshot,
+    output_path: Path | str,
+    job: Any,
+    comparison: ATSComparison,
+) -> None:
+    generated = Document(Path(output_path).resolve())
+    current_summary = generated.paragraphs[template.summary_index].text
+    original_summary = template.paragraphs[template.summary_index]
+    if _semantic_signature(current_summary) == _semantic_signature(original_summary):
+        raise ResumeTailoringError(
+            "Tailoring made no substantive professional-summary change"
+        )
+    supported = _skills_in_job(template, _job_context(job).description)
+    before = {_normalize(value) for value in comparison.summary_keywords_before}
+    available = [value for value in supported if _normalize(value) not in before]
+    required_added = min(2, len(available))
+    if len(comparison.newly_surfaced_summary_keywords) < required_added:
+        raise ResumeTailoringError(
+            "Tailoring did not surface enough JD-supported skills in the summary "
+            f"({len(comparison.newly_surfaced_summary_keywords)}/{required_added})"
+        )
+    if comparison.rewritten_bullet_count < 1:
+        raise ResumeTailoringError(
+            "Tailoring only reordered existing content; at least one evidence-backed "
+            "bullet must be substantively rewritten"
+        )
+
+
+def material_changes(
+    template: TemplateSnapshot,
+    output_path: Path | str,
+    comparison: ATSComparison | None = None,
+) -> tuple[str, ...]:
+    generated = Document(Path(output_path).resolve())
+    current = tuple(paragraph.text for paragraph in generated.paragraphs)
+    original = template.paragraphs
+    report = comparison or ATSComparison((), (), (), 0, 0)
+    changes: list[str] = []
+    if _semantic_signature(current[template.summary_index]) != _semantic_signature(
+        original[template.summary_index]
+    ):
+        changes.append("professional summary rewritten")
+    if any(current[index] != original[index] for index in template.skill_indices):
+        changes.append("skills prioritized")
+    if report.experience_bullets_rewritten:
+        changes.append(
+            f"experience bullets rewritten ({report.experience_bullets_rewritten})"
+        )
+    elif tuple(current[index] for index in template.experience_indices) != tuple(
+        original[index] for index in template.experience_indices
+    ):
+        changes.append("experience bullets reordered")
+    if report.project_bullets_rewritten:
+        changes.append(
+            f"project bullets rewritten ({report.project_bullets_rewritten})"
+        )
+    elif tuple(current[index] for index in template.project_indices) != tuple(
+        original[index] for index in template.project_indices
+    ):
+        changes.append("project bullets reordered")
+    return tuple(changes)
+
+
 def generate_tailored_resume(
     job: Any,
     *,
@@ -935,19 +1191,24 @@ def generate_tailored_resume(
     try:
         output_path = render_tailored_resume(template, plan, job, destination)
         validate_generated_resume(template, output_path)
+        comparison = compare_ats_alignment(template, output_path, job)
+        validate_meaningful_ats_improvement(
+            template, output_path, job, comparison
+        )
+        changed_sections = material_changes(template, output_path, comparison)
+        if not changed_sections:
+            raise ResumeTailoringError(
+                "Tailoring produced no material change; refusing unchanged attachment"
+            )
     except Exception as exc:
-        if require_ai:
-            raise ResumeTailoringError(str(exc)) from exc
-        warnings.append(f"safe edits rejected: {type(exc).__name__}")
-        output_path = Path(destination).resolve() / output_filename(job)
-        output_path.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(template.path, output_path)
-        validate_generated_resume(template, output_path)
-        model = "safe-template"
+        raise ResumeTailoringError(str(exc)) from exc
     return TailoredResume(
         path=output_path,
         supported_skills=tuple(plan.get("supported_skills", ()))[:8],
         important_gaps=tuple(plan.get("important_gaps", ()))[:5],
         model=model,
         warnings=tuple(warnings),
+        changed_sections=changed_sections,
+        comparison=comparison,
+        source_path=template.path,
     )
