@@ -1,0 +1,22 @@
+metadata:
+  verified_at: "2026-08-11"
+  note: "Promote the public Enphase API and Pegasystems server-rendered search."
+
+companies:
+  - name: "Enphase Energy"
+    kind: "product_gcc"
+    wlb_score: 4
+    ats: "enphase_api"
+    url: "https://enphase.com/api/v2/jobs"
+    career_site_url: "https://enphase.com/en-in/careers"
+    detail_url_template: "https://enphase.com/en-in/job/{job_id}"
+    enabled: true
+
+  - name: "Pegasystems"
+    kind: "product"
+    wlb_score: 4
+    ats: "pega_html"
+    url: "https://www.pega.com/about/careers/job-listings"
+    career_site_url: "https://www.pega.com/about/careers/job-listings"
+    max_candidate_details: 20
+    enabled: true
