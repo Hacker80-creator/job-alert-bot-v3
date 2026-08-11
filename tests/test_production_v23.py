@@ -14,15 +14,16 @@ class ProductionV23Tests(unittest.TestCase):
         }
 
     def test_registry_is_unique_and_enabled_count_is_explicit(self) -> None:
-        self.assertEqual(420, len(self.config["companies"]))
-        self.assertEqual(420, len(self.companies))
+        self.assertEqual(423, len(self.config["companies"]))
+        self.assertEqual(423, len(self.companies))
         self.assertEqual(
-            410,
+            413,
             sum(1 for item in self.companies.values() if item.get("enabled", True)),
         )
 
     def test_recovered_sources_use_parser_supported_official_feeds(self) -> None:
         expected = {
+            "Acko": ("kula_html", "careers.kula.ai/acko?jobs=true"),
             "Acer": ("successfactors_search", "careers.acer.com/search/"),
             "Aptiv": ("workday_india", "/wday/cxs/aptiv/APTIV_CAREERS/jobs"),
             "Automation Anywhere": ("workday_india", "/wday/cxs/automationanywhere/"),
@@ -33,6 +34,8 @@ class ProductionV23Tests(unittest.TestCase):
             "Bristol Myers Squibb": ("workday_india", "/wday/cxs/bristolmyerssquibb/BMS/jobs"),
             "Chainalysis": ("ashby", "chainalysis-careers"),
             "Chevron": ("talentbrew_html", "careers.chevron.com/search-jobs"),
+            "Clari": ("lever", "clari"),
+            "Pocket FM": ("lever", "pocketfm"),
         }
         for name, (ats, identity) in expected.items():
             with self.subTest(company=name):

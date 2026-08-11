@@ -3,6 +3,14 @@ metadata:
   note: "Add parser-supported sources recovered from the user-supplied official careers list and map acquired/alternate labels to working parent portals."
 
 companies:
+  - name: "Acko"
+    kind: "product"
+    wlb_score: 3
+    ats: "kula_html"
+    url: "https://careers.kula.ai/acko?jobs=true"
+    career_site_url: "https://www.acko.com/careers/jobs/"
+    enabled: true
+
   - name: "Acer"
     kind: "product"
     wlb_score: 3
@@ -85,6 +93,22 @@ companies:
     ats: "talentbrew_html"
     url: "https://careers.chevron.com/search-jobs"
     career_site_url: "https://careers.chevron.com/search-jobs"
+    enabled: true
+
+  - name: "Clari"
+    kind: "product"
+    wlb_score: 3
+    ats: "lever"
+    slug: "clari"
+    career_site_url: "https://jobs.lever.co/clari/"
+    enabled: true
+
+  - name: "Pocket FM"
+    kind: "product"
+    wlb_score: 3
+    ats: "lever"
+    slug: "pocketfm"
+    career_site_url: "https://jobs.lever.co/pocketfm"
     enabled: true
 
   - name: "CVS Health"
