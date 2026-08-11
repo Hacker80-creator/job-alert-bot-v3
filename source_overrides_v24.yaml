@@ -1,0 +1,33 @@
+companies:
+  - name: "Josh Software"
+    kind: "data_services"
+    wlb_score: 4
+    ats: "param_ai"
+    url: "https://joshsoftware.app.param.ai/api/career/get_job/"
+    career_site_url: "https://joshsoftware.app.param.ai/jobs/"
+    enabled: true
+
+  - name: "MoneyGram"
+    kind: "product_bfsi"
+    wlb_score: 3
+    ats: "dayforce_geo"
+    client_namespace: "moneygram"
+    job_board: "candidateportal"
+    culture_code: "en-US"
+    url: "https://jobs.dayforcehcm.com/api/geo/moneygram/jobposting/search"
+    career_site_url: "https://jobs.dayforcehcm.com/en-US/moneygram/candidateportal"
+    page_size: 25
+    max_results: 500
+    enabled: true
+
+  - name: "Ola"
+    aliases:
+      - "Ola Electric"
+    kind: "product"
+    wlb_score: 3
+    ats: "turbohire_api"
+    org_id: "e0c1eb37-eb7a-4ca4-bcc5-d59ce4ce9212"
+    page_type: 0
+    url: "https://thapi.azurewebsites.net/api/careerpagev2/filteredjobs"
+    career_site_url: "https://olacareers.turbohire.co/dashboardv2?orgId=e0c1eb37-eb7a-4ca4-bcc5-d59ce4ce9212&type=0"
+    enabled: true
