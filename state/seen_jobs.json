@@ -941,6 +941,16 @@
     "title": "Generative AI Engineer",
     "url": "https://hpe.wd5.myworkdayjobs.com/Jobsathpe/job/Bengaluru-Karntaka-India/Generative-AI-Engineer_1208999-2"
   },
+  "7ebcb7e5303c700f4b01d076": {
+    "company": "Siemens Healthineers",
+    "first_seen_utc": "2026-08-11T11:29:08.646197+00:00",
+    "location": "Bangalore , Karnataka , India",
+    "requisition_id": "",
+    "score": 75,
+    "source": "Official careers: Siemens Healthineers Avature",
+    "title": "Data Scientist",
+    "url": "https://jobs.siemens-healthineers.com/en_US/searchjobs/JobDetail/511929"
+  },
   "8105a99b7da530012cf491a2": {
     "company": "MUFG",
     "first_seen_utc": "2026-08-10T21:27:20.772370+00:00",
@@ -1720,6 +1730,16 @@
     "title": "Business Analyst II",
     "url": "https://apply.careers.microsoft.com/careers/job/1970393556958447?domain=microsoft.com"
   },
+  "d8f646b0f4cd306809a3cf27": {
+    "company": "Qualcomm",
+    "first_seen_utc": "2026-08-11T11:29:08.646197+00:00",
+    "location": "Bangalore, India",
+    "requisition_id": "",
+    "score": 85,
+    "source": "Official careers: Eightfold",
+    "title": "Engineer, Systems Software & Platform Engineering",
+    "url": "https://careers.qualcomm.com/careers/job/446720349297?domain=qualcomm.com"
+  },
   "da2d1bd97d1e1089e70a1405": {
     "company": "Capco",
     "first_seen_utc": "2026-08-10T12:13:36.800898+00:00",
@@ -2081,5 +2101,15 @@
     "source": "Official careers: Lever",
     "title": "GTM Engineer \u2013 Meesho AI Services (MAS)",
     "url": "https://jobs.lever.co/meesho/c49e13f6-f027-42f3-98b5-745d83997cbf"
+  },
+  "ffb3c8667665ab7aa0a8412d": {
+    "company": "Philips",
+    "first_seen_utc": "2026-08-11T11:29:08.646197+00:00",
+    "location": "Bangalore",
+    "requisition_id": "",
+    "score": 100,
+    "source": "Official careers: Workday",
+    "title": "Data and AI Engineer",
+    "url": "https://philips.wd3.myworkdayjobs.com/en-US/jobs-and-careers/job/Bangalore/Data-and-AI-Engineer_588899-1"
   }
 }
