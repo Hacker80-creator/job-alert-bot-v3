@@ -1,0 +1,112 @@
+metadata:
+  verified_at: "2026-08-11"
+  note: "Add parser-supported sources recovered from the user-supplied official careers list and map acquired/alternate labels to working parent portals."
+
+companies:
+  - name: "Acer"
+    kind: "product"
+    wlb_score: 3
+    ats: "successfactors_search"
+    url: "https://careers.acer.com/search/"
+    career_site_url: "https://careers.acer.com/"
+    enabled: true
+
+  - name: "Aptiv"
+    kind: "product"
+    wlb_score: 3
+    ats: "workday_india"
+    url: "https://aptiv.wd5.myworkdayjobs.com/wday/cxs/aptiv/APTIV_CAREERS/jobs"
+    career_site_url: "https://aptiv.wd5.myworkdayjobs.com/APTIV_CAREERS"
+    max_results_per_term: 60
+    enabled: true
+
+  - name: "Automation Anywhere"
+    kind: "product"
+    wlb_score: 3
+    ats: "workday_india"
+    url: "https://automationanywhere.wd5.myworkdayjobs.com/wday/cxs/automationanywhere/automationanywherejobs/jobs"
+    career_site_url: "https://automationanywhere.wd5.myworkdayjobs.com/automationanywherejobs"
+    max_results_per_term: 60
+    enabled: true
+
+  - name: "Birlasoft"
+    kind: "product"
+    wlb_score: 3
+    ats: "successfactors_search"
+    url: "https://jobs.birlasoft.com/search/"
+    career_site_url: "https://jobs.birlasoft.com/"
+    enabled: true
+
+  - name: "BlackLine"
+    kind: "product"
+    wlb_score: 3
+    ats: "workday_search"
+    url: "https://blackline.wd108.myworkdayjobs.com/wday/cxs/blackline/BlackLineCareers/jobs"
+    career_site_url: "https://blackline.wd108.myworkdayjobs.com/BlackLineCareers"
+    max_results_per_term: 60
+    enabled: true
+
+  - name: "Boehringer Ingelheim"
+    kind: "product"
+    wlb_score: 3
+    ats: "successfactors_search"
+    url: "https://jobs.boehringer-ingelheim.com/search/"
+    career_site_url: "https://jobs.boehringer-ingelheim.com/"
+    enabled: true
+
+  - name: "Box"
+    kind: "product"
+    wlb_score: 3
+    ats: "greenhouse"
+    slug: "boxinc"
+    career_site_url: "https://careers.box.com/en/jobs/"
+    enabled: true
+
+  - name: "Bristol Myers Squibb"
+    kind: "product"
+    wlb_score: 3
+    ats: "workday_india"
+    url: "https://bristolmyerssquibb.wd5.myworkdayjobs.com/wday/cxs/bristolmyerssquibb/BMS/jobs"
+    career_site_url: "https://bristolmyerssquibb.wd5.myworkdayjobs.com/BMS"
+    max_results_per_term: 60
+    enabled: true
+
+  - name: "Chainalysis"
+    kind: "product"
+    wlb_score: 3
+    ats: "ashby"
+    slug: "chainalysis-careers"
+    career_site_url: "https://www.chainalysis.com/careers/job-openings/"
+    enabled: true
+
+  - name: "Chevron"
+    kind: "product"
+    wlb_score: 3
+    ats: "talentbrew_html"
+    url: "https://careers.chevron.com/search-jobs"
+    career_site_url: "https://careers.chevron.com/search-jobs"
+    enabled: true
+
+  - name: "CVS Health"
+    aliases:
+      - "Aetna"
+
+  - name: "Amgen India"
+    aliases:
+      - "Amgen"
+
+  - name: "Boeing"
+    aliases:
+      - "Boeing India"
+
+  - name: "Bosch Group"
+    aliases:
+      - "Bosch Global Software Technologies"
+
+  - name: "Cadence"
+    aliases:
+      - "Cadence Design Systems"
+
+  - name: "Fivetran"
+    aliases:
+      - "Census"
