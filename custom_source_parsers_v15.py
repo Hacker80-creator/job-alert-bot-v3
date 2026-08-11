@@ -9,6 +9,7 @@ import requests
 from bs4 import BeautifulSoup
 
 import custom_source_parsers_v14 as previous
+import custom_source_parsers_v11 as jobs2web
 import job_monitor as bot
 
 
@@ -19,7 +20,7 @@ HEADERS = {
 }
 
 
-def _json_ld_description(soup: BeautifulSoup) -> str:
+def _json_ld_posting(soup: BeautifulSoup) -> dict[str, Any] | None:
     for node in soup.find_all("script", type="application/ld+json"):
         try:
             payload = json.loads(node.string or "")
@@ -28,8 +29,8 @@ def _json_ld_description(soup: BeautifulSoup) -> str:
         records = payload if isinstance(payload, list) else [payload]
         for record in records:
             if isinstance(record, dict) and record.get("@type") == "JobPosting":
-                return bot.clean_text(record.get("description"))
-    return ""
+                return record
+    return None
 
 
 def parse_avature_html(company: dict[str, Any]) -> list[bot.Job]:
@@ -48,7 +49,9 @@ def parse_avature_html(company: dict[str, Any]) -> list[bot.Job]:
         )
         response.raise_for_status()
         soup = BeautifulSoup(response.text, "html.parser")
-        for link in soup.select("a[href*='/JobDetail/']"):
+        for link in soup.select(
+            "a[href*='/JobDetail'], a[href*='/FolderDetail/']"
+        ):
             title = bot.clean_text(link.get_text(" "))
             href = urljoin(response.url, str(link.get("href") or ""))
             if not title or title.casefold().startswith("share ") or href.startswith("mailto:"):
@@ -75,11 +78,13 @@ def parse_avature_html(company: dict[str, Any]) -> list[bot.Job]:
                     wlb_score=company.get("wlb_score", 3),
                 )
 
+    detail_budget = max(0, int(company.get("max_candidate_details", 60)))
     for job in jobs_by_url.values():
-        if not (
-            bot.is_target_title(job.title)
-            and bot.has_location_match(job.location, settings)
-        ):
+        if detail_budget <= 0:
+            break
+        if not bot.is_target_title(job.title):
+            continue
+        if job.location and not bot.has_location_match(job.location, settings):
             continue
         try:
             response = requests.get(job.url, headers=HEADERS, timeout=30)
@@ -90,9 +95,30 @@ def parse_avature_html(company: dict[str, Any]) -> list[bot.Job]:
                 ".article--details .article__content, [class*='job-description']"
             )
             detail = bot.clean_text(description.get_text(" ") if description else "")
-            job.description = detail or _json_ld_description(soup) or job.description
+            posting = _json_ld_posting(soup)
+            if posting:
+                job.title = bot.clean_text(posting.get("title")) or job.title
+                job.location = jobs2web._schema_location(posting) or job.location
+                identifier = posting.get("identifier")
+                if isinstance(identifier, dict):
+                    identifier = identifier.get("value") or identifier.get("name")
+                job.requisition_id = bot.clean_text(identifier) or job.requisition_id
+            if not job.location:
+                location_nodes = soup.select(
+                    ".posting-location .article__content__view__field__value, "
+                    "[class*='posting-location'] [class*='field__value']"
+                )
+                job.location = bot.flatten_location([
+                    node.get_text(" ") for node in location_nodes
+                ])
+            job.description = (
+                detail
+                or bot.clean_text(posting.get("description") if posting else "")
+                or job.description
+            )
         except Exception as exc:
             print(f"WARN {company['name']} Avature detail failed: {exc}")
+        detail_budget -= 1
     return list(jobs_by_url.values())
 
 

@@ -30,7 +30,7 @@ class ProductionV24Tests(unittest.TestCase):
         workflow = (
             Path(__file__).parents[1] / ".github" / "workflows" / "job-alerts.yml"
         ).read_text(encoding="utf-8")
-        self.assertIn("python job_monitor_entry_v24.py", workflow)
+        self.assertRegex(workflow, r"python job_monitor_entry_v(?:2[4-9]|[3-9]\d+)\.py")
         self.assertIn('cron: "7,37 * * * *"', workflow)
         self.assertIn("contents: write", workflow)
 

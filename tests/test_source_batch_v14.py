@@ -175,11 +175,13 @@ class SourceBatchV14Tests(unittest.TestCase):
             "url": "https://jobs.booking.com/api/jobs",
             "career_site_url": "https://jobs.booking.com/booking/jobs",
             "page_size": 100,
+            "query_params": {"country": "India"},
             "wlb_score": 4,
         })
         self.assertEqual(1, len(jobs))
         self.assertEqual("Bangalore, India", jobs[0].location)
         self.assertIn("/30001/", jobs[0].url)
+        self.assertEqual("India", get.call_args.kwargs["params"]["country"])
 
     @patch("custom_source_parsers_v14.requests.post")
     def test_onestream_reads_ukg_public_search(self, post) -> None:

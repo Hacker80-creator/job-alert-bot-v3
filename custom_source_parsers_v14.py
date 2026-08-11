@@ -281,9 +281,14 @@ def parse_jibe_api(company: dict[str, Any]) -> list[bot.Job]:
     seen: set[str] = set()
     offset = 0
     while offset < max_results:
+        params = dict(company.get("query_params") or {})
+        params.update({
+            "limit": page_size,
+            "page": offset // page_size + 1,
+        })
         response = requests.get(
             company["url"],
-            params={"limit": page_size, "page": offset // page_size + 1},
+            params=params,
             headers=bot.HEADERS,
             timeout=30,
         )
