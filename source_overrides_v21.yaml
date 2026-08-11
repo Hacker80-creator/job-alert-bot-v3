@@ -3,6 +3,16 @@ metadata:
   note: "Add parser-supported sources recovered from the user-supplied official careers list and map acquired/alternate labels to working parent portals."
 
 companies:
+  - name: "Amdocs"
+    kind: "product"
+    wlb_score: 3
+    ats: "eightfold"
+    url: "https://jobs.amdocs.com/api/pcsx/search"
+    career_site_url: "https://jobs.amdocs.com/careers"
+    domain: "amdocs.com"
+    max_results_per_search: 30
+    enabled: true
+
   - name: "Acko"
     kind: "product"
     wlb_score: 3
@@ -95,6 +105,107 @@ companies:
     career_site_url: "https://careers.chevron.com/search-jobs"
     enabled: true
 
+  - name: "Domo"
+    kind: "product"
+    wlb_score: 3
+    ats: "workday_search"
+    url: "https://domo.wd12.myworkdayjobs.com/wday/cxs/domo/DomoCareers/jobs"
+    career_site_url: "https://domo.wd12.myworkdayjobs.com/DomoCareers"
+    max_results_per_term: 60
+    enabled: true
+
+  - name: "Ericsson"
+    kind: "product"
+    wlb_score: 3
+    ats: "eightfold"
+    url: "https://jobs.ericsson.com/api/pcsx/search"
+    career_site_url: "https://jobs.ericsson.com/careers"
+    domain: "ericsson.com"
+    max_results_per_search: 30
+    enabled: true
+
+  - name: "FedEx"
+    kind: "product"
+    wlb_score: 3
+    ats: "workday_india"
+    url: "https://fedex.wd1.myworkdayjobs.com/wday/cxs/fedex/FXE-MEISA-External/jobs"
+    career_site_url: "https://fedex.wd1.myworkdayjobs.com/FXE-MEISA-External"
+    max_results_per_term: 60
+    enabled: true
+
+  - name: "GE Vernova"
+    kind: "product"
+    wlb_score: 3
+    ats: "workday_search"
+    url: "https://gevernova.wd5.myworkdayjobs.com/wday/cxs/gevernova/Vernova_ExternalSite/jobs"
+    career_site_url: "https://gevernova.wd5.myworkdayjobs.com/Vernova_ExternalSite"
+    max_results_per_term: 60
+    enabled: true
+
+  - name: "HP Inc."
+    kind: "product"
+    wlb_score: 4
+    ats: "eightfold"
+    url: "https://apply.hp.com/api/pcsx/search"
+    career_site_url: "https://apply.hp.com/careers"
+    domain: "hp.com"
+    max_results_per_search: 30
+    enabled: true
+
+  - name: "Innovaccer"
+    kind: "product"
+    wlb_score: 3
+    ats: "workable"
+    slug: "innovaccer"
+    url: "https://www.workable.com/api/accounts/innovaccer?details=true"
+    career_site_url: "https://innovaccer.com/careers/jobs"
+    enabled: true
+
+  - name: "Lam Research"
+    kind: "product"
+    wlb_score: 4
+    ats: "eightfold"
+    url: "https://lamresearch.eightfold.ai/api/pcsx/search"
+    career_site_url: "https://lamresearch.eightfold.ai/careers"
+    domain: "lamresearch.com"
+    max_results_per_search: 30
+    enabled: true
+
+  - name: "Nike"
+    kind: "product"
+    wlb_score: 3
+    ats: "workday_search"
+    url: "https://nike.wd1.myworkdayjobs.com/wday/cxs/nike/nke/jobs"
+    career_site_url: "https://nike.wd1.myworkdayjobs.com/nke"
+    max_results_per_term: 60
+    enabled: true
+
+  - name: "Quantiphi"
+    kind: "product"
+    wlb_score: 3
+    ats: "workday_search"
+    url: "https://quantiphi.wd1.myworkdayjobs.com/wday/cxs/quantiphi/Careers_at_Quantiphi/jobs"
+    career_site_url: "https://quantiphi.wd1.myworkdayjobs.com/Careers_at_Quantiphi"
+    max_results_per_term: 60
+    enabled: true
+
+  - name: "Revvity"
+    kind: "product"
+    wlb_score: 3
+    ats: "talentbrew_html"
+    url: "https://jobs.revvity.com/search-jobs"
+    career_site_url: "https://jobs.revvity.com/search-jobs"
+    enabled: true
+
+  - name: "S&P Global"
+    kind: "product"
+    wlb_score: 3
+    ats: "workday_india"
+    url: "https://spgi.wd5.myworkdayjobs.com/wday/cxs/spgi/SPGI_Careers/jobs"
+    career_site_url: "https://spgi.wd5.myworkdayjobs.com/SPGI_Careers"
+    max_results_per_term: 60
+    enabled: true
+
   - name: "Clari"
     kind: "product"
     wlb_score: 3
@@ -134,3 +245,25 @@ companies:
   - name: "Fivetran"
     aliases:
       - "Census"
+
+  - name: "Google"
+    aliases:
+      - "Looker"
+
+  - name: "MakeMyTrip"
+    aliases:
+      - "Goibibo"
+
+  - name: "Oracle"
+    aliases:
+      - "Oracle Health"
+
+  - name: "Salesforce"
+    aliases:
+      - "MuleSoft"
+      - "Slack"
+      - "Tableau"
+
+  - name: "Twilio"
+    aliases:
+      - "Segment"
