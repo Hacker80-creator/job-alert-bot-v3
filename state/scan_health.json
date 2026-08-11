@@ -1,6 +1,10 @@
 {
   "allowlist_count": 796,
-  "failed_sources": [],
-  "last_notice_utc": "2026-08-11T07:53:20.676017+00:00",
-  "official_source_count": 400
+  "failed_sources": [
+    "Gramener",
+    "River Mobility",
+    "Schneider Electric"
+  ],
+  "last_notice_utc": "2026-08-11T14:10:28.297302+00:00",
+  "official_source_count": 534
 }
