@@ -384,6 +384,10 @@ ACCEPTANCE GATE
 - Substantially rewrite CURRENT SUMMARY while preserving its facts and length limit.
 - Surface at least {required_summary_skills} skill(s) from SUMMARY SKILLS TO SURFACE in the rewritten summary.
 - Substantively rewrite at least one relevant experience or project bullet using only that bullet's facts.
+- Propose no more than one experience-bullet rewrite and one project-bullet rewrite.
+- Leave an already clear bullet unchanged unless the rewrite materially improves relevance to this job.
+- Use plain, natural professional English. Never replace a clear verb solely with a thesaurus synonym.
+- Prefer direct wording such as "improve" and "reduce" over awkward alternatives.
 - Keep every original number, tool and outcome attached to its original indexed bullet.
 - Do not return the current summary verbatim, merely rearrange its words, or copy a bullet unchanged.
 - Prefer concise ATS language from the job description only when exact master-resume evidence supports it.
@@ -470,7 +474,9 @@ def _call_model(model: str, prompt: str, api_key: str) -> dict[str, Any]:
             "system_instruction": (
                 "You are a truthful resume editor. Optimize relevance without "
                 "adding any claim not explicitly supported by exact evidence from "
-                "the supplied master resume. Return only schema-valid JSON."
+                "the supplied master resume. Use concise, plain professional English; "
+                "do not make cosmetic thesaurus substitutions. Return only "
+                "schema-valid JSON."
             ),
             "input": prompt,
             "response_format": {
@@ -609,21 +615,65 @@ def _skills_in_job(template: TemplateSnapshot, description: str) -> list[str]:
     return matches
 
 
+def _role_relevance_score(text: str, context: JobContext) -> int:
+    """Add role-aware evidence weight without changing any resume claim."""
+    title = _normalize(context.title)
+    analytics_role = any(
+        value in title
+        for value in (
+            "analyst", "analytics", "business intelligence", "data scientist",
+            "decision scientist", "insights",
+        )
+    )
+    ml_role = any(
+        value in title
+        for value in ("machine learning", "ml engineer", "ai engineer", "applied scientist")
+    )
+    devops_role = any(
+        value in title
+        for value in ("devops", "platform engineer", "site reliability", "mlops")
+    )
+    score = 0
+    if analytics_role:
+        positive = (
+            "analysis", "analytical", "statistical", "accuracy", "samples",
+            "features", "cross-validation", "model", "algorithms", "benchmarking",
+            "chart", "insights", "python", "sql", "log processing",
+        )
+        deprioritized = ("ci/cd", "docker", "jenkins", "artifact lifecycle")
+        score += 4 * sum(_contains_phrase(text, value) for value in positive)
+        score -= 3 * sum(_contains_phrase(text, value) for value in deprioritized)
+    if ml_role:
+        positive = (
+            "machine learning", "ml pipeline", "model", "accuracy", "algorithms",
+            "cross-validation", "scikit-learn", "python", "samples", "features",
+        )
+        score += 4 * sum(_contains_phrase(text, value) for value in positive)
+    if devops_role:
+        positive = (
+            "ci/cd", "docker", "jenkins", "linux", "ansible", "jfrog",
+            "artifact", "containerized", "build orchestration", "automation",
+        )
+        score += 4 * sum(_contains_phrase(text, value) for value in positive)
+    return score
+
+
 def _relevance_order(
-    template: TemplateSnapshot, indices: tuple[int, ...], description: str
+    template: TemplateSnapshot, indices: tuple[int, ...], context: JobContext
 ) -> list[int]:
-    """Rank existing truthful bullets by JD overlap without rewriting claims."""
-    description_tokens = _tokens(description)
-    supported_skills = _skills_in_job(template, description)
-    scored: list[tuple[int, int, int]] = []
+    """Rank existing truthful bullets by JD overlap and target-role evidence."""
+    description_tokens = _tokens(context.description)
+    supported_skills = _skills_in_job(template, context.description)
+    scored: list[tuple[int, int, int, int]] = []
     for local_index, paragraph_index in enumerate(indices):
         text = template.paragraphs[paragraph_index]
         skill_score = sum(
             1 for skill in supported_skills if _contains_phrase(text, skill)
         )
         token_score = len(_tokens(text) & description_tokens)
-        scored.append((-skill_score, -token_score, local_index))
-    return [local_index for _, _, local_index in sorted(scored)]
+        role_score = _role_relevance_score(text, context)
+        scored.append((-role_score, -skill_score, -token_score, local_index))
+    return [local_index for _, _, _, local_index in sorted(scored)]
 
 
 def safe_plan(template: TemplateSnapshot, job: Any) -> dict[str, Any]:
@@ -643,11 +693,11 @@ def safe_plan(template: TemplateSnapshot, job: Any) -> dict[str, Any]:
         "skill_priorities": supported,
         "experience_bullets": [],
         "experience_order": _relevance_order(
-            template, template.experience_indices, context.description
+            template, template.experience_indices, context
         ),
         "project_bullets": [],
         "project_order": _relevance_order(
-            template, template.project_indices, context.description
+            template, template.project_indices, context
         ),
         "supported_skills": supported[:8],
         "important_gaps": gaps,
@@ -723,7 +773,19 @@ def validate_plan(
                 warnings.append(
                     f"unsafe or unchanged {key}[{local_index}] proposal rejected"
                 )
-        result[key] = accepted
+        order_key = (
+            "experience_order" if key == "experience_bullets" else "project_order"
+        )
+        relevance_rank = {
+            local_index: rank
+            for rank, local_index in enumerate(fallback[order_key])
+        }
+        accepted.sort(key=lambda item: relevance_rank[item["index"]])
+        if len(accepted) > 1:
+            warnings.append(
+                f"{key} limited to the single most role-relevant grounded rewrite"
+            )
+        result[key] = accepted[:1]
 
     # Deterministic evidence-only ranking is safer and more consistent than
     # accepting an arbitrary model order. It also ensures the fallback can

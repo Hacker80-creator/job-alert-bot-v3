@@ -167,6 +167,14 @@ class ResumeTailoringTests(unittest.TestCase):
         self.assertTrue(any("unsafe summary" in warning for warning in warnings))
         self.assertTrue(any("experience_bullets" in warning for warning in warnings))
 
+    def test_product_analyst_ranking_prioritizes_data_evidence(self) -> None:
+        plan = tailor.safe_plan(self.template, make_job())
+        self.assertEqual(3, plan["experience_order"][0])
+        self.assertEqual([0, 1, 2], plan["project_order"])
+        prompt = tailor.build_prompt(self.template, make_job())
+        self.assertIn("plain, natural professional English", prompt)
+        self.assertIn("no more than one experience-bullet rewrite", prompt)
+
     def test_primary_model_falls_back_to_flash_lite(self) -> None:
         raw = tailor.safe_plan(self.template, make_job())
         with patch.object(
