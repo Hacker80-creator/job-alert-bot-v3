@@ -193,7 +193,7 @@ def _nearest_job_card(link: Any) -> Any:
 
 
 def _talentbrew_title(link: Any) -> str:
-    heading = link.select_one("h1, h2, h3, strong")
+    heading = link.select_one(".job-list__title, h1, h2, h3, strong")
     return bot.clean_text(heading.get_text(" ") if heading else link.get_text(" "))
 
 
@@ -228,10 +228,12 @@ def parse_talentbrew_html(company: dict[str, Any]) -> list[bot.Job]:
                     continue
                 card = _nearest_job_card(link)
                 location_node = card.select_one(
-                    ".job-location, .location, [class*='job-location']"
+                    ".job-location, .job-list__location, .location, "
+                    "[class*='job-location']"
                 ) if card else None
                 department_node = card.select_one(
-                    ".category, .job-category, [class*='job-category']"
+                    ".category, .job-category, .job-list__categories, "
+                    "[class*='job-category']"
                 ) if card else None
                 jobs_by_url[url] = bot.Job(
                     company=company["name"],

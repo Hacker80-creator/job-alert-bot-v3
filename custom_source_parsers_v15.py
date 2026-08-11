@@ -50,7 +50,8 @@ def parse_avature_html(company: dict[str, Any]) -> list[bot.Job]:
         response.raise_for_status()
         soup = BeautifulSoup(response.text, "html.parser")
         for link in soup.select(
-            "a[href*='/JobDetail'], a[href*='/FolderDetail/']"
+            "a[href*='/JobDetail'], a[href*='/FolderDetail/'], "
+            "a[href*='/PipelineDetail/']"
         ):
             title = bot.clean_text(link.get_text(" "))
             href = urljoin(response.url, str(link.get("href") or ""))
@@ -106,6 +107,7 @@ def parse_avature_html(company: dict[str, Any]) -> list[bot.Job]:
             if not job.location:
                 location_nodes = soup.select(
                     ".posting-location .article__content__view__field__value, "
+                    ".view-icon--location .article__content__view__field__value, "
                     "[class*='posting-location'] [class*='field__value']"
                 )
                 job.location = bot.flatten_location([
