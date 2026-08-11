@@ -16,7 +16,7 @@ from bs4 import BeautifulSoup
 
 import audit_dynamic_coverage as audit
 import job_monitor as bot
-import job_monitor_entry_v32
+import job_monitor_entry_v43
 
 
 ROOT = Path(__file__).parent
@@ -48,7 +48,7 @@ def dynamic_remaining() -> list[dict[str, Any]]:
     ]
     labels = {
         audit.normalized(label)
-        for company in job_monitor_entry_v32.load_final_config()["companies"]
+        for company in job_monitor_entry_v43.load_final_config()["companies"]
         if company.get("enabled", True)
         for label in [company["name"], *company.get("aliases", [])]
     }

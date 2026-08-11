@@ -60,7 +60,7 @@ jobs:
         if: ${{ github.event_name == 'workflow_dispatch' && github.ref_name != 'main' }}
         run: >-
           python branch_source_validation.py
-          --overrides-file source_overrides_v30.yaml
+          --overrides-file source_overrides_v41.yaml
           --output branch_source_validation.summary.json
           --workers 8
 
@@ -102,7 +102,7 @@ jobs:
           DAILY_HEALTH_HOURS: "24"
           MAX_SOURCE_WORKERS: "16"
           ENABLE_INDEED: "false"
-        run: python job_monitor_entry_v32.py
+        run: python job_monitor_entry_v43.py
 
       - name: Persist deduplication state
         if: ${{ always() && github.ref_name == 'main' }}

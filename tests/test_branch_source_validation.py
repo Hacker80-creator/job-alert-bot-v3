@@ -24,8 +24,8 @@ class BranchSourceValidationTests(unittest.TestCase):
             )
             self.assertEqual(["Working"], validation.source_names(path))
 
-    @patch("branch_source_validation.job_monitor_entry_v32.load_final_config")
-    @patch("branch_source_validation.custom_source_parsers_v19.fetch_company_jobs_with_custom_v19")
+    @patch("branch_source_validation.job_monitor_entry_v43.load_final_config")
+    @patch("branch_source_validation.custom_source_parsers_v29.fetch_company_jobs_with_custom_v29")
     def test_run_writes_non_mutating_summary(self, fetch, load_config) -> None:
         fetch.return_value = [
             bot.Job("Example", "Data Analyst", "Bangalore", "https://example/jobs/1", "Official")

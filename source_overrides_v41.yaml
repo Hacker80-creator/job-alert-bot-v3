@@ -1,0 +1,53 @@
+metadata:
+  verified_at: "2026-08-11"
+  note: "Promote Robosoft and reliable zero-state boards for Kuku, Marlabs, and Indegene."
+
+companies:
+  - name: "Robosoft Technologies"
+    kind: "data_product"
+    wlb_score: 3
+    ats: "robosoft_html"
+    url: "https://www.robosoftin.com/careers"
+    career_site_url: "https://www.robosoftin.com/careers"
+    enabled: true
+
+  - name: "Kuku FM"
+    kind: "product"
+    wlb_score: 3
+    ats: "listing_jsonld"
+    url: "https://kukuapp.in/careers/open-roles/"
+    career_site_url: "https://kukuapp.in/careers/open-roles/"
+    max_posting_age_days: 180
+    enabled: true
+
+  - name: "Marlabs"
+    kind: "data_product"
+    wlb_score: 3
+    ats: "successfactors_search"
+    url: "https://career.marlabs.com/search/"
+    career_site_url: "https://www.marlabs.com/openings"
+    search_location: "India"
+    search_terms:
+      - "data"
+      - "analytics"
+      - "machine learning"
+      - "AI"
+    max_pages_per_term: 2
+    max_candidate_details: 20
+    enabled: true
+
+  - name: "Indegene"
+    kind: "product_healthtech"
+    wlb_score: 3
+    ats: "successfactors_search"
+    url: "https://careers.indegene.com/search/"
+    career_site_url: "https://careers.indegene.com/GlobalOpportunities"
+    search_location: "India"
+    search_terms:
+      - "data"
+      - "analytics"
+      - "machine learning"
+      - "AI"
+    max_pages_per_term: 2
+    max_candidate_details: 20
+    enabled: true

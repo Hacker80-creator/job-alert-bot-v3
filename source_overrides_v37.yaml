@@ -1,0 +1,38 @@
+metadata:
+  verified_at: "2026-08-11"
+  note: "Promote official Urban Company, ShareChat/Moj, River, and Scrut feeds."
+
+companies:
+  - name: "Urban Company"
+    kind: "product"
+    wlb_score: 3
+    ats: "urban_company"
+    url: "https://www.urbanclap.com/api/v2/platform-gateway/getAllJobs"
+    career_site_url: "https://careers.urbancompany.com/jobs"
+    enabled: true
+
+  - name: "ShareChat"
+    aliases:
+      - "Moj"
+    kind: "product"
+    wlb_score: 3
+    ats: "sharechat_careers"
+    url: "https://sharechat.com/api/careersList"
+    career_site_url: "https://sharechat.com/careers/"
+    enabled: true
+
+  - name: "River Mobility"
+    kind: "product"
+    wlb_score: 3
+    ats: "river_careers"
+    url: "https://main-svc-v2.prd.rideriver.com/api/v1/career/jobs"
+    career_site_url: "https://www.rideriver.com/careers/current-openings"
+    enabled: true
+
+  - name: "Scrut Automation"
+    kind: "product"
+    wlb_score: 4
+    ats: "keka_embed"
+    career_site_url: "https://scrut.keka.com/careers/"
+    identifier: "a971b7d4-5e38-406c-a779-c86a5727a4f9"
+    enabled: true

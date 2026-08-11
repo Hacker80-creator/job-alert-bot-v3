@@ -6,7 +6,7 @@ from pathlib import Path
 
 import yaml
 
-import job_monitor_entry_v32
+import job_monitor_entry_v43
 
 
 ROOT = Path(__file__).parent
@@ -31,7 +31,7 @@ def main() -> int:
     ]
     labels = {
         normalized(label)
-        for company in job_monitor_entry_v32.load_final_config()["companies"]
+        for company in job_monitor_entry_v43.load_final_config()["companies"]
         if company.get("enabled", True)
         for label in [company["name"], *company.get("aliases", [])]
     }

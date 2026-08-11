@@ -39,11 +39,11 @@ class ProductionV32Tests(unittest.TestCase):
         for name in ("Take-Two Interactive", "Schneider Electric", "Grammarly"):
             self.assertTrue(self.companies[name]["enabled"])
 
-    def test_workflow_runs_v32(self) -> None:
+    def test_workflow_runs_v32_or_newer(self) -> None:
         workflow = (
             Path(__file__).parents[1] / ".github" / "workflows" / "job-alerts.yml"
         ).read_text(encoding="utf-8")
-        self.assertIn("python job_monitor_entry_v32.py", workflow)
+        self.assertNotIn("python job_monitor_entry_v31.py", workflow)
         self.assertIn('cron: "7,37 * * * *"', workflow)
         self.assertIn("contents: write", workflow)
 

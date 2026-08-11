@@ -9,11 +9,11 @@ from typing import Any
 
 import yaml
 
-import custom_source_parsers_v19
+import custom_source_parsers_v29
 import job_match_expanded as expanded
 import job_monitor as bot
 import job_monitor_entry
-import job_monitor_entry_v32
+import job_monitor_entry_v43
 
 
 ROOT = Path(__file__).parent
@@ -30,7 +30,7 @@ def source_names(path: Path) -> list[str]:
 
 def validate_source(company: dict[str, Any]) -> dict[str, Any]:
     try:
-        jobs = custom_source_parsers_v19.fetch_company_jobs_with_custom_v19(company)
+        jobs = custom_source_parsers_v29.fetch_company_jobs_with_custom_v29(company)
     except Exception as exc:  # Defensive: custom adapters normally contain errors.
         return {
             "name": company["name"],
@@ -61,7 +61,7 @@ def run(overrides_file: Path, output: Path, workers: int) -> int:
 
     companies = {
         company["name"]: company
-        for company in job_monitor_entry_v32.load_final_config()["companies"]
+        for company in job_monitor_entry_v43.load_final_config()["companies"]
     }
     names = source_names(overrides_file)
     missing = [name for name in names if name not in companies]
@@ -119,7 +119,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--overrides-file", type=Path,
-        default=ROOT / "source_overrides_v30.yaml",
+        default=ROOT / "source_overrides_v41.yaml",
     )
     parser.add_argument(
         "--output", type=Path,

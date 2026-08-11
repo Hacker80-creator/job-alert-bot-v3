@@ -1,0 +1,36 @@
+metadata:
+  verified_at: "2026-08-11"
+  note: "Promote recovered RippleHire and Zoho recruiting boards."
+
+companies:
+  - name: "Tata Technologies"
+    kind: "product_gcc"
+    wlb_score: 3
+    ats: "ripplehire"
+    url: "https://tatatechnologies.ripplehire.com/candidate/"
+    career_site_url: "https://tatatechnologies.ripplehire.com/candidate/?token=jjZIWXgr7fPCCF6T5yk4&source=CAREERSITE#list"
+    token: "jjZIWXgr7fPCCF6T5yk4"
+    source: "CAREERSITE"
+    page_size: 100
+    max_results: 500
+    enabled: true
+
+  - name: "UST"
+    kind: "services"
+    wlb_score: 3
+    ats: "ripplehire"
+    url: "https://usource.ripplehire.com/candidate/"
+    career_site_url: "https://usource.ripplehire.com/candidate/?token=xHQWoFn4C242POo7xMpH&source=CAREERSITE#list"
+    token: "xHQWoFn4C242POo7xMpH"
+    source: "CAREERSITE"
+    page_size: 100
+    max_results: 1000
+    enabled: true
+
+  - name: "Yubi"
+    kind: "product"
+    wlb_score: 3
+    ats: "zoho_careers_html"
+    url: "https://go-yubi.zohorecruit.in/jobs/Careers"
+    career_site_url: "https://go-yubi.zohorecruit.in/jobs/Careers"
+    enabled: true
