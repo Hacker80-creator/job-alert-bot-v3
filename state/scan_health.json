@@ -1,11 +1,13 @@
 {
   "allowlist_count": 796,
   "failed_sources": [
+    "3M",
+    "Boston Scientific",
     "Gramener",
-    "Indegene",
     "River Mobility",
+    "Sabre",
     "Schneider Electric"
   ],
-  "last_notice_utc": "2026-08-12T19:21:44.319631+00:00",
+  "last_notice_utc": "2026-08-12T20:21:20.781349+00:00",
   "official_source_count": 534
 }
