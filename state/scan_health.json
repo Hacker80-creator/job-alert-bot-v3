@@ -1,10 +1,20 @@
 {
   "allowlist_count": 796,
   "failed_sources": [
+    "Adidas",
+    "Alstom",
+    "Avaya",
+    "Bayer",
     "Gramener",
+    "Novo Nordisk",
     "River Mobility",
-    "Schneider Electric"
+    "SAP",
+    "Swiss Re",
+    "Syngene International",
+    "Vestas",
+    "ZF Group",
+    "athenahealth"
   ],
-  "last_notice_utc": "2026-08-12T06:09:07.258766+00:00",
+  "last_notice_utc": "2026-08-12T07:54:58.078628+00:00",
   "official_source_count": 534
 }
