@@ -2,12 +2,26 @@
   "allowlist_count": 796,
   "failed_sources": [
     "3M",
-    "Boston Scientific",
+    "Analog Devices",
+    "Autodesk",
+    "Cadence",
+    "FedEx",
+    "Genesys",
     "Gramener",
+    "IQVIA",
+    "Illumina",
+    "Intel",
+    "KLA",
+    "Marvell Technology",
+    "Mavenir",
+    "Medtronic",
+    "Nasdaq",
+    "Rackspace Technology",
     "River Mobility",
+    "Rockwell Automation",
     "Sabre",
-    "Schneider Electric"
+    "Zendesk"
   ],
-  "last_notice_utc": "2026-08-12T20:21:20.781349+00:00",
+  "last_notice_utc": "2026-08-12T21:44:41.468348+00:00",
   "official_source_count": 534
 }
