@@ -75,7 +75,7 @@ jobs:
 
       - name: Upload feature-branch source validation
         if: ${{ always() && github.event_name == 'workflow_dispatch' && github.ref_name != 'main' }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: branch-source-validation
           path: |
