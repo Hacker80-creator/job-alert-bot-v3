@@ -53,18 +53,74 @@ DARWINBOX_OFFICIAL_BOARDS = {
     ),
 }
 
+# Corporate careers pages below advertise these first-party ATS boards.  The
+# catalog continues to retain the user-supplied corporate URL, while runtime
+# scanning uses the structured board so a JavaScript shell is never mistaken
+# for an empty job list.
+OFFICIAL_ATS_BOARDS = {
+    "AIG": "https://aig.wd1.myworkdayjobs.com/aig",
+    "Beckman Coulter": "https://danaher.wd1.myworkdayjobs.com/DanaherJobs",
+    "Bureau": "https://jobs.ashbyhq.com/bureau",
+    "CloudSEK": "https://job-boards.greenhouse.io/cloudsek",
+    "Cytiva": "https://danaher.wd1.myworkdayjobs.com/DanaherJobs",
+    "Dozee": "https://jobs.lever.co/dozee",
+    "Eka Software Solutions": "https://careers.quoreka.com",
+    "Flutura": "https://accenture.wd103.myworkdayjobs.com/AccentureCareers",
+    "General Mills": "https://genmills.wd1.myworkdayjobs.com/GMI_External_Careers",
+    "Haptik": "https://haptik.freshteam.com/jobs",
+    "Labcorp": "https://labcorp.wd1.myworkdayjobs.com/External",
+    "Pixxel": "https://pixxel.darwinbox.in/ms/candidate/careers",
+    "Procter & Gamble": "https://pg.wd5.myworkdayjobs.com/1000",
+    "Saks Global": "https://saks.wd1.myworkdayjobs.com/careers_at_saks",
+    "Scopely": "https://job-boards.greenhouse.io/scopely",
+    "Thomson Reuters": (
+        "https://thomsonreuters.wd5.myworkdayjobs.com/External_Career_Site"
+    ),
+    "Unilever": (
+        "https://unilever.wd3.myworkdayjobs.com/"
+        "Unilever_Experienced_Professionals"
+    ),
+    "CynLr": "https://cynlr.freshteam.com/jobs",
+}
+
+STATIC_JOB_LINK_SOURCES = {
+    "CoRover": r"^https://corover\.ai/company/careers/[^/?#]+/?$",
+    "Credo Semiconductor": (
+        r"^https://credo\.careers\.hibob\.com/jobs/[^/?#]+/apply/?$"
+    ),
+    "Dhruva Space": (
+        r"^https://www\.dhruvaspace\.com/careers/[^/?#]+/?$"
+    ),
+    "Facilio": r"^https://facilio\.com/careers/[^/?#]+/?$",
+    "HomeLane": r"^https://sentinel\.homelane\.com/jobs/[^/?#]+/?$",
+    "InVideo": r"^https://careers\.invideo\.io/roles/[^/?#]+/?$",
+    "Lemnisk": r"^https://www\.lemnisk\.co/job/\d+/?$",
+    "ProductDossier": r"^https://www\.kytes\.com/career/[^/?#]+/?$",
+    "Rapyd": (
+        r"^https://www\.rapyd\.net/company/careers/positions/[^/?#]+/?$"
+    ),
+    "Sumo Digital India": (
+        r"^https://www\.sumo-digital\.com/careers/[^/?#]+/?$"
+    ),
+    "Tata Elxsi": (
+        r"^https://www\.tataelxsi\.com/careers/job-openings/[^/?#]+/?$"
+    ),
+}
+
 SUCCESSFACTORS_HOSTS = {
     "careers.cipla.com",
-    "careers.cargill.com",
     "careers.lupin.com",
+    "careers.reckitt.com",
+    "careers.tatamotors.com",
     "jobs.heromotocorp.com",
     "jobs.kellanova.com",
     "jobs.schaeffler.com",
-    "jobs.sunpharma.com",
     "jobs.volvocars.com",
+    "www.careers.zurich.com",
 }
 
 TALENTBREW_HOSTS = {
+    "careers.cargill.com",
     "careers.labcorp.com",
     "careers.mimecast.com",
     "careers.saksglobal.com",
@@ -72,6 +128,7 @@ TALENTBREW_HOSTS = {
     "careers.thomsonreuters.com",
     "jobs.baxter.com",
     "jobs.parexel.com",
+    "jobs.sunpharma.com",
 }
 
 ZOHO_PUBLIC_NAMES = {
@@ -167,6 +224,12 @@ def _oracle_config(url: str) -> dict[str, Any]:
 
 
 def classify_source(name: str, url: str) -> dict[str, Any]:
+    official_board = OFFICIAL_ATS_BOARDS.get(name)
+    if official_board and url != official_board:
+        company = classify_source(name, official_board)
+        company["catalog_url"] = url
+        return company
+
     parsed = urlparse(url)
     host = parsed.netloc.casefold()
     path = parsed.path.strip("/")
@@ -369,6 +432,14 @@ def classify_source(name: str, url: str) -> dict[str, Any]:
             url=url,
             career_site_url=url,
         )
+    elif name in STATIC_JOB_LINK_SOURCES:
+        company.update(
+            ats="static_job_links",
+            url=url,
+            career_site_url=url,
+            job_url_pattern=STATIC_JOB_LINK_SOURCES[name],
+            max_results=100,
+        )
     elif host == "job-boards.greenhouse.io":
         company.update(ats="greenhouse", slug=path.split("/", 1)[0])
     elif host == "jobs.lever.co":
@@ -390,6 +461,8 @@ def classify_source(name: str, url: str) -> dict[str, Any]:
             career_site_url=url,
         )
     elif host.endswith("freshteam.com"):
+        company.update(ats="freshteam_html", url=url, career_site_url=url)
+    elif name == "Eka Software Solutions" and host == "careers.quoreka.com":
         company.update(ats="freshteam_html", url=url, career_site_url=url)
     elif host.endswith(".keka.com"):
         company.update(ats="keka_embed", url=url, career_site_url=url)
@@ -442,9 +515,12 @@ def classify_source(name: str, url: str) -> dict[str, Any]:
     elif host == "app.eightfold.ai":
         company.update(ats="eightfold_html", url=url, career_site_url=url)
     elif host in SUCCESSFACTORS_HOSTS:
+        search_url = url
+        if "/search" not in parsed.path.casefold():
+            search_url = f"{parsed.scheme}://{parsed.netloc}/search/"
         company.update(
             ats="successfactors_search",
-            url=url,
+            url=search_url,
             career_site_url=url,
             search_location="India",
             search_terms=DEFAULT_SEARCH_TERMS,

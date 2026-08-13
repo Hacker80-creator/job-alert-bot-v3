@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import unittest
 from pathlib import Path
+from unittest.mock import Mock, patch
 
+import custom_source_parsers_v30
 import job_monitor_entry_v44
 import source_registry_v44
 
@@ -66,6 +68,41 @@ class ProductionV44Tests(unittest.TestCase):
             "Spinny": "darwinbox_v2",
             "Tata 1mg": "darwinbox_v2",
             "Evalueserve": "evalueserve_html",
+            "Accenture": "workday_search",
+            "AIG": "workday_search",
+            "Bureau": "ashby",
+            "CloudSEK": "greenhouse",
+            "Danaher": "workday_search",
+            "Dozee": "lever",
+            "General Mills": "workday_search",
+            "Labcorp": "workday_search",
+            "Pixxel": "darwinbox_v2",
+            "Procter & Gamble": "workday_search",
+            "Saks Global": "workday_search",
+            "Scopely": "greenhouse",
+            "Thomson Reuters": "workday_search",
+            "Unilever": "workday_search",
+            "Cargill": "talentbrew_html",
+            "Hero MotoCorp": "successfactors_search",
+            "Lupin": "successfactors_search",
+            "Reckitt": "successfactors_search",
+            "Sun Pharma": "talentbrew_html",
+            "Tata Motors": "successfactors_search",
+            "Zurich Insurance Group": "successfactors_search",
+            "CynLr": "freshteam_html",
+            "Eka Software Solutions": "freshteam_html",
+            "Haptik": "freshteam_html",
+            "CoRover": "static_job_links",
+            "Credo Semiconductor": "static_job_links",
+            "Dhruva Space": "static_job_links",
+            "Facilio": "static_job_links",
+            "HomeLane": "static_job_links",
+            "InVideo": "static_job_links",
+            "Lemnisk": "static_job_links",
+            "ProductDossier": "static_job_links",
+            "Rapyd": "static_job_links",
+            "Sumo Digital India": "static_job_links",
+            "Tata Elxsi": "static_job_links",
         }
         for name, ats in expected.items():
             self.assertEqual(ats, self.companies[name]["ats"])
@@ -81,6 +118,35 @@ class ProductionV44Tests(unittest.TestCase):
         workflow = (Path(__file__).parents[1] / ".github" / "workflows" / "job-alerts.yml").read_text(encoding="utf-8")
         self.assertIn("python job_monitor_entry_v44.py", workflow)
         self.assertIn("verified_sources_v44.txt", workflow)
+
+    @patch("custom_source_parsers_v30.requests.get")
+    def test_static_job_links_keep_card_title_and_stable_id(self, get: Mock) -> None:
+        listing = Mock()
+        listing.url = "https://example.com/careers"
+        listing.text = (
+            '<div class="job-card"><h3>Data Engineer</h3>'
+            '<a href="/jobs/abc-123/apply">Apply Now</a></div>'
+        )
+        listing.raise_for_status.return_value = None
+        detail = Mock()
+        detail.url = "https://example.com/jobs/abc-123/apply"
+        detail.text = (
+            '<main><h1>Apply at Example</h1>'
+            '<div class="job-location">Bengaluru, India</div></main>'
+        )
+        detail.raise_for_status.return_value = None
+        get.side_effect = [listing, detail]
+        jobs = custom_source_parsers_v30.parse_static_job_links({
+            "name": "Example",
+            "ats": "static_job_links",
+            "url": listing.url,
+            "job_url_pattern": r"^https://example\.com/jobs/[^/]+/apply$",
+            "wlb_score": 3,
+        })
+        self.assertEqual(1, len(jobs))
+        self.assertEqual("Data Engineer", jobs[0].title)
+        self.assertEqual("abc-123", jobs[0].requisition_id)
+        self.assertEqual("Bengaluru, India", jobs[0].location)
 
 
 if __name__ == "__main__":

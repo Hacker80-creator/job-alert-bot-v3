@@ -557,6 +557,184 @@ def parse_evalueserve_html(company: dict[str, Any]) -> list[bot.Job]:
     return jobs
 
 
+def _find_jobposting(document: Any) -> dict[str, Any] | None:
+    if isinstance(document, dict):
+        posting_type = document.get("@type")
+        if posting_type == "JobPosting" or (
+            isinstance(posting_type, list) and "JobPosting" in posting_type
+        ):
+            return document
+        for value in document.values():
+            posting = _find_jobposting(value)
+            if posting:
+                return posting
+    elif isinstance(document, list):
+        for value in document:
+            posting = _find_jobposting(value)
+            if posting:
+                return posting
+    return None
+
+
+def _schema_location(posting: dict[str, Any]) -> str:
+    location = posting.get("jobLocation") or posting.get("applicantLocationRequirements")
+    locations = location if isinstance(location, list) else [location]
+    values: list[str] = []
+    for item in locations:
+        if not isinstance(item, dict):
+            continue
+        address = item.get("address") or item
+        if not isinstance(address, dict):
+            continue
+        value = ", ".join(filter(None, [
+            bot.clean_text(address.get("addressLocality")),
+            bot.clean_text(address.get("addressRegion")),
+            bot.clean_text(address.get("addressCountry")),
+        ]))
+        if value:
+            values.append(value)
+    return " | ".join(dict.fromkeys(values))
+
+
+def _compact_job_card(anchor: Any, soup: BeautifulSoup) -> Any:
+    anchor_text = bot.clean_text(anchor.get_text(" "))
+    if 20 <= len(anchor_text) <= 2500:
+        return anchor
+    for parent in anchor.parents:
+        if parent is soup:
+            break
+        classes = " ".join(parent.get("class") or [])
+        if parent.name not in {"article", "li", "tr", "div", "section"}:
+            continue
+        text = bot.clean_text(parent.get_text(" "))
+        if len(text) > 2500:
+            continue
+        if parent.name in {"article", "li", "tr"} or re.search(
+            r"(?:job|career|opening|position|vacancy|role|card)", classes, re.I,
+        ):
+            return parent
+    return anchor.parent
+
+
+def _generic_job_title(title: str, company_name: str) -> bool:
+    folded = bot.clean_text(title).casefold().strip(" -|:")
+    company_folded = bot.clean_text(company_name).casefold()
+    if not folded:
+        return True
+    if folded in {
+        "apply", "apply now", "details", "know more", "view", "view role",
+        "view job", "read more", "learn more", "open role", "careers", "jobs",
+    }:
+        return True
+    if folded.startswith(("apply at ", "opportunities await you at ")):
+        return True
+    return folded in {company_folded, f"careers at {company_folded}"}
+
+
+def _card_title(anchor: Any, card: Any) -> str:
+    for scope in (anchor, card):
+        if scope is None:
+            continue
+        heading = scope.select_one("h1, h2, h3, h4, h5, h6, [class*='title']")
+        title = bot.clean_text(heading.get_text(" ") if heading else "")
+        if title and len(title) <= 180:
+            return title
+    title = bot.clean_text(anchor.get_text(" "))
+    if len(title) <= 180:
+        return title
+    return ""
+
+
+def parse_static_job_links(company: dict[str, Any]) -> list[bot.Job]:
+    """Read stable first-party job-detail links from a corporate careers page."""
+    response = requests.get(company["url"], headers=BROWSER_HEADERS, timeout=40)
+    response.raise_for_status()
+    soup = BeautifulSoup(response.text, "html.parser")
+    pattern = re.compile(company["job_url_pattern"], re.I)
+    candidates: dict[str, tuple[str, str]] = {}
+    for anchor in soup.select("a[href]"):
+        url = urljoin(response.url, str(anchor.get("href") or ""))
+        if not pattern.search(url) or url in candidates:
+            continue
+        card = _compact_job_card(anchor, soup)
+        title = _card_title(anchor, card)
+        context = bot.clean_text(card.get_text(" ") if card else "")
+        candidates[url] = (title, context)
+
+    jobs: list[bot.Job] = []
+    limit = max(1, int(company.get("max_results", 100)))
+    for url, (card_title, context) in list(candidates.items())[:limit]:
+        title = card_title
+        location = ""
+        description = context
+        path_parts = [
+            part for part in urlparse(url).path.split("/") if part
+        ]
+        requisition_id = path_parts[-1] if path_parts else ""
+        if requisition_id.casefold() in {"apply", "job", "details"} and len(path_parts) > 1:
+            requisition_id = path_parts[-2]
+        try:
+            detail = requests.get(url, headers=BROWSER_HEADERS, timeout=40)
+            detail.raise_for_status()
+            detail_soup = BeautifulSoup(detail.text, "html.parser")
+            posting = None
+            for script in detail_soup.find_all("script", type="application/ld+json"):
+                try:
+                    posting = _find_jobposting(json.loads(script.string or ""))
+                except (TypeError, json.JSONDecodeError):
+                    continue
+                if posting:
+                    break
+            if posting:
+                title = bot.clean_text(posting.get("title")) or title
+                location = _schema_location(posting)
+                description = bot.clean_text(posting.get("description")) or description
+                identifier = posting.get("identifier")
+                if isinstance(identifier, dict):
+                    identifier = identifier.get("value") or identifier.get("name")
+                requisition_id = bot.clean_text(identifier) or requisition_id
+            else:
+                heading = detail_soup.select_one("main h1, article h1, h1")
+                detail_title = bot.clean_text(heading.get_text(" ") if heading else "")
+                if (
+                    detail_title
+                    and len(detail_title) <= 180
+                    and not _generic_job_title(detail_title, company["name"])
+                ):
+                    title = detail_title
+                location_node = detail_soup.select_one(
+                    "[class*='job-location'], [class*='location'], [data-location]"
+                )
+                location = bot.clean_text(
+                    location_node.get_text(" ") if location_node else ""
+                )
+                detail_node = detail_soup.select_one(
+                    "[class*='job-description'], [class*='description'], main, article"
+                )
+                detail_text = bot.clean_text(
+                    detail_node.get_text(" ") if detail_node else ""
+                )
+                if len(detail_text) >= 80:
+                    description = detail_text
+        except Exception as exc:
+            print(f"WARN {company['name']} static detail failed: {exc}")
+        if _generic_job_title(title, company["name"]):
+            title = requisition_id.replace("-", " ").replace("_", " ").title()
+        if not title or not requisition_id:
+            continue
+        jobs.append(bot.Job(
+            company=company["name"],
+            title=title,
+            location=location or context[:500],
+            url=url,
+            source="Official careers: first-party job page",
+            description=description,
+            requisition_id=requisition_id,
+            wlb_score=company.get("wlb_score", 3),
+        ))
+    return jobs
+
+
 def parse_tonbo_html(company: dict[str, Any]) -> list[bot.Job]:
     """Read Tonbo's current roles from its GitHub-compatible WordPress API."""
     response = requests.get(
@@ -824,6 +1002,7 @@ def fetch_company_jobs_with_custom_v30(company: dict[str, Any]) -> list[bot.Job]
         "gnani_api": parse_gnani_api,
         "hrone_html": parse_hrone_html,
         "evalueserve_html": parse_evalueserve_html,
+        "static_job_links": parse_static_job_links,
         "tonbo_html": parse_tonbo_html,
         "kaleideo_wordpress": parse_kaleideo_wordpress,
         "wordpress_post_type": parse_wordpress_post_type,

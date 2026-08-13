@@ -378,19 +378,22 @@ def parse_freshteam_html(company: dict[str, Any]) -> list[bot.Job]:
     soup = BeautifulSoup(response.text, "html.parser")
     jobs: list[bot.Job] = []
     seen: set[str] = set()
-    for card in soup.select("li.heading"):
-        link = card.select_one("a.job-title[href]")
-        if link is None:
-            continue
+    links = list(soup.select('a.heading[href*="/jobs/"]'))
+    links.extend(soup.select("li.heading a.job-title[href]"))
+    for link in links:
+        card = link if "heading" in (link.get("class") or []) else link.parent
         url = urljoin(response.url, str(link.get("href") or ""))
         if not url or url in seen:
             continue
         seen.add(url)
+        title_node = card.select_one(".job-title")
         location = card.select_one(".job-location .location-info")
         description = card.select_one(".job-list-info .job-desc")
         jobs.append(bot.Job(
             company=company["name"],
-            title=bot.clean_text(link.get_text(" ")),
+            title=bot.clean_text(
+                title_node.get_text(" ") if title_node else link.get_text(" ")
+            ),
             location=bot.clean_text(
                 location.get_text(" ") if location else ""
             ),
