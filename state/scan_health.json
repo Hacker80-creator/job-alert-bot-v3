@@ -1,10 +1,10 @@
 {
   "allowlist_count": 1005,
   "failed_sources": [
+    "Cirrus Logic",
     "ColorTokens",
     "Credo Semiconductor",
     "Evalueserve",
-    "GitHub",
     "Gramener",
     "H&M Group",
     "Hitachi Astemo",
@@ -14,9 +14,8 @@
     "ProductDossier",
     "River Mobility",
     "Skit.ai",
-    "UBS",
-    "ZS Associates"
+    "UBS"
   ],
-  "last_notice_utc": "2026-08-13T11:34:55.611969+00:00",
+  "last_notice_utc": "2026-08-13T12:37:48.638812+00:00",
   "official_source_count": 790
 }
