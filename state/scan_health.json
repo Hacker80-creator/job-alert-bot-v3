@@ -1,7 +1,7 @@
 {
   "allowlist_count": 1005,
   "failed_sources": [
-    "Cirrus Logic",
+    "Ameriprise Financial",
     "ColorTokens",
     "Credo Semiconductor",
     "Evalueserve",
@@ -13,9 +13,10 @@
     "MedGenome",
     "ProductDossier",
     "River Mobility",
+    "Schneider Electric",
     "Skit.ai",
     "UBS"
   ],
-  "last_notice_utc": "2026-08-13T19:47:59.360890+00:00",
+  "last_notice_utc": "2026-08-13T21:35:11.844097+00:00",
   "official_source_count": 790
 }
