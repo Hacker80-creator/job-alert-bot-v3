@@ -159,7 +159,15 @@ def classify_source(name: str, url: str) -> dict[str, Any]:
     if aliases:
         company["aliases"] = aliases
 
-    if name == "Dassault Systèmes":
+    if name == "Ameriprise Financial":
+        company.update(
+            ats="ameriprise_html",
+            url=url,
+            career_site_url=url,
+            search_terms=DEFAULT_SEARCH_TERMS,
+            max_pages_per_term=2,
+        )
+    elif name == "Dassault Systèmes":
         company.update(
             ats="dassault_xml",
             url="https://www.3ds.com/apisearch/card_search_api",
@@ -216,7 +224,10 @@ def classify_source(name: str, url: str) -> dict[str, Any]:
     elif name == "Tonbo Imaging":
         company.update(
             ats="tonbo_html",
-            url=url,
+            url=(
+                "https://tonboimaging.com/defense/"
+                "?rest_route=/wp/v2/pages/11924"
+            ),
             career_site_url=url,
             default_location="Bengaluru, India",
         )

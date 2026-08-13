@@ -28,6 +28,8 @@ class ProductionV44Tests(unittest.TestCase):
             "TheMathCompany": "peoplestrong",
             "Dassault Systèmes": "dassault_xml",
             "Eightfold AI": "eightfold",
+            "Ameriprise Financial": "ameriprise_html",
+            "redBus": "trakstar_html",
             "SpotDraft": "ashby",
             "Smarsh": "lever",
             "Netradyne": "smartrecruiters",

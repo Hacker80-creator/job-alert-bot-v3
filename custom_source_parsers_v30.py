@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import re
+from html import unescape
 from typing import Any
 from urllib.parse import urljoin, urlparse
 from xml.etree import ElementTree
@@ -204,14 +205,25 @@ def parse_darwinbox_v2(company: dict[str, Any]) -> list[bot.Job]:
 
 
 def parse_tonbo_html(company: dict[str, Any]) -> list[bot.Job]:
-    """Read Tonbo's current role headings using its browser-compatible page."""
-    response = requests.get(company["url"], headers=BROWSER_HEADERS, timeout=40)
+    """Read Tonbo's current roles from its GitHub-compatible WordPress API."""
+    response = requests.get(
+        company["url"],
+        headers={**BROWSER_HEADERS, "Accept": "application/json"},
+        timeout=40,
+    )
     response.raise_for_status()
-    soup = BeautifulSoup(response.text, "html.parser")
+    document = response.json()
+    page = str((document.get("content") or {}).get("rendered") or "")
     jobs: list[bot.Job] = []
     seen: set[str] = set()
-    for heading in soup.select("h4"):
-        raw_title = bot.clean_text(heading.get_text(" "))
+    matches = list(re.finditer(
+        r"\[vc_tta_section\s+title=(?:&#8221;|[\"\u201c\u201d])"
+        r"(.+?)(?:&#8221;|[\"\u201c\u201d])\s+tab_id=",
+        page,
+        flags=re.IGNORECASE | re.DOTALL,
+    ))
+    for index, match in enumerate(matches):
+        raw_title = bot.clean_text(unescape(match.group(1)))
         if "actively hiring" not in raw_title.casefold():
             continue
         title = re.sub(
@@ -221,7 +233,9 @@ def parse_tonbo_html(company: dict[str, Any]) -> list[bot.Job]:
         if not title or title.casefold() in seen:
             continue
         seen.add(title.casefold())
-        context = heading.parent.get_text(" ") if heading.parent else raw_title
+        next_start = matches[index + 1].start() if index + 1 < len(matches) else len(page)
+        section = unescape(page[match.end():next_start])
+        context = BeautifulSoup(section, "html.parser").get_text(" ")
         jobs.append(bot.Job(
             company=company["name"],
             title=title,
@@ -233,6 +247,55 @@ def parse_tonbo_html(company: dict[str, Any]) -> list[bot.Job]:
             wlb_score=company.get("wlb_score", 3),
         ))
     return jobs
+
+
+def parse_ameriprise_html(company: dict[str, Any]) -> list[bot.Job]:
+    """Query Ameriprise's first-party, server-rendered job search."""
+    terms = company.get("search_terms") or ["data", "analytics", "AI"]
+    max_pages = max(1, int(company.get("max_pages_per_term", 2)))
+    jobs_by_id: dict[str, bot.Job] = {}
+    for term in terms:
+        for page_number in range(1, max_pages + 1):
+            response = requests.get(
+                company["url"],
+                params={"k": term, "p": page_number},
+                headers=BROWSER_HEADERS,
+                timeout=35,
+            )
+            response.raise_for_status()
+            soup = BeautifulSoup(response.text, "html.parser")
+            cards = soup.select(".card-job")
+            for card in cards:
+                link = card.select_one("a.js-view-job[href]")
+                action = card.select_one(".card-job-actions[data-id]")
+                if link is None:
+                    continue
+                job_id = bot.clean_text(action.get("data-id") if action else "")
+                title = bot.clean_text(link.get_text(" "))
+                url = urljoin(response.url, str(link.get("href") or ""))
+                if not job_id:
+                    match = re.search(r"/(r\d+_\d+)(?:[/?#]|$)", urlparse(url).path)
+                    job_id = match.group(1) if match else ""
+                if not job_id or not title or not url:
+                    continue
+                metadata = [
+                    bot.clean_text(item.get_text(" "))
+                    for item in card.select(".job-meta .list-inline-item")
+                ]
+                jobs_by_id.setdefault(job_id, bot.Job(
+                    company=company["name"],
+                    title=title,
+                    location=metadata[0] if metadata else "",
+                    url=url,
+                    source="Official careers: Ameriprise Financial",
+                    description=" | ".join(metadata),
+                    department=metadata[1] if len(metadata) > 1 else "",
+                    requisition_id=job_id,
+                    wlb_score=company.get("wlb_score", 3),
+                ))
+            if len(cards) < 20:
+                break
+    return list(jobs_by_id.values())
 
 
 def parse_lululemon_avature(company: dict[str, Any]) -> list[bot.Job]:
@@ -277,6 +340,7 @@ def fetch_company_jobs_with_custom_v30(company: dict[str, Any]) -> list[bot.Job]
         "peoplestrong": parse_peoplestrong,
         "darwinbox_v2": parse_darwinbox_v2,
         "tonbo_html": parse_tonbo_html,
+        "ameriprise_html": parse_ameriprise_html,
         "lululemon_avature": parse_lululemon_avature,
     }.get(company.get("ats"))
     if parser is None:

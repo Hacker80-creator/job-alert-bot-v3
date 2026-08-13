@@ -12,7 +12,7 @@ Alphawave Semi|https://alphawave.wd10.myworkdayjobs.com/Alphawave_External
 Altizon|https://altizon.com/careers
 Amagi|https://www.amagi.com/careers/open-roles
 Ambarella|https://ambarella.wd108.myworkdayjobs.com/Ambarella
-Ameriprise Financial|https://careers.ameriprise.com/our-brands/ameriprise-india/
+Ameriprise Financial|https://careers.ameriprise.com/search-jobs
 Annalect|https://indiacareers.omnicomglobalsolutions.com/jobs
 Apptio|https://www.ibm.com/careers/search
 Aristocrat|https://aristocrat.wd3.myworkdayjobs.com/AristocratExternalCareersSite
@@ -191,7 +191,7 @@ Rapido|https://www.rapido.bike/Careers
 Rapyd|https://www.rapyd.net/company/careers-search/
 Realtek|https://recruit.realtek.com/Job/Search?lang=en
 Reckitt|https://careers.reckitt.com/
-redBus|https://www.redbus.in/careers/jobs
+redBus|https://redbus.hire.trakstar.com/jobs
 RELX|https://relx.wd3.myworkdayjobs.com/relx
 ResMed|https://resmed.wd3.myworkdayjobs.com/ResMed_External_Careers
 Reverie Language Technologies|https://careers.reverieinc.com/reverieinc/

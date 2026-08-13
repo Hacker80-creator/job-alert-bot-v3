@@ -71,9 +71,13 @@ class SourceBatchV30Tests(unittest.TestCase):
 
     @patch("custom_source_parsers_v30.requests.get")
     def test_tonbo_maps_actively_hiring_heading(self, get: Mock) -> None:
-        response = Mock(text='''<section><h4>Vision &amp; Deep Learning Engineer |
-          Actively Hiring |</h4><p>Build computer vision systems.</p></section>''')
+        response = Mock()
         response.raise_for_status.return_value = None
+        response.json.return_value = {"content": {"rendered": '''
+          [vc_tta_section title=&#8221;Vision &amp; Deep Learning Engineer |
+          Actively Hiring |&#8221; tab_id=&#8221;role-1&#8221;]
+          <p>Build computer vision systems.</p>[/vc_tta_section]
+        '''}}
         get.return_value = response
         jobs = parsers.parse_tonbo_html({
             "name": "Tonbo Imaging", "url": "https://tonbo.example/careers",
@@ -98,6 +102,30 @@ class SourceBatchV30Tests(unittest.TestCase):
         })
         self.assertEqual("Data Engineer", jobs[0].title)
         self.assertEqual("62394", jobs[0].requisition_id)
+
+    @patch("custom_source_parsers_v30.requests.get")
+    def test_ameriprise_maps_server_rendered_card(self, get: Mock) -> None:
+        response = Mock(
+            url="https://careers.ameriprise.example/search-jobs?k=data&p=1",
+            text='''<div class="card-job"><h2><a class="js-view-job"
+              href="/search-jobs/r26_2784/senior-business-data-analyst/">
+              Senior Business Data Analyst</a></h2>
+              <div class="card-job-actions" data-id="r26_2784"></div>
+              <ul class="job-meta"><li class="list-inline-item">Gurugram</li>
+              <li class="list-inline-item">Data</li>
+              <li class="list-inline-item">Ameriprise India</li></ul></div>''',
+        )
+        response.raise_for_status.return_value = None
+        get.return_value = response
+        jobs = parsers.parse_ameriprise_html({
+            "name": "Ameriprise Financial",
+            "url": "https://careers.ameriprise.example/search-jobs",
+            "search_terms": ["data"],
+            "max_pages_per_term": 1,
+        })
+        self.assertEqual("Senior Business Data Analyst", jobs[0].title)
+        self.assertEqual("Gurugram", jobs[0].location)
+        self.assertEqual("r26_2784", jobs[0].requisition_id)
 
 
 if __name__ == "__main__":
