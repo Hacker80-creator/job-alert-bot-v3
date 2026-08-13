@@ -62,6 +62,10 @@ class ProductionV44Tests(unittest.TestCase):
             "GreyOrange": "tavant_browser_transport",
             "Gnani.ai": "gnani_api",
             "Addverb": "hrone_html",
+            "Digit Insurance": "darwinbox_v2",
+            "Spinny": "darwinbox_v2",
+            "Tata 1mg": "darwinbox_v2",
+            "Evalueserve": "evalueserve_html",
         }
         for name, ats in expected.items():
             self.assertEqual(ats, self.companies[name]["ats"])

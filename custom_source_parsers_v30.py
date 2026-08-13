@@ -514,6 +514,49 @@ def parse_hrone_html(company: dict[str, Any]) -> list[bot.Job]:
     return jobs
 
 
+def parse_evalueserve_html(company: dict[str, Any]) -> list[bot.Job]:
+    """Read Evalueserve's server-rendered first-party vacancy cards."""
+    response = requests.get(company["url"], headers=BROWSER_HEADERS, timeout=40)
+    response.raise_for_status()
+    soup = BeautifulSoup(response.text, "html.parser")
+    jobs: list[bot.Job] = []
+    seen: set[str] = set()
+    for link in soup.select(".db-job-link a[href*='darwinbox']"):
+        url = urljoin(response.url, str(link.get("href") or ""))
+        job_id = urlparse(url).path.rstrip("/").rsplit("/", 1)[-1]
+        card = link.find_parent("div", class_=re.compile(r"(?:^|\s)India(?:\s|$)"))
+        if card is None:
+            card = link.find_parent("div", class_=re.compile(r"job", re.I))
+        title_node = card.select_one(".db-job-title") if card else None
+        location_node = card.select_one(".db-location-country") if card else None
+        description_node = card.select_one(".db-busniess-unit") if card else None
+        experience_node = card.select_one(".db-experience-level") if card else None
+        title = bot.clean_text(title_node.get_text(" ") if title_node else "")
+        if not job_id or not title or job_id in seen:
+            continue
+        seen.add(job_id)
+        jobs.append(bot.Job(
+            company=company["name"],
+            title=title,
+            location=bot.clean_text(
+                location_node.get_text(" ") if location_node else ""
+            ),
+            url=url,
+            source="Official careers: Evalueserve",
+            description=" | ".join(filter(None, [
+                bot.clean_text(
+                    description_node.get_text(" ") if description_node else ""
+                ),
+                bot.clean_text(
+                    experience_node.get_text(" ") if experience_node else ""
+                ),
+            ])),
+            requisition_id=job_id,
+            wlb_score=company.get("wlb_score", 3),
+        ))
+    return jobs
+
+
 def parse_tonbo_html(company: dict[str, Any]) -> list[bot.Job]:
     """Read Tonbo's current roles from its GitHub-compatible WordPress API."""
     response = requests.get(
@@ -780,6 +823,7 @@ def fetch_company_jobs_with_custom_v30(company: dict[str, Any]) -> list[bot.Job]
         "recruiterflow_html": parse_recruiterflow_html,
         "gnani_api": parse_gnani_api,
         "hrone_html": parse_hrone_html,
+        "evalueserve_html": parse_evalueserve_html,
         "tonbo_html": parse_tonbo_html,
         "kaleideo_wordpress": parse_kaleideo_wordpress,
         "wordpress_post_type": parse_wordpress_post_type,

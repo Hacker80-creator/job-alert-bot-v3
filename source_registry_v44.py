@@ -33,6 +33,26 @@ DEFAULT_SEARCH_TERMS = [
     "automation",
 ]
 
+DARWINBOX_OFFICIAL_BOARDS = {
+    # These first-party corporate pages link to the Darwinbox board below,
+    # but the supplied catalog deliberately keeps the corporate URL visible.
+    "Digit Insurance": (
+        "https://godigit.darwinbox.in/ms/candidatev2/a651fdd75445d1/careers/home",
+        "a651fdd75445d1",
+        False,
+    ),
+    "Spinny": (
+        "https://spinzone.darwinbox.in/ms/candidate/careers",
+        "main",
+        True,
+    ),
+    "Tata 1mg": (
+        "https://1mg.darwinbox.in/jobs",
+        "main",
+        True,
+    ),
+}
+
 SUCCESSFACTORS_HOSTS = {
     "careers.cipla.com",
     "careers.cargill.com",
@@ -315,6 +335,17 @@ def classify_source(name: str, url: str) -> dict[str, Any]:
             bootstrap_required="/candidatev2/" not in parsed.path.casefold(),
             max_results=100,
         )
+    elif name in DARWINBOX_OFFICIAL_BOARDS:
+        board_url, company_id, bootstrap_required = DARWINBOX_OFFICIAL_BOARDS[name]
+        board = urlparse(board_url)
+        company.update(
+            ats="darwinbox_v2",
+            url=f"{board.scheme}://{board.netloc}/ms/candidateapi/job/alljobs",
+            career_site_url=board_url,
+            company_id=company_id,
+            bootstrap_required=bootstrap_required,
+            max_results=100,
+        )
     elif name == "GreyOrange":
         company.update(
             ats="tavant_browser_transport",
@@ -331,6 +362,12 @@ def classify_source(name: str, url: str) -> dict[str, Any]:
             url="https://app.hrone.cloud/api/external/referral/CareerPosition/Details",
             career_site_url="https://hr1.to/9c16d2",
             max_results=100,
+        )
+    elif name == "Evalueserve":
+        company.update(
+            ats="evalueserve_html",
+            url=url,
+            career_site_url=url,
         )
     elif host == "job-boards.greenhouse.io":
         company.update(ats="greenhouse", slug=path.split("/", 1)[0])

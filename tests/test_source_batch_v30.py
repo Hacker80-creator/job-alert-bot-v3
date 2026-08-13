@@ -254,6 +254,31 @@ class SourceBatchV30Tests(unittest.TestCase):
         self.assertIn("pid=encrypted-position", jobs[0].url)
 
     @patch("custom_source_parsers_v30.requests.get")
+    def test_evalueserve_maps_first_party_job_card(self, get: Mock) -> None:
+        response = Mock(
+            url="https://www.evalueserve.com/in-en/jobs/",
+            text='''<div class="India">
+              <div class="db-location-country"><h6>Bengaluru, India</h6></div>
+              <div class="db-job-title"><h4>Senior Data Analyst</h4></div>
+              <div class="db-busniess-unit"><h6>Analytics department</h6></div>
+              <div class="db-experience-level"><h6>EXP: Mid-level</h6></div>
+              <div class="db-job-link"><a href="https://lighthouse.darwinbox.com/ms/candidate/careers/a123">Learn More</a></div>
+            </div>''',
+        )
+        response.raise_for_status.return_value = None
+        get.return_value = response
+
+        jobs = parsers.parse_evalueserve_html({
+            "name": "Evalueserve",
+            "url": "https://www.evalueserve.com/in-en/jobs/",
+        })
+
+        self.assertEqual("Senior Data Analyst", jobs[0].title)
+        self.assertEqual("Bengaluru, India", jobs[0].location)
+        self.assertEqual("a123", jobs[0].requisition_id)
+        self.assertIn("Mid-level", jobs[0].description)
+
+    @patch("custom_source_parsers_v30.requests.get")
     def test_tonbo_maps_actively_hiring_heading(self, get: Mock) -> None:
         response = Mock()
         response.raise_for_status.return_value = None
