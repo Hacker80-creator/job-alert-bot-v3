@@ -11,6 +11,30 @@ import job_monitor as bot
 
 
 class BranchSourceValidationTests(unittest.TestCase):
+    @patch("branch_source_validation.job_monitor_parallel.parse_workable")
+    @patch("branch_source_validation.custom_source_parsers_v29.fetch_company_jobs_with_custom_v29")
+    def test_validate_source_uses_production_workable_adapter(
+        self, custom_fetch, workable_fetch
+    ) -> None:
+        workable_fetch.return_value = [
+            bot.Job(
+                "Example",
+                "Data Analyst",
+                "Bangalore",
+                "https://apply.workable.com/example/j/1",
+                "Official",
+            )
+        ]
+
+        result = validation.validate_source(
+            {"name": "Example", "ats": "workable", "slug": "example"}
+        )
+
+        self.assertEqual("WORKING", result["status"])
+        self.assertEqual(1, result["job_count"])
+        workable_fetch.assert_called_once()
+        custom_fetch.assert_not_called()
+
     def test_source_names_reads_only_enabled_entries(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "batch.txt"

@@ -12,6 +12,7 @@ import job_match_expanded as expanded
 import job_monitor as bot
 import job_monitor_entry
 import job_monitor_entry_v44
+import job_monitor_parallel
 import source_registry_v44
 
 
@@ -28,7 +29,15 @@ def source_names(path: Path) -> list[str]:
 
 def validate_source(company: dict[str, Any]) -> dict[str, Any]:
     try:
-        jobs = custom_source_parsers_v29.fetch_company_jobs_with_custom_v29(company)
+        parser = {
+            "workable": job_monitor_parallel.parse_workable,
+            "recruitee": job_monitor_parallel.parse_recruitee,
+        }.get(company.get("ats"))
+        jobs = (
+            parser(company)
+            if parser is not None
+            else custom_source_parsers_v29.fetch_company_jobs_with_custom_v29(company)
+        )
     except Exception as exc:  # Defensive: custom adapters normally contain errors.
         return {
             "name": company["name"],
