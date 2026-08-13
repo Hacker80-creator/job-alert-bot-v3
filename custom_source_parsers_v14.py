@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import re
+import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Any
 from urllib.parse import urljoin, urlparse, urlsplit, urlunsplit
@@ -286,14 +287,29 @@ def parse_jibe_api(company: dict[str, Any]) -> list[bot.Job]:
             "limit": page_size,
             "page": offset // page_size + 1,
         })
-        response = requests.get(
-            company["url"],
-            params=params,
-            headers=bot.HEADERS,
-            timeout=30,
-        )
-        response.raise_for_status()
-        data = response.json()
+        attempts = max(1, int(company.get("request_attempts", 3)))
+        data: dict[str, Any] | None = None
+        for attempt in range(attempts):
+            try:
+                response = requests.get(
+                    company["url"],
+                    params=params,
+                    headers=bot.HEADERS,
+                    timeout=30,
+                )
+                response.raise_for_status()
+                data = response.json()
+                break
+            except requests.RequestException:
+                if attempt + 1 >= attempts:
+                    # A later page must not erase records already collected from
+                    # the same official board. The next scheduled run can retry.
+                    if jobs:
+                        return jobs
+                    raise
+                time.sleep(2 ** attempt)
+        if data is None:
+            return jobs
         raw_jobs = data.get("jobs") or []
         for wrapper in raw_jobs:
             item = wrapper.get("data") if isinstance(wrapper, dict) else {}

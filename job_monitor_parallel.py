@@ -143,11 +143,13 @@ def run() -> int:
         f"enabled_scanners={len(enabled_sources)} | "
         f"covered_company_labels={len(covered_labels)} | "
         f"completed={len(enabled_sources) - len(failed_names)} | "
-        f"nonzero={len(enabled_sources) - len(failed_names) - len(zero_names)} | "
-        f"zero={len(zero_names)} | failed={len(failed_names)}"
+        "sources_with_current_target_records="
+        f"{len(enabled_sources) - len(failed_names) - len(zero_names)} | "
+        f"no_current_target_records={len(zero_names)} | "
+        f"failed={len(failed_names)}"
     )
     if zero_names:
-        print("ZERO-JOB SOURCES | " + ", ".join(zero_names))
+        print("NO CURRENT TARGET RECORDS | " + ", ".join(zero_names))
     if failed_names:
         print("FAILED SOURCES | " + ", ".join(sorted(failed_names)))
     prefetch_errors = set(bot.SCAN_ERRORS)

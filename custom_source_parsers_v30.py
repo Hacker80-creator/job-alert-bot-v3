@@ -609,8 +609,13 @@ def _compact_job_card(anchor: Any, soup: BeautifulSoup) -> Any:
         text = bot.clean_text(parent.get_text(" "))
         if len(text) > 2500:
             continue
-        if parent.name in {"article", "li", "tr"} or re.search(
+        if parent.select_one("h1, h2, h3, h4, h5, h6, [class*='title']"):
+            return parent
+        if parent.name in {"article", "li", "tr"} or (
+            not re.search(r"(?:meta|footer|actions?)", classes, re.I)
+            and re.search(
             r"(?:job|career|opening|position|vacancy|role|card)", classes, re.I,
+            )
         ):
             return parent
     return anchor.parent
@@ -667,67 +672,87 @@ def parse_static_job_links(company: dict[str, Any]) -> list[bot.Job]:
         title = card_title
         location = ""
         description = context
+        location_pattern = company.get("location_pattern")
+        if location_pattern:
+            location_match = re.search(str(location_pattern), context, re.I)
+            if location_match:
+                location = bot.clean_text(location_match.group(1))
         path_parts = [
             part for part in urlparse(url).path.split("/") if part
         ]
         requisition_id = path_parts[-1] if path_parts else ""
         if requisition_id.casefold() in {"apply", "job", "details"} and len(path_parts) > 1:
             requisition_id = path_parts[-2]
-        try:
-            detail = requests.get(url, headers=BROWSER_HEADERS, timeout=40)
-            detail.raise_for_status()
-            detail_soup = BeautifulSoup(detail.text, "html.parser")
-            posting = None
-            for script in detail_soup.find_all("script", type="application/ld+json"):
-                try:
-                    posting = _find_jobposting(json.loads(script.string or ""))
-                except (TypeError, json.JSONDecodeError):
-                    continue
+        if company.get("fetch_job_details", True):
+            try:
+                detail = requests.get(url, headers=BROWSER_HEADERS, timeout=40)
+                detail.raise_for_status()
+                detail_soup = BeautifulSoup(detail.text, "html.parser")
+                posting = None
+                for script in detail_soup.find_all("script", type="application/ld+json"):
+                    try:
+                        posting = _find_jobposting(json.loads(script.string or ""))
+                    except (TypeError, json.JSONDecodeError):
+                        continue
+                    if posting:
+                        break
                 if posting:
-                    break
-            if posting:
-                title = bot.clean_text(posting.get("title")) or title
-                location = _schema_location(posting)
-                description = bot.clean_text(posting.get("description")) or description
-                identifier = posting.get("identifier")
-                if isinstance(identifier, dict):
-                    identifier = identifier.get("value") or identifier.get("name")
-                requisition_id = bot.clean_text(identifier) or requisition_id
-            else:
-                heading = detail_soup.select_one("main h1, article h1, h1")
-                detail_title = bot.clean_text(heading.get_text(" ") if heading else "")
-                if (
-                    detail_title
-                    and len(detail_title) <= 180
-                    and not _generic_job_title(detail_title, company["name"])
-                ):
-                    title = detail_title
-                location_node = detail_soup.select_one(
-                    "[class*='job-location'], [class*='location'], [data-location]"
-                )
-                location = bot.clean_text(
-                    location_node.get_text(" ") if location_node else ""
-                )
-                detail_node = detail_soup.select_one(
-                    "[class*='job-description'], [class*='description'], main, article"
-                )
-                detail_text = bot.clean_text(
-                    detail_node.get_text(" ") if detail_node else ""
-                )
-                if len(detail_text) >= 80:
-                    description = detail_text
-        except Exception as exc:
-            print(f"WARN {company['name']} static detail failed: {exc}")
+                    title = bot.clean_text(posting.get("title")) or title
+                    location = _schema_location(posting)
+                    description = bot.clean_text(posting.get("description")) or description
+                    identifier = posting.get("identifier")
+                    if isinstance(identifier, dict):
+                        identifier = identifier.get("value") or identifier.get("name")
+                    requisition_id = bot.clean_text(identifier) or requisition_id
+                else:
+                    heading = detail_soup.select_one("main h1, article h1, h1")
+                    detail_title = bot.clean_text(heading.get_text(" ") if heading else "")
+                    if (
+                        detail_title
+                        and len(detail_title) <= 180
+                        and not _generic_job_title(detail_title, company["name"])
+                        and not company.get("preserve_card_title", False)
+                    ):
+                        title = detail_title
+                    location_node = detail_soup.select_one(
+                        "[class*='job-location'], [class*='location'], [data-location]"
+                    )
+                    location = bot.clean_text(
+                        location_node.get_text(" ") if location_node else ""
+                    )
+                    detail_node = detail_soup.select_one(
+                        "[class*='job-description'], [class*='description'], main, article"
+                    )
+                    detail_text = bot.clean_text(
+                        detail_node.get_text(" ") if detail_node else ""
+                    )
+                    if len(detail_text) >= 80:
+                        description = detail_text
+            except Exception as exc:
+                print(f"WARN {company['name']} static detail failed: {exc}")
+        ignored_locations = {
+            bot.clean_text(value).casefold()
+            for value in company.get("ignored_detail_locations", [])
+        }
+        if location.casefold() in ignored_locations:
+            location = ""
         if _generic_job_title(title, company["name"]):
             title = requisition_id.replace("-", " ").replace("_", " ").title()
         if not title or not requisition_id:
             continue
+        fallback_location = (
+            context[:500]
+            if company.get("use_card_context_as_location", True)
+            else ""
+        )
         jobs.append(bot.Job(
             company=company["name"],
             title=title,
-            location=location or context[:500],
+            location=location or fallback_location,
             url=url,
-            source="Official careers: first-party job page",
+            source=company.get(
+                "source_label", "Official careers: first-party job page"
+            ),
             description=description,
             requisition_id=requisition_id,
             wlb_score=company.get("wlb_score", 3),

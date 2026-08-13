@@ -71,6 +71,7 @@ OFFICIAL_ATS_BOARDS = {
     "Labcorp": "https://labcorp.wd1.myworkdayjobs.com/External",
     "Pixxel": "https://pixxel.darwinbox.in/ms/candidate/careers",
     "Procter & Gamble": "https://pg.wd5.myworkdayjobs.com/1000",
+    "Rapido": "https://rapido.darwinbox.in/ms/candidate/careers",
     "Saks Global": "https://saks.wd1.myworkdayjobs.com/careers_at_saks",
     "Scopely": "https://job-boards.greenhouse.io/scopely",
     "Thomson Reuters": (
@@ -81,6 +82,7 @@ OFFICIAL_ATS_BOARDS = {
         "Unilever_Experienced_Professionals"
     ),
     "CynLr": "https://cynlr.freshteam.com/jobs",
+    "Zetwerk": "https://zetwerk.sensehq.com/careers",
 }
 
 STATIC_JOB_LINK_SOURCES = {
@@ -88,14 +90,24 @@ STATIC_JOB_LINK_SOURCES = {
     "Credo Semiconductor": (
         r"^https://credo\.careers\.hibob\.com/jobs/[^/?#]+/apply/?$"
     ),
+    "Detect Technologies": (
+        r"^https://detecttechnologies\.com/career/[^/?#]+/?$"
+    ),
     "Dhruva Space": (
         r"^https://www\.dhruvaspace\.com/careers/[^/?#]+/?$"
     ),
     "Facilio": r"^https://facilio\.com/careers/[^/?#]+/?$",
     "HomeLane": r"^https://sentinel\.homelane\.com/jobs/[^/?#]+/?$",
+    "HyperVerge": r"^https://www\.linkedin\.com/jobs/view/\d+/?(?:\?.*)?$",
     "InVideo": r"^https://careers\.invideo\.io/roles/[^/?#]+/?$",
+    "Incedo": r"^https://www\.incedoinc\.com/career/[^/?#]+/?$",
     "Lemnisk": r"^https://www\.lemnisk\.co/job/\d+/?$",
+    "Mimecast": r"^https://careers\.mimecast\.com/en/jobs/[^/?#]+/[^/?#]+/?$",
     "ProductDossier": r"^https://www\.kytes\.com/career/[^/?#]+/?$",
+    "PVH Corp.": (
+        r"^https://careers\.pvh\.com/jobs/"
+        r"(?!search(?:[/?#]|$))[^/?#]+/?$"
+    ),
     "Rapyd": (
         r"^https://www\.rapyd\.net/company/careers/positions/[^/?#]+/?$"
     ),
@@ -385,6 +397,88 @@ def classify_source(name: str, url: str) -> dict[str, Any]:
             career_site_url=url,
             max_candidate_details=10,
         )
+    elif name == "H&M Group":
+        # The official India site consistently returns HTTP 403 from GitHub's
+        # hosted-runner network. Keep the reviewed URL in the registry, but do
+        # not misreport the runner block as either a working feed or no jobs.
+        company.update(
+            ats="direct_job_html",
+            url=url,
+            career_site_url=url,
+            enabled=False,
+            source_status="RUNNER_BLOCKED",
+        )
+    elif name == "7-Eleven Global Solution Center":
+        company.update(
+            ats="ripplehire",
+            url="https://7-eleven-gsc.ripplehire.com/candidate/",
+            career_site_url=(
+                "https://7-eleven-gsc.ripplehire.com/candidate/"
+                "?token=xRX3yWuPaSF0NIdF21oh&source=CAREERSITE#list"
+            ),
+            token="xRX3yWuPaSF0NIdF21oh",
+            source="CAREERSITE",
+            page_size=100,
+            max_results=500,
+        )
+    elif name == "IDfy":
+        company.update(
+            ats="turbohire_api",
+            url="https://thapi.azurewebsites.net",
+            career_site_url=(
+                "https://idfy.turbohire.co/careerpage/"
+                "e73676a8-bc5a-4b43-b9c6-d3fc7a60b572"
+            ),
+            org_id="e73676a8-bc5a-4b43-b9c6-d3fc7a60b572",
+        )
+    elif name == "National Australia Bank — NAB":
+        company.update(
+            ats="eightfold",
+            url="https://nab.eightfold.ai/api/pcsx/search",
+            career_site_url="https://nab.eightfold.ai/careers",
+            domain="nab.com.au",
+            search_terms=DEFAULT_SEARCH_TERMS,
+            search_locations=[
+                "Bengaluru, Karnataka, India",
+                "Remote, India",
+            ],
+            max_results_per_search=30,
+        )
+    elif name == "Teva Pharmaceuticals":
+        company.update(
+            ats="eightfold_html",
+            url="https://www.careers.teva/careers",
+            career_site_url="https://www.careers.teva/careers",
+            search_terms=DEFAULT_SEARCH_TERMS,
+            search_locations=[
+                "Bangalore, India",
+                "Bengaluru, India",
+                "Remote, India",
+            ],
+        )
+    elif name in {"Annalect", "Epsilon", "Gallagher"}:
+        jibe = {
+            "Annalect": (
+                "https://indiacareers.omnicomglobalsolutions.com/api/jobs",
+                {},
+            ),
+            "Epsilon": (
+                "https://careers.publicisgroupe.com/api/jobs",
+                {"tags2": "Epsilon"},
+            ),
+            "Gallagher": (
+                "https://jobs.ajg.com/api/jobs",
+                {"country": "India"},
+            ),
+        }[name]
+        company.update(
+            ats="jibe_api",
+            url=jibe[0],
+            career_site_url=url,
+            query_params=jibe[1],
+            page_size=100,
+            max_results=500,
+        )
     elif "darwinbox." in host and re.search(r"/candidate(?:v2)?(?:/|$)", parsed.path, re.I):
         company_id = "main"
         match = re.search(r"/candidatev2/([^/]+)", parsed.path, flags=re.IGNORECASE)
@@ -440,6 +534,20 @@ def classify_source(name: str, url: str) -> dict[str, Any]:
             job_url_pattern=STATIC_JOB_LINK_SOURCES[name],
             max_results=100,
         )
+        if name == "HyperVerge":
+            company["source_label"] = "Official HyperVerge page: LinkedIn job"
+            company["fetch_job_details"] = False
+            company["location_pattern"] = (
+                r"\b(Bengaluru|Bangalore|Remote(?:\s*-\s*India)?)\b"
+            )
+        if name == "Incedo":
+            company["fetch_job_details"] = False
+            company["use_card_context_as_location"] = False
+        if name == "Detect Technologies":
+            company["ignored_detail_locations"] = ["get in touch"]
+            company["use_card_context_as_location"] = False
+        if name == "PVH Corp.":
+            company["preserve_card_title"] = True
     elif host == "job-boards.greenhouse.io":
         company.update(ats="greenhouse", slug=path.split("/", 1)[0])
     elif host == "jobs.lever.co":

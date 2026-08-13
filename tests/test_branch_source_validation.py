@@ -63,6 +63,12 @@ class BranchSourceValidationTests(unittest.TestCase):
         self.assertEqual(2, fetch.call_count)
         sleep.assert_called_once_with(1)
 
+    @patch("branch_source_validation.custom_source_parsers_v30.fetch_company_jobs_with_custom_v30")
+    def test_empty_success_is_labeled_as_no_current_match(self, fetch) -> None:
+        fetch.return_value = []
+        result = validation.validate_source({"name": "Example", "ats": "custom"})
+        self.assertEqual("NO_CURRENT_MATCHING_JOBS", result["status"])
+
     def test_source_names_reads_only_enabled_entries(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "batch.txt"

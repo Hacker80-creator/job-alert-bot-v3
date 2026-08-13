@@ -394,6 +394,34 @@ class SourceBatchV30Tests(unittest.TestCase):
         self.assertEqual("Gurugram", jobs[0].location)
         self.assertEqual("r26_2784", jobs[0].requisition_id)
 
+    @patch("custom_source_parsers_v30.requests.get")
+    def test_static_external_link_preserves_official_card_metadata(
+        self, get: Mock
+    ) -> None:
+        response = Mock(
+            url="https://example.com/careers/",
+            text='''<div class="job-col">
+              <p class="job-title">Machine Learning Intern</p>
+              <div class="job-meta"><span>Bengaluru</span>
+                <a href="https://www.linkedin.com/jobs/view/44123/">Apply Now</a>
+              </div></div>''',
+        )
+        response.raise_for_status.return_value = None
+        get.return_value = response
+        jobs = parsers.parse_static_job_links({
+            "name": "Example",
+            "url": "https://example.com/careers/",
+            "job_url_pattern": r"^https://www\.linkedin\.com/jobs/view/\d+/?$",
+            "fetch_job_details": False,
+            "location_pattern": r"\b(Bengaluru)\b",
+            "source_label": "Official page: LinkedIn job",
+        })
+        self.assertEqual("Machine Learning Intern", jobs[0].title)
+        self.assertEqual("Bengaluru", jobs[0].location)
+        self.assertEqual("44123", jobs[0].requisition_id)
+        self.assertEqual("Official page: LinkedIn job", jobs[0].source)
+        get.assert_called_once()
+
 
 if __name__ == "__main__":
     unittest.main()

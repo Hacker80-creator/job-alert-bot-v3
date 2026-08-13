@@ -4,6 +4,8 @@ import json
 import unittest
 from unittest.mock import patch
 
+import requests
+
 import custom_source_parsers_v14 as parsers
 
 
@@ -182,6 +184,30 @@ class SourceBatchV14Tests(unittest.TestCase):
         self.assertEqual("Bangalore, India", jobs[0].location)
         self.assertIn("/30001/", jobs[0].url)
         self.assertEqual("India", get.call_args.kwargs["params"]["country"])
+
+    @patch("custom_source_parsers_v14.time.sleep")
+    @patch("custom_source_parsers_v14.requests.get")
+    def test_jibe_retries_a_transient_timeout(self, get, sleep) -> None:
+        get.side_effect = [
+            requests.Timeout("transient"),
+            FakeResponse("", "https://example.com/api/jobs", {
+                "jobs": [{"data": {
+                    "req_id": "42",
+                    "title": "Data Engineer",
+                    "full_location": "Bengaluru, India",
+                    "apply_url": "https://example.icims.com/jobs/42/login",
+                }}],
+                "totalCount": 1,
+            }),
+        ]
+        jobs = parsers.parse_jibe_api({
+            "name": "Example",
+            "url": "https://example.com/api/jobs",
+            "career_site_url": "https://example.com/jobs",
+        })
+        self.assertEqual(1, len(jobs))
+        self.assertEqual(2, get.call_count)
+        sleep.assert_called_once_with(1)
 
     @patch("custom_source_parsers_v14.requests.post")
     def test_onestream_reads_ukg_public_search(self, post) -> None:

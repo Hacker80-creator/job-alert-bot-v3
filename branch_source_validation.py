@@ -68,7 +68,7 @@ def validate_source(company: dict[str, Any]) -> dict[str, Any]:
         }
     return {
         "name": company["name"],
-        "status": "WORKING" if jobs else "NO_JOBS",
+        "status": "WORKING" if jobs else "NO_CURRENT_MATCHING_JOBS",
         "job_count": len(jobs),
         "sample_jobs": [
             {
@@ -103,11 +103,18 @@ def run(overrides_file: Path, output: Path, workers: int) -> int:
         futures = {pool.submit(validate_source, company): company["name"] for company in selected}
         for future in as_completed(futures):
             result = future.result()
-            print(
-                f"{result['status']} {result['name']}: "
-                f"{result['job_count']} raw jobs",
-                flush=True,
-            )
+            if result["status"] == "NO_CURRENT_MATCHING_JOBS":
+                print(
+                    f"NO_CURRENT_MATCHING_JOBS {result['name']}: "
+                    "source completed successfully",
+                    flush=True,
+                )
+            else:
+                print(
+                    f"{result['status']} {result['name']}: "
+                    f"{result['job_count']} raw jobs",
+                    flush=True,
+                )
             results.append(result)
 
     results.sort(key=lambda item: item["name"].casefold())
@@ -115,7 +122,9 @@ def run(overrides_file: Path, output: Path, workers: int) -> int:
         "requested": len(names),
         "completed": len(results),
         "working": sum(item["status"] == "WORKING" for item in results),
-        "no_jobs": sum(item["status"] == "NO_JOBS" for item in results),
+        "no_current_matching_jobs": sum(
+            item["status"] == "NO_CURRENT_MATCHING_JOBS" for item in results
+        ),
         "failed": sum(item["status"] == "FAILED" for item in results),
         "missing": missing,
         "disabled": disabled,
@@ -125,7 +134,8 @@ def run(overrides_file: Path, output: Path, workers: int) -> int:
     print(
         "BRANCH_SOURCE_SUMMARY "
         f"requested={summary['requested']} completed={summary['completed']} "
-        f"working={summary['working']} no_jobs={summary['no_jobs']} "
+        f"working={summary['working']} "
+        f"no_current_matching_jobs={summary['no_current_matching_jobs']} "
         f"failed={summary['failed']} missing={len(missing)} disabled={len(disabled)}"
     )
     return 1 if summary["failed"] or missing or disabled else 0

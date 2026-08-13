@@ -20,8 +20,14 @@ class ProductionV44Tests(unittest.TestCase):
         self.assertEqual(259, len(source_registry_v44.build_source_overrides()))
         self.assertEqual(799, len(self.companies))
         self.assertEqual(
-            790,
+            789,
             sum(1 for item in self.companies.values() if item.get("enabled", True)),
+        )
+
+    def test_runner_blocked_source_is_not_scanned_as_an_empty_board(self) -> None:
+        self.assertFalse(self.companies["H&M Group"]["enabled"])
+        self.assertEqual(
+            "RUNNER_BLOCKED", self.companies["H&M Group"]["source_status"]
         )
 
     def test_standard_ats_are_derived(self) -> None:
@@ -94,15 +100,29 @@ class ProductionV44Tests(unittest.TestCase):
             "Haptik": "freshteam_html",
             "CoRover": "static_job_links",
             "Credo Semiconductor": "static_job_links",
+            "Detect Technologies": "static_job_links",
             "Dhruva Space": "static_job_links",
             "Facilio": "static_job_links",
             "HomeLane": "static_job_links",
+            "HyperVerge": "static_job_links",
             "InVideo": "static_job_links",
+            "Incedo": "static_job_links",
             "Lemnisk": "static_job_links",
+            "Mimecast": "static_job_links",
             "ProductDossier": "static_job_links",
+            "PVH Corp.": "static_job_links",
             "Rapyd": "static_job_links",
             "Sumo Digital India": "static_job_links",
             "Tata Elxsi": "static_job_links",
+            "7-Eleven Global Solution Center": "ripplehire",
+            "IDfy": "turbohire_api",
+            "National Australia Bank — NAB": "eightfold",
+            "Teva Pharmaceuticals": "eightfold_html",
+            "Annalect": "jibe_api",
+            "Epsilon": "jibe_api",
+            "Gallagher": "jibe_api",
+            "Rapido": "darwinbox_v2",
+            "Zetwerk": "sensehq_next_data",
         }
         for name, ats in expected.items():
             self.assertEqual(ats, self.companies[name]["ats"])
