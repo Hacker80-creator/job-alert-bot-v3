@@ -7,23 +7,21 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any
 
-import yaml
-
 import custom_source_parsers_v29
 import job_match_expanded as expanded
 import job_monitor as bot
 import job_monitor_entry
-import job_monitor_entry_v43
+import job_monitor_entry_v44
+import source_registry_v44
 
 
 ROOT = Path(__file__).parent
 
 
 def source_names(path: Path) -> list[str]:
-    document = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
     return [
-        str(company["name"])
-        for company in document.get("companies", [])
+        company["name"]
+        for company in source_registry_v44.build_source_overrides(path)
         if company.get("enabled", True)
     ]
 
@@ -61,7 +59,7 @@ def run(overrides_file: Path, output: Path, workers: int) -> int:
 
     companies = {
         company["name"]: company
-        for company in job_monitor_entry_v43.load_final_config()["companies"]
+        for company in job_monitor_entry_v44.load_final_config()["companies"]
     }
     names = source_names(overrides_file)
     missing = [name for name in names if name not in companies]
@@ -119,7 +117,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--overrides-file", type=Path,
-        default=ROOT / "source_overrides_v41.yaml",
+        default=ROOT / "verified_sources_v44.txt",
     )
     parser.add_argument(
         "--output", type=Path,

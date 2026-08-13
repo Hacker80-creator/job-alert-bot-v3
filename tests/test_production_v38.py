@@ -25,11 +25,12 @@ class ProductionV38Tests(unittest.TestCase):
     def test_workflow_runs_v38_or_newer(self) -> None:
         workflow = (Path(__file__).parents[1] / ".github" / "workflows" / "job-alerts.yml").read_text(encoding="utf-8")
         entry = re.search(r"python job_monitor_entry_v(\d+)\.py", workflow)
-        overrides = re.search(r"--overrides-file source_overrides_v(\d+)\.yaml", workflow)
+        overrides = re.search(r"--overrides-file (?:source_overrides_v(\d+)\.yaml|verified_sources_v44\.txt)", workflow)
         self.assertIsNotNone(entry)
         self.assertIsNotNone(overrides)
         self.assertGreaterEqual(int(entry.group(1)), 38)
-        self.assertGreaterEqual(int(overrides.group(1)), 36)
+        if overrides.group(1) is not None:
+            self.assertGreaterEqual(int(overrides.group(1)), 36)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,46 @@
+# Explicitly deferred because no first-party public live vacancy board was verified. Format: Company|Reason
+Agnit Semiconductors|NO_PUBLIC_BOARD
+Atomberg|NO_PUBLIC_BOARD
+Aura Semiconductor|NO_PUBLIC_BOARD
+Bellatrix Aerospace|NO_PUBLIC_BOARD
+BlueStone|NO_PUBLIC_BOARD
+Curefoods|NO_PUBLIC_BOARD
+FarMart|NO_PUBLIC_BOARD
+Gupshup|NO_PUBLIC_BOARD
+Happiest Minds|NO_PUBLIC_BOARD
+Honasa Consumer|NO_PUBLIC_BOARD
+Honda Cars India|NO_PUBLIC_BOARD
+ICICI Lombard|NO_PUBLIC_BOARD
+INDmoney|NO_PUBLIC_BOARD
+Infinite Uptime|NO_PUBLIC_BOARD
+Kotak Securities|NO_PUBLIC_BOARD
+Krutrim|NO_PUBLIC_BOARD
+Licious|NO_PUBLIC_BOARD
+Loco|NO_PUBLIC_BOARD
+Mad Street Den|NO_PUBLIC_BOARD
+MediBuddy|NO_PUBLIC_BOARD
+Mensa Brands|NO_PUBLIC_BOARD
+Minus Zero|NO_PUBLIC_BOARD
+Mizuho|NO_PUBLIC_BOARD
+MobiKwik|NO_PUBLIC_BOARD
+Moonshine Technology|NO_PUBLIC_BOARD
+MosChip|NO_PUBLIC_BOARD
+Mu Sigma|NO_PUBLIC_BOARD
+Namma Yatri|NO_PUBLIC_BOARD
+Nazara Technologies|NO_PUBLIC_BOARD
+NewSpace Research and Technologies|NO_PUBLIC_BOARD
+Niyo|NO_PUBLIC_BOARD
+now.gg|NO_PUBLIC_BOARD
+OYO|NO_PUBLIC_BOARD
+Pepperfry|NO_PUBLIC_BOARD
+Rebel Foods|NO_PUBLIC_BOARD
+Renault Nissan Technology|NO_PUBLIC_BOARD
+Rocketium|NO_PUBLIC_BOARD
+Rooter|NO_PUBLIC_BOARD
+Signzy|NO_PUBLIC_BOARD
+Slang Labs|NO_PUBLIC_BOARD
+Strand Life Sciences|NO_PUBLIC_BOARD
+Systemantics|NO_PUBLIC_BOARD
+Torrent Pharmaceuticals|NO_PUBLIC_BOARD
+Wakefit|NO_PUBLIC_BOARD
+Zupee|NO_PUBLIC_BOARD
