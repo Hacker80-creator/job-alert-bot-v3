@@ -155,7 +155,6 @@ Miko|https://in.miko.ai/pages/careers
 Mimecast|https://careers.mimecast.com/en/jobs/
 Mindgrove Technologies|https://www.mindgrovetech.in/careers
 MiQ Digital|https://www.wearemiq.com/careers
-Molecular Connections|https://career.molecularconnections.com/
 Moloco India|https://job-boards.greenhouse.io/moloco
 Mondelez International|https://www.mondelezinternational.com/Careers/
 Moneyview|https://moneyview.darwinbox.in/ms/candidate/careers
@@ -213,7 +212,6 @@ Seclore|https://www.seclore.com/about/careers/
 Setu|https://setu.co/careers/
 Shadowfax|https://www.shadowfax.in/careers
 Shopee|https://careers.shopee.sg/jobs
-Signalchip|https://www.signalchip.com/job-openings/
 SiMa.ai|https://jobs.jobvite.com/simaai/jobs
 Skit.ai|https://skit.ai/careers/
 SLB|https://apply.slb.com/careers?domain=slb.com&query=%2A
