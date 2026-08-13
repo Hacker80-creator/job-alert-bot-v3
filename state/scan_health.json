@@ -1,11 +1,22 @@
 {
-  "allowlist_count": 796,
+  "allowlist_count": 1005,
   "failed_sources": [
+    "ColorTokens",
+    "Credo Semiconductor",
+    "Evalueserve",
+    "GitHub",
     "Gramener",
-    "Keysight Technologies",
+    "H&M Group",
+    "Hitachi Astemo",
+    "Housing.com",
+    "Liftoff Mobile",
+    "MedGenome",
+    "ProductDossier",
     "River Mobility",
-    "Schneider Electric"
+    "Skit.ai",
+    "UBS",
+    "ZS Associates"
   ],
-  "last_notice_utc": "2026-08-13T08:47:01.161114+00:00",
-  "official_source_count": 534
+  "last_notice_utc": "2026-08-13T11:34:55.611969+00:00",
+  "official_source_count": 790
 }
