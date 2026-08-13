@@ -1,9 +1,7 @@
 {
   "allowlist_count": 1005,
   "failed_sources": [
-    "Ameriprise Financial",
-    "ColorTokens",
-    "Credo Semiconductor",
+    "ANZ",
     "Evalueserve",
     "Gramener",
     "H&M Group",
@@ -13,10 +11,9 @@
     "MedGenome",
     "ProductDossier",
     "River Mobility",
-    "Schneider Electric",
     "Skit.ai",
     "UBS"
   ],
-  "last_notice_utc": "2026-08-13T21:35:11.844097+00:00",
+  "last_notice_utc": "2026-08-13T22:30:45.999679+00:00",
   "official_source_count": 790
 }
