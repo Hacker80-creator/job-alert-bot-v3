@@ -167,6 +167,28 @@ def classify_source(name: str, url: str) -> dict[str, Any]:
             search_terms=DEFAULT_SEARCH_TERMS,
             max_pages_per_term=2,
         )
+    elif name == "Intuitive Surgical":
+        company.update(
+            ats="smartrecruiters",
+            slug="Intuitive",
+            career_site_url=url,
+            search_terms=DEFAULT_SEARCH_TERMS,
+        )
+    elif name == "Kimberly-Clark":
+        company.update(_workday_config(
+            "https://kimberlyclark.wd1.myworkdayjobs.com/global"
+        ))
+        company["career_site_url"] = url
+    elif name == "KaleidEO":
+        company.update(
+            ats="kaleideo_wordpress",
+            url=(
+                "https://kaleideo.co/wp-json/wp/v2/pages"
+                "?slug=careers-at-kaleideo"
+            ),
+            career_site_url=url,
+            default_location="Bengaluru, India",
+        )
     elif name == "Dassault Systèmes":
         company.update(
             ats="dassault_xml",
@@ -224,10 +246,7 @@ def classify_source(name: str, url: str) -> dict[str, Any]:
     elif name == "Tonbo Imaging":
         company.update(
             ats="tonbo_html",
-            url=(
-                "https://tonboimaging.com/defense/"
-                "?rest_route=/wp/v2/pages/11924"
-            ),
+            url="https://tonboimaging.com/defense/wp-json/wp/v2/pages/11924",
             career_site_url=url,
             default_location="Bengaluru, India",
         )

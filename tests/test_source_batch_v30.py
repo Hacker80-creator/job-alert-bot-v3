@@ -86,6 +86,26 @@ class SourceBatchV30Tests(unittest.TestCase):
         self.assertEqual("Vision & Deep Learning Engineer", jobs[0].title)
         self.assertEqual("Bengaluru, India", jobs[0].location)
 
+    @patch("custom_source_parsers_v30.requests.get")
+    def test_kaleideo_maps_wordpress_role_card(self, get: Mock) -> None:
+        response = Mock()
+        response.raise_for_status.return_value = None
+        response.json.return_value = [{"content": {"rendered": '''
+          <a href="https://kaleideo.example/careers-at-kaleideo/image-processing-scientist/">
+            <h2>Image Processing Scientist</h2>
+            <p>Develop satellite image-processing pipelines.</p>
+          </a>
+        '''}}]
+        get.return_value = response
+        jobs = parsers.parse_kaleideo_wordpress({
+            "name": "KaleidEO",
+            "url": "https://kaleideo.example/wp-json/wp/v2/pages",
+            "career_site_url": "https://kaleideo.example/careers-at-kaleideo/",
+        })
+        self.assertEqual("Image Processing Scientist", jobs[0].title)
+        self.assertEqual("image-processing-scientist", jobs[0].requisition_id)
+        self.assertEqual("Bengaluru, India", jobs[0].location)
+
     @patch("custom_source_parsers_v30.requests.post")
     def test_lululemon_maps_avature_detail(self, post: Mock) -> None:
         response = Mock(

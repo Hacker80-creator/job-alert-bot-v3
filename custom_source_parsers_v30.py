@@ -249,6 +249,50 @@ def parse_tonbo_html(company: dict[str, Any]) -> list[bot.Job]:
     return jobs
 
 
+def parse_kaleideo_wordpress(company: dict[str, Any]) -> list[bot.Job]:
+    """Read KaleidEO's live role cards through its first-party WordPress API."""
+    response = requests.get(
+        company["url"],
+        headers={**BROWSER_HEADERS, "Accept": "application/json"},
+        timeout=40,
+    )
+    response.raise_for_status()
+    documents = response.json()
+    if isinstance(documents, dict):
+        documents = [documents]
+    page = " ".join(
+        str((document.get("content") or {}).get("rendered") or "")
+        for document in documents
+        if isinstance(document, dict)
+    )
+    soup = BeautifulSoup(page, "html.parser")
+    jobs: list[bot.Job] = []
+    seen: set[str] = set()
+    for anchor in soup.select("a[href*='/careers-at-kaleideo/']"):
+        href = urljoin(company["career_site_url"], anchor.get("href") or "")
+        path = urlparse(href).path.rstrip("/")
+        slug = path.rsplit("/", 1)[-1]
+        if not slug or slug == "careers-at-kaleideo":
+            continue
+        heading = anchor.find(["h1", "h2", "h3", "h4", "h5", "h6"])
+        title = bot.clean_text(heading.get_text(" ") if heading else "")
+        if not title or slug in seen:
+            continue
+        seen.add(slug)
+        context = bot.clean_text(anchor.get_text(" "))
+        jobs.append(bot.Job(
+            company=company["name"],
+            title=title,
+            location=company.get("default_location", "Bengaluru, India"),
+            url=href,
+            source="Official careers: KaleidEO",
+            description=context,
+            requisition_id=slug,
+            wlb_score=company.get("wlb_score", 3),
+        ))
+    return jobs
+
+
 def parse_ameriprise_html(company: dict[str, Any]) -> list[bot.Job]:
     """Query Ameriprise's first-party, server-rendered job search."""
     terms = company.get("search_terms") or ["data", "analytics", "AI"]
@@ -340,6 +384,7 @@ def fetch_company_jobs_with_custom_v30(company: dict[str, Any]) -> list[bot.Job]
         "peoplestrong": parse_peoplestrong,
         "darwinbox_v2": parse_darwinbox_v2,
         "tonbo_html": parse_tonbo_html,
+        "kaleideo_wordpress": parse_kaleideo_wordpress,
         "ameriprise_html": parse_ameriprise_html,
         "lululemon_avature": parse_lululemon_avature,
     }.get(company.get("ats"))
