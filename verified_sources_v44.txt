@@ -17,7 +17,6 @@ Annalect|https://indiacareers.omnicomglobalsolutions.com/jobs
 Apptio|https://www.ibm.com/careers/search
 Aristocrat|https://aristocrat.wd3.myworkdayjobs.com/AristocratExternalCareersSite
 Astera Labs|https://job-boards.greenhouse.io/asteralabs
-Asteria Aerospace|https://asteria.co.in/careers
 Ati Motors / Ati Robotics|https://www.atirobotics.ai/company/careers/
 Atomicwork|https://job-boards.greenhouse.io/atomicwork
 Aurobindo Pharma|https://www.aurobindo.com/careers
@@ -49,7 +48,7 @@ Decentro|https://decentro.tech/careers
 Delhivery|https://www.delhivery.com/careers
 Detect Technologies|https://detecttechnologies.com/current-openings/
 Dhruva Space|https://www.dhruvaspace.com/careers
-Diageo|https://www.diageo.com/en/careers/search-and-apply
+Diageo|https://diageo.wd3.myworkdayjobs.com/Diageo_Careers
 Digantara|https://careers.kula.ai/digantara
 Digit Insurance|https://www.godigit.com/careers
 Dozee|https://www.dozeehealth.ai/careers
@@ -64,7 +63,6 @@ Elsevier|https://relx.wd3.myworkdayjobs.com/ElsevierJobs
 Emirates Group IT|https://www.emiratesgroupcareers.com/search-and-apply/?jobcategory=Information+Technology
 Empower|https://empower.wd12.myworkdayjobs.com/empower
 Entropik|https://careers.smartrecruiters.com/Entropik
-Envestnet|https://careers.envestnet.com/
 Epsilon|https://careers.publicisgroupe.com/epsilon/jobs
 Evalueserve|https://www.evalueserve.com/in-en/jobs/
 Exotel|https://exotel.hire.trakstar.com/
@@ -133,7 +131,7 @@ Lazada|https://www.lazada.com/en/careers/job-search/
 LeadSquared|https://leadsquaredhrms.darwinbox.in/ms/candidate/careers
 Leena AI|https://leena.ai/careers
 Lemnisk|https://www.lemnisk.co/careers/
-LexisNexis Risk Solutions|https://risk.lexisnexis.com/about-us/careers/jobs
+LexisNexis Risk Solutions|https://relx.wd3.myworkdayjobs.com/RiskSolutions
 LG Soft India|https://lgsihrms.darwinbox.in/ms/candidatev2/a6914476a29263/careers/home
 Liftoff Mobile|https://liftoff.ai/company/careers/jobs/
 Light & Wonder|https://lnw.wd5.myworkdayjobs.com/LightWonderExternalCareers
@@ -216,7 +214,6 @@ Setu|https://setu.co/careers/
 Shadowfax|https://www.shadowfax.in/careers
 Shopee|https://careers.shopee.sg/jobs
 Signalchip|https://www.signalchip.com/job-openings/
-SigTuple|https://sigtuple.com/careers
 SiMa.ai|https://jobs.jobvite.com/simaai/jobs
 Skit.ai|https://skit.ai/careers/
 SLB|https://apply.slb.com/careers?domain=slb.com&query=%2A
@@ -231,17 +228,16 @@ Stellantis|https://stellantis.wd3.myworkdayjobs.com/External_Career_Site_ID01
 Sumo Digital India|https://www.sumo-digital.com/careers/
 Sun Life Global Solutions|https://sunlife.wd3.myworkdayjobs.com/Experienced-Jobs
 Sun Pharma|https://jobs.sunpharma.com/en/search-jobs
-Synaptics|https://careers.synaptics.com/search/jobs/in/bangalore
 Syneos Health|https://syneoshealth.wd12.myworkdayjobs.com/Syneos_Health_External_Site
 Tata 1mg|https://www.1mg.com/jobs
 Tata Elxsi|https://www.tataelxsi.com/careers/job-openings
 Tata Motors|https://careers.tatamotors.com/
 Temenos|https://temenos.wd103.myworkdayjobs.com/Temenoscareers
 Tenstorrent|https://job-boards.greenhouse.io/tenstorrent
-Tessolve|https://www.tessolve.com/careers/
+Tessolve|https://tessolve.darwinbox.com/ms/candidatev2/main/careers/allJobs
 Teva Pharmaceuticals|https://www.careers.teva/
 The Coca-Cola Company|https://careers.coca-colacompany.com/
-TheMathCompany|https://careers.mathco.com/mathco/
+TheMathCompany|https://mathco-careers.peoplestrong.com/job/joblist
 Thomson Reuters|https://careers.thomsonreuters.com/us/en/search-results
 TIAA|https://careers.tiaa.org/jobs
 Tonbo Imaging|https://tonboimaging.com/defense/careers/
@@ -255,19 +251,15 @@ Unilever|https://careers.unilever.com/en
 Verint|https://fa-epcb-saasfaprod1.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/jobs
 Viatris|https://viatris.wd5.myworkdayjobs.com/External
 Victoria’s Secret & Co.|https://careers.victoriassecret.com/en/
-Vimeo|https://job-boards.greenhouse.io/vimeo
 Volvo Cars|https://jobs.volvocars.com/go/All-Jobs/3823101/
 Voya India|https://www.voyaindia.com/career/
 Vymo|https://vymo.com/careers/
 Waters Corporation|https://internationalcareers-waters.icims.com/jobs/intro
 Westpac|https://ebuu.fa.ap1.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/jobs
-WinZO|https://www.winzogames.com/careers/jobs/openings
 Wix|https://careers.wix.com/positions
 Wolters Kluwer|https://wk.wd3.myworkdayjobs.com/External
 Wysa|https://www.wysa.com/careers
 Zetwerk|https://www.zetwerk.com/careers/
 Zluri|https://www.zluri.com/careers
 Zurich Insurance Group|https://www.careers.zurich.com/
-Zydus Lifesciences|https://zyduslife.com/career.html
 Zynga India|https://job-boards.greenhouse.io/zyngacareers
-Zypp Electric|https://mail.zypp.app/careers

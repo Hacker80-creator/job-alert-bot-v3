@@ -13,18 +13,21 @@ class ProductionV44Tests(unittest.TestCase):
         self.companies = {item["name"]: item for item in self.config["companies"]}
 
     def test_catalog_and_registry_counts(self) -> None:
-        self.assertEqual(272, len(source_registry_v44._catalog_rows()))
-        self.assertEqual(45, len(source_registry_v44.deferred_source_names()))
-        self.assertEqual(270, len(source_registry_v44.build_source_overrides()))
-        self.assertEqual(810, len(self.companies))
+        self.assertEqual(264, len(source_registry_v44._catalog_rows()))
+        self.assertEqual(53, len(source_registry_v44.deferred_source_names()))
+        self.assertEqual(262, len(source_registry_v44.build_source_overrides()))
+        self.assertEqual(802, len(self.companies))
         self.assertEqual(
-            801,
+            793,
             sum(1 for item in self.companies.values() if item.get("enabled", True)),
         )
 
     def test_standard_ats_are_derived(self) -> None:
         expected = {
-            "Vimeo": "greenhouse",
+            "Tessolve": "darwinbox_v2",
+            "TheMathCompany": "peoplestrong",
+            "Dassault Systèmes": "dassault_xml",
+            "Eightfold AI": "eightfold",
             "SpotDraft": "ashby",
             "Smarsh": "lever",
             "Netradyne": "smartrecruiters",

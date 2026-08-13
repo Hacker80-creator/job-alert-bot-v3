@@ -12,7 +12,7 @@ import job_monitor as bot
 
 class BranchSourceValidationTests(unittest.TestCase):
     @patch("branch_source_validation.job_monitor_parallel.parse_workable")
-    @patch("branch_source_validation.custom_source_parsers_v29.fetch_company_jobs_with_custom_v29")
+    @patch("branch_source_validation.custom_source_parsers_v30.fetch_company_jobs_with_custom_v30")
     def test_validate_source_uses_production_workable_adapter(
         self, custom_fetch, workable_fetch
     ) -> None:
@@ -42,7 +42,7 @@ class BranchSourceValidationTests(unittest.TestCase):
             self.assertEqual(["Working"], validation.source_names(path))
 
     @patch("branch_source_validation.job_monitor_entry_v44.load_final_config")
-    @patch("branch_source_validation.custom_source_parsers_v29.fetch_company_jobs_with_custom_v29")
+    @patch("branch_source_validation.custom_source_parsers_v30.fetch_company_jobs_with_custom_v30")
     def test_run_writes_non_mutating_summary(self, fetch, load_config) -> None:
         fetch.return_value = [
             bot.Job("Example", "Data Analyst", "Bangalore", "https://example/jobs/1", "Official")

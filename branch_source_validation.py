@@ -7,7 +7,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any
 
-import custom_source_parsers_v29
+import custom_source_parsers_v30
 import job_match_expanded as expanded
 import job_monitor as bot
 import job_monitor_entry
@@ -36,7 +36,7 @@ def validate_source(company: dict[str, Any]) -> dict[str, Any]:
         jobs = (
             parser(company)
             if parser is not None
-            else custom_source_parsers_v29.fetch_company_jobs_with_custom_v29(company)
+            else custom_source_parsers_v30.fetch_company_jobs_with_custom_v30(company)
         )
     except Exception as exc:  # Defensive: custom adapters normally contain errors.
         return {

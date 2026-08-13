@@ -1,7 +1,7 @@
 """Production entry point for the verified v44 careers-source expansion."""
 from __future__ import annotations
 
-import custom_source_parsers_v29
+import custom_source_parsers_v30
 import job_match_expanded as expanded
 import job_match_resume as resume
 import job_monitor as bot
@@ -38,6 +38,6 @@ if __name__ == "__main__":
     bot.parse_workday_search = expanded.parse_workday_with_generic_details
     bot.parse_smartrecruiters = expanded.parse_smartrecruiters_with_generic_details
     bot.parse_lever = job_monitor_entry.parse_lever_with_region
-    bot.fetch_company_jobs = custom_source_parsers_v29.fetch_company_jobs_with_custom_v29
+    bot.fetch_company_jobs = custom_source_parsers_v30.fetch_company_jobs_with_custom_v30
     job_monitor_parallel.load_merged_config = load_final_config
     raise SystemExit(job_monitor_parallel.run())

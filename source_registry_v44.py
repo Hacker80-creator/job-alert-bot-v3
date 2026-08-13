@@ -16,6 +16,12 @@ from urllib.parse import unquote, urlparse
 ROOT = Path(__file__).parent
 CATALOG_FILE = ROOT / "verified_sources_v44.txt"
 DEFERRED_FILE = ROOT / "deferred_sources_v44.txt"
+DEFERRED_REASONS = {
+    "NO_PUBLIC_BOARD",
+    "NO_RELIABLE_FEED",
+    "RUNNER_BLOCKED",
+    "STALE_OR_REMOVED",
+}
 
 DEFAULT_SEARCH_TERMS = [
     "data",
@@ -86,7 +92,7 @@ def deferred_source_names(path: Path = DEFERRED_FILE) -> list[str]:
         if not line or line.startswith("#"):
             continue
         name, separator, reason = line.partition("|")
-        if not separator or reason != "NO_PUBLIC_BOARD":
+        if not separator or reason not in DEFERRED_REASONS:
             raise ValueError(f"invalid v44 deferred line: {raw_line!r}")
         names.append(name.strip())
     return names
@@ -153,7 +159,96 @@ def classify_source(name: str, url: str) -> dict[str, Any]:
     if aliases:
         company["aliases"] = aliases
 
-    if host == "job-boards.greenhouse.io":
+    if name == "Dassault Systèmes":
+        company.update(
+            ats="dassault_xml",
+            url="https://www.3ds.com/apisearch/card_search_api",
+            career_site_url=url,
+            search_terms=DEFAULT_SEARCH_TERMS,
+            max_pages_per_term=3,
+        )
+    elif name == "Eightfold AI":
+        company.update(
+            ats="eightfold",
+            url="https://app.eightfold.ai/api/pcsx/search",
+            career_site_url="https://app.eightfold.ai/careers",
+            domain="volkscience.com",
+            search_terms=DEFAULT_SEARCH_TERMS,
+            search_locations=["Bengaluru, Karnataka, India", "Remote, India"],
+            max_results_per_search=30,
+        )
+    elif name == "SLB":
+        company.update(
+            ats="eightfold",
+            url="https://apply.slb.com/api/pcsx/search",
+            career_site_url="https://apply.slb.com/careers",
+            domain="slb.com",
+            search_terms=DEFAULT_SEARCH_TERMS,
+            search_locations=["Bengaluru, Karnataka, India", "Remote, India"],
+            max_results_per_search=30,
+        )
+    elif name == "Nestlé":
+        company.update(
+            ats="jobs2web_rss",
+            url="https://jobdetails.nestle.com/services/rss/job/",
+            career_site_url="https://jobdetails.nestle.com/",
+            search_terms=DEFAULT_SEARCH_TERMS,
+            search_location="India",
+            max_candidate_details=10,
+        )
+    elif name == "TheMathCompany":
+        company.update(
+            ats="peoplestrong",
+            url=(
+                "https://mathco-careers.peoplestrong.com/"
+                "api/cp/rest/altone/cp/jobs/v1?offset=0&limit=100"
+            ),
+            career_site_url="https://mathco-careers.peoplestrong.com/job/joblist",
+            max_results=100,
+        )
+    elif name == "lululemon":
+        company.update(
+            ats="lululemon_avature",
+            url="https://careers.lululemon.com/en_US/careers/SearchCareer",
+            career_site_url=url,
+            search_terms=["data", "analytics", "AI"],
+        )
+    elif name == "Tonbo Imaging":
+        company.update(
+            ats="tonbo_html",
+            url=url,
+            career_site_url=url,
+            default_location="Bengaluru, India",
+        )
+    elif name in {"Impetus Technologies", "Rakuten India", "Reverie Language Technologies", "Sony India Software Centre"}:
+        zwayam = {
+            "Impetus Technologies": ("https://public.zwayam.com/jobs/search", "impetus.openings.co", "MTUxNjY="),
+            "Rakuten India": ("https://apic2.zwayam.com/jobs/search", "rakuten.openings.co", "MTUxMjQ="),
+            "Reverie Language Technologies": ("https://public.zwayam.com/jobs/search", "careers.reverieinc.com", "MTUxNDQ="),
+            "Sony India Software Centre": ("https://public.zwayam.com/jobs/search", "careers.sonyindiasoftware.co.in", "MTU1MzI="),
+        }[name]
+        company.update(
+            ats="tavant_browser_transport",
+            url=zwayam[0],
+            career_site_url=url,
+            domain=zwayam[1],
+            company_id=zwayam[2],
+            max_results=10,
+            read_timeout_seconds=25,
+        )
+    elif "darwinbox." in host and "/candidatev2/" in f"/{path}/":
+        company_id = "main"
+        match = re.search(r"/candidatev2/([^/]+)", parsed.path, flags=re.IGNORECASE)
+        if match:
+            company_id = unquote(match.group(1))
+        company.update(
+            ats="darwinbox_v2",
+            url=f"{parsed.scheme}://{parsed.netloc}/ms/candidateapi/job/alljobs",
+            career_site_url=url,
+            company_id=company_id,
+            max_results=100,
+        )
+    elif host == "job-boards.greenhouse.io":
         company.update(ats="greenhouse", slug=path.split("/", 1)[0])
     elif host == "jobs.lever.co":
         company.update(ats="lever", slug=path.split("/", 1)[0])
@@ -189,7 +284,7 @@ def classify_source(name: str, url: str) -> dict[str, Any]:
             url=f"{parsed.scheme}://{parsed.netloc}/api/career/get_job/",
             career_site_url=url,
         )
-    elif host == "app.eightfold.ai" or name == "SLB":
+    elif host == "app.eightfold.ai":
         company.update(ats="eightfold_html", url=url, career_site_url=url)
     elif host in SUCCESSFACTORS_HOSTS:
         company.update(

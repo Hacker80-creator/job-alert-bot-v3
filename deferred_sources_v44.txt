@@ -1,10 +1,12 @@
-# Explicitly deferred because no first-party public live vacancy board was verified. Format: Company|Reason
+# Explicitly deferred because no reliable GitHub-runner feed is available. Format: Company|Reason
 Agnit Semiconductors|NO_PUBLIC_BOARD
+Asteria Aerospace|NO_RELIABLE_FEED
 Atomberg|NO_PUBLIC_BOARD
 Aura Semiconductor|NO_PUBLIC_BOARD
 Bellatrix Aerospace|NO_PUBLIC_BOARD
 BlueStone|NO_PUBLIC_BOARD
 Curefoods|NO_PUBLIC_BOARD
+Envestnet|RUNNER_BLOCKED
 FarMart|NO_PUBLIC_BOARD
 Gupshup|NO_PUBLIC_BOARD
 Happiest Minds|NO_PUBLIC_BOARD
@@ -38,9 +40,15 @@ Renault Nissan Technology|NO_PUBLIC_BOARD
 Rocketium|NO_PUBLIC_BOARD
 Rooter|NO_PUBLIC_BOARD
 Signzy|NO_PUBLIC_BOARD
+SigTuple|STALE_OR_REMOVED
 Slang Labs|NO_PUBLIC_BOARD
 Strand Life Sciences|NO_PUBLIC_BOARD
+Synaptics|RUNNER_BLOCKED
 Systemantics|NO_PUBLIC_BOARD
 Torrent Pharmaceuticals|NO_PUBLIC_BOARD
 Wakefit|NO_PUBLIC_BOARD
+Vimeo|STALE_OR_REMOVED
+WinZO|STALE_OR_REMOVED
+Zydus Lifesciences|NO_RELIABLE_FEED
+Zypp Electric|NO_RELIABLE_FEED
 Zupee|NO_PUBLIC_BOARD
