@@ -1,6 +1,7 @@
 """Adapters for the public Keka career widget API."""
 from __future__ import annotations
 
+import re
 from typing import Any
 from urllib.parse import urljoin
 
@@ -19,9 +20,20 @@ def parse_keka_embed(company: dict[str, Any]) -> list[bot.Job]:
     """Read the anonymous active-jobs endpoint used by Keka career pages."""
     base = company["career_site_url"].rstrip("/") + "/"
     portal = str(company.get("portal_name") or "default")
+    identifier = str(company.get("identifier") or "").strip()
+    if not identifier:
+        listing = requests.get(base, headers={**HEADERS, "Accept": "text/html,*/*"}, timeout=30)
+        listing.raise_for_status()
+        identifiers = re.findall(
+            r"(?i)(?<![0-9a-f])[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}(?![0-9a-f])",
+            listing.text,
+        )
+        if not identifiers:
+            raise ValueError("Keka careers page did not expose its public board identifier")
+        identifier = identifiers[0]
     endpoint = urljoin(
         base,
-        f"api/embedjobs/{portal}/active/{company['identifier']}",
+        f"api/embedjobs/{portal}/active/{identifier}",
     )
     response = requests.get(endpoint, headers=HEADERS, timeout=30)
     response.raise_for_status()

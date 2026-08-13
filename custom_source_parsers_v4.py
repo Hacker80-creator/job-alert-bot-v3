@@ -86,6 +86,12 @@ def parse_tavant_zwayam(company: dict[str, Any]) -> list[bot.Job]:
                 description=description,
                 department=bot.clean_text(source.get("text1") or source.get("departmentName")),
                 salary_text=salary_text,
+                requisition_id=bot.clean_text(
+                    source.get("newJobCode")
+                    or source.get("referenceNumber")
+                    or source.get("jobCode")
+                    or source.get("id")
+                ),
                 wlb_score=company.get("wlb_score", 3),
             ))
         if not raw_jobs or not data.get("hasMoreData"):

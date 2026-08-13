@@ -56,6 +56,8 @@ TALENTBREW_HOSTS = {
 
 ZOHO_PUBLIC_NAMES = {
     "GALAXEYE SPACE SOLUTIONS PRIVATE LIMITED",
+    "GalaxEye Space",
+    "HealthPlix",
     "HealthPlix Technologies",
     "InCore Semiconductors",
     "Oben Electric",
@@ -289,7 +291,18 @@ def classify_source(name: str, url: str) -> dict[str, Any]:
             max_results=10,
             read_timeout_seconds=25,
         )
-    elif "darwinbox." in host and "/candidatev2/" in f"/{path}/":
+    # FarEye's official legacy portal currently returns Darwinbox's own
+    # "Error while getting tenant info" from both public job APIs. Keep the
+    # conservative page monitor until the tenant is restored instead of
+    # turning every production run into a failed-source run.
+    elif name == "FarEye" and "darwinbox." in host:
+        company.update(
+            ats="direct_job_html",
+            url=url,
+            career_site_url=url,
+            max_candidate_details=10,
+        )
+    elif "darwinbox." in host and re.search(r"/candidate(?:v2)?(?:/|$)", parsed.path, re.I):
         company_id = "main"
         match = re.search(r"/candidatev2/([^/]+)", parsed.path, flags=re.IGNORECASE)
         if match:
@@ -299,6 +312,24 @@ def classify_source(name: str, url: str) -> dict[str, Any]:
             url=f"{parsed.scheme}://{parsed.netloc}/ms/candidateapi/job/alljobs",
             career_site_url=url,
             company_id=company_id,
+            bootstrap_required="/candidatev2/" not in parsed.path.casefold(),
+            max_results=100,
+        )
+    elif name == "GreyOrange":
+        company.update(
+            ats="tavant_browser_transport",
+            url="https://public.zwayam.com/jobs/search",
+            career_site_url=url,
+            domain="careers.greyorange.com",
+            company_id="MTYwOTA=",
+            max_results=100,
+            read_timeout_seconds=25,
+        )
+    elif name == "Addverb":
+        company.update(
+            ats="hrone_html",
+            url="https://app.hrone.cloud/api/external/referral/CareerPosition/Details",
+            career_site_url="https://hr1.to/9c16d2",
             max_results=100,
         )
     elif host == "job-boards.greenhouse.io":
@@ -323,6 +354,40 @@ def classify_source(name: str, url: str) -> dict[str, Any]:
         )
     elif host.endswith("freshteam.com"):
         company.update(ats="freshteam_html", url=url, career_site_url=url)
+    elif host.endswith(".keka.com"):
+        company.update(ats="keka_embed", url=url, career_site_url=url)
+    elif host.endswith(".icims.com"):
+        company.update(
+            ats="icims_html",
+            url=f"{parsed.scheme}://{parsed.netloc}/jobs/search",
+            career_site_url=url,
+            max_pages=30,
+        )
+    elif host == "jobs.jobvite.com":
+        slug = path.split("/", 1)[0]
+        company.update(
+            ats="jobvite_html",
+            url=f"https://jobs.jobvite.com/{slug}/?nl=1&fr=false",
+            career_site_url=url,
+            slug=slug,
+        )
+    elif host == "recruiterflow.com" and path.endswith("/jobs"):
+        company.update(ats="recruiterflow_html", url=url, career_site_url=url)
+    elif host == "careers.gnani.ai":
+        company.update(
+            ats="gnani_api",
+            url="https://careers.gnani.ai/api/jobs",
+            career_site_url=url,
+        )
+    elif host.endswith(".peoplestrong.com"):
+        origin = f"{parsed.scheme}://{parsed.netloc}"
+        company.update(
+            ats="peoplestrong",
+            url=f"{origin}/api/cp/rest/altone/cp/jobs/v1?offset=0&limit=100",
+            career_site_url=url,
+            bootstrap_url=f"{origin}/api/cp/rest/altone/cp/urlinfo",
+            search_terms=DEFAULT_SEARCH_TERMS,
+        )
     elif name in ZOHO_PUBLIC_NAMES or host.endswith("zohorecruit.com"):
         company.update(ats="zoho_recruit_public", url=url, career_site_url=url)
     elif host == "careers.kula.ai":

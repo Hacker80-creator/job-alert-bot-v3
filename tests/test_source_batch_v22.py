@@ -39,6 +39,23 @@ class SourceBatchV22Tests(unittest.TestCase):
         self.assertEqual("JOB-42", jobs[0].requisition_id)
         self.assertEqual("https://example.keka.com/careers/jobdetails/42", jobs[0].url)
 
+    @patch("custom_source_parsers_v21.requests.get")
+    def test_keka_embed_discovers_board_identifier(self, get: Mock) -> None:
+        listing = Mock(text='window.boardId = "19d678f6-8b79-4532-a5f0-d57b593a822e"')
+        listing.raise_for_status.return_value = None
+        payload = Mock()
+        payload.raise_for_status.return_value = None
+        payload.json.return_value = [{"id": 7, "title": "Data Engineer"}]
+        get.side_effect = [listing, payload]
+
+        jobs = parsers.parse_keka_embed({
+            "name": "GoKwik",
+            "career_site_url": "https://gokwik.keka.com/careers/",
+        })
+
+        self.assertEqual("Data Engineer", jobs[0].title)
+        self.assertIn("19d678f6-8b79-4532-a5f0-d57b593a822e", get.call_args_list[1].args[0])
+
 
 if __name__ == "__main__":
     unittest.main()

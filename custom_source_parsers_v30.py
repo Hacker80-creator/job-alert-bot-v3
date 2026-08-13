@@ -1,10 +1,11 @@
 """Adapters for the remaining verified v44 dynamic career sources."""
 from __future__ import annotations
 
+import json
 import re
 from html import unescape
 from typing import Any
-from urllib.parse import urljoin, urlparse
+from urllib.parse import parse_qs, urlencode, urljoin, urlparse
 from xml.etree import ElementTree
 
 import requests
@@ -96,15 +97,36 @@ def parse_dassault_xml(company: dict[str, Any]) -> list[bot.Job]:
 def parse_peoplestrong(company: dict[str, Any]) -> list[bot.Job]:
     """Read the public PeopleStrong jobs API used by MathCo."""
     limit = max(10, int(company.get("max_results", 100)))
-    response = requests.post(
-        company["url"],
-        json={},
-        headers=JSON_HEADERS,
-        timeout=35,
+    session = requests.Session() if company.get("bootstrap_url") else requests
+    if company.get("bootstrap_url"):
+        bootstrap = session.get(
+            company["bootstrap_url"], headers=BROWSER_HEADERS, timeout=35,
+        )
+        bootstrap.raise_for_status()
+    payload = (
+        {
+            "bandList": None,
+            "gradeList": None,
+            "bandIDList": None,
+            "gradeIDList": None,
+            "employeeCategoryLabelList": None,
+        }
+        if company.get("bootstrap_url")
+        else {}
     )
-    response.raise_for_status()
-    jobs: list[bot.Job] = []
-    for item in response.json().get("response", [])[:limit]:
+    raw_jobs: list[dict[str, Any]] = []
+    for term in company.get("search_terms") or [None]:
+        response = session.post(
+            company["url"],
+            params={"searchString": term} if term else None,
+            json=payload,
+            headers=JSON_HEADERS,
+            timeout=35,
+        )
+        response.raise_for_status()
+        raw_jobs.extend(response.json().get("response", [])[:limit])
+    jobs_by_id: dict[str, bot.Job] = {}
+    for item in raw_jobs:
         job_id = bot.clean_text(item.get("requisitionId") or item.get("jobCode"))
         title = bot.clean_text(item.get("jobTitle") or item.get("designation"))
         url = str(item.get("jobDetailUrl") or "").strip()
@@ -125,7 +147,7 @@ def parse_peoplestrong(company: dict[str, Any]) -> list[bot.Job]:
             bot.clean_text(item.get("expRange")),
             ", ".join(filter(None, skill_names)),
         ]))
-        jobs.append(bot.Job(
+        jobs_by_id.setdefault(job_id, bot.Job(
             company=company["name"],
             title=title,
             location=location,
@@ -139,7 +161,7 @@ def parse_peoplestrong(company: dict[str, Any]) -> list[bot.Job]:
             requisition_id=job_id,
             wlb_score=company.get("wlb_score", 3),
         ))
-    return jobs
+    return list(jobs_by_id.values())
 
 
 def parse_darwinbox_v2(company: dict[str, Any]) -> list[bot.Job]:
@@ -151,18 +173,41 @@ def parse_darwinbox_v2(company: dict[str, Any]) -> list[bot.Job]:
         **JSON_HEADERS,
         "Origin": origin,
         "Referer": company["career_site_url"],
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-origin",
     }
-    response = requests.post(
-        company["url"],
-        json={
-            "companyId": company_id,
-            "page": 1,
-            "sort_option": "new",
-            "limit": max(10, int(company.get("max_results", 100))),
-        },
-        headers=headers,
-        timeout=40,
-    )
+    payload = {
+        "companyId": company_id,
+        "page": 1,
+        "sort_option": "new",
+        "limit": max(10, int(company.get("max_results", 100))),
+    }
+    if company.get("bootstrap_required"):
+        session = requests.Session()
+        bootstrap_url = (
+            f"{origin}/ms/candidatev2/{company_id}/careers/allJobs"
+        )
+        bootstrap = session.get(
+            bootstrap_url,
+            headers={
+                **BROWSER_HEADERS,
+                "Sec-Fetch-Dest": "document",
+                "Sec-Fetch-Mode": "navigate",
+                "Sec-Fetch-Site": "none",
+                "Upgrade-Insecure-Requests": "1",
+            },
+            timeout=40,
+        )
+        bootstrap.raise_for_status()
+        headers["Referer"] = bootstrap_url
+        response = session.post(
+            company["url"], json=payload, headers=headers, timeout=40,
+        )
+    else:
+        response = requests.post(
+            company["url"], json=payload, headers=headers, timeout=40,
+        )
     response.raise_for_status()
     document = response.json()
     jobs: list[bot.Job] = []
@@ -171,7 +216,9 @@ def parse_darwinbox_v2(company: dict[str, Any]) -> list[bot.Job]:
             item.get("id") or item.get("_id") or item.get("internal_job_code")
         )
         title = bot.clean_text(
-            item.get("title") or item.get("designation_name")
+            item.get("title")
+            or item.get("designation_name")
+            or item.get("designation_display_name")
         )
         if not job_id or not title:
             continue
@@ -199,6 +246,269 @@ def parse_darwinbox_v2(company: dict[str, Any]) -> list[bot.Job]:
             department=bot.clean_text(item.get("department_name")),
             salary_text=bot.clean_text(item.get("salary_range")),
             requisition_id=bot.clean_text(item.get("internal_job_code")) or job_id,
+            wlb_score=company.get("wlb_score", 3),
+        ))
+    return jobs
+
+
+def parse_icims_html(company: dict[str, Any]) -> list[bot.Job]:
+    """Read the server-rendered vacancy cards in public iCIMS portals."""
+    max_pages = max(1, int(company.get("max_pages", 30)))
+    jobs_by_id: dict[str, bot.Job] = {}
+    for page in range(max_pages):
+        response = requests.get(
+            company["url"],
+            params={"ss": 1, "pr": page, "in_iframe": 1},
+            headers=BROWSER_HEADERS,
+            timeout=40,
+        )
+        response.raise_for_status()
+        soup = BeautifulSoup(response.text, "html.parser")
+        cards = soup.select("li.iCIMS_JobCardItem")
+        added = 0
+        for card in cards:
+            link = card.select_one('a[href*="/jobs/"][href*="/job"]')
+            title_node = card.select_one(".title h3")
+            if link is None or title_node is None:
+                continue
+            url = urljoin(response.url, str(link.get("href") or ""))
+            match = re.search(r"/jobs/(\d+)/", urlparse(url).path)
+            job_id = match.group(1) if match else ""
+            title = bot.clean_text(title_node.get_text(" "))
+            if not job_id or not title or job_id in jobs_by_id:
+                continue
+            fields: dict[str, str] = {}
+            for group in card.select(".iCIMS_JobHeaderTag"):
+                key = group.select_one("dt")
+                value = group.select_one("dd")
+                if key is not None and value is not None:
+                    fields[bot.clean_text(key.get_text(" ")).casefold()] = (
+                        bot.clean_text(value.get_text(" "))
+                    )
+            location_node = card.select_one(".header.left span:not(.sr-only)")
+            location = bot.clean_text(
+                location_node.get_text(" ") if location_node else ""
+            )
+            if not location:
+                for key, value in fields.items():
+                    if "location" in key:
+                        location = value
+                        break
+            description_node = card.select_one(".description")
+            jobs_by_id[job_id] = bot.Job(
+                company=company["name"],
+                title=title,
+                location=location,
+                url=url,
+                source="Official careers: iCIMS",
+                description=bot.clean_text(
+                    description_node.get_text(" ") if description_node else ""
+                ),
+                department=fields.get("category", ""),
+                requisition_id=(
+                    fields.get("id")
+                    or fields.get("job id")
+                    or fields.get("req. #")
+                    or job_id
+                ),
+                wlb_score=company.get("wlb_score", 3),
+            )
+            added += 1
+        if not cards or added == 0:
+            break
+    return list(jobs_by_id.values())
+
+
+def parse_jobvite_html(company: dict[str, Any]) -> list[bot.Job]:
+    """Read Jobvite's public, server-rendered careers iframe."""
+    response = requests.get(company["url"], headers=BROWSER_HEADERS, timeout=40)
+    response.raise_for_status()
+    soup = BeautifulSoup(response.text, "html.parser")
+    jobs: list[bot.Job] = []
+    seen: set[str] = set()
+    for link in soup.select('.jv-job-list a[href*="/job/"]'):
+        url = urljoin(response.url, str(link.get("href") or ""))
+        job_id = urlparse(url).path.rstrip("/").rsplit("/", 1)[-1]
+        title_node = link.select_one(".jv-job-list-name")
+        location_node = link.select_one(".jv-job-list-location")
+        title = bot.clean_text(title_node.get_text(" ") if title_node else "")
+        if not job_id or not title or job_id in seen:
+            continue
+        seen.add(job_id)
+        requisition_match = re.search(r"\(([^()]*(?:AI|REQ)[^()]*)\)\s*$", title, re.I)
+        jobs.append(bot.Job(
+            company=company["name"],
+            title=title,
+            location=bot.clean_text(
+                location_node.get_text(" ") if location_node else ""
+            ),
+            url=url,
+            source="Official careers: Jobvite",
+            description="",
+            requisition_id=(
+                requisition_match.group(1) if requisition_match else job_id
+            ),
+            wlb_score=company.get("wlb_score", 3),
+        ))
+    return jobs
+
+
+def parse_recruiterflow_html(company: dict[str, Any]) -> list[bot.Job]:
+    """Decode the public jobs payload embedded by Recruiterflow boards."""
+    response = requests.get(company["url"], headers=BROWSER_HEADERS, timeout=40)
+    response.raise_for_status()
+    match = re.search(
+        r"window\.jobsList\s*=\s*(\{.*?\})\s*;",
+        response.text,
+        flags=re.DOTALL,
+    )
+    if not match:
+        raise ValueError("Recruiterflow page did not expose its public jobs payload")
+    document = json.loads(match.group(1))
+    jobs: list[bot.Job] = []
+    seen: set[str] = set()
+    for department in document.get("department") or []:
+        if not isinstance(department, list) or len(department) < 2:
+            continue
+        department_name, items = department[0], department[1]
+        for item in items or []:
+            if not isinstance(item, dict):
+                continue
+            job_id = bot.clean_text(item.get("job_id"))
+            title = bot.clean_text(item.get("job_name"))
+            if not job_id or not title or job_id in seen:
+                continue
+            seen.add(job_id)
+            jobs.append(bot.Job(
+                company=company["name"],
+                title=title,
+                location=bot.clean_text(item.get("details")),
+                url=urljoin(response.url, str(item.get("apply_link") or "")),
+                source="Official careers: Recruiterflow",
+                description=bot.clean_text(" | ".join(filter(None, [
+                    str(item.get("employment_type") or ""),
+                    str(item.get("remote_type") or ""),
+                ]))),
+                department=bot.clean_text(department_name),
+                requisition_id=job_id,
+                wlb_score=company.get("wlb_score", 3),
+            ))
+    return jobs
+
+
+def parse_gnani_api(company: dict[str, Any]) -> list[bot.Job]:
+    """Read Gnani.ai's first-party public jobs endpoint."""
+    response = requests.get(
+        company["url"], headers={**BROWSER_HEADERS, "Accept": "application/json"},
+        timeout=40,
+    )
+    response.raise_for_status()
+    raw_jobs = ((response.json().get("data") or {}).get("jobs") or [])
+    jobs: list[bot.Job] = []
+    for item in raw_jobs:
+        code = bot.clean_text(item.get("code"))
+        title = bot.clean_text(item.get("title"))
+        if not code or not title:
+            continue
+        skills = ", ".join(
+            bot.clean_text(skill) for skill in item.get("skills") or [] if skill
+        )
+        experience = ""
+        if item.get("minExperience") is not None or item.get("maxExperience") is not None:
+            experience = (
+                f"Experience: {item.get('minExperience', '')}-"
+                f"{item.get('maxExperience', '')} years"
+            )
+        jobs.append(bot.Job(
+            company=company["name"],
+            title=title,
+            location=bot.flatten_location(item.get("location") or []),
+            url=urljoin(response.url, f"/apply/{code}"),
+            source="Official careers: Gnani.ai",
+            description=" | ".join(filter(None, [experience, skills])),
+            department=bot.clean_text(item.get("department")),
+            requisition_id=code,
+            wlb_score=company.get("wlb_score", 3),
+        ))
+    return jobs
+
+
+def parse_hrone_html(company: dict[str, Any]) -> list[bot.Job]:
+    """Read the anonymous career-position API behind HROne portals."""
+    session = requests.Session()
+    listing = session.get(
+        company["career_site_url"], headers=BROWSER_HEADERS, timeout=40,
+    )
+    listing.raise_for_status()
+    params = {
+        key: values[0]
+        for key, values in parse_qs(urlparse(listing.url).query).items()
+        if values
+    }
+    required = {"appId", "dc", "rqt", "cc"}
+    if not required.issubset(params):
+        raise ValueError("HROne portal redirect omitted required public identifiers")
+    payload = {
+        "departmentCode": "", "companyCode": params["cc"],
+        "careerPortalType": params["rqt"], "jobTitle": "",
+        "employmentType": "", "seniorityName": "", "jobFunction": "",
+        "company": "", "businessUnitCode": "", "department": "",
+        "subDepartment": "", "gradeCode": "", "designationCode": "",
+        "levelCode": "", "branchCode": "", "subBranchCode": "",
+        "regionCode": "", "locationId": "", "experience": "",
+        "qualification": "", "skillsName": "", "urgentOpening": "",
+        "jobPosted": "0", "isShortUrl": False,
+        "pagination": {
+            "pageNumber": 1,
+            "pageSize": max(15, int(company.get("max_results", 100))),
+        },
+        "nationality": "", "preferredLocationId": "",
+    }
+    response = session.post(
+        company["url"],
+        json=payload,
+        headers={
+            **JSON_HEADERS,
+            "domainCode": params["dc"],
+            "apiKey": params["appId"],
+            "AccessMode": "W",
+            "Origin": f"{urlparse(listing.url).scheme}://{urlparse(listing.url).netloc}",
+            "Referer": listing.url,
+        },
+        timeout=40,
+    )
+    response.raise_for_status()
+    jobs: list[bot.Job] = []
+    for item in response.json():
+        job_id = bot.clean_text(item.get("jobCode") or item.get("positionId"))
+        title = bot.clean_text(item.get("jobTitle"))
+        if not job_id or not title:
+            continue
+        apply_params = {
+            **params,
+            "pid": item.get("encryptedPositionId") or "",
+            "dptc": item.get("departmentCode") or "",
+            "st": item.get("sourceType") or "",
+            "fm": "CR",
+        }
+        apply_url = listing.url.split("?", 1)[0].replace(
+            "/career-portal", "/apply-job"
+        ) + "?" + urlencode(apply_params)
+        experience = ""
+        if item.get("experienceFrom") is not None or item.get("experienceTo") is not None:
+            experience = (
+                f"Experience: {item.get('experienceFrom', '')}-"
+                f"{item.get('experienceTo', '')} years"
+            )
+        jobs.append(bot.Job(
+            company=company["name"],
+            title=title,
+            location=bot.clean_text(item.get("preferredLocation")),
+            url=str(item.get("jobApplicationPath") or apply_url),
+            source="Official careers: HROne",
+            description=experience,
+            department=bot.clean_text(item.get("seniorityName")),
+            requisition_id=job_id,
             wlb_score=company.get("wlb_score", 3),
         ))
     return jobs
@@ -465,6 +775,11 @@ def fetch_company_jobs_with_custom_v30(company: dict[str, Any]) -> list[bot.Job]
         "dassault_xml": parse_dassault_xml,
         "peoplestrong": parse_peoplestrong,
         "darwinbox_v2": parse_darwinbox_v2,
+        "icims_html": parse_icims_html,
+        "jobvite_html": parse_jobvite_html,
+        "recruiterflow_html": parse_recruiterflow_html,
+        "gnani_api": parse_gnani_api,
+        "hrone_html": parse_hrone_html,
         "tonbo_html": parse_tonbo_html,
         "kaleideo_wordpress": parse_kaleideo_wordpress,
         "wordpress_post_type": parse_wordpress_post_type,

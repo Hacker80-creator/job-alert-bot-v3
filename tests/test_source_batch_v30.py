@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import unittest
+import json
 from unittest.mock import Mock, patch
 
 import custom_source_parsers_v30 as parsers
@@ -45,6 +46,33 @@ class SourceBatchV30Tests(unittest.TestCase):
         self.assertEqual("Lead AI Engineer", jobs[0].title)
         self.assertEqual("1818950", jobs[0].requisition_id)
 
+    @patch("custom_source_parsers_v30.requests.Session")
+    def test_peoplestrong_bootstraps_and_searches_public_portal(self, session_class: Mock) -> None:
+        session = session_class.return_value
+        session.get.return_value.raise_for_status.return_value = None
+        response = Mock()
+        response.raise_for_status.return_value = None
+        response.json.return_value = {"response": [{
+            "requisitionId": 1830703,
+            "jobCode": "HDE/JC/17482",
+            "jobTitle": "Data Analyst",
+            "jobDetailUrl": "https://hdfc.example/job/detail/HDE_JC_17482",
+            "locationHierarchyComplete": "India>South>Karnataka>Bengaluru",
+        }]}
+        session.post.return_value = response
+
+        jobs = parsers.parse_peoplestrong({
+            "name": "HDFC ERGO",
+            "url": "https://hdfc.example/api/cp/rest/altone/cp/jobs/v1?offset=0&limit=100",
+            "bootstrap_url": "https://hdfc.example/api/cp/rest/altone/cp/urlinfo",
+            "search_terms": ["data"],
+        })
+
+        self.assertEqual("Data Analyst", jobs[0].title)
+        self.assertIn("Bengaluru", jobs[0].location)
+        session.get.assert_called_once()
+        self.assertEqual("data", session.post.call_args.kwargs["params"]["searchString"])
+
     @patch("custom_source_parsers_v30.requests.post")
     def test_darwinbox_maps_stable_job_code(self, post: Mock) -> None:
         response = Mock()
@@ -68,6 +96,162 @@ class SourceBatchV30Tests(unittest.TestCase):
         self.assertEqual("Data Analyst", jobs[0].title)
         self.assertEqual("JOB_1072", jobs[0].requisition_id)
         self.assertIn("jobDetails/abc123", jobs[0].url)
+
+    @patch("custom_source_parsers_v30.requests.Session")
+    def test_darwinbox_bootstraps_legacy_candidate_board(self, session_class: Mock) -> None:
+        session = session_class.return_value
+        session.get.return_value.raise_for_status.return_value = None
+        response = Mock()
+        response.raise_for_status.return_value = None
+        response.json.return_value = {"data": [{
+            "id": "money-1",
+            "designation_display_name": "Senior Data Analyst",
+            "officelocation_show_arr": "Bengaluru",
+            "internal_job_code": "MV-1",
+        }]}
+        session.post.return_value = response
+
+        jobs = parsers.parse_darwinbox_v2({
+            "name": "Moneyview",
+            "url": "https://moneyview.darwinbox.in/ms/candidateapi/job/alljobs",
+            "career_site_url": "https://moneyview.darwinbox.in/ms/candidate/careers",
+            "company_id": "main",
+            "bootstrap_required": True,
+        })
+
+        self.assertEqual("Senior Data Analyst", jobs[0].title)
+        self.assertEqual("MV-1", jobs[0].requisition_id)
+        session.get.assert_called_once()
+        session.post.assert_called_once()
+
+    @patch("custom_source_parsers_v30.requests.get")
+    def test_icims_maps_server_rendered_job_card(self, get: Mock) -> None:
+        first = Mock(text='''<ul class="iCIMS_JobsTable">
+          <li class="iCIMS_JobCardItem"><div class="header left">
+            <span class="sr-only">Location</span><span>IND-Bangalore</span></div>
+            <div class="title"><a href="/jobs/3074/data-engineer/job?in_iframe=1">
+              <h3>Data Engineer</h3></a></div>
+            <div class="description">Build analytics pipelines.</div>
+            <div class="iCIMS_JobHeaderTag"><dt>Category</dt><dd>Engineering</dd></div>
+            <div class="iCIMS_JobHeaderTag"><dt>ID</dt><dd>2026-3074</dd></div>
+          </li></ul>''', url="https://example.icims.com/jobs/search?pr=0")
+        first.raise_for_status.return_value = None
+        empty = Mock(text="<ul></ul>", url="https://example.icims.com/jobs/search?pr=1")
+        empty.raise_for_status.return_value = None
+        get.side_effect = [first, empty]
+
+        jobs = parsers.parse_icims_html({
+            "name": "Example",
+            "url": "https://example.icims.com/jobs/search",
+        })
+
+        self.assertEqual("Data Engineer", jobs[0].title)
+        self.assertEqual("IND-Bangalore", jobs[0].location)
+        self.assertEqual("2026-3074", jobs[0].requisition_id)
+
+    @patch("custom_source_parsers_v30.requests.get")
+    def test_jobvite_maps_public_job_card(self, get: Mock) -> None:
+        response = Mock(text='''<div class="jv-job-list"><a href="/simaai/job/o123">
+          <div class="jv-job-list-name">MTS, Robotics Engineer (AI2443)</div>
+          <div class="jv-job-list-location">Bengaluru, India</div>
+        </a></div>''', url="https://jobs.jobvite.com/simaai/?nl=1")
+        response.raise_for_status.return_value = None
+        get.return_value = response
+
+        jobs = parsers.parse_jobvite_html({
+            "name": "SiMa.ai", "url": "https://jobs.jobvite.com/simaai/?nl=1",
+        })
+
+        self.assertEqual("MTS, Robotics Engineer (AI2443)", jobs[0].title)
+        self.assertEqual("Bengaluru, India", jobs[0].location)
+        self.assertEqual("AI2443", jobs[0].requisition_id)
+
+    @patch("custom_source_parsers_v30.requests.get")
+    def test_recruiterflow_maps_embedded_jobs_payload(self, get: Mock) -> None:
+        payload = {"department": [["Engineering", [{
+            "job_id": 662,
+            "job_name": "Enterprise Security Engineer",
+            "details": "Bengaluru",
+            "apply_link": "coinswitch/jobs/662",
+            "employment_type": "Full time",
+        }]]]}
+        response = Mock(
+            text=f"<script>window.jobsList = {json.dumps(payload)};</script>",
+            url="https://recruiterflow.com/coinswitch/jobs",
+        )
+        response.raise_for_status.return_value = None
+        get.return_value = response
+
+        jobs = parsers.parse_recruiterflow_html({
+            "name": "CoinSwitch",
+            "url": "https://recruiterflow.com/coinswitch/jobs",
+        })
+
+        self.assertEqual("Enterprise Security Engineer", jobs[0].title)
+        self.assertEqual("Bengaluru", jobs[0].location)
+        self.assertEqual("662", jobs[0].requisition_id)
+
+    @patch("custom_source_parsers_v30.requests.get")
+    def test_gnani_maps_first_party_job(self, get: Mock) -> None:
+        response = Mock(
+            url="https://careers.gnani.ai/api/jobs",
+        )
+        response.raise_for_status.return_value = None
+        response.json.return_value = {"data": {"jobs": [{
+            "title": "Staff AI Engineer",
+            "code": "Sta-Ben-2026-08-06-117",
+            "department": "Engineering",
+            "location": ["Bengaluru"],
+            "minExperience": 7,
+            "maxExperience": 12,
+            "skills": ["Python", "Agentic AI"],
+        }]}}
+        get.return_value = response
+
+        jobs = parsers.parse_gnani_api({
+            "name": "Gnani.ai", "url": "https://careers.gnani.ai/api/jobs",
+        })
+
+        self.assertEqual("Staff AI Engineer", jobs[0].title)
+        self.assertEqual("Bengaluru", jobs[0].location)
+        self.assertEqual("Sta-Ben-2026-08-06-117", jobs[0].requisition_id)
+        self.assertIn("/apply/Sta-Ben-2026-08-06-117", jobs[0].url)
+
+    @patch("custom_source_parsers_v30.requests.Session")
+    def test_hrone_maps_public_career_position(self, session_class: Mock) -> None:
+        session = session_class.return_value
+        listing = Mock(
+            url=("https://career.hrone.cloud/career-portal?appId=public-key"
+                 "&dc=addverb&rqt=request-token&cc=company-code")
+        )
+        listing.raise_for_status.return_value = None
+        response = Mock()
+        response.raise_for_status.return_value = None
+        response.json.return_value = [{
+            "jobTitle": "Robotics Software Engineer",
+            "positionId": 1152,
+            "encryptedPositionId": "encrypted-position",
+            "departmentCode": "department-code",
+            "sourceType": "career-source",
+            "preferredLocation": "Noida",
+            "jobCode": "Addverb1135MPR",
+            "seniorityName": "Mobile Robotics",
+            "experienceFrom": 3,
+            "experienceTo": 6,
+        }]
+        session.get.return_value = listing
+        session.post.return_value = response
+
+        jobs = parsers.parse_hrone_html({
+            "name": "Addverb",
+            "url": "https://app.hrone.cloud/api/external/referral/CareerPosition/Details",
+            "career_site_url": "https://hr1.to/9c16d2",
+        })
+
+        self.assertEqual("Robotics Software Engineer", jobs[0].title)
+        self.assertEqual("Noida", jobs[0].location)
+        self.assertEqual("Addverb1135MPR", jobs[0].requisition_id)
+        self.assertIn("pid=encrypted-position", jobs[0].url)
 
     @patch("custom_source_parsers_v30.requests.get")
     def test_tonbo_maps_actively_hiring_heading(self, get: Mock) -> None:
