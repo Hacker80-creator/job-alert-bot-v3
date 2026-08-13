@@ -69,6 +69,64 @@ class BranchSourceValidationTests(unittest.TestCase):
         result = validation.validate_source({"name": "Example", "ats": "custom"})
         self.assertEqual("NO_CURRENT_MATCHING_JOBS", result["status"])
 
+    @patch("branch_source_validation.assess_direct_source")
+    @patch("branch_source_validation.custom_source_parsers_v30.fetch_company_jobs_with_custom_v30")
+    def test_empty_generic_page_remains_unresolved(self, fetch, assess) -> None:
+        fetch.return_value = []
+        assess.return_value = {
+            "monitorable": False,
+            "evidence": "no_verifiable_job_records",
+        }
+        result = validation.validate_source({
+            "name": "Example", "ats": "direct_job_html", "url": "https://example/jobs"
+        })
+        self.assertEqual("UNRESOLVED_DYNAMIC_SOURCE", result["status"])
+        self.assertEqual(
+            "no_verifiable_job_records", result["monitor_evidence"]["evidence"]
+        )
+
+    @patch("branch_source_validation.assess_direct_source")
+    @patch("branch_source_validation.custom_source_parsers_v30.fetch_company_jobs_with_custom_v30")
+    def test_empty_server_rendered_board_is_still_monitored(self, fetch, assess) -> None:
+        fetch.return_value = []
+        assess.return_value = {
+            "monitorable": True,
+            "evidence": "server_rendered_job_links",
+            "record_count": 7,
+        }
+        result = validation.validate_source({
+            "name": "Example", "ats": "direct_job_html", "url": "https://example/jobs"
+        })
+        self.assertEqual("NO_CURRENT_MATCHING_JOBS", result["status"])
+        self.assertEqual(7, result["monitor_evidence"]["record_count"])
+
+    @patch("branch_source_validation.requests.get")
+    def test_assess_direct_source_accepts_explicit_empty_state(self, get) -> None:
+        response = get.return_value
+        response.text = "<main>We currently have no open positions.</main>"
+        response.url = "https://example/jobs"
+
+        result = validation.assess_direct_source({"url": response.url})
+
+        self.assertTrue(result["monitorable"])
+        self.assertEqual("explicit_no_openings", result["evidence"])
+        response.raise_for_status.assert_called_once()
+
+    @patch("branch_source_validation.requests.get")
+    def test_assess_direct_source_requires_specific_job_link(self, get) -> None:
+        response = get.return_value
+        response.text = (
+            '<a href="/careers">Careers</a>'
+            '<a href="/jobs/data-platform-engineer">Data Platform Engineer</a>'
+        )
+        response.url = "https://example/jobs"
+
+        result = validation.assess_direct_source({"url": response.url})
+
+        self.assertTrue(result["monitorable"])
+        self.assertEqual("server_rendered_job_links", result["evidence"])
+        self.assertEqual(1, result["record_count"])
+
     def test_source_names_reads_only_enabled_entries(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "batch.txt"
