@@ -1,11 +1,31 @@
 {
-  "allowlist_count": 796,
+  "allowlist_count": 1005,
   "failed_sources": [
+    "Annalect",
+    "Avalara",
+    "Cirrus Logic",
+    "ColorTokens",
+    "Credo Semiconductor",
+    "Detect Technologies",
+    "Evalueserve",
+    "FermionIC Design",
     "Gramener",
-    "Keysight Technologies",
+    "H&M Group",
+    "Hitachi Astemo",
+    "Housing.com",
+    "HyperVerge",
+    "Liftoff Mobile",
+    "MedGenome",
+    "Niramai",
+    "ProductDossier",
     "River Mobility",
-    "Schneider Electric"
+    "Schneider Electric",
+    "Skit.ai",
+    "Swiss Re",
+    "UBS",
+    "Vymo",
+    "ZS Associates"
   ],
-  "last_notice_utc": "2026-08-13T08:47:01.161114+00:00",
-  "official_source_count": 534
+  "last_notice_utc": "2026-08-13T10:32:32.820017+00:00",
+  "official_source_count": 790
 }
