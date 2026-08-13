@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import unittest
+import re
 from pathlib import Path
 
 import job_monitor_entry_v43
@@ -27,10 +28,11 @@ class ProductionV43Tests(unittest.TestCase):
             self.assertEqual(ats, self.companies[name]["ats"])
         self.assertEqual(180, self.companies["Kuku FM"]["max_posting_age_days"])
 
-    def test_workflow_runs_v43(self) -> None:
+    def test_workflow_runs_v43_or_newer(self) -> None:
         workflow = (Path(__file__).parents[1] / ".github" / "workflows" / "job-alerts.yml").read_text(encoding="utf-8")
-        self.assertIn("python job_monitor_entry_v43.py", workflow)
-        self.assertIn("source_overrides_v41.yaml", workflow)
+        entry = re.search(r"python job_monitor_entry_v(\d+)\.py", workflow)
+        self.assertIsNotNone(entry)
+        self.assertGreaterEqual(int(entry.group(1)), 43)
 
 
 if __name__ == "__main__":

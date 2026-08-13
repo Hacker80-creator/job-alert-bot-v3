@@ -3,40 +3,68 @@ from __future__ import annotations
 
 import argparse
 import json
+import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any
 
-import yaml
-
-import custom_source_parsers_v29
+import custom_source_parsers_v30
 import job_match_expanded as expanded
 import job_monitor as bot
 import job_monitor_entry
-import job_monitor_entry_v43
+import job_monitor_entry_v44
+import job_monitor_parallel
+import source_registry_v44
 
 
 ROOT = Path(__file__).parent
 
 
 def source_names(path: Path) -> list[str]:
-    document = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
     return [
-        str(company["name"])
-        for company in document.get("companies", [])
+        company["name"]
+        for company in source_registry_v44.build_source_overrides(path)
         if company.get("enabled", True)
     ]
 
 
 def validate_source(company: dict[str, Any]) -> dict[str, Any]:
-    try:
-        jobs = custom_source_parsers_v29.fetch_company_jobs_with_custom_v29(company)
-    except Exception as exc:  # Defensive: custom adapters normally contain errors.
+    jobs: list[bot.Job] = []
+    last_error = ""
+    swallowed_error = False
+    for attempt in range(3):
+        prior_errors = sum(
+            company["name"].casefold() in error.casefold()
+            for error in bot.SCAN_ERRORS
+        )
+        try:
+            parser = {
+                "workable": job_monitor_parallel.parse_workable,
+                "recruitee": job_monitor_parallel.parse_recruitee,
+            }.get(company.get("ats"))
+            jobs = (
+                parser(company)
+                if parser is not None
+                else custom_source_parsers_v30.fetch_company_jobs_with_custom_v30(company)
+            )
+        except Exception as exc:  # Defensive: custom adapters normally contain errors.
+            last_error = f"{type(exc).__name__}: {exc}"
+        current_errors = sum(
+            company["name"].casefold() in error.casefold()
+            for error in bot.SCAN_ERRORS
+        )
+        swallowed_error = current_errors > prior_errors
+        if jobs or (not swallowed_error and not last_error):
+            break
+        if attempt < 2:
+            time.sleep(2 ** attempt)
+            last_error = ""
+    if not jobs and (last_error or swallowed_error):
         return {
             "name": company["name"],
             "status": "FAILED",
             "job_count": 0,
-            "error": f"{type(exc).__name__}: {exc}",
+            "error": last_error or "production adapter failed after 3 attempts",
         }
     return {
         "name": company["name"],
@@ -61,7 +89,7 @@ def run(overrides_file: Path, output: Path, workers: int) -> int:
 
     companies = {
         company["name"]: company
-        for company in job_monitor_entry_v43.load_final_config()["companies"]
+        for company in job_monitor_entry_v44.load_final_config()["companies"]
     }
     names = source_names(overrides_file)
     missing = [name for name in names if name not in companies]
@@ -81,18 +109,6 @@ def run(overrides_file: Path, output: Path, workers: int) -> int:
                 flush=True,
             )
             results.append(result)
-
-    failed_names = {
-        company["name"]
-        for company in selected
-        if any(
-            company["name"].casefold() in error.casefold()
-            for error in bot.SCAN_ERRORS
-        )
-    }
-    for result in results:
-        if result["name"] in failed_names:
-            result["status"] = "FAILED"
 
     results.sort(key=lambda item: item["name"].casefold())
     summary = {
@@ -119,7 +135,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--overrides-file", type=Path,
-        default=ROOT / "source_overrides_v41.yaml",
+        default=ROOT / "verified_sources_v44.txt",
     )
     parser.add_argument(
         "--output", type=Path,

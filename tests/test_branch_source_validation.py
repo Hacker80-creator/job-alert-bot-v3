@@ -11,21 +11,66 @@ import job_monitor as bot
 
 
 class BranchSourceValidationTests(unittest.TestCase):
+    def tearDown(self) -> None:
+        bot.SCAN_ERRORS.clear()
+
+    @patch("branch_source_validation.job_monitor_parallel.parse_workable")
+    @patch("branch_source_validation.custom_source_parsers_v30.fetch_company_jobs_with_custom_v30")
+    def test_validate_source_uses_production_workable_adapter(
+        self, custom_fetch, workable_fetch
+    ) -> None:
+        workable_fetch.return_value = [
+            bot.Job(
+                "Example",
+                "Data Analyst",
+                "Bangalore",
+                "https://apply.workable.com/example/j/1",
+                "Official",
+            )
+        ]
+
+        result = validation.validate_source(
+            {"name": "Example", "ats": "workable", "slug": "example"}
+        )
+
+        self.assertEqual("WORKING", result["status"])
+        self.assertEqual(1, result["job_count"])
+        workable_fetch.assert_called_once()
+        custom_fetch.assert_not_called()
+
+    @patch("branch_source_validation.time.sleep")
+    @patch("branch_source_validation.custom_source_parsers_v30.fetch_company_jobs_with_custom_v30")
+    def test_validate_source_retries_swallowed_transient_error(
+        self, fetch, sleep
+    ) -> None:
+        attempts = 0
+
+        def transient_then_success(company):
+            nonlocal attempts
+            attempts += 1
+            if attempts == 1:
+                bot.SCAN_ERRORS.append(company["name"])
+                return []
+            return [bot.Job(
+                company["name"], "Data Analyst", "Bangalore",
+                "https://example/jobs/1", "Official",
+            )]
+
+        fetch.side_effect = transient_then_success
+        result = validation.validate_source({"name": "Example", "ats": "custom"})
+
+        self.assertEqual("WORKING", result["status"])
+        self.assertEqual(2, fetch.call_count)
+        sleep.assert_called_once_with(1)
+
     def test_source_names_reads_only_enabled_entries(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
-            path = Path(directory) / "batch.yaml"
-            path.write_text(
-                "companies:\n"
-                "  - name: Working\n"
-                "    enabled: true\n"
-                "  - name: Disabled\n"
-                "    enabled: false\n",
-                encoding="utf-8",
-            )
+            path = Path(directory) / "batch.txt"
+            path.write_text("Working|https://example.com/jobs\n", encoding="utf-8")
             self.assertEqual(["Working"], validation.source_names(path))
 
-    @patch("branch_source_validation.job_monitor_entry_v43.load_final_config")
-    @patch("branch_source_validation.custom_source_parsers_v29.fetch_company_jobs_with_custom_v29")
+    @patch("branch_source_validation.job_monitor_entry_v44.load_final_config")
+    @patch("branch_source_validation.custom_source_parsers_v30.fetch_company_jobs_with_custom_v30")
     def test_run_writes_non_mutating_summary(self, fetch, load_config) -> None:
         fetch.return_value = [
             bot.Job("Example", "Data Analyst", "Bangalore", "https://example/jobs/1", "Official")
@@ -35,9 +80,9 @@ class BranchSourceValidationTests(unittest.TestCase):
         }
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            batch = root / "batch.yaml"
+            batch = root / "batch.txt"
             output = root / "summary.json"
-            batch.write_text("companies:\n  - name: Example\n", encoding="utf-8")
+            batch.write_text("Example|https://example.com/jobs\n", encoding="utf-8")
             code = validation.run(batch, output, workers=1)
             summary = json.loads(output.read_text(encoding="utf-8"))
 
