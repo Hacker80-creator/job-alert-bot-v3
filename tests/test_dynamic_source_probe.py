@@ -1,12 +1,28 @@
 from __future__ import annotations
 
 import unittest
+from pathlib import Path
 from unittest.mock import Mock, patch
 
 import dynamic_source_probe as probe
 
 
 class DynamicSourceProbeTests(unittest.TestCase):
+    @patch("dynamic_source_probe.source_registry_v44.build_source_overrides")
+    def test_override_sources_keeps_only_enabled_generic_pages(self, build: Mock) -> None:
+        build.return_value = [
+            {"name": "Generic", "url": "https://example/jobs", "ats": "direct_job_html"},
+            {"name": "Structured", "url": "https://example/api", "ats": "jibe_api"},
+            {
+                "name": "Blocked", "url": "https://example/blocked",
+                "ats": "direct_job_html", "enabled": False,
+            },
+        ]
+
+        result = probe.override_sources(Path("catalog.txt"))
+
+        self.assertEqual(["Generic"], [item["name"] for item in result])
+
     @patch("dynamic_source_probe.requests.get")
     def test_probe_extracts_provider_and_target_links(self, get: Mock) -> None:
         response = Mock()

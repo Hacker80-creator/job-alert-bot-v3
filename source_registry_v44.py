@@ -117,6 +117,10 @@ STATIC_JOB_LINK_SOURCES = {
     "Tata Elxsi": (
         r"^https://www\.tataelxsi\.com/careers/job-openings/[^/?#]+/?$"
     ),
+    "JCB India": r"^https://careers\.jcb\.com/search/\d+/[^/?#]+/?$",
+    "MetLife GOSC": (
+        r"^https://www\.metlifecareers\.com/en_US/ml/JobDetail/[^?#]+/\d+/?$"
+    ),
 }
 
 SUCCESSFACTORS_HOSTS = {
@@ -129,6 +133,7 @@ SUCCESSFACTORS_HOSTS = {
     "jobs.schaeffler.com",
     "jobs.volvocars.com",
     "www.careers.zurich.com",
+    "careers.hyundai.co.in",
 }
 
 TALENTBREW_HOSTS = {
@@ -141,6 +146,9 @@ TALENTBREW_HOSTS = {
     "jobs.baxter.com",
     "jobs.parexel.com",
     "jobs.sunpharma.com",
+    "careers.breadfinancial.com",
+    "careers.mars.com",
+    "www.metlifecareers.com",
 }
 
 ZOHO_PUBLIC_NAMES = {
@@ -187,6 +195,19 @@ def deferred_source_names(path: Path = DEFERRED_FILE) -> list[str]:
             raise ValueError(f"invalid v44 deferred line: {raw_line!r}")
         names.append(name.strip())
     return names
+
+
+def deferred_source_reasons(path: Path = DEFERRED_FILE) -> dict[str, str]:
+    reasons: dict[str, str] = {}
+    for raw_line in path.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#"):
+            continue
+        name, separator, reason = line.partition("|")
+        if not separator or reason not in DEFERRED_REASONS:
+            raise ValueError(f"invalid v44 deferred line: {raw_line!r}")
+        reasons[name.strip().casefold()] = reason
+    return reasons
 
 
 def _workday_config(url: str) -> dict[str, Any]:
@@ -431,6 +452,44 @@ def classify_source(name: str, url: str) -> dict[str, Any]:
             ),
             org_id="e73676a8-bc5a-4b43-b9c6-d3fc7a60b572",
         )
+    elif name == "Avalara":
+        company.update(
+            ats="jibe_api",
+            url="https://careers.avalara.com/api/jobs",
+            career_site_url="https://careers.avalara.com/careers-home/jobs",
+            page_size=100,
+            max_results=500,
+        )
+    elif name in {"Bread Financial", "Mars"}:
+        path_prefix = {
+            "Bread Financial": "/us/en",
+            "Mars": "/global/en",
+        }[name]
+        company.update(
+            ats="phenom",
+            url=f"{parsed.scheme}://{parsed.netloc}/widgets",
+            career_site_url=f"{parsed.scheme}://{parsed.netloc}{path_prefix}",
+            search_terms=DEFAULT_SEARCH_TERMS,
+            search_cities=["Bengaluru", "Bangalore", "Remote"],
+            page_size=50,
+            max_pages_per_query=3,
+        )
+    elif name == "MetLife GOSC":
+        company.update(
+            ats="static_job_links",
+            url="https://www.metlifecareers.com/en_US/ml/SearchJobs",
+            career_site_url=url,
+            job_url_pattern=STATIC_JOB_LINK_SOURCES[name],
+            max_results=100,
+        )
+    elif name == "JCB India":
+        company.update(
+            ats="static_job_links",
+            url="https://careers.jcb.com/search",
+            career_site_url=url,
+            job_url_pattern=STATIC_JOB_LINK_SOURCES[name],
+            max_results=100,
+        )
     elif name == "National Australia Bank — NAB":
         company.update(
             ats="eightfold",
@@ -651,6 +710,10 @@ def classify_source(name: str, url: str) -> dict[str, Any]:
             career_site_url=url,
             max_candidate_details=10,
         )
+    deferred_reason = deferred_source_reasons().get(name.casefold())
+    if deferred_reason:
+        company["enabled"] = False
+        company["source_status"] = deferred_reason
     return company
 
 

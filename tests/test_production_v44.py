@@ -16,13 +16,24 @@ class ProductionV44Tests(unittest.TestCase):
 
     def test_catalog_and_registry_counts(self) -> None:
         self.assertEqual(261, len(source_registry_v44._catalog_rows()))
-        self.assertEqual(56, len(source_registry_v44.deferred_source_names()))
+        self.assertEqual(111, len(source_registry_v44.deferred_source_names()))
+        self.assertEqual(
+            111, len(set(source_registry_v44.deferred_source_names()))
+        )
         self.assertEqual(259, len(source_registry_v44.build_source_overrides()))
         self.assertEqual(799, len(self.companies))
         self.assertEqual(
-            789,
+            734,
             sum(1 for item in self.companies.values() if item.get("enabled", True)),
         )
+
+    def test_unverifiable_catalog_sources_are_retained_but_not_scanned(self) -> None:
+        self.assertFalse(self.companies["FanCode"]["enabled"])
+        self.assertEqual(
+            "NO_RELIABLE_FEED", self.companies["FanCode"]["source_status"]
+        )
+        self.assertFalse(self.companies["UBS"]["enabled"])
+        self.assertEqual("RUNNER_BLOCKED", self.companies["UBS"]["source_status"])
 
     def test_runner_blocked_source_is_not_scanned_as_an_empty_board(self) -> None:
         self.assertFalse(self.companies["H&M Group"]["enabled"])
@@ -38,6 +49,12 @@ class ProductionV44Tests(unittest.TestCase):
             "Eightfold AI": "eightfold",
             "Ameriprise Financial": "ameriprise_html",
             "Intuitive Surgical": "smartrecruiters",
+            "Avalara": "jibe_api",
+            "Bread Financial": "phenom",
+            "Mars": "phenom",
+            "MetLife GOSC": "static_job_links",
+            "JCB India": "static_job_links",
+            "Hyundai Motor India": "successfactors_search",
             "Kimberly-Clark": "workday_search",
             "KaleidEO": "kaleideo_wordpress",
             "New York Life India": "successfactors_search",
