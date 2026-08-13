@@ -1,7 +1,9 @@
 {
   "allowlist_count": 1005,
   "failed_sources": [
-    "ANZ",
+    "Cirrus Logic",
+    "ColorTokens",
+    "Credo Semiconductor",
     "Evalueserve",
     "Gramener",
     "H&M Group",
@@ -14,6 +16,6 @@
     "Skit.ai",
     "UBS"
   ],
-  "last_notice_utc": "2026-08-13T22:30:45.999679+00:00",
+  "last_notice_utc": "2026-08-13T23:31:42.751001+00:00",
   "official_source_count": 790
 }
