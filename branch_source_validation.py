@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any
@@ -28,22 +29,42 @@ def source_names(path: Path) -> list[str]:
 
 
 def validate_source(company: dict[str, Any]) -> dict[str, Any]:
-    try:
-        parser = {
-            "workable": job_monitor_parallel.parse_workable,
-            "recruitee": job_monitor_parallel.parse_recruitee,
-        }.get(company.get("ats"))
-        jobs = (
-            parser(company)
-            if parser is not None
-            else custom_source_parsers_v30.fetch_company_jobs_with_custom_v30(company)
+    jobs: list[bot.Job] = []
+    last_error = ""
+    swallowed_error = False
+    for attempt in range(3):
+        prior_errors = sum(
+            company["name"].casefold() in error.casefold()
+            for error in bot.SCAN_ERRORS
         )
-    except Exception as exc:  # Defensive: custom adapters normally contain errors.
+        try:
+            parser = {
+                "workable": job_monitor_parallel.parse_workable,
+                "recruitee": job_monitor_parallel.parse_recruitee,
+            }.get(company.get("ats"))
+            jobs = (
+                parser(company)
+                if parser is not None
+                else custom_source_parsers_v30.fetch_company_jobs_with_custom_v30(company)
+            )
+        except Exception as exc:  # Defensive: custom adapters normally contain errors.
+            last_error = f"{type(exc).__name__}: {exc}"
+        current_errors = sum(
+            company["name"].casefold() in error.casefold()
+            for error in bot.SCAN_ERRORS
+        )
+        swallowed_error = current_errors > prior_errors
+        if jobs or (not swallowed_error and not last_error):
+            break
+        if attempt < 2:
+            time.sleep(2 ** attempt)
+            last_error = ""
+    if not jobs and (last_error or swallowed_error):
         return {
             "name": company["name"],
             "status": "FAILED",
             "job_count": 0,
-            "error": f"{type(exc).__name__}: {exc}",
+            "error": last_error or "production adapter failed after 3 attempts",
         }
     return {
         "name": company["name"],
@@ -88,18 +109,6 @@ def run(overrides_file: Path, output: Path, workers: int) -> int:
                 flush=True,
             )
             results.append(result)
-
-    failed_names = {
-        company["name"]
-        for company in selected
-        if any(
-            company["name"].casefold() in error.casefold()
-            for error in bot.SCAN_ERRORS
-        )
-    }
-    for result in results:
-        if result["name"] in failed_names:
-            result["status"] = "FAILED"
 
     results.sort(key=lambda item: item["name"].casefold())
     summary = {

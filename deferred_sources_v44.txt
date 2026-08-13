@@ -1,4 +1,5 @@
 # Explicitly deferred because no reliable GitHub-runner feed is available. Format: Company|Reason
+Tonbo Imaging|RUNNER_BLOCKED
 Agnit Semiconductors|NO_PUBLIC_BOARD
 Asteria Aerospace|NO_RELIABLE_FEED
 Atomberg|NO_PUBLIC_BOARD

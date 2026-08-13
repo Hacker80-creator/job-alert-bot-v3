@@ -293,6 +293,88 @@ def parse_kaleideo_wordpress(company: dict[str, Any]) -> list[bot.Job]:
     return jobs
 
 
+def parse_wordpress_post_type(company: dict[str, Any]) -> list[bot.Job]:
+    """Map a first-party WordPress careers post type to stable job records."""
+    response = requests.get(
+        company["url"],
+        headers={**BROWSER_HEADERS, "Accept": "application/json"},
+        timeout=40,
+    )
+    response.raise_for_status()
+    documents = response.json()
+    if isinstance(documents, dict):
+        documents = [documents]
+    jobs: list[bot.Job] = []
+    for document in documents:
+        if not isinstance(document, dict):
+            continue
+        title = bot.clean_text(unescape(str(
+            (document.get("title") or {}).get("rendered") or ""
+        )))
+        url = str(document.get("link") or "").strip()
+        job_id = str(document.get("id") or document.get("slug") or "").strip()
+        if not title or not url or not job_id:
+            continue
+        description_html = str(
+            (document.get("content") or {}).get("rendered") or ""
+        )
+        jobs.append(bot.Job(
+            company=company["name"],
+            title=title,
+            location=company.get("default_location", "Bengaluru, India"),
+            url=url,
+            source="Official careers: WordPress",
+            description=bot.clean_text(
+                BeautifulSoup(description_html, "html.parser").get_text(" ")
+            ),
+            requisition_id=job_id,
+            wlb_score=company.get("wlb_score", 3),
+        ))
+    return jobs
+
+
+def parse_signalchip_wordpress(company: dict[str, Any]) -> list[bot.Job]:
+    """Read Signalchip's current-position sections from its WordPress API."""
+    response = requests.get(
+        company["url"],
+        headers={**BROWSER_HEADERS, "Accept": "application/json"},
+        timeout=40,
+    )
+    response.raise_for_status()
+    documents = response.json()
+    if isinstance(documents, dict):
+        documents = [documents]
+    page = " ".join(
+        str((document.get("content") or {}).get("rendered") or "")
+        for document in documents
+        if isinstance(document, dict)
+    )
+    soup = BeautifulSoup(page, "html.parser")
+    jobs: list[bot.Job] = []
+    for panel in soup.select(".sow-accordion-panel"):
+        title_node = panel.select_one(".sow-accordion-title")
+        text = bot.clean_text(title_node.get_text(" ") if title_node else "")
+        if not text:
+            continue
+        job_id = re.sub(r"[^a-z0-9]+", "-", text.casefold()).strip("-")
+        if not job_id:
+            continue
+        detail_node = panel.select_one(".sow-accordion-panel-content")
+        jobs.append(bot.Job(
+            company=company["name"],
+            title=text,
+            location=company.get("default_location", "Bengaluru, India"),
+            url=f"{company['career_site_url']}#{job_id}",
+            source="Official careers: Signalchip",
+            description=bot.clean_text(
+                detail_node.get_text(" ") if detail_node else ""
+            ),
+            requisition_id=job_id,
+            wlb_score=company.get("wlb_score", 3),
+        ))
+    return jobs
+
+
 def parse_ameriprise_html(company: dict[str, Any]) -> list[bot.Job]:
     """Query Ameriprise's first-party, server-rendered job search."""
     terms = company.get("search_terms") or ["data", "analytics", "AI"]
@@ -385,6 +467,8 @@ def fetch_company_jobs_with_custom_v30(company: dict[str, Any]) -> list[bot.Job]
         "darwinbox_v2": parse_darwinbox_v2,
         "tonbo_html": parse_tonbo_html,
         "kaleideo_wordpress": parse_kaleideo_wordpress,
+        "wordpress_post_type": parse_wordpress_post_type,
+        "signalchip_wordpress": parse_signalchip_wordpress,
         "ameriprise_html": parse_ameriprise_html,
         "lululemon_avature": parse_lululemon_avature,
     }.get(company.get("ats"))

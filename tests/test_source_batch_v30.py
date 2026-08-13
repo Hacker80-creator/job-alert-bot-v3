@@ -106,6 +106,44 @@ class SourceBatchV30Tests(unittest.TestCase):
         self.assertEqual("image-processing-scientist", jobs[0].requisition_id)
         self.assertEqual("Bengaluru, India", jobs[0].location)
 
+    @patch("custom_source_parsers_v30.requests.get")
+    def test_wordpress_post_type_maps_stable_record(self, get: Mock) -> None:
+        response = Mock()
+        response.raise_for_status.return_value = None
+        response.json.return_value = [{
+            "id": 8737,
+            "link": "https://career.example/job_opening/data-engineer/",
+            "title": {"rendered": "Data Engineer"},
+            "content": {"rendered": "<p>Build reliable pipelines.</p>"},
+        }]
+        get.return_value = response
+        jobs = parsers.parse_wordpress_post_type({
+            "name": "Molecular Connections",
+            "url": "https://career.example/wp-json/wp/v2/job_opening",
+        })
+        self.assertEqual("Data Engineer", jobs[0].title)
+        self.assertEqual("8737", jobs[0].requisition_id)
+        self.assertEqual("Build reliable pipelines.", jobs[0].description)
+
+    @patch("custom_source_parsers_v30.requests.get")
+    def test_signalchip_maps_current_position_headings(self, get: Mock) -> None:
+        response = Mock()
+        response.raise_for_status.return_value = None
+        response.json.return_value = [{"content": {"rendered": '''
+          <div class="sow-accordion-panel">
+            <div class="sow-accordion-title">Communications Protocol Engineer</div>
+            <div class="sow-accordion-panel-content">Build protocol stack software.</div>
+          </div>
+        '''}}]
+        get.return_value = response
+        jobs = parsers.parse_signalchip_wordpress({
+            "name": "Signalchip",
+            "url": "https://signalchip.example/wp-json/wp/v2/pages",
+            "career_site_url": "https://signalchip.example/job-openings/",
+        })
+        self.assertEqual("Communications Protocol Engineer", jobs[0].title)
+        self.assertEqual("communications-protocol-engineer", jobs[0].requisition_id)
+
     @patch("custom_source_parsers_v30.requests.post")
     def test_lululemon_maps_avature_detail(self, post: Mock) -> None:
         response = Mock(

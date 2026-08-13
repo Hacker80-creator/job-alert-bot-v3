@@ -13,12 +13,12 @@ class ProductionV44Tests(unittest.TestCase):
         self.companies = {item["name"]: item for item in self.config["companies"]}
 
     def test_catalog_and_registry_counts(self) -> None:
-        self.assertEqual(264, len(source_registry_v44._catalog_rows()))
-        self.assertEqual(53, len(source_registry_v44.deferred_source_names()))
-        self.assertEqual(262, len(source_registry_v44.build_source_overrides()))
-        self.assertEqual(802, len(self.companies))
+        self.assertEqual(263, len(source_registry_v44._catalog_rows()))
+        self.assertEqual(54, len(source_registry_v44.deferred_source_names()))
+        self.assertEqual(261, len(source_registry_v44.build_source_overrides()))
+        self.assertEqual(801, len(self.companies))
         self.assertEqual(
-            793,
+            792,
             sum(1 for item in self.companies.values() if item.get("enabled", True)),
         )
 
@@ -32,7 +32,9 @@ class ProductionV44Tests(unittest.TestCase):
             "Intuitive Surgical": "smartrecruiters",
             "Kimberly-Clark": "workday_search",
             "KaleidEO": "kaleideo_wordpress",
-            "Tonbo Imaging": "tonbo_html",
+            "Molecular Connections": "wordpress_post_type",
+            "New York Life India": "successfactors_search",
+            "Signalchip": "signalchip_wordpress",
             "redBus": "trakstar_html",
             "SpotDraft": "ashby",
             "Smarsh": "lever",

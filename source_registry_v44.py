@@ -189,6 +189,36 @@ def classify_source(name: str, url: str) -> dict[str, Any]:
             career_site_url=url,
             default_location="Bengaluru, India",
         )
+    elif name == "Molecular Connections":
+        company.update(
+            ats="wordpress_post_type",
+            url=(
+                "https://career.molecularconnections.com/"
+                "wp-json/wp/v2/job_opening?per_page=100"
+            ),
+            career_site_url="https://career.molecularconnections.com/job_opening/",
+            default_location="Bengaluru, India",
+        )
+    elif name == "New York Life India":
+        company.update(
+            ats="successfactors_search",
+            url="https://jobs.newyorklife.com/search/",
+            career_site_url=url,
+            search_location="India",
+            search_terms=DEFAULT_SEARCH_TERMS,
+            max_pages_per_term=2,
+            max_candidate_details=10,
+        )
+    elif name == "Signalchip":
+        company.update(
+            ats="signalchip_wordpress",
+            url=(
+                "https://www.signalchip.com/wp-json/wp/v2/pages"
+                "?slug=job-openings"
+            ),
+            career_site_url=url,
+            default_location="Bengaluru, India",
+        )
     elif name == "Dassault Systèmes":
         company.update(
             ats="dassault_xml",
@@ -242,13 +272,6 @@ def classify_source(name: str, url: str) -> dict[str, Any]:
             url="https://careers.lululemon.com/en_US/careers/SearchCareer",
             career_site_url=url,
             search_terms=["data", "analytics", "AI"],
-        )
-    elif name == "Tonbo Imaging":
-        company.update(
-            ats="tonbo_html",
-            url="https://tonboimaging.com/defense/wp-json/wp/v2/pages/11924",
-            career_site_url=url,
-            default_location="Bengaluru, India",
         )
     elif name in {"Impetus Technologies", "Rakuten India", "Reverie Language Technologies", "Sony India Software Centre"}:
         zwayam = {
