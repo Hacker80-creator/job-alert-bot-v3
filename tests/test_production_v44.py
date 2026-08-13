@@ -16,14 +16,14 @@ class ProductionV44Tests(unittest.TestCase):
 
     def test_catalog_and_registry_counts(self) -> None:
         self.assertEqual(261, len(source_registry_v44._catalog_rows()))
-        self.assertEqual(111, len(source_registry_v44.deferred_source_names()))
+        self.assertEqual(113, len(source_registry_v44.deferred_source_names()))
         self.assertEqual(
-            111, len(set(source_registry_v44.deferred_source_names()))
+            113, len(set(source_registry_v44.deferred_source_names()))
         )
         self.assertEqual(259, len(source_registry_v44.build_source_overrides()))
         self.assertEqual(799, len(self.companies))
         self.assertEqual(
-            734,
+            732,
             sum(1 for item in self.companies.values() if item.get("enabled", True)),
         )
 
@@ -34,6 +34,17 @@ class ProductionV44Tests(unittest.TestCase):
         )
         self.assertFalse(self.companies["UBS"]["enabled"])
         self.assertEqual("RUNNER_BLOCKED", self.companies["UBS"]["source_status"])
+        for name in ("Detect Technologies", "HyperVerge"):
+            self.assertFalse(self.companies[name]["enabled"])
+            self.assertEqual(
+                "RUNNER_BLOCKED", self.companies[name]["source_status"]
+            )
+
+    def test_niramai_uses_current_official_careers_url(self) -> None:
+        self.assertEqual(
+            "https://niramai.com/careers/",
+            self.companies["Niramai"]["career_site_url"],
+        )
 
     def test_runner_blocked_source_is_not_scanned_as_an_empty_board(self) -> None:
         self.assertFalse(self.companies["H&M Group"]["enabled"])
