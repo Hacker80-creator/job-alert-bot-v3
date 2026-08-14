@@ -2,7 +2,7 @@
   "allowlist_count": 1005,
   "failed_sources": [
     "10x Genomics",
-    "ColorTokens",
+    "Acer",
     "Credo Semiconductor",
     "Evalueserve",
     "Gramener",
@@ -17,6 +17,6 @@
     "Skit.ai",
     "UBS"
   ],
-  "last_notice_utc": "2026-08-14T14:42:56.618197+00:00",
+  "last_notice_utc": "2026-08-14T15:34:35.094182+00:00",
   "official_source_count": 790
 }
