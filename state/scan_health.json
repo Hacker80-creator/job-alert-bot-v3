@@ -2,7 +2,9 @@
   "allowlist_count": 1005,
   "failed_sources": [
     "10x Genomics",
-    "ANZ",
+    "Cirrus Logic",
+    "ColorTokens",
+    "Credo Semiconductor",
     "Evalueserve",
     "Gramener",
     "H&M Group",
@@ -16,6 +18,6 @@
     "Skit.ai",
     "UBS"
   ],
-  "last_notice_utc": "2026-08-14T22:03:07.737486+00:00",
+  "last_notice_utc": "2026-08-14T22:41:32.468758+00:00",
   "official_source_count": 790
 }
