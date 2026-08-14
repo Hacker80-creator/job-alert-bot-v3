@@ -2,6 +2,11 @@
   "allowlist_count": 1005,
   "failed_sources": [
     "10x Genomics",
+    "Adidas",
+    "Alstom",
+    "Ameriprise Financial",
+    "Avaya",
+    "Bayer",
     "Cirrus Logic",
     "ColorTokens",
     "Credo Semiconductor",
@@ -12,12 +17,22 @@
     "Housing.com",
     "Liftoff Mobile",
     "MedGenome",
+    "Nestl\u00e9",
+    "Novo Nordisk",
     "ProductDossier",
+    "Reckitt",
     "River Mobility",
+    "SAP",
+    "Schaeffler",
     "Schneider Electric",
     "Skit.ai",
-    "UBS"
+    "Swiss Re",
+    "Tata Motors",
+    "UBS",
+    "Vestas",
+    "Volvo Cars",
+    "ZF Group"
   ],
-  "last_notice_utc": "2026-08-14T22:41:32.468758+00:00",
+  "last_notice_utc": "2026-08-14T23:02:50.411828+00:00",
   "official_source_count": 790
 }
