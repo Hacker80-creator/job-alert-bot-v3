@@ -2,10 +2,6 @@
   "allowlist_count": 1005,
   "failed_sources": [
     "10x Genomics",
-    "Altizon",
-    "Cipla",
-    "Cirrus Logic",
-    "ColorTokens",
     "Credo Semiconductor",
     "Evalueserve",
     "Gramener",
@@ -19,6 +15,6 @@
     "Skit.ai",
     "UBS"
   ],
-  "last_notice_utc": "2026-08-14T20:49:33.029210+00:00",
+  "last_notice_utc": "2026-08-14T21:43:12.090849+00:00",
   "official_source_count": 790
 }
