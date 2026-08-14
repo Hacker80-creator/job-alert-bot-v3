@@ -2,9 +2,6 @@
   "allowlist_count": 1005,
   "failed_sources": [
     "10x Genomics",
-    "Ameriprise Financial",
-    "Boston Scientific",
-    "Cirrus Logic",
     "ColorTokens",
     "Credo Semiconductor",
     "Evalueserve",
@@ -20,6 +17,6 @@
     "Skit.ai",
     "UBS"
   ],
-  "last_notice_utc": "2026-08-14T13:34:28.218284+00:00",
+  "last_notice_utc": "2026-08-14T14:42:56.618197+00:00",
   "official_source_count": 790
 }
