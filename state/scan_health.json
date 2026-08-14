@@ -2,7 +2,7 @@
   "allowlist_count": 1005,
   "failed_sources": [
     "10x Genomics",
-    "Becton Dickinson",
+    "Cirrus Logic",
     "ColorTokens",
     "Credo Semiconductor",
     "Evalueserve",
@@ -14,10 +14,9 @@
     "MedGenome",
     "ProductDossier",
     "River Mobility",
-    "Schneider Electric",
     "Skit.ai",
     "UBS"
   ],
-  "last_notice_utc": "2026-08-14T18:38:20.264349+00:00",
+  "last_notice_utc": "2026-08-14T19:42:00.036700+00:00",
   "official_source_count": 790
 }
