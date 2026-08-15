@@ -2,23 +2,26 @@
   "allowlist_count": 1005,
   "failed_sources": [
     "10x Genomics",
-    "Cipla",
-    "Cirrus Logic",
     "ColorTokens",
     "Credo Semiconductor",
+    "Detect Technologies",
     "Evalueserve",
+    "FermionIC Design",
     "Gramener",
     "H&M Group",
     "Hitachi Astemo",
     "Housing.com",
+    "HyperVerge",
     "Liftoff Mobile",
     "MedGenome",
+    "Niramai",
     "ProductDossier",
     "River Mobility",
-    "Schaeffler",
     "Skit.ai",
-    "UBS"
+    "UBS",
+    "Vymo",
+    "Zurich Insurance Group"
   ],
-  "last_notice_utc": "2026-08-15T11:01:16.377975+00:00",
+  "last_notice_utc": "2026-08-15T11:37:31.521803+00:00",
   "official_source_count": 790
 }
