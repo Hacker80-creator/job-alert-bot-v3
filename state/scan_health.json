@@ -2,12 +2,16 @@
   "allowlist_count": 1005,
   "failed_sources": [
     "10x Genomics",
-    "Chargebee",
+    "Cirrus Logic",
+    "ColorTokens",
+    "Credo Semiconductor",
     "Evalueserve",
     "Gramener",
     "H&M Group",
     "Hitachi Astemo",
     "Housing.com",
+    "ICICI Securities",
+    "Lazada",
     "Liftoff Mobile",
     "MedGenome",
     "ProductDossier",
@@ -16,6 +20,6 @@
     "Skit.ai",
     "UBS"
   ],
-  "last_notice_utc": "2026-08-15T15:02:01.676827+00:00",
+  "last_notice_utc": "2026-08-15T15:39:04.903928+00:00",
   "official_source_count": 790
 }
