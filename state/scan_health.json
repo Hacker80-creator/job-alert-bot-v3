@@ -2,7 +2,6 @@
   "allowlist_count": 1005,
   "failed_sources": [
     "10x Genomics",
-    "Cirrus Logic",
     "ColorTokens",
     "Credo Semiconductor",
     "Evalueserve",
@@ -10,16 +9,13 @@
     "H&M Group",
     "Hitachi Astemo",
     "Housing.com",
-    "ICICI Securities",
-    "Lazada",
     "Liftoff Mobile",
     "MedGenome",
     "ProductDossier",
     "River Mobility",
-    "Schneider Electric",
     "Skit.ai",
     "UBS"
   ],
-  "last_notice_utc": "2026-08-15T15:39:04.903928+00:00",
+  "last_notice_utc": "2026-08-15T15:59:22.144586+00:00",
   "official_source_count": 790
 }
