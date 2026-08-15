@@ -2,7 +2,6 @@
   "allowlist_count": 1005,
   "failed_sources": [
     "10x Genomics",
-    "Cirrus Logic",
     "ColorTokens",
     "Credo Semiconductor",
     "Evalueserve",
@@ -13,12 +12,11 @@
     "Liftoff Mobile",
     "MedGenome",
     "ProductDossier",
-    "Qatar Airways Technology",
     "River Mobility",
     "Schneider Electric",
     "Skit.ai",
     "UBS"
   ],
-  "last_notice_utc": "2026-08-15T19:37:22.072448+00:00",
+  "last_notice_utc": "2026-08-15T19:57:59.115626+00:00",
   "official_source_count": 790
 }
