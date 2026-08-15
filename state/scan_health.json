@@ -2,6 +2,7 @@
   "allowlist_count": 1005,
   "failed_sources": [
     "10x Genomics",
+    "Altizon",
     "Cirrus Logic",
     "ColorTokens",
     "Credo Semiconductor",
@@ -11,6 +12,7 @@
     "Hitachi Astemo",
     "Housing.com",
     "Liftoff Mobile",
+    "M2P Fintech",
     "MedGenome",
     "ProductDossier",
     "River Mobility",
@@ -18,6 +20,6 @@
     "Skit.ai",
     "UBS"
   ],
-  "last_notice_utc": "2026-08-15T13:07:57.753044+00:00",
+  "last_notice_utc": "2026-08-15T13:46:55.774110+00:00",
   "official_source_count": 790
 }
