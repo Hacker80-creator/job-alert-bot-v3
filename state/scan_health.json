@@ -2,13 +2,11 @@
   "allowlist_count": 1005,
   "failed_sources": [
     "10x Genomics",
-    "Dell Technologies",
     "Evalueserve",
     "Gramener",
     "H&M Group",
     "Hitachi Astemo",
     "Housing.com",
-    "ICICI Securities",
     "Liftoff Mobile",
     "MedGenome",
     "ProductDossier",
@@ -17,6 +15,6 @@
     "Skit.ai",
     "UBS"
   ],
-  "last_notice_utc": "2026-08-15T03:09:15.997686+00:00",
+  "last_notice_utc": "2026-08-15T03:57:17.962564+00:00",
   "official_source_count": 790
 }
