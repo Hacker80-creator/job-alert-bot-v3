@@ -2,7 +2,8 @@
   "allowlist_count": 1005,
   "failed_sources": [
     "10x Genomics",
-    "Cipla",
+    "ANZ",
+    "Becton Dickinson",
     "Cirrus Logic",
     "ColorTokens",
     "Credo Semiconductor",
@@ -19,6 +20,6 @@
     "Skit.ai",
     "UBS"
   ],
-  "last_notice_utc": "2026-08-15T10:02:54.012546+00:00",
+  "last_notice_utc": "2026-08-15T10:40:31.470616+00:00",
   "official_source_count": 790
 }
