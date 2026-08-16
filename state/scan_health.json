@@ -2,9 +2,13 @@
   "allowlist_count": 1005,
   "failed_sources": [
     "10x Genomics",
+    "Bayer",
+    "ColorTokens",
+    "Credo Semiconductor",
     "Evalueserve",
     "Gramener",
     "H&M Group",
+    "Hero MotoCorp",
     "Hitachi Astemo",
     "Housing.com",
     "Liftoff Mobile",
@@ -12,9 +16,8 @@
     "ProductDossier",
     "River Mobility",
     "Skit.ai",
-    "Syngene International",
     "UBS"
   ],
-  "last_notice_utc": "2026-08-16T06:07:50.846455+00:00",
+  "last_notice_utc": "2026-08-16T07:02:59.018642+00:00",
   "official_source_count": 790
 }
