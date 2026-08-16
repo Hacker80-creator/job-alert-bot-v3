@@ -2,23 +2,25 @@
   "allowlist_count": 1005,
   "failed_sources": [
     "10x Genomics",
-    "Detect Technologies",
+    "Cirrus Logic",
+    "CloudSEK",
+    "ColorTokens",
+    "Credo Semiconductor",
     "Evalueserve",
-    "FermionIC Design",
     "Gramener",
     "H&M Group",
     "Hitachi Astemo",
     "Housing.com",
-    "HyperVerge",
     "Liftoff Mobile",
     "MedGenome",
-    "Niramai",
     "ProductDossier",
     "River Mobility",
+    "Schneider Electric",
     "Skit.ai",
+    "Tata 1mg",
     "UBS",
-    "Vymo"
+    "athenahealth"
   ],
-  "last_notice_utc": "2026-08-16T15:59:55.163076+00:00",
+  "last_notice_utc": "2026-08-16T16:45:14.498470+00:00",
   "official_source_count": 790
 }
