@@ -2,7 +2,6 @@
   "allowlist_count": 1005,
   "failed_sources": [
     "10x Genomics",
-    "Credo Semiconductor",
     "Evalueserve",
     "Gramener",
     "H&M Group",
@@ -12,10 +11,10 @@
     "MedGenome",
     "ProductDossier",
     "River Mobility",
-    "Schneider Electric",
     "Skit.ai",
+    "Syngene International",
     "UBS"
   ],
-  "last_notice_utc": "2026-08-16T05:45:40.706731+00:00",
+  "last_notice_utc": "2026-08-16T06:07:50.846455+00:00",
   "official_source_count": 790
 }
