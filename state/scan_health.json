@@ -2,9 +2,6 @@
   "allowlist_count": 1005,
   "failed_sources": [
     "10x Genomics",
-    "Cirrus Logic",
-    "ColorTokens",
-    "Credo Semiconductor",
     "Evalueserve",
     "Gramener",
     "H&M Group",
@@ -14,10 +11,9 @@
     "MedGenome",
     "ProductDossier",
     "River Mobility",
-    "Schneider Electric",
     "Skit.ai",
     "UBS"
   ],
-  "last_notice_utc": "2026-08-16T19:37:33.587300+00:00",
+  "last_notice_utc": "2026-08-16T19:58:11.777688+00:00",
   "official_source_count": 790
 }
