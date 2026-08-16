@@ -2,8 +2,6 @@
   "allowlist_count": 1005,
   "failed_sources": [
     "10x Genomics",
-    "Altizon",
-    "Baxter",
     "Evalueserve",
     "Gramener",
     "H&M Group",
@@ -13,10 +11,9 @@
     "MedGenome",
     "ProductDossier",
     "River Mobility",
-    "Schneider Electric",
     "Skit.ai",
     "UBS"
   ],
-  "last_notice_utc": "2026-08-16T20:42:00.753688+00:00",
+  "last_notice_utc": "2026-08-16T21:00:20.847831+00:00",
   "official_source_count": 790
 }
