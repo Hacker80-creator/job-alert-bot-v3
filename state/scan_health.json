@@ -2,8 +2,9 @@
   "allowlist_count": 1005,
   "failed_sources": [
     "10x Genomics",
-    "AMD",
-    "Altizon",
+    "Alstom",
+    "Avaya",
+    "Bayer",
     "Cirrus Logic",
     "ColorTokens",
     "Credo Semiconductor",
@@ -12,15 +13,18 @@
     "H&M Group",
     "Hitachi Astemo",
     "Housing.com",
+    "Lazada",
     "Liftoff Mobile",
     "MedGenome",
-    "Presidio",
+    "Nestl\u00e9",
     "ProductDossier",
     "River Mobility",
-    "Schneider Electric",
+    "Schaeffler",
     "Skit.ai",
-    "UBS"
+    "Swiss Re",
+    "UBS",
+    "ZF Group"
   ],
-  "last_notice_utc": "2026-08-17T21:07:49.942746+00:00",
+  "last_notice_utc": "2026-08-17T21:43:26.037251+00:00",
   "official_source_count": 790
 }
