@@ -2,30 +2,20 @@
   "allowlist_count": 1005,
   "failed_sources": [
     "10x Genomics",
-    "Adidas",
     "Alstom",
-    "Cirrus Logic",
-    "ColorTokens",
-    "Credo Semiconductor",
-    "Detect Technologies",
+    "Aurobindo Pharma",
     "Evalueserve",
-    "FermionIC Design",
     "Gramener",
     "H&M Group",
     "Hitachi Astemo",
     "Housing.com",
-    "HyperVerge",
     "Liftoff Mobile",
     "MedGenome",
-    "Niramai",
     "ProductDossier",
-    "Realtek",
     "River Mobility",
-    "Schneider Electric",
     "Skit.ai",
-    "UBS",
-    "Vymo"
+    "UBS"
   ],
-  "last_notice_utc": "2026-08-17T18:09:42.342791+00:00",
+  "last_notice_utc": "2026-08-17T19:01:08.405787+00:00",
   "official_source_count": 790
 }
