@@ -2,9 +2,7 @@
   "allowlist_count": 1005,
   "failed_sources": [
     "10x Genomics",
-    "Alstom",
-    "Avaya",
-    "Bayer",
+    "ANZ",
     "Cirrus Logic",
     "ColorTokens",
     "Credo Semiconductor",
@@ -16,15 +14,12 @@
     "Lazada",
     "Liftoff Mobile",
     "MedGenome",
-    "Nestl\u00e9",
+    "Novo Nordisk",
     "ProductDossier",
     "River Mobility",
-    "Schaeffler",
     "Skit.ai",
-    "Swiss Re",
-    "UBS",
-    "ZF Group"
+    "UBS"
   ],
-  "last_notice_utc": "2026-08-17T21:43:26.037251+00:00",
+  "last_notice_utc": "2026-08-17T22:03:32.622699+00:00",
   "official_source_count": 790
 }
