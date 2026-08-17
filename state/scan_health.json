@@ -2,7 +2,7 @@
   "allowlist_count": 1005,
   "failed_sources": [
     "10x Genomics",
-    "Alstom",
+    "Avaya",
     "Cirrus Logic",
     "ColorTokens",
     "Credo Semiconductor",
@@ -15,11 +15,10 @@
     "MedGenome",
     "ProductDossier",
     "River Mobility",
-    "Schaeffler",
-    "Schneider Electric",
     "Skit.ai",
-    "UBS"
+    "UBS",
+    "Vestas"
   ],
-  "last_notice_utc": "2026-08-17T17:09:41.201760+00:00",
+  "last_notice_utc": "2026-08-17T17:45:40.767719+00:00",
   "official_source_count": 790
 }
