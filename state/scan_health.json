@@ -3,6 +3,7 @@
   "failed_sources": [
     "10x Genomics",
     "Evalueserve",
+    "Flipkart",
     "Gramener",
     "H&M Group",
     "Hitachi Astemo",
@@ -11,10 +12,9 @@
     "MedGenome",
     "ProductDossier",
     "River Mobility",
-    "Schneider Electric",
     "Skit.ai",
     "UBS"
   ],
-  "last_notice_utc": "2026-08-17T06:12:49.085436+00:00",
+  "last_notice_utc": "2026-08-17T07:20:47.903885+00:00",
   "official_source_count": 790
 }
