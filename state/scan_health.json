@@ -2,7 +2,10 @@
   "allowlist_count": 1005,
   "failed_sources": [
     "10x Genomics",
-    "Booking.com",
+    "Birlasoft",
+    "Cirrus Logic",
+    "ColorTokens",
+    "Credo Semiconductor",
     "Evalueserve",
     "Gramener",
     "H&M Group",
@@ -14,9 +17,8 @@
     "River Mobility",
     "Schneider Electric",
     "Skit.ai",
-    "Times Internet",
     "UBS"
   ],
-  "last_notice_utc": "2026-08-17T09:24:27.705295+00:00",
+  "last_notice_utc": "2026-08-17T10:18:34.270352+00:00",
   "official_source_count": 790
 }
