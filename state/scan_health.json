@@ -2,7 +2,7 @@
   "allowlist_count": 1005,
   "failed_sources": [
     "10x Genomics",
-    "Altizon",
+    "Acer",
     "Cirrus Logic",
     "ColorTokens",
     "Credo Semiconductor",
@@ -19,6 +19,6 @@
     "Skit.ai",
     "UBS"
   ],
-  "last_notice_utc": "2026-08-17T15:42:44.522873+00:00",
+  "last_notice_utc": "2026-08-17T16:01:59.210920+00:00",
   "official_source_count": 790
 }
