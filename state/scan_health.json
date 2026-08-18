@@ -2,8 +2,9 @@
   "allowlist_count": 1005,
   "failed_sources": [
     "10x Genomics",
-    "Acer",
     "Alkem Laboratories",
+    "Cirrus Logic",
+    "ColorTokens",
     "Credo Semiconductor",
     "Evalueserve",
     "Gramener",
@@ -15,8 +16,9 @@
     "ProductDossier",
     "River Mobility",
     "Skit.ai",
+    "Syngene International",
     "UBS"
   ],
-  "last_notice_utc": "2026-08-18T18:08:11.588047+00:00",
+  "last_notice_utc": "2026-08-18T19:00:56.870908+00:00",
   "official_source_count": 790
 }
