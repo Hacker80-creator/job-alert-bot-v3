@@ -2,8 +2,11 @@
   "allowlist_count": 1005,
   "failed_sources": [
     "10x Genomics",
+    "ANZ",
     "Alkem Laboratories",
+    "Altizon",
     "American Express",
+    "Cirrus Logic",
     "ColorTokens",
     "Credo Semiconductor",
     "Dassault Syst\u00e8mes",
@@ -20,6 +23,6 @@
     "Skit.ai",
     "UBS"
   ],
-  "last_notice_utc": "2026-08-18T21:03:26.985960+00:00",
+  "last_notice_utc": "2026-08-18T21:42:14.116477+00:00",
   "official_source_count": 790
 }
