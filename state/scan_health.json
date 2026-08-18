@@ -3,9 +3,8 @@
   "failed_sources": [
     "10x Genomics",
     "Alkem Laboratories",
-    "Cirrus Logic",
-    "ColorTokens",
-    "Credo Semiconductor",
+    "Ameriprise Financial",
+    "Dell Technologies",
     "Evalueserve",
     "Gramener",
     "H&M Group",
@@ -15,9 +14,10 @@
     "MedGenome",
     "ProductDossier",
     "River Mobility",
+    "Schneider Electric",
     "Skit.ai",
     "UBS"
   ],
-  "last_notice_utc": "2026-08-18T16:50:55.196309+00:00",
+  "last_notice_utc": "2026-08-18T17:45:35.508693+00:00",
   "official_source_count": 790
 }
