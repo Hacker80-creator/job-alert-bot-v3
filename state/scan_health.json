@@ -2,7 +2,6 @@
   "allowlist_count": 1005,
   "failed_sources": [
     "10x Genomics",
-    "ANZ",
     "Alstom",
     "Evalueserve",
     "Gramener",
@@ -18,6 +17,6 @@
     "Skit.ai",
     "UBS"
   ],
-  "last_notice_utc": "2026-08-17T23:40:07.104479+00:00",
+  "last_notice_utc": "2026-08-18T00:00:35.953459+00:00",
   "official_source_count": 790
 }
