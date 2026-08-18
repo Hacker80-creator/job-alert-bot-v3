@@ -2,22 +2,28 @@
   "allowlist_count": 1005,
   "failed_sources": [
     "10x Genomics",
+    "Ati Motors / Ati Robotics",
     "ColorTokens",
     "Credo Semiconductor",
+    "Detect Technologies",
     "Evalueserve",
+    "FermionIC Design",
     "Gramener",
     "H&M Group",
-    "Hero MotoCorp",
     "Hitachi Astemo",
     "Housing.com",
+    "HyperVerge",
+    "Kwalee",
     "Liftoff Mobile",
     "MedGenome",
+    "Niramai",
     "ProductDossier",
     "River Mobility",
     "Schneider Electric",
     "Skit.ai",
-    "UBS"
+    "UBS",
+    "Vymo"
   ],
-  "last_notice_utc": "2026-08-18T13:13:00.293530+00:00",
+  "last_notice_utc": "2026-08-18T13:59:33.420842+00:00",
   "official_source_count": 790
 }
