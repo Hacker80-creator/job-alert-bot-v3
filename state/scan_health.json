@@ -2,21 +2,24 @@
   "allowlist_count": 1005,
   "failed_sources": [
     "10x Genomics",
-    "ColorTokens",
-    "Costco Wholesale",
-    "Credo Semiconductor",
-    "Evalueserve",
+    "Altizon",
+    "Detect Technologies",
+    "FermionIC Design",
     "Gramener",
     "H&M Group",
     "Hitachi Astemo",
     "Housing.com",
+    "HyperVerge",
     "Liftoff Mobile",
     "MedGenome",
+    "Niramai",
     "ProductDossier",
     "River Mobility",
     "Skit.ai",
-    "UBS"
+    "UBS",
+    "Vymo",
+    "Waters Corporation"
   ],
-  "last_notice_utc": "2026-08-18T01:53:42.084181+00:00",
+  "last_notice_utc": "2026-08-18T03:13:36.786340+00:00",
   "official_source_count": 790
 }
