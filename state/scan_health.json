@@ -4,6 +4,9 @@
     "10x Genomics",
     "Alkem Laboratories",
     "American Express",
+    "Cirrus Logic",
+    "CloudSEK",
+    "ColorTokens",
     "Credo Semiconductor",
     "Dassault Syst\u00e8mes",
     "Evalueserve",
@@ -11,14 +14,17 @@
     "H&M Group",
     "Hitachi Astemo",
     "Housing.com",
+    "Kwalee",
     "Liftoff Mobile",
     "MedGenome",
     "ProductDossier",
     "River Mobility",
     "Schneider Electric",
     "Skit.ai",
-    "UBS"
+    "Tata 1mg",
+    "UBS",
+    "athenahealth"
   ],
-  "last_notice_utc": "2026-08-18T22:00:23.874447+00:00",
+  "last_notice_utc": "2026-08-18T22:42:34.195193+00:00",
   "official_source_count": 790
 }
