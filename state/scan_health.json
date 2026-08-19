@@ -3,7 +3,6 @@
   "failed_sources": [
     "10x Genomics",
     "American Express",
-    "ColorTokens",
     "Credo Semiconductor",
     "Dassault Syst\u00e8mes",
     "Evalueserve",
@@ -11,15 +10,13 @@
     "H&M Group",
     "Hitachi Astemo",
     "Housing.com",
-    "Kwalee",
     "Liftoff Mobile",
     "MedGenome",
     "ProductDossier",
     "River Mobility",
-    "Schneider Electric",
     "Skit.ai",
     "UBS"
   ],
-  "last_notice_utc": "2026-08-19T07:08:26.008206+00:00",
+  "last_notice_utc": "2026-08-19T07:58:04.505799+00:00",
   "official_source_count": 790
 }
