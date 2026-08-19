@@ -3,9 +3,9 @@
   "failed_sources": [
     "10x Genomics",
     "American Express",
-    "Credo Semiconductor",
-    "Dassault Syst\u00e8mes",
     "Evalueserve",
+    "Flipkart",
+    "Gnani.ai",
     "Gramener",
     "H&M Group",
     "Hitachi Astemo",
@@ -14,9 +14,10 @@
     "MedGenome",
     "ProductDossier",
     "River Mobility",
+    "Schneider Electric",
     "Skit.ai",
     "UBS"
   ],
-  "last_notice_utc": "2026-08-19T07:58:04.505799+00:00",
+  "last_notice_utc": "2026-08-19T08:59:07.554273+00:00",
   "official_source_count": 790
 }
