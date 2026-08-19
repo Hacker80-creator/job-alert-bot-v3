@@ -2,8 +2,9 @@
   "allowlist_count": 1005,
   "failed_sources": [
     "10x Genomics",
-    "Altizon",
     "American Express",
+    "ColorTokens",
+    "Credo Semiconductor",
     "Evalueserve",
     "Gramener",
     "H&M Group",
@@ -11,12 +12,12 @@
     "Housing.com",
     "Liftoff Mobile",
     "MedGenome",
+    "Nokia",
     "ProductDossier",
     "River Mobility",
-    "Schneider Electric",
     "Skit.ai",
     "UBS"
   ],
-  "last_notice_utc": "2026-08-19T11:44:13.427044+00:00",
+  "last_notice_utc": "2026-08-19T12:04:37.968897+00:00",
   "official_source_count": 790
 }
