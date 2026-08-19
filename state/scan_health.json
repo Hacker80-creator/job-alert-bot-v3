@@ -2,22 +2,21 @@
   "allowlist_count": 1005,
   "failed_sources": [
     "10x Genomics",
+    "Altizon",
     "American Express",
-    "Cipla",
-    "Credo Semiconductor",
     "Evalueserve",
     "Gramener",
     "H&M Group",
     "Hitachi Astemo",
     "Housing.com",
     "Liftoff Mobile",
-    "Maruti Suzuki",
     "MedGenome",
     "ProductDossier",
     "River Mobility",
+    "Schneider Electric",
     "Skit.ai",
     "UBS"
   ],
-  "last_notice_utc": "2026-08-19T11:08:59.012074+00:00",
+  "last_notice_utc": "2026-08-19T11:44:13.427044+00:00",
   "official_source_count": 790
 }
