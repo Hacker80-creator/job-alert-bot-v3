@@ -3,10 +3,11 @@
   "failed_sources": [
     "10x Genomics",
     "American Express",
-    "Ameriprise Financial",
+    "Birlasoft",
     "Cirrus Logic",
     "ColorTokens",
     "Credo Semiconductor",
+    "Dassault Syst\u00e8mes",
     "Evalueserve",
     "Gramener",
     "H&M Group",
@@ -19,6 +20,6 @@
     "Skit.ai",
     "UBS"
   ],
-  "last_notice_utc": "2026-08-19T17:44:06.555104+00:00",
+  "last_notice_utc": "2026-08-19T18:03:17.795765+00:00",
   "official_source_count": 790
 }
