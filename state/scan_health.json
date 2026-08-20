@@ -1,6 +1,8 @@
 {
   "allowlist_count": 966,
-  "failed_sources": [],
-  "last_notice_utc": "2026-08-20T17:11:39.628616+00:00",
+  "failed_sources": [
+    "Narayana Health Digital"
+  ],
+  "last_notice_utc": "2026-08-20T17:48:02.548375+00:00",
   "official_source_count": 732
 }
