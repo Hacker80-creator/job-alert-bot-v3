@@ -285,6 +285,48 @@ def classify_source(name: str, url: str) -> dict[str, Any]:
             search_terms=DEFAULT_SEARCH_TERMS,
             max_pages_per_term=2,
         )
+    elif name == "Cipla":
+        # Cipla's current SuccessFactors theme uses job tiles rather than the
+        # older table layout. Search the complete India board and let the
+        # normal title/location filters select relevant alerts downstream.
+        company.update(
+            ats="successfactors_search",
+            url="https://careers.cipla.com/search/",
+            career_site_url=url,
+            search_location="India",
+            search_terms=[""],
+            max_pages_per_term=8,
+            max_candidate_details=25,
+        )
+    elif name == "Netflix":
+        # Netflix currently has India roles outside Bengaluru. Reading the
+        # whole India board prevents a false zero while downstream matching
+        # still alerts only Bengaluru or Remote India roles.
+        company.update(
+            ats="eightfold_html",
+            url=url,
+            career_site_url=url,
+            search_terms=[""],
+            search_locations=["India"],
+            max_candidate_details=30,
+        )
+    elif name == "Ola":
+        company.update(
+            ats="turbohire_api",
+            url="https://thapi.azurewebsites.net/api/careerpagev2/filteredjobs",
+            career_site_url=url,
+            org_id="e0c1eb37-eb7a-4ca4-bcc5-d59ce4ce9212",
+            page_type=0,
+            aliases=["Ola Electric"],
+        )
+    elif name == "Zerodha":
+        # The current official board explicitly reports no openings. Keep the
+        # canonical URL so a future posting is discovered without a redirect.
+        company.update(
+            ats="html_search",
+            url=url,
+            career_site_url=url,
+        )
     elif name == "American Express":
         company.update(
             ats="oracle_hcm",

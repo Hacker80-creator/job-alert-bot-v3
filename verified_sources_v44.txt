@@ -168,12 +168,14 @@ National Australia Bank — NAB|https://careers.nab.com.au/
 Nestlé|https://www.nestle.in/jobs
 Netcore Cloud|https://netcorecloud.com/careers-list/
 Netradyne|https://careers.smartrecruiters.com/Netradyne
+Netflix|https://explore.jobs.netflix.net/careers
 New York Life India|https://jobs.newyorklife.com/
 NielsenIQ|https://careers.smartrecruiters.com/nielseniq
 Niramai|https://niramai.com/careers/
 Nissan Digital India|https://alliance.wd3.myworkdayjobs.com/en-US/nissanjobs?Location_Country=c4f78be1a8f14da0ab49ce1162348a5e&Location_Region_State_Province=65209da0144c4c0a888940bb289f14bc
 Oben Electric|https://careers.obenelectric.com/jobs/Careers
 OCBC Bank|https://www.ocbc.com/group/careers/opportunities-available.html
+Ola|https://olacareers.turbohire.co/dashboardv2?orgId=e0c1eb37-eb7a-4ca4-bcc5-d59ce4ce9212&type=0
 Parexel|https://jobs.parexel.com/en/search-jobs/india/877/1/search-jobs
 PepsiCo|https://www.pepsicojobs.com/
 PharmEasy|https://pharmeasy.in/careers/jobs/
@@ -260,6 +262,7 @@ Westpac|https://ebuu.fa.ap1.oraclecloud.com/hcmUI/CandidateExperience/en/sites/C
 Wix|https://careers.wix.com/positions
 Wolters Kluwer|https://wk.wd3.myworkdayjobs.com/External
 Wysa|https://www.wysa.com/careers
+Zerodha|https://careers.zerodha.com/
 Zetwerk|https://www.zetwerk.com/careers/
 Zluri|https://www.zluri.com/careers
 Zurich Insurance Group|https://www.careers.zurich.com/

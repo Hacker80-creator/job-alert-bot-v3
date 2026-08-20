@@ -145,6 +145,40 @@ class SourceBatchV11Tests(unittest.TestCase):
         self.assertEqual("https://jobs.example.com/job/123", jobs[0].url)
         self.assertIn("Python SQL", jobs[0].description)
 
+    def test_successfactors_search_reads_current_job_tiles(self) -> None:
+        company = {
+            "name": "Cipla",
+            "url": "https://careers.cipla.com/search/",
+            "career_site_url": "https://careers.cipla.com/",
+            "search_terms": [""],
+            "max_pages_per_term": 1,
+        }
+        search_html = """
+        <ul id="job-tile-list"><li class="job-tile job-id-1365522966">
+          <div class="sub-section-desktop">
+            <a class="jobTitle-link"
+              href="/job/Bangalore-Team-Member-Factory-Finance-Karn/1365522966/">
+              Team Member - Factory Finance</a>
+            <div class="customfield2"><div id="job-1-desktop-section-customfield2-value">Bangalore</div></div>
+            <div class="customfield3"><div id="job-1-desktop-section-customfield3-value">Karnataka</div></div>
+            <div class="customfield4"><div id="job-1-desktop-section-customfield4-value">India</div></div>
+            <div class="customfield5"><div id="job-1-desktop-section-customfield5-value">106001</div></div>
+          </div>
+        </li></ul>
+        """
+        response = Mock()
+        response.text = search_html
+        response.raise_for_status = Mock()
+        with patch.object(parsers.requests, "get", return_value=response), patch.object(
+            parsers.bot, "is_target_title", return_value=False
+        ):
+            jobs = parsers.parse_successfactors_search(company)
+
+        self.assertEqual(1, len(jobs))
+        self.assertEqual("Bangalore, Karnataka, India", jobs[0].location)
+        self.assertEqual("106001", jobs[0].requisition_id)
+        self.assertTrue(jobs[0].url.endswith("/1365522966/"))
+
     def test_sensehq_reads_open_jobs_and_experience(self) -> None:
         company = {
             "name": "Affine",

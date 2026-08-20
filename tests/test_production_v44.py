@@ -15,12 +15,12 @@ class ProductionV44Tests(unittest.TestCase):
         self.companies = {item["name"]: item for item in self.config["companies"]}
 
     def test_catalog_and_registry_counts(self) -> None:
-        self.assertEqual(265, len(source_registry_v44._catalog_rows()))
+        self.assertEqual(268, len(source_registry_v44._catalog_rows()))
         self.assertEqual(113, len(source_registry_v44.deferred_source_names()))
         self.assertEqual(
             113, len(set(source_registry_v44.deferred_source_names()))
         )
-        self.assertEqual(263, len(source_registry_v44.build_source_overrides()))
+        self.assertEqual(266, len(source_registry_v44.build_source_overrides()))
         self.assertEqual(799, len(self.companies))
         self.assertEqual(
             732,
@@ -159,6 +159,10 @@ class ProductionV44Tests(unittest.TestCase):
             "Gramener": "straive_gramener_html",
             "IBM": "ibm_avature",
             "River Mobility": "river_careers",
+            "Cipla": "successfactors_search",
+            "Netflix": "eightfold_html",
+            "Ola": "turbohire_api",
+            "Zerodha": "html_search",
         }
         for name, ats in expected.items():
             self.assertEqual(ats, self.companies[name]["ats"])
@@ -194,6 +198,12 @@ class ProductionV44Tests(unittest.TestCase):
         )
         self.assertEqual(
             "Gramener India", self.companies["Gramener"]["company_filter"]
+        )
+        self.assertEqual([""], self.companies["Cipla"]["search_terms"])
+        self.assertEqual(["India"], self.companies["Netflix"]["search_locations"])
+        self.assertEqual(
+            "https://careers.zerodha.com/",
+            self.companies["Zerodha"]["career_site_url"],
         )
 
     def test_workflow_runs_v44(self) -> None:
