@@ -314,6 +314,12 @@ def classify_source(name: str, url: str) -> dict[str, Any]:
             career_site_url=url,
             default_location="Bengaluru, India",
         )
+    elif name == "Samsara":
+        company.update(
+            ats="greenhouse",
+            slug="samsara",
+            career_site_url=url,
+        )
     elif name == "Molecular Connections":
         company.update(
             ats="wordpress_post_type",

@@ -69,6 +69,7 @@ class ProductionV44Tests(unittest.TestCase):
             "Kimberly-Clark": "workday_search",
             "KaleidEO": "kaleideo_wordpress",
             "Quantzig": "quantzig_accordion",
+            "Samsara": "greenhouse",
             "New York Life India": "successfactors_search",
             "redBus": "trakstar_html",
             "SpotDraft": "ashby",
