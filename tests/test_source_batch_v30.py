@@ -190,6 +190,9 @@ class SourceBatchV30Tests(unittest.TestCase):
         self.assertEqual("Enterprise Security Engineer", jobs[0].title)
         self.assertEqual("Bengaluru", jobs[0].location)
         self.assertEqual("662", jobs[0].requisition_id)
+        self.assertEqual(
+            "https://recruiterflow.com/coinswitch/jobs/662", jobs[0].url
+        )
 
     @patch("custom_source_parsers_v30.requests.get")
     def test_gnani_maps_first_party_job(self, get: Mock) -> None:

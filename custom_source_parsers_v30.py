@@ -357,6 +357,8 @@ def parse_recruiterflow_html(company: dict[str, Any]) -> list[bot.Job]:
     """Decode the public jobs payload embedded by Recruiterflow boards."""
     response = requests.get(company["url"], headers=BROWSER_HEADERS, timeout=40)
     response.raise_for_status()
+    parsed_url = urlparse(response.url)
+    site_root = f"{parsed_url.scheme}://{parsed_url.netloc}/"
     match = re.search(
         r"window\.jobsList\s*=\s*(\{.*?\})\s*;",
         response.text,
@@ -376,14 +378,15 @@ def parse_recruiterflow_html(company: dict[str, Any]) -> list[bot.Job]:
                 continue
             job_id = bot.clean_text(item.get("job_id"))
             title = bot.clean_text(item.get("job_name"))
-            if not job_id or not title or job_id in seen:
+            apply_link = str(item.get("apply_link") or "").strip()
+            if not job_id or not title or not apply_link or job_id in seen:
                 continue
             seen.add(job_id)
             jobs.append(bot.Job(
                 company=company["name"],
                 title=title,
                 location=bot.clean_text(item.get("details")),
-                url=urljoin(response.url, str(item.get("apply_link") or "")),
+                url=urljoin(site_root, apply_link),
                 source="Official careers: Recruiterflow",
                 description=bot.clean_text(" | ".join(filter(None, [
                     str(item.get("employment_type") or ""),
