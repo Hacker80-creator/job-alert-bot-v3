@@ -307,6 +307,13 @@ def classify_source(name: str, url: str) -> dict[str, Any]:
             career_site_url=url,
             default_location="Bengaluru, India",
         )
+    elif name == "Quantzig":
+        company.update(
+            ats="quantzig_accordion",
+            url=url,
+            career_site_url=url,
+            default_location="Bengaluru, India",
+        )
     elif name == "Molecular Connections":
         company.update(
             ats="wordpress_post_type",

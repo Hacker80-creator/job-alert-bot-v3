@@ -68,6 +68,7 @@ class ProductionV44Tests(unittest.TestCase):
             "Hyundai Motor India": "successfactors_search",
             "Kimberly-Clark": "workday_search",
             "KaleidEO": "kaleideo_wordpress",
+            "Quantzig": "quantzig_accordion",
             "New York Life India": "successfactors_search",
             "redBus": "trakstar_html",
             "SpotDraft": "ashby",

@@ -760,6 +760,47 @@ def parse_static_job_links(company: dict[str, Any]) -> list[bot.Job]:
     return jobs
 
 
+def parse_quantzig_accordion(company: dict[str, Any]) -> list[bot.Job]:
+    """Read the first-party job accordions on Quantzig's careers page."""
+    response = requests.get(company["url"], headers=BROWSER_HEADERS, timeout=40)
+    response.raise_for_status()
+    soup = BeautifulSoup(response.text, "html.parser")
+    jobs: list[bot.Job] = []
+    seen: set[str] = set()
+    for card in soup.select(".accordion-item"):
+        button = card.select_one(".accordion-button")
+        if button is None:
+            continue
+        title_button = BeautifulSoup(str(button), "html.parser")
+        for metadata in title_button.select("span"):
+            metadata.decompose()
+        title = bot.clean_text(title_button.get_text(" "))
+        metadata = bot.clean_text(
+            button.select_one("span").get_text(" ")
+            if button.select_one("span")
+            else ""
+        )
+        location_match = re.search(r"Job Location\s*:\s*(.+)", metadata, re.I)
+        location = bot.clean_text(location_match.group(1)) if location_match else ""
+        slug = re.sub(r"[^a-z0-9]+", "-", title.casefold()).strip("-")
+        if not title or not slug or slug in seen:
+            continue
+        seen.add(slug)
+        body = card.select_one(".accordion-body")
+        description = bot.clean_text(body.get_text(" ") if body else metadata)
+        jobs.append(bot.Job(
+            company=company["name"],
+            title=title,
+            location=location or company.get("default_location", "Bengaluru, India"),
+            url=f"{company['career_site_url'].rstrip('/')}#{slug}",
+            source="Official careers: Quantzig",
+            description=description,
+            requisition_id=slug,
+            wlb_score=company.get("wlb_score", 3),
+        ))
+    return jobs
+
+
 def parse_tonbo_html(company: dict[str, Any]) -> list[bot.Job]:
     """Read Tonbo's current roles from its GitHub-compatible WordPress API."""
     response = requests.get(
@@ -1028,6 +1069,7 @@ def fetch_company_jobs_with_custom_v30(company: dict[str, Any]) -> list[bot.Job]
         "hrone_html": parse_hrone_html,
         "evalueserve_html": parse_evalueserve_html,
         "static_job_links": parse_static_job_links,
+        "quantzig_accordion": parse_quantzig_accordion,
         "tonbo_html": parse_tonbo_html,
         "kaleideo_wordpress": parse_kaleideo_wordpress,
         "wordpress_post_type": parse_wordpress_post_type,

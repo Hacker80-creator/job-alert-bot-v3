@@ -296,6 +296,47 @@ class SourceBatchV30Tests(unittest.TestCase):
         self.assertEqual("Bengaluru, India", jobs[0].location)
 
     @patch("custom_source_parsers_v30.requests.get")
+    def test_quantzig_maps_first_party_accordion(self, get: Mock) -> None:
+        response = Mock(
+            url="https://www.quantzig.com/careers/",
+            text='''<div class="accordion-item">
+              <h2><button class="accordion-button">
+                Analytics Consultant – Business Intelligence
+                <span><b>Job Location:</b> Bangalore</span>
+              </button></h2>
+              <div id="flush-3" class="accordion-collapse">
+                <div class="accordion-body">
+                  <p><strong>Experience:</strong> 2 to 6 years</p>
+                  <p>Power BI, SQL, DAX, analytics consulting.</p>
+                </div>
+              </div>
+            </div>''',
+        )
+        response.raise_for_status.return_value = None
+        get.return_value = response
+
+        jobs = parsers.parse_quantzig_accordion({
+            "name": "Quantzig",
+            "url": response.url,
+            "career_site_url": response.url,
+        })
+
+        self.assertEqual(1, len(jobs))
+        self.assertEqual(
+            "Analytics Consultant – Business Intelligence", jobs[0].title
+        )
+        self.assertEqual("Bangalore", jobs[0].location)
+        self.assertEqual(
+            "analytics-consultant-business-intelligence",
+            jobs[0].requisition_id,
+        )
+        self.assertEqual(
+            "https://www.quantzig.com/careers#analytics-consultant-business-intelligence",
+            jobs[0].url,
+        )
+        self.assertIn("Power BI", jobs[0].description)
+
+    @patch("custom_source_parsers_v30.requests.get")
     def test_kaleideo_maps_wordpress_role_card(self, get: Mock) -> None:
         response = Mock()
         response.raise_for_status.return_value = None
