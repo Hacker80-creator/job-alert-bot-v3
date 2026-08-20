@@ -1,6 +1,8 @@
 {
   "allowlist_count": 966,
-  "failed_sources": [],
-  "last_notice_utc": "2026-08-20T22:47:10.840491+00:00",
+  "failed_sources": [
+    "Niramai"
+  ],
+  "last_notice_utc": "2026-08-20T23:44:02.428923+00:00",
   "official_source_count": 732
 }
