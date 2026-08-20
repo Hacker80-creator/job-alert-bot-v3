@@ -1,4 +1,5 @@
 # Verified first-party/current-opening source candidates. Format: Company|URL
+10x Genomics|https://careers.kula.ai/10xgenomics
 7-Eleven Global Solution Center|https://7-elevengsc.com/jobs/
 AB InBev|https://ab-inbev-gcc.sensehq.com/careers
 ACI Worldwide|https://ebwg.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/
@@ -11,6 +12,7 @@ Alkem Laboratories|https://www.alkemlabs.com/career
 Alphawave Semi|https://alphawave.wd10.myworkdayjobs.com/Alphawave_External
 Altizon|https://altizon.com/careers
 Amagi|https://www.amagi.com/careers/open-roles
+American Express|https://careers.americanexpress.com/en/sites/CX_1/jobs
 Ambarella|https://ambarella.wd108.myworkdayjobs.com/Ambarella
 Ameriprise Financial|https://careers.ameriprise.com/search-jobs
 Annalect|https://indiacareers.omnicomglobalsolutions.com/jobs
@@ -87,6 +89,7 @@ GlobalFoundries|https://globalfoundries.wd1.myworkdayjobs.com/External
 Gnani.ai|https://careers.gnani.ai/
 GoKwik|https://gokwik.keka.com/careers/
 GreyOrange|https://careers.greyorange.com/greyorange/
+Gramener|https://gramener.com/careers/
 Guidewire|https://guidewire.wd5.myworkdayjobs.com/external
 H&M Group|https://career.hm.com/in-en/
 Haber|https://haberwater.com/join-us
@@ -194,6 +197,7 @@ redBus|https://redbus.hire.trakstar.com/jobs
 RELX|https://relx.wd3.myworkdayjobs.com/relx
 ResMed|https://resmed.wd3.myworkdayjobs.com/ResMed_External_Careers
 Reverie Language Technologies|https://careers.reverieinc.com/reverieinc/
+River Mobility|https://www.rideriver.com/careers/current-openings
 Rockstar India|https://www.rockstargames.com/careers/offices/rockstar-india
 Saankhya Labs|https://iablcp.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/TejasNetworks/jobs
 Safe Security|https://jobs.lever.co/safe/

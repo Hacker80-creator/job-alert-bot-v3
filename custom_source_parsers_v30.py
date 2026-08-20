@@ -1060,6 +1060,167 @@ def parse_lululemon_avature(company: dict[str, Any]) -> list[bot.Job]:
     return list(jobs_by_id.values())
 
 
+def parse_ibm_avature(company: dict[str, Any]) -> list[bot.Job]:
+    """Search IBM's first-party Avature HTML before its WAF redirect."""
+    terms = company.get("search_terms") or ["data", "machine learning", "AI"]
+    records_per_page = max(9, int(company.get("records_per_page", 48)))
+    pages_per_term = max(1, int(company.get("max_pages_per_term", 2)))
+    location_field = company.get("location_filter_field")
+    india_filter = company.get("india_location_filter")
+    arrangement_field = company.get("work_arrangement_filter_field")
+    remote_filter = company.get("remote_work_filter")
+    location_keyword = bot.clean_text(company.get("local_location_keyword"))
+    profiles: list[tuple[str, dict[str, str], str]] = []
+    for term in terms:
+        base_filters = (
+            {str(location_field): str(india_filter)}
+            if location_field and india_filter else {}
+        )
+        profiles.append((
+            f"{term} {location_keyword}".strip(),
+            base_filters,
+            f"{location_keyword}, India" if location_keyword else "",
+        ))
+        if (
+            company.get("include_remote_india", False)
+            and arrangement_field
+            and remote_filter
+        ):
+            profiles.append((
+                str(term),
+                {
+                    **base_filters,
+                    str(arrangement_field): str(remote_filter),
+                },
+                "Remote, India",
+            ))
+    jobs_by_id: dict[str, bot.Job] = {}
+
+    for term, filters, inferred_location in profiles:
+        for page in range(pages_per_term):
+            response = requests.post(
+                company["url"],
+                params={
+                    "jobRecordsPerPage": records_per_page,
+                    "jobOffset": page * records_per_page,
+                },
+                data={
+                    "listFilterMode": "true",
+                    "search": term,
+                    "timeZone": "Asia/Kolkata",
+                    **filters,
+                },
+                headers={
+                    **BROWSER_HEADERS,
+                    "Referer": (
+                        "https://ibmglobal.avature.net/"
+                        "en_US/careers/SearchJobs"
+                    ),
+                },
+                timeout=45,
+                allow_redirects=False,
+            )
+            response.raise_for_status()
+            soup = BeautifulSoup(response.text, "html.parser")
+            cards = soup.select("article.article--card")
+            for card in cards:
+                title_node = card.select_one(
+                    ".article__header__text__title a[href*='JobDetail']"
+                )
+                if title_node is None:
+                    continue
+                url = urljoin(response.url, str(title_node.get("href") or ""))
+                job_id = bot.clean_text(
+                    (parse_qs(urlparse(url).query).get("jobId") or [""])[0]
+                )
+                title = bot.clean_text(title_node.get_text(" "))
+                if not job_id or not title:
+                    continue
+                location_node = card.select_one(".card-item-location")
+                department_node = card.select_one(
+                    ".article__header__text__pretitle"
+                )
+                jobs_by_id.setdefault(job_id, bot.Job(
+                    company=company["name"],
+                    title=title,
+                    location=(
+                        inferred_location
+                        or bot.clean_text(
+                            location_node.get_text(" ")
+                            if location_node else ""
+                        )
+                    ),
+                    url=url,
+                    source="Official careers: IBM Avature",
+                    description=bot.clean_text(card.get_text(" ")),
+                    department=bot.clean_text(
+                        department_node.get_text(" ")
+                        if department_node else ""
+                    ),
+                    requisition_id=job_id,
+                    wlb_score=company.get("wlb_score", 3),
+                ))
+            if len(cards) < records_per_page:
+                break
+
+    if not jobs_by_id:
+        raise ValueError("IBM Avature response exposed no job cards")
+    return list(jobs_by_id.values())
+
+
+def parse_river_careers_v44(company: dict[str, Any]) -> list[bot.Job]:
+    """Read River's public jobs API with the headers used by its own site."""
+    response = requests.get(
+        company["url"],
+        headers={
+            **BROWSER_HEADERS,
+            "Accept": "application/json,text/plain,*/*",
+            "Origin": "https://www.rideriver.com",
+            "Referer": (
+                "https://www.rideriver.com/careers/current-openings"
+            ),
+            "Sec-Fetch-Dest": "empty",
+            "Sec-Fetch-Mode": "cors",
+            "Sec-Fetch-Site": "cross-site",
+        },
+        timeout=40,
+    )
+    response.raise_for_status()
+    groups = response.json().get("data") or {}
+    jobs: list[bot.Job] = []
+    for department, records in groups.items():
+        for item in records or []:
+            job_id = bot.clean_text(item.get("requisitionId"))
+            title = bot.clean_text(
+                item.get("requisitionTitle") or item.get("designation")
+            )
+            if not job_id or not title:
+                continue
+            location = bot.flatten_location(item.get("officeLocationNames"))
+            query = urlencode({
+                "location": location,
+                "department": department,
+                "title": title,
+            })
+            jobs.append(bot.Job(
+                company=company["name"],
+                title=title,
+                location=location,
+                url=(
+                    "https://www.rideriver.com/careers/current-openings/"
+                    f"{job_id}?{query}"
+                ),
+                source="Official careers: River",
+                description=bot.clean_text(item.get("jobDescription")),
+                department=bot.clean_text(
+                    item.get("orgUnitName") or department
+                ),
+                requisition_id=job_id,
+                wlb_score=company.get("wlb_score", 3),
+            ))
+    return jobs
+
+
 def fetch_company_jobs_with_custom_v30(company: dict[str, Any]) -> list[bot.Job]:
     parser = {
         "dassault_xml": parse_dassault_xml,
@@ -1079,6 +1240,8 @@ def fetch_company_jobs_with_custom_v30(company: dict[str, Any]) -> list[bot.Job]
         "signalchip_wordpress": parse_signalchip_wordpress,
         "ameriprise_html": parse_ameriprise_html,
         "lululemon_avature": parse_lululemon_avature,
+        "ibm_avature": parse_ibm_avature,
+        "river_careers": parse_river_careers_v44,
     }.get(company.get("ats"))
     if parser is None:
         return BASE_CUSTOM_FETCH(company)

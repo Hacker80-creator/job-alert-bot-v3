@@ -857,7 +857,10 @@ def _eightfold_search_json(
             time.sleep(min(max_delay, base_delay * (2 ** attempt)))
             continue
 
-        if response.status_code not in {429, 502, 503}:
+        # Some Eightfold tenants return 403 as a temporary anti-bot throttle
+        # after earlier pages succeeded. Preserve those earlier jobs exactly as
+        # we already do for 429 instead of failing the entire company scan.
+        if response.status_code not in {403, 429, 502, 503}:
             response.raise_for_status()
             return response.json()
         if attempt + 1 >= attempts:

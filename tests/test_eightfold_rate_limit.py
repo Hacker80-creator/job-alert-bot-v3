@@ -72,6 +72,15 @@ class EightfoldRateLimitTests(unittest.TestCase):
         self.assertEqual(2, request.call_count)
         sleep.assert_called_once_with(0)
 
+    def test_persistent_403_is_treated_as_temporary_throttle(self) -> None:
+        responses = [FakeResponse(403), FakeResponse(403), FakeResponse(403)]
+        with patch.object(bot.requests, "get", side_effect=responses) as request, patch.object(
+            bot.time, "sleep"
+        ):
+            payload = bot._eightfold_search_json(self.company, {"query": "data"})
+        self.assertIsNone(payload)
+        self.assertEqual(3, request.call_count)
+
 
 if __name__ == "__main__":
     unittest.main()

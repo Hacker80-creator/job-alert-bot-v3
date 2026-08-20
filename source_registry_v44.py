@@ -98,6 +98,7 @@ STATIC_JOB_LINK_SOURCES = {
     ),
     "Facilio": r"^https://facilio\.com/careers/[^/?#]+/?$",
     "HomeLane": r"^https://sentinel\.homelane\.com/jobs/[^/?#]+/?$",
+    "Gramener": r"^https://gramener\.com/careers/[a-z0-9-]+/?$",
     "HyperVerge": r"^https://www\.linkedin\.com/jobs/view/\d+/?(?:\?.*)?$",
     "InVideo": r"^https://careers\.invideo\.io/roles/[^/?#]+/?$",
     "Incedo": r"^https://www\.incedoinc\.com/career/[^/?#]+/?$",
@@ -285,6 +286,53 @@ def classify_source(name: str, url: str) -> dict[str, Any]:
             search_terms=DEFAULT_SEARCH_TERMS,
             max_pages_per_term=2,
         )
+    elif name == "American Express":
+        company.update(
+            ats="oracle_hcm",
+            url=(
+                "https://egug.fa.us2.oraclecloud.com/hcmRestApi/resources/"
+                "latest/recruitingCEJobRequisitions"
+            ),
+            career_site_url=url,
+            site_number="CX_1",
+            search_terms=DEFAULT_SEARCH_TERMS,
+            max_results_per_term=48,
+        )
+    elif name == "Cirrus Logic":
+        company.update(
+            ats="lever",
+            slug="cirrus",
+            api_host="api.eu.lever.co",
+            career_site_url=url,
+        )
+    elif name == "IBM":
+        company.update(
+            ats="ibm_avature",
+            url="https://ibmglobal.avature.net/en_US/careers/OpenJobs",
+            career_site_url=(
+                "https://careers.ibm.com/en_US/careers/SearchJobs"
+            ),
+            search_terms=DEFAULT_SEARCH_TERMS,
+            records_per_page=48,
+            max_pages_per_term=1,
+            local_location_keyword="Bangalore",
+            location_filter_field="10296[]",
+            india_location_filter="103855",
+            work_arrangement_filter_field="10297[]",
+            remote_work_filter="583469",
+            include_remote_india=True,
+        )
+    elif name == "River Mobility":
+        company.update(
+            ats="river_careers",
+            url=(
+                "https://main-svc-v2.prd.rideriver.com/"
+                "api/v1/career/jobs"
+            ),
+            career_site_url=(
+                "https://www.rideriver.com/careers/current-openings"
+            ),
+        )
     elif name == "Intuitive Surgical":
         company.update(
             ats="smartrecruiters",
@@ -374,9 +422,13 @@ def classify_source(name: str, url: str) -> dict[str, Any]:
             url="https://apply.slb.com/api/pcsx/search",
             career_site_url="https://apply.slb.com/careers",
             domain="slb.com",
-            search_terms=DEFAULT_SEARCH_TERMS,
-            search_locations=["Bengaluru, Karnataka, India", "Remote, India"],
-            max_results_per_search=30,
+            search_terms=["data", "machine learning", "analytics", "AI"],
+            search_locations=["India"],
+            max_results_per_search=20,
+            search_request_delay_seconds=0.2,
+            rate_limit_attempts=3,
+            rate_limit_base_delay_seconds=1,
+            rate_limit_max_delay_seconds=4,
         )
     elif name == "Nestlé":
         company.update(
