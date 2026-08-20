@@ -187,6 +187,7 @@ class ProductionV44Tests(unittest.TestCase):
         )
         self.assertEqual("103855", self.companies["IBM"]["india_location_filter"])
         self.assertEqual("583469", self.companies["IBM"]["remote_work_filter"])
+        self.assertEqual(8, self.companies["IBM"]["max_pages_per_term"])
         self.assertEqual(
             "https://www.straive.com/careers/job-postings/",
             self.companies["Gramener"]["url"],
@@ -282,7 +283,6 @@ class ProductionV44Tests(unittest.TestCase):
             "name": "IBM",
             "url": response.url,
             "career_site_url": "https://careers.ibm.com/en_US/careers/SearchJobs",
-            "search_terms": ["data"],
             "records_per_page": 48,
             "max_pages_per_term": 1,
             "local_location_keyword": "Bangalore",
@@ -294,9 +294,53 @@ class ProductionV44Tests(unittest.TestCase):
         self.assertEqual(1, len(jobs))
         self.assertEqual("12345", jobs[0].requisition_id)
         self.assertEqual("Bangalore, India", jobs[0].location)
-        self.assertEqual("data Bangalore", post.call_args.kwargs["data"]["search"])
+        self.assertEqual("Bangalore", post.call_args.kwargs["data"]["search"])
         self.assertEqual("103855", post.call_args.kwargs["data"]["10296[]"])
         self.assertFalse(post.call_args.kwargs["allow_redirects"])
+
+    @patch("custom_source_parsers_v30.requests.post")
+    def test_ibm_avature_paginates_complete_location_profile(
+        self, post: Mock
+    ) -> None:
+        def card(job_id: int) -> str:
+            return (
+                '<article class="article article--card">'
+                '<span class="article__header__text__pretitle">Data & AI</span>'
+                '<h3 class="article__header__text__title">'
+                '<a href="https://careers.ibm.com/en_US/careers/'
+                f'JobDetail?jobId={job_id}">Data Engineer</a></h3>'
+                '<span class="card-item-location">India</span></article>'
+            )
+
+        first_page = Mock()
+        first_page.url = "https://ibmglobal.avature.net/en_US/careers/OpenJobs"
+        first_page.text = "".join(card(index) for index in range(48))
+        first_page.raise_for_status.return_value = None
+        second_page = Mock()
+        second_page.url = first_page.url
+        second_page.text = card(48)
+        second_page.raise_for_status.return_value = None
+        post.side_effect = [first_page, second_page]
+
+        jobs = custom_source_parsers_v30.parse_ibm_avature({
+            "name": "IBM",
+            "url": first_page.url,
+            "records_per_page": 48,
+            "max_pages_per_term": 8,
+            "local_location_keyword": "Bangalore",
+            "location_filter_field": "10296[]",
+            "india_location_filter": "103855",
+            "include_remote_india": False,
+            "wlb_score": 4,
+        })
+
+        self.assertEqual(49, len(jobs))
+        self.assertEqual(2, post.call_count)
+        self.assertEqual(
+            [0, 48],
+            [call.kwargs["params"]["jobOffset"] for call in post.call_args_list],
+        )
+        self.assertTrue(all(job.location == "Bangalore, India" for job in jobs))
 
 
 if __name__ == "__main__":

@@ -311,9 +311,8 @@ def classify_source(name: str, url: str) -> dict[str, Any]:
             career_site_url=(
                 "https://careers.ibm.com/en_US/careers/SearchJobs"
             ),
-            search_terms=DEFAULT_SEARCH_TERMS,
             records_per_page=48,
-            max_pages_per_term=1,
+            max_pages_per_term=8,
             local_location_keyword="Bangalore",
             location_filter_field="10296[]",
             india_location_filter="103855",

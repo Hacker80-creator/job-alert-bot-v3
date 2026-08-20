@@ -1112,7 +1112,6 @@ def parse_lululemon_avature(company: dict[str, Any]) -> list[bot.Job]:
 
 def parse_ibm_avature(company: dict[str, Any]) -> list[bot.Job]:
     """Search IBM's first-party Avature HTML before its WAF redirect."""
-    terms = company.get("search_terms") or ["data", "machine learning", "AI"]
     records_per_page = max(9, int(company.get("records_per_page", 48)))
     pages_per_term = max(1, int(company.get("max_pages_per_term", 2)))
     location_field = company.get("location_filter_field")
@@ -1121,29 +1120,31 @@ def parse_ibm_avature(company: dict[str, Any]) -> list[bot.Job]:
     remote_filter = company.get("remote_work_filter")
     location_keyword = bot.clean_text(company.get("local_location_keyword"))
     profiles: list[tuple[str, dict[str, str], str]] = []
-    for term in terms:
-        base_filters = (
-            {str(location_field): str(india_filter)}
-            if location_field and india_filter else {}
-        )
+    base_filters = (
+        {str(location_field): str(india_filter)}
+        if location_field and india_filter else {}
+    )
+    if location_keyword:
         profiles.append((
-            f"{term} {location_keyword}".strip(),
+            location_keyword,
             base_filters,
-            f"{location_keyword}, India" if location_keyword else "",
+            f"{location_keyword}, India",
         ))
-        if (
-            company.get("include_remote_india", False)
-            and arrangement_field
-            and remote_filter
-        ):
-            profiles.append((
-                str(term),
-                {
-                    **base_filters,
-                    str(arrangement_field): str(remote_filter),
-                },
-                "Remote, India",
-            ))
+    if (
+        company.get("include_remote_india", False)
+        and arrangement_field
+        and remote_filter
+    ):
+        profiles.append((
+            "",
+            {
+                **base_filters,
+                str(arrangement_field): str(remote_filter),
+            },
+            "Remote, India",
+        ))
+    if not profiles:
+        raise ValueError("IBM Avature requires a location or remote profile")
     jobs_by_id: dict[str, bot.Job] = {}
 
     for term, filters, inferred_location in profiles:

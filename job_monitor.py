@@ -909,7 +909,12 @@ def parse_eightfold(company: dict[str, Any]) -> list[Job]:
                         f"WARN {company['name']} Eightfold rate limit persisted; "
                         f"keeping {len(jobs)} jobs collected before throttling"
                     )
-                    return jobs
+                    if jobs:
+                        return jobs
+                    raise RuntimeError(
+                        f"{company['name']} Eightfold rate limit persisted "
+                        "before any jobs were collected"
+                    )
                 if request_delay:
                     time.sleep(request_delay)
                 data = payload.get("data") or {}
