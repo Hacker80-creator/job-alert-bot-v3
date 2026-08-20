@@ -1,10 +1,6 @@
 {
   "allowlist_count": 966,
-  "failed_sources": [
-    "Dr. Reddy\u2019s Laboratories",
-    "Hero MotoCorp",
-    "Volvo Cars"
-  ],
-  "last_notice_utc": "2026-08-20T22:07:51.169827+00:00",
+  "failed_sources": [],
+  "last_notice_utc": "2026-08-20T22:47:10.840491+00:00",
   "official_source_count": 732
 }
