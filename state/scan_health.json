@@ -3,7 +3,6 @@
   "failed_sources": [
     "10x Genomics",
     "American Express",
-    "Cirrus Logic",
     "ColorTokens",
     "Credo Semiconductor",
     "Evalueserve",
@@ -13,12 +12,11 @@
     "Housing.com",
     "Liftoff Mobile",
     "MedGenome",
-    "Oracle",
     "ProductDossier",
     "River Mobility",
     "Skit.ai",
     "UBS"
   ],
-  "last_notice_utc": "2026-08-20T09:53:08.837401+00:00",
+  "last_notice_utc": "2026-08-20T10:48:29.517386+00:00",
   "official_source_count": 790
 }
