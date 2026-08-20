@@ -72,6 +72,17 @@ class EightfoldRateLimitTests(unittest.TestCase):
         self.assertEqual(2, request.call_count)
         sleep.assert_called_once_with(0)
 
+    def test_persistent_first_page_403_remains_a_visible_failure(self) -> None:
+        responses = [FakeResponse(403), FakeResponse(403), FakeResponse(403)]
+        with patch.object(bot.requests, "get", side_effect=responses) as request, patch.object(
+            bot.time, "sleep"
+        ):
+            with self.assertRaisesRegex(
+                RuntimeError, "before any jobs were collected"
+            ):
+                bot.parse_eightfold(self.company)
+        self.assertEqual(3, request.call_count)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -15,12 +15,12 @@ class ProductionV44Tests(unittest.TestCase):
         self.companies = {item["name"]: item for item in self.config["companies"]}
 
     def test_catalog_and_registry_counts(self) -> None:
-        self.assertEqual(261, len(source_registry_v44._catalog_rows()))
+        self.assertEqual(265, len(source_registry_v44._catalog_rows()))
         self.assertEqual(113, len(source_registry_v44.deferred_source_names()))
         self.assertEqual(
             113, len(set(source_registry_v44.deferred_source_names()))
         )
-        self.assertEqual(259, len(source_registry_v44.build_source_overrides()))
+        self.assertEqual(263, len(source_registry_v44.build_source_overrides()))
         self.assertEqual(799, len(self.companies))
         self.assertEqual(
             732,
@@ -153,6 +153,12 @@ class ProductionV44Tests(unittest.TestCase):
             "Gallagher": "jibe_api",
             "Rapido": "darwinbox_v2",
             "Zetwerk": "sensehq_next_data",
+            "10x Genomics": "kula_html",
+            "American Express": "oracle_hcm",
+            "Cirrus Logic": "lever",
+            "Gramener": "straive_gramener_html",
+            "IBM": "ibm_avature",
+            "River Mobility": "river_careers",
         }
         for name, ats in expected.items():
             self.assertEqual(ats, self.companies[name]["ats"])
@@ -163,6 +169,32 @@ class ProductionV44Tests(unittest.TestCase):
         self.assertIn("Beckman Coulter", self.companies["Danaher"]["aliases"])
         self.assertIn("Flutura", self.companies["Accenture"]["aliases"])
         self.assertIn("Saankhya Labs", self.companies["Tejas Networks"]["aliases"])
+
+    def test_repaired_sources_use_current_machine_readable_boards(self) -> None:
+        self.assertEqual(
+            "api.eu.lever.co", self.companies["Cirrus Logic"]["api_host"]
+        )
+        self.assertIn(
+            "egug.fa.us2.oraclecloud.com",
+            self.companies["American Express"]["url"],
+        )
+        self.assertEqual(
+            ["India"], self.companies["SLB"]["search_locations"]
+        )
+        self.assertEqual(
+            "https://careers.ibm.com/en_US/careers/SearchJobs",
+            self.companies["IBM"]["career_site_url"],
+        )
+        self.assertEqual("103855", self.companies["IBM"]["india_location_filter"])
+        self.assertEqual("583469", self.companies["IBM"]["remote_work_filter"])
+        self.assertEqual(8, self.companies["IBM"]["max_pages_per_term"])
+        self.assertEqual(
+            "https://www.straive.com/careers/job-postings/",
+            self.companies["Gramener"]["url"],
+        )
+        self.assertEqual(
+            "Gramener India", self.companies["Gramener"]["company_filter"]
+        )
 
     def test_workflow_runs_v44(self) -> None:
         workflow = (Path(__file__).parents[1] / ".github" / "workflows" / "job-alerts.yml").read_text(encoding="utf-8")
@@ -197,6 +229,118 @@ class ProductionV44Tests(unittest.TestCase):
         self.assertEqual("Data Engineer", jobs[0].title)
         self.assertEqual("abc-123", jobs[0].requisition_id)
         self.assertEqual("Bengaluru, India", jobs[0].location)
+
+    @patch("custom_source_parsers_v30.requests.get")
+    def test_straive_parser_keeps_only_gramener_jobs(self, get: Mock) -> None:
+        response = Mock()
+        response.url = "https://www.straive.com/careers/job-postings/"
+        response.text = (
+            '<table><tr data-company="Gramener India">'
+            '<td><a href="job-description?id=gram-123">Data Scientist</a></td>'
+            '<td>Analytics CoE</td>'
+            '<td title="Bangalore, India">Bangalore</td></tr>'
+            '<tr data-company="Straive - India">'
+            '<td><a href="job-description?id=parent-456">Data Analyst</a></td>'
+            '<td>Operations</td><td>Chennai, India</td></tr></table>'
+        )
+        response.raise_for_status.return_value = None
+        get.return_value = response
+
+        jobs = custom_source_parsers_v30.parse_straive_gramener_html({
+            "name": "Gramener",
+            "url": response.url,
+            "company_filter": "Gramener India",
+            "job_url_prefix": (
+                "https://straive.darwinbox.com/ms/candidate/"
+                "608647a17db00/careers/"
+            ),
+            "wlb_score": 4,
+        })
+
+        self.assertEqual(1, len(jobs))
+        self.assertEqual("gram-123", jobs[0].requisition_id)
+        self.assertEqual("Data Scientist", jobs[0].title)
+        self.assertEqual("Bangalore, India", jobs[0].location)
+        self.assertEqual("Analytics CoE", jobs[0].department)
+        self.assertTrue(jobs[0].url.endswith("/careers/gram-123"))
+
+    @patch("custom_source_parsers_v30.requests.post")
+    def test_ibm_avature_parses_pre_redirect_job_cards(self, post: Mock) -> None:
+        response = Mock()
+        response.url = "https://ibmglobal.avature.net/en_US/careers/OpenJobs"
+        response.text = (
+            '<article class="article article--card">'
+            '<span class="article__header__text__pretitle">Data & AI</span>'
+            '<h3 class="article__header__text__title">'
+            '<a href="https://careers.ibm.com/en_US/careers/JobDetail?jobId=12345">'
+            'Data Scientist</a></h3>'
+            '<span class="card-item-location">Bangalore, India</span>'
+            '</article>'
+        )
+        response.raise_for_status.return_value = None
+        post.return_value = response
+        jobs = custom_source_parsers_v30.parse_ibm_avature({
+            "name": "IBM",
+            "url": response.url,
+            "career_site_url": "https://careers.ibm.com/en_US/careers/SearchJobs",
+            "records_per_page": 48,
+            "max_pages_per_term": 1,
+            "local_location_keyword": "Bangalore",
+            "location_filter_field": "10296[]",
+            "india_location_filter": "103855",
+            "include_remote_india": False,
+            "wlb_score": 4,
+        })
+        self.assertEqual(1, len(jobs))
+        self.assertEqual("12345", jobs[0].requisition_id)
+        self.assertEqual("Bangalore, India", jobs[0].location)
+        self.assertEqual("Bangalore", post.call_args.kwargs["data"]["search"])
+        self.assertEqual("103855", post.call_args.kwargs["data"]["10296[]"])
+        self.assertFalse(post.call_args.kwargs["allow_redirects"])
+
+    @patch("custom_source_parsers_v30.requests.post")
+    def test_ibm_avature_paginates_complete_location_profile(
+        self, post: Mock
+    ) -> None:
+        def card(job_id: int) -> str:
+            return (
+                '<article class="article article--card">'
+                '<span class="article__header__text__pretitle">Data & AI</span>'
+                '<h3 class="article__header__text__title">'
+                '<a href="https://careers.ibm.com/en_US/careers/'
+                f'JobDetail?jobId={job_id}">Data Engineer</a></h3>'
+                '<span class="card-item-location">India</span></article>'
+            )
+
+        first_page = Mock()
+        first_page.url = "https://ibmglobal.avature.net/en_US/careers/OpenJobs"
+        first_page.text = "".join(card(index) for index in range(48))
+        first_page.raise_for_status.return_value = None
+        second_page = Mock()
+        second_page.url = first_page.url
+        second_page.text = card(48)
+        second_page.raise_for_status.return_value = None
+        post.side_effect = [first_page, second_page]
+
+        jobs = custom_source_parsers_v30.parse_ibm_avature({
+            "name": "IBM",
+            "url": first_page.url,
+            "records_per_page": 48,
+            "max_pages_per_term": 8,
+            "local_location_keyword": "Bangalore",
+            "location_filter_field": "10296[]",
+            "india_location_filter": "103855",
+            "include_remote_india": False,
+            "wlb_score": 4,
+        })
+
+        self.assertEqual(49, len(jobs))
+        self.assertEqual(2, post.call_count)
+        self.assertEqual(
+            [0, 48],
+            [call.kwargs["params"]["jobOffset"] for call in post.call_args_list],
+        )
+        self.assertTrue(all(job.location == "Bangalore, India" for job in jobs))
 
 
 if __name__ == "__main__":
