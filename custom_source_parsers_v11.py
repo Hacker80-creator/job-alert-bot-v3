@@ -311,7 +311,9 @@ def parse_successfactors_search(company: dict[str, Any]) -> list[bot.Job]:
             )
             response.raise_for_status()
             soup = BeautifulSoup(response.text, "html.parser")
-            rows = soup.select("tr.data-row")
+            # SuccessFactors' newer responsive theme renders <li> job tiles
+            # while older tenants still use table rows. Support both layouts.
+            rows = soup.select("tr.data-row, li.job-tile")
             for row in rows:
                 link = row.select_one("span.jobTitle.hidden-phone a.jobTitle-link")
                 if link is None:
@@ -322,17 +324,47 @@ def parse_successfactors_search(company: dict[str, Any]) -> list[bot.Job]:
                 if not url or url in jobs_by_url:
                     continue
                 location_node = row.select_one("td.colLocation span.jobLocation")
+                state_node = None
+                country_node = None
+                requisition_node = None
+                if location_node is None:
+                    desktop = row.select_one(".sub-section-desktop") or row
+                    location_node = desktop.select_one(
+                        '.customfield2 div[id$="-value"]'
+                    )
+                    state_node = desktop.select_one(
+                        '.customfield3 div[id$="-value"]'
+                    )
+                    country_node = desktop.select_one(
+                        '.customfield4 div[id$="-value"]'
+                    )
+                    requisition_node = desktop.select_one(
+                        '.customfield5 div[id$="-value"]'
+                    )
                 department_node = row.select_one("td.colFacility span.jobFacility")
+                location = ", ".join(dict.fromkeys(filter(None, [
+                    bot.clean_text(
+                        location_node.get_text(" ") if location_node else ""
+                    ),
+                    bot.clean_text(
+                        state_node.get_text(" ") if state_node else ""
+                    ),
+                    bot.clean_text(
+                        country_node.get_text(" ") if country_node else ""
+                    ),
+                ])))
                 jobs_by_url[url] = bot.Job(
                     company=company["name"],
                     title=bot.clean_text(link.get_text(" ")),
-                    location=bot.clean_text(
-                        location_node.get_text(" ") if location_node else ""
-                    ),
+                    location=location,
                     url=url,
                     source="Official careers: SAP SuccessFactors",
                     department=bot.clean_text(
                         department_node.get_text(" ") if department_node else ""
+                    ),
+                    requisition_id=bot.clean_text(
+                        requisition_node.get_text(" ")
+                        if requisition_node else ""
                     ),
                     wlb_score=company.get("wlb_score", 3),
                 )
