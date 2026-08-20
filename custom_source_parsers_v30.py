@@ -1,10 +1,11 @@
 """Adapters for the remaining verified v44 dynamic career sources."""
 from __future__ import annotations
 
+import json
 import re
 from html import unescape
 from typing import Any
-from urllib.parse import urljoin, urlparse
+from urllib.parse import parse_qs, urlencode, urljoin, urlparse
 from xml.etree import ElementTree
 
 import requests
@@ -96,15 +97,36 @@ def parse_dassault_xml(company: dict[str, Any]) -> list[bot.Job]:
 def parse_peoplestrong(company: dict[str, Any]) -> list[bot.Job]:
     """Read the public PeopleStrong jobs API used by MathCo."""
     limit = max(10, int(company.get("max_results", 100)))
-    response = requests.post(
-        company["url"],
-        json={},
-        headers=JSON_HEADERS,
-        timeout=35,
+    session = requests.Session() if company.get("bootstrap_url") else requests
+    if company.get("bootstrap_url"):
+        bootstrap = session.get(
+            company["bootstrap_url"], headers=BROWSER_HEADERS, timeout=35,
+        )
+        bootstrap.raise_for_status()
+    payload = (
+        {
+            "bandList": None,
+            "gradeList": None,
+            "bandIDList": None,
+            "gradeIDList": None,
+            "employeeCategoryLabelList": None,
+        }
+        if company.get("bootstrap_url")
+        else {}
     )
-    response.raise_for_status()
-    jobs: list[bot.Job] = []
-    for item in response.json().get("response", [])[:limit]:
+    raw_jobs: list[dict[str, Any]] = []
+    for term in company.get("search_terms") or [None]:
+        response = session.post(
+            company["url"],
+            params={"searchString": term} if term else None,
+            json=payload,
+            headers=JSON_HEADERS,
+            timeout=35,
+        )
+        response.raise_for_status()
+        raw_jobs.extend(response.json().get("response", [])[:limit])
+    jobs_by_id: dict[str, bot.Job] = {}
+    for item in raw_jobs:
         job_id = bot.clean_text(item.get("requisitionId") or item.get("jobCode"))
         title = bot.clean_text(item.get("jobTitle") or item.get("designation"))
         url = str(item.get("jobDetailUrl") or "").strip()
@@ -125,7 +147,7 @@ def parse_peoplestrong(company: dict[str, Any]) -> list[bot.Job]:
             bot.clean_text(item.get("expRange")),
             ", ".join(filter(None, skill_names)),
         ]))
-        jobs.append(bot.Job(
+        jobs_by_id.setdefault(job_id, bot.Job(
             company=company["name"],
             title=title,
             location=location,
@@ -139,7 +161,7 @@ def parse_peoplestrong(company: dict[str, Any]) -> list[bot.Job]:
             requisition_id=job_id,
             wlb_score=company.get("wlb_score", 3),
         ))
-    return jobs
+    return list(jobs_by_id.values())
 
 
 def parse_darwinbox_v2(company: dict[str, Any]) -> list[bot.Job]:
@@ -151,18 +173,41 @@ def parse_darwinbox_v2(company: dict[str, Any]) -> list[bot.Job]:
         **JSON_HEADERS,
         "Origin": origin,
         "Referer": company["career_site_url"],
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-origin",
     }
-    response = requests.post(
-        company["url"],
-        json={
-            "companyId": company_id,
-            "page": 1,
-            "sort_option": "new",
-            "limit": max(10, int(company.get("max_results", 100))),
-        },
-        headers=headers,
-        timeout=40,
-    )
+    payload = {
+        "companyId": company_id,
+        "page": 1,
+        "sort_option": "new",
+        "limit": max(10, int(company.get("max_results", 100))),
+    }
+    if company.get("bootstrap_required"):
+        session = requests.Session()
+        bootstrap_url = (
+            f"{origin}/ms/candidatev2/{company_id}/careers/allJobs"
+        )
+        bootstrap = session.get(
+            bootstrap_url,
+            headers={
+                **BROWSER_HEADERS,
+                "Sec-Fetch-Dest": "document",
+                "Sec-Fetch-Mode": "navigate",
+                "Sec-Fetch-Site": "none",
+                "Upgrade-Insecure-Requests": "1",
+            },
+            timeout=40,
+        )
+        bootstrap.raise_for_status()
+        headers["Referer"] = bootstrap_url
+        response = session.post(
+            company["url"], json=payload, headers=headers, timeout=40,
+        )
+    else:
+        response = requests.post(
+            company["url"], json=payload, headers=headers, timeout=40,
+        )
     response.raise_for_status()
     document = response.json()
     jobs: list[bot.Job] = []
@@ -171,7 +216,9 @@ def parse_darwinbox_v2(company: dict[str, Any]) -> list[bot.Job]:
             item.get("id") or item.get("_id") or item.get("internal_job_code")
         )
         title = bot.clean_text(
-            item.get("title") or item.get("designation_name")
+            item.get("title")
+            or item.get("designation_name")
+            or item.get("designation_display_name")
         )
         if not job_id or not title:
             continue
@@ -199,6 +246,559 @@ def parse_darwinbox_v2(company: dict[str, Any]) -> list[bot.Job]:
             department=bot.clean_text(item.get("department_name")),
             salary_text=bot.clean_text(item.get("salary_range")),
             requisition_id=bot.clean_text(item.get("internal_job_code")) or job_id,
+            wlb_score=company.get("wlb_score", 3),
+        ))
+    return jobs
+
+
+def parse_icims_html(company: dict[str, Any]) -> list[bot.Job]:
+    """Read the server-rendered vacancy cards in public iCIMS portals."""
+    max_pages = max(1, int(company.get("max_pages", 30)))
+    jobs_by_id: dict[str, bot.Job] = {}
+    for page in range(max_pages):
+        response = requests.get(
+            company["url"],
+            params={"ss": 1, "pr": page, "in_iframe": 1},
+            headers=BROWSER_HEADERS,
+            timeout=40,
+        )
+        response.raise_for_status()
+        soup = BeautifulSoup(response.text, "html.parser")
+        cards = soup.select("li.iCIMS_JobCardItem")
+        added = 0
+        for card in cards:
+            link = card.select_one('a[href*="/jobs/"][href*="/job"]')
+            title_node = card.select_one(".title h3")
+            if link is None or title_node is None:
+                continue
+            url = urljoin(response.url, str(link.get("href") or ""))
+            match = re.search(r"/jobs/(\d+)/", urlparse(url).path)
+            job_id = match.group(1) if match else ""
+            title = bot.clean_text(title_node.get_text(" "))
+            if not job_id or not title or job_id in jobs_by_id:
+                continue
+            fields: dict[str, str] = {}
+            for group in card.select(".iCIMS_JobHeaderTag"):
+                key = group.select_one("dt")
+                value = group.select_one("dd")
+                if key is not None and value is not None:
+                    fields[bot.clean_text(key.get_text(" ")).casefold()] = (
+                        bot.clean_text(value.get_text(" "))
+                    )
+            location_node = card.select_one(".header.left span:not(.sr-only)")
+            location = bot.clean_text(
+                location_node.get_text(" ") if location_node else ""
+            )
+            if not location:
+                for key, value in fields.items():
+                    if "location" in key:
+                        location = value
+                        break
+            description_node = card.select_one(".description")
+            jobs_by_id[job_id] = bot.Job(
+                company=company["name"],
+                title=title,
+                location=location,
+                url=url,
+                source="Official careers: iCIMS",
+                description=bot.clean_text(
+                    description_node.get_text(" ") if description_node else ""
+                ),
+                department=fields.get("category", ""),
+                requisition_id=(
+                    fields.get("id")
+                    or fields.get("job id")
+                    or fields.get("req. #")
+                    or job_id
+                ),
+                wlb_score=company.get("wlb_score", 3),
+            )
+            added += 1
+        if not cards or added == 0:
+            break
+    return list(jobs_by_id.values())
+
+
+def parse_jobvite_html(company: dict[str, Any]) -> list[bot.Job]:
+    """Read Jobvite's public, server-rendered careers iframe."""
+    response = requests.get(company["url"], headers=BROWSER_HEADERS, timeout=40)
+    response.raise_for_status()
+    soup = BeautifulSoup(response.text, "html.parser")
+    jobs: list[bot.Job] = []
+    seen: set[str] = set()
+    for link in soup.select('.jv-job-list a[href*="/job/"]'):
+        url = urljoin(response.url, str(link.get("href") or ""))
+        job_id = urlparse(url).path.rstrip("/").rsplit("/", 1)[-1]
+        title_node = link.select_one(".jv-job-list-name")
+        location_node = link.select_one(".jv-job-list-location")
+        title = bot.clean_text(title_node.get_text(" ") if title_node else "")
+        if not job_id or not title or job_id in seen:
+            continue
+        seen.add(job_id)
+        requisition_match = re.search(r"\(([^()]*(?:AI|REQ)[^()]*)\)\s*$", title, re.I)
+        jobs.append(bot.Job(
+            company=company["name"],
+            title=title,
+            location=bot.clean_text(
+                location_node.get_text(" ") if location_node else ""
+            ),
+            url=url,
+            source="Official careers: Jobvite",
+            description="",
+            requisition_id=(
+                requisition_match.group(1) if requisition_match else job_id
+            ),
+            wlb_score=company.get("wlb_score", 3),
+        ))
+    return jobs
+
+
+def parse_recruiterflow_html(company: dict[str, Any]) -> list[bot.Job]:
+    """Decode the public jobs payload embedded by Recruiterflow boards."""
+    response = requests.get(company["url"], headers=BROWSER_HEADERS, timeout=40)
+    response.raise_for_status()
+    parsed_url = urlparse(response.url)
+    site_root = f"{parsed_url.scheme}://{parsed_url.netloc}/"
+    match = re.search(
+        r"window\.jobsList\s*=\s*(\{.*?\})\s*;",
+        response.text,
+        flags=re.DOTALL,
+    )
+    if not match:
+        raise ValueError("Recruiterflow page did not expose its public jobs payload")
+    document = json.loads(match.group(1))
+    jobs: list[bot.Job] = []
+    seen: set[str] = set()
+    for department in document.get("department") or []:
+        if not isinstance(department, list) or len(department) < 2:
+            continue
+        department_name, items = department[0], department[1]
+        for item in items or []:
+            if not isinstance(item, dict):
+                continue
+            job_id = bot.clean_text(item.get("job_id"))
+            title = bot.clean_text(item.get("job_name"))
+            apply_link = str(item.get("apply_link") or "").strip()
+            if not job_id or not title or not apply_link or job_id in seen:
+                continue
+            seen.add(job_id)
+            jobs.append(bot.Job(
+                company=company["name"],
+                title=title,
+                location=bot.clean_text(item.get("details")),
+                url=urljoin(site_root, apply_link),
+                source="Official careers: Recruiterflow",
+                description=bot.clean_text(" | ".join(filter(None, [
+                    str(item.get("employment_type") or ""),
+                    str(item.get("remote_type") or ""),
+                ]))),
+                department=bot.clean_text(department_name),
+                requisition_id=job_id,
+                wlb_score=company.get("wlb_score", 3),
+            ))
+    return jobs
+
+
+def parse_gnani_api(company: dict[str, Any]) -> list[bot.Job]:
+    """Read Gnani.ai's first-party public jobs endpoint."""
+    response = requests.get(
+        company["url"], headers={**BROWSER_HEADERS, "Accept": "application/json"},
+        timeout=40,
+    )
+    response.raise_for_status()
+    raw_jobs = ((response.json().get("data") or {}).get("jobs") or [])
+    jobs: list[bot.Job] = []
+    for item in raw_jobs:
+        code = bot.clean_text(item.get("code"))
+        title = bot.clean_text(item.get("title"))
+        if not code or not title:
+            continue
+        skills = ", ".join(
+            bot.clean_text(skill) for skill in item.get("skills") or [] if skill
+        )
+        experience = ""
+        if item.get("minExperience") is not None or item.get("maxExperience") is not None:
+            experience = (
+                f"Experience: {item.get('minExperience', '')}-"
+                f"{item.get('maxExperience', '')} years"
+            )
+        jobs.append(bot.Job(
+            company=company["name"],
+            title=title,
+            location=bot.flatten_location(item.get("location") or []),
+            url=urljoin(response.url, f"/apply/{code}"),
+            source="Official careers: Gnani.ai",
+            description=" | ".join(filter(None, [experience, skills])),
+            department=bot.clean_text(item.get("department")),
+            requisition_id=code,
+            wlb_score=company.get("wlb_score", 3),
+        ))
+    return jobs
+
+
+def parse_hrone_html(company: dict[str, Any]) -> list[bot.Job]:
+    """Read the anonymous career-position API behind HROne portals."""
+    session = requests.Session()
+    listing = session.get(
+        company["career_site_url"], headers=BROWSER_HEADERS, timeout=40,
+    )
+    listing.raise_for_status()
+    params = {
+        key: values[0]
+        for key, values in parse_qs(urlparse(listing.url).query).items()
+        if values
+    }
+    required = {"appId", "dc", "rqt", "cc"}
+    if not required.issubset(params):
+        raise ValueError("HROne portal redirect omitted required public identifiers")
+    payload = {
+        "departmentCode": "", "companyCode": params["cc"],
+        "careerPortalType": params["rqt"], "jobTitle": "",
+        "employmentType": "", "seniorityName": "", "jobFunction": "",
+        "company": "", "businessUnitCode": "", "department": "",
+        "subDepartment": "", "gradeCode": "", "designationCode": "",
+        "levelCode": "", "branchCode": "", "subBranchCode": "",
+        "regionCode": "", "locationId": "", "experience": "",
+        "qualification": "", "skillsName": "", "urgentOpening": "",
+        "jobPosted": "0", "isShortUrl": False,
+        "pagination": {
+            "pageNumber": 1,
+            "pageSize": max(15, int(company.get("max_results", 100))),
+        },
+        "nationality": "", "preferredLocationId": "",
+    }
+    response = session.post(
+        company["url"],
+        json=payload,
+        headers={
+            **JSON_HEADERS,
+            "domainCode": params["dc"],
+            "apiKey": params["appId"],
+            "AccessMode": "W",
+            "Origin": f"{urlparse(listing.url).scheme}://{urlparse(listing.url).netloc}",
+            "Referer": listing.url,
+        },
+        timeout=40,
+    )
+    response.raise_for_status()
+    jobs: list[bot.Job] = []
+    for item in response.json():
+        job_id = bot.clean_text(item.get("jobCode") or item.get("positionId"))
+        title = bot.clean_text(item.get("jobTitle"))
+        if not job_id or not title:
+            continue
+        apply_params = {
+            **params,
+            "pid": item.get("encryptedPositionId") or "",
+            "dptc": item.get("departmentCode") or "",
+            "st": item.get("sourceType") or "",
+            "fm": "CR",
+        }
+        apply_url = listing.url.split("?", 1)[0].replace(
+            "/career-portal", "/apply-job"
+        ) + "?" + urlencode(apply_params)
+        experience = ""
+        if item.get("experienceFrom") is not None or item.get("experienceTo") is not None:
+            experience = (
+                f"Experience: {item.get('experienceFrom', '')}-"
+                f"{item.get('experienceTo', '')} years"
+            )
+        jobs.append(bot.Job(
+            company=company["name"],
+            title=title,
+            location=bot.clean_text(item.get("preferredLocation")),
+            url=str(item.get("jobApplicationPath") or apply_url),
+            source="Official careers: HROne",
+            description=experience,
+            department=bot.clean_text(item.get("seniorityName")),
+            requisition_id=job_id,
+            wlb_score=company.get("wlb_score", 3),
+        ))
+    return jobs
+
+
+def parse_evalueserve_html(company: dict[str, Any]) -> list[bot.Job]:
+    """Read Evalueserve's server-rendered first-party vacancy cards."""
+    response = requests.get(company["url"], headers=BROWSER_HEADERS, timeout=40)
+    response.raise_for_status()
+    soup = BeautifulSoup(response.text, "html.parser")
+    jobs: list[bot.Job] = []
+    seen: set[str] = set()
+    for link in soup.select(".db-job-link a[href*='darwinbox']"):
+        url = urljoin(response.url, str(link.get("href") or ""))
+        job_id = urlparse(url).path.rstrip("/").rsplit("/", 1)[-1]
+        card = link.find_parent("div", class_=re.compile(r"(?:^|\s)India(?:\s|$)"))
+        if card is None:
+            card = link.find_parent("div", class_=re.compile(r"job", re.I))
+        title_node = card.select_one(".db-job-title") if card else None
+        location_node = card.select_one(".db-location-country") if card else None
+        description_node = card.select_one(".db-busniess-unit") if card else None
+        experience_node = card.select_one(".db-experience-level") if card else None
+        title = bot.clean_text(title_node.get_text(" ") if title_node else "")
+        if not job_id or not title or job_id in seen:
+            continue
+        seen.add(job_id)
+        jobs.append(bot.Job(
+            company=company["name"],
+            title=title,
+            location=bot.clean_text(
+                location_node.get_text(" ") if location_node else ""
+            ),
+            url=url,
+            source="Official careers: Evalueserve",
+            description=" | ".join(filter(None, [
+                bot.clean_text(
+                    description_node.get_text(" ") if description_node else ""
+                ),
+                bot.clean_text(
+                    experience_node.get_text(" ") if experience_node else ""
+                ),
+            ])),
+            requisition_id=job_id,
+            wlb_score=company.get("wlb_score", 3),
+        ))
+    return jobs
+
+
+def _find_jobposting(document: Any) -> dict[str, Any] | None:
+    if isinstance(document, dict):
+        posting_type = document.get("@type")
+        if posting_type == "JobPosting" or (
+            isinstance(posting_type, list) and "JobPosting" in posting_type
+        ):
+            return document
+        for value in document.values():
+            posting = _find_jobposting(value)
+            if posting:
+                return posting
+    elif isinstance(document, list):
+        for value in document:
+            posting = _find_jobposting(value)
+            if posting:
+                return posting
+    return None
+
+
+def _schema_location(posting: dict[str, Any]) -> str:
+    location = posting.get("jobLocation") or posting.get("applicantLocationRequirements")
+    locations = location if isinstance(location, list) else [location]
+    values: list[str] = []
+    for item in locations:
+        if not isinstance(item, dict):
+            continue
+        address = item.get("address") or item
+        if not isinstance(address, dict):
+            continue
+        value = ", ".join(filter(None, [
+            bot.clean_text(address.get("addressLocality")),
+            bot.clean_text(address.get("addressRegion")),
+            bot.clean_text(address.get("addressCountry")),
+        ]))
+        if value:
+            values.append(value)
+    return " | ".join(dict.fromkeys(values))
+
+
+def _compact_job_card(anchor: Any, soup: BeautifulSoup) -> Any:
+    anchor_text = bot.clean_text(anchor.get_text(" "))
+    if 20 <= len(anchor_text) <= 2500:
+        return anchor
+    for parent in anchor.parents:
+        if parent is soup:
+            break
+        classes = " ".join(parent.get("class") or [])
+        if parent.name not in {"article", "li", "tr", "div", "section"}:
+            continue
+        text = bot.clean_text(parent.get_text(" "))
+        if len(text) > 2500:
+            continue
+        if parent.select_one("h1, h2, h3, h4, h5, h6, [class*='title']"):
+            return parent
+        if parent.name in {"article", "li", "tr"} or (
+            not re.search(r"(?:meta|footer|actions?)", classes, re.I)
+            and re.search(
+            r"(?:job|career|opening|position|vacancy|role|card)", classes, re.I,
+            )
+        ):
+            return parent
+    return anchor.parent
+
+
+def _generic_job_title(title: str, company_name: str) -> bool:
+    folded = bot.clean_text(title).casefold().strip(" -|:")
+    company_folded = bot.clean_text(company_name).casefold()
+    if not folded:
+        return True
+    if folded in {
+        "apply", "apply now", "details", "know more", "view", "view role",
+        "view job", "read more", "learn more", "open role", "careers", "jobs",
+    }:
+        return True
+    if folded.startswith(("apply at ", "opportunities await you at ")):
+        return True
+    return folded in {company_folded, f"careers at {company_folded}"}
+
+
+def _card_title(anchor: Any, card: Any) -> str:
+    for scope in (anchor, card):
+        if scope is None:
+            continue
+        heading = scope.select_one("h1, h2, h3, h4, h5, h6, [class*='title']")
+        title = bot.clean_text(heading.get_text(" ") if heading else "")
+        if title and len(title) <= 180:
+            return title
+    title = bot.clean_text(anchor.get_text(" "))
+    if len(title) <= 180:
+        return title
+    return ""
+
+
+def parse_static_job_links(company: dict[str, Any]) -> list[bot.Job]:
+    """Read stable first-party job-detail links from a corporate careers page."""
+    response = requests.get(company["url"], headers=BROWSER_HEADERS, timeout=40)
+    response.raise_for_status()
+    soup = BeautifulSoup(response.text, "html.parser")
+    pattern = re.compile(company["job_url_pattern"], re.I)
+    candidates: dict[str, tuple[str, str]] = {}
+    for anchor in soup.select("a[href]"):
+        url = urljoin(response.url, str(anchor.get("href") or ""))
+        if not pattern.search(url) or url in candidates:
+            continue
+        card = _compact_job_card(anchor, soup)
+        title = _card_title(anchor, card)
+        context = bot.clean_text(card.get_text(" ") if card else "")
+        candidates[url] = (title, context)
+
+    jobs: list[bot.Job] = []
+    limit = max(1, int(company.get("max_results", 100)))
+    for url, (card_title, context) in list(candidates.items())[:limit]:
+        title = card_title
+        location = ""
+        description = context
+        location_pattern = company.get("location_pattern")
+        if location_pattern:
+            location_match = re.search(str(location_pattern), context, re.I)
+            if location_match:
+                location = bot.clean_text(location_match.group(1))
+        path_parts = [
+            part for part in urlparse(url).path.split("/") if part
+        ]
+        requisition_id = path_parts[-1] if path_parts else ""
+        if requisition_id.casefold() in {"apply", "job", "details"} and len(path_parts) > 1:
+            requisition_id = path_parts[-2]
+        if company.get("fetch_job_details", True):
+            try:
+                detail = requests.get(url, headers=BROWSER_HEADERS, timeout=40)
+                detail.raise_for_status()
+                detail_soup = BeautifulSoup(detail.text, "html.parser")
+                posting = None
+                for script in detail_soup.find_all("script", type="application/ld+json"):
+                    try:
+                        posting = _find_jobposting(json.loads(script.string or ""))
+                    except (TypeError, json.JSONDecodeError):
+                        continue
+                    if posting:
+                        break
+                if posting:
+                    title = bot.clean_text(posting.get("title")) or title
+                    location = _schema_location(posting)
+                    description = bot.clean_text(posting.get("description")) or description
+                    identifier = posting.get("identifier")
+                    if isinstance(identifier, dict):
+                        identifier = identifier.get("value") or identifier.get("name")
+                    requisition_id = bot.clean_text(identifier) or requisition_id
+                else:
+                    heading = detail_soup.select_one("main h1, article h1, h1")
+                    detail_title = bot.clean_text(heading.get_text(" ") if heading else "")
+                    if (
+                        detail_title
+                        and len(detail_title) <= 180
+                        and not _generic_job_title(detail_title, company["name"])
+                        and not company.get("preserve_card_title", False)
+                    ):
+                        title = detail_title
+                    location_node = detail_soup.select_one(
+                        "[class*='job-location'], [class*='location'], [data-location]"
+                    )
+                    location = bot.clean_text(
+                        location_node.get_text(" ") if location_node else ""
+                    )
+                    detail_node = detail_soup.select_one(
+                        "[class*='job-description'], [class*='description'], main, article"
+                    )
+                    detail_text = bot.clean_text(
+                        detail_node.get_text(" ") if detail_node else ""
+                    )
+                    if len(detail_text) >= 80:
+                        description = detail_text
+            except Exception as exc:
+                print(f"WARN {company['name']} static detail failed: {exc}")
+        ignored_locations = {
+            bot.clean_text(value).casefold()
+            for value in company.get("ignored_detail_locations", [])
+        }
+        if location.casefold() in ignored_locations:
+            location = ""
+        if _generic_job_title(title, company["name"]):
+            title = requisition_id.replace("-", " ").replace("_", " ").title()
+        if not title or not requisition_id:
+            continue
+        fallback_location = (
+            context[:500]
+            if company.get("use_card_context_as_location", True)
+            else ""
+        )
+        jobs.append(bot.Job(
+            company=company["name"],
+            title=title,
+            location=location or fallback_location,
+            url=url,
+            source=company.get(
+                "source_label", "Official careers: first-party job page"
+            ),
+            description=description,
+            requisition_id=requisition_id,
+            wlb_score=company.get("wlb_score", 3),
+        ))
+    return jobs
+
+
+def parse_quantzig_accordion(company: dict[str, Any]) -> list[bot.Job]:
+    """Read the first-party job accordions on Quantzig's careers page."""
+    response = requests.get(company["url"], headers=BROWSER_HEADERS, timeout=40)
+    response.raise_for_status()
+    soup = BeautifulSoup(response.text, "html.parser")
+    jobs: list[bot.Job] = []
+    seen: set[str] = set()
+    for card in soup.select(".accordion-item"):
+        button = card.select_one(".accordion-button")
+        if button is None:
+            continue
+        title_button = BeautifulSoup(str(button), "html.parser")
+        for metadata in title_button.select("span"):
+            metadata.decompose()
+        title = bot.clean_text(title_button.get_text(" "))
+        metadata = bot.clean_text(
+            button.select_one("span").get_text(" ")
+            if button.select_one("span")
+            else ""
+        )
+        location_match = re.search(r"Job Location\s*:\s*(.+)", metadata, re.I)
+        location = bot.clean_text(location_match.group(1)) if location_match else ""
+        slug = re.sub(r"[^a-z0-9]+", "-", title.casefold()).strip("-")
+        if not title or not slug or slug in seen:
+            continue
+        seen.add(slug)
+        body = card.select_one(".accordion-body")
+        description = bot.clean_text(body.get_text(" ") if body else metadata)
+        jobs.append(bot.Job(
+            company=company["name"],
+            title=title,
+            location=location or company.get("default_location", "Bengaluru, India"),
+            url=f"{company['career_site_url'].rstrip('/')}#{slug}",
+            source="Official careers: Quantzig",
+            description=description,
+            requisition_id=slug,
             wlb_score=company.get("wlb_score", 3),
         ))
     return jobs
@@ -465,6 +1065,14 @@ def fetch_company_jobs_with_custom_v30(company: dict[str, Any]) -> list[bot.Job]
         "dassault_xml": parse_dassault_xml,
         "peoplestrong": parse_peoplestrong,
         "darwinbox_v2": parse_darwinbox_v2,
+        "icims_html": parse_icims_html,
+        "jobvite_html": parse_jobvite_html,
+        "recruiterflow_html": parse_recruiterflow_html,
+        "gnani_api": parse_gnani_api,
+        "hrone_html": parse_hrone_html,
+        "evalueserve_html": parse_evalueserve_html,
+        "static_job_links": parse_static_job_links,
+        "quantzig_accordion": parse_quantzig_accordion,
         "tonbo_html": parse_tonbo_html,
         "kaleideo_wordpress": parse_kaleideo_wordpress,
         "wordpress_post_type": parse_wordpress_post_type,

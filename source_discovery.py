@@ -133,7 +133,10 @@ def probe_smartrecruiters(session: requests.Session, name: str, slug: str) -> di
     labels.discard("")
     if labels and not any(identity_matches(name, label) for label in labels):
         return None
-    if not jobs and not identity_matches(name, slug):
+    # SmartRecruiters returns HTTP 200 with an empty posting collection for
+    # arbitrary, nonexistent company slugs. An empty response therefore
+    # cannot prove that a board belongs to the requested company.
+    if not jobs:
         return None
     return {
         "ats": "smartrecruiters", "slug": slug,
@@ -241,6 +244,30 @@ def run_batch(batch_index: int, batch_size: int, workers: int) -> dict[str, Any]
     }
 
 
+def run_names(names: list[str], workers: int) -> dict[str, Any]:
+    """Probe an explicit reviewed list without depending on allowlist position."""
+    results: list[dict[str, Any]] = []
+    with ThreadPoolExecutor(max_workers=max(1, workers)) as pool:
+        futures = {pool.submit(discover_company, name): name for name in names}
+        for future in as_completed(futures):
+            name = futures[future]
+            try:
+                result = future.result()
+            except Exception as exc:
+                result = {
+                    "name": name,
+                    "status": "error",
+                    "error": f"{type(exc).__name__}: {exc}",
+                }
+            print(f"{result['status'].upper()}: {name}", flush=True)
+            results.append(result)
+    return {
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "requested": len(names),
+        "results": sorted(results, key=lambda item: item["name"].casefold()),
+    }
+
+
 def merge_results(input_dir: Path, output: Path, expected_parts: int | None = None) -> None:
     part_paths = sorted(input_dir.rglob("part-*.json"))
     parts = [json.loads(path.read_text(encoding="utf-8")) for path in part_paths]
@@ -288,11 +315,23 @@ def main() -> int:
     parser.add_argument("--workers", type=int, default=4)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--merge-dir", type=Path)
+    parser.add_argument("--names-file", type=Path)
     parser.add_argument("--expected-parts", type=int)
     args = parser.parse_args()
 
     if args.merge_dir:
         merge_results(args.merge_dir, args.output, args.expected_parts)
+        return 0
+    if args.names_file:
+        names = [
+            line.strip()
+            for line in args.names_file.read_text(encoding="utf-8").splitlines()
+            if line.strip() and not line.lstrip().startswith("#")
+        ]
+        args.output.write_text(
+            json.dumps(run_names(names, args.workers), indent=2),
+            encoding="utf-8",
+        )
         return 0
     if args.batch_index is None:
         parser.error("--batch-index is required unless --merge-dir is used")

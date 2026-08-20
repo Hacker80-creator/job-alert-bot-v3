@@ -17,6 +17,7 @@ from bs4 import BeautifulSoup
 import audit_dynamic_coverage as audit
 import job_monitor as bot
 import job_monitor_entry_v43
+import source_registry_v44
 
 
 ROOT = Path(__file__).parent
@@ -53,6 +54,19 @@ def dynamic_remaining() -> list[dict[str, Any]]:
         for label in [company["name"], *company.get("aliases", [])]
     }
     return [item for item in dynamic if audit.normalized(item["name"]) not in labels]
+
+
+def override_sources(path: Path) -> list[dict[str, Any]]:
+    """Return enabled generic-page sources from a reviewed override catalog."""
+    return [
+        {
+            "name": company["name"],
+            "source_url": company["url"],
+            "final_url": company["url"],
+        }
+        for company in source_registry_v44.build_source_overrides(path)
+        if company.get("enabled", True) and company.get("ats") == "direct_job_html"
+    ]
 
 
 def _jobposting_count(soup: BeautifulSoup) -> int:
@@ -113,8 +127,14 @@ def probe(item: dict[str, Any]) -> dict[str, Any]:
     return result
 
 
-def run(batch_index: int, batch_size: int, workers: int, output: Path) -> int:
-    remaining = dynamic_remaining()
+def run(
+    batch_index: int,
+    batch_size: int,
+    workers: int,
+    output: Path,
+    overrides_file: Path | None = None,
+) -> int:
+    remaining = override_sources(overrides_file) if overrides_file else dynamic_remaining()
     start = batch_index * batch_size
     batch = remaining[start:start + batch_size]
     results: list[dict[str, Any]] = []
@@ -156,12 +176,19 @@ def main() -> int:
     parser.add_argument("--batch-index", type=int, default=0)
     parser.add_argument("--batch-size", type=int, default=50)
     parser.add_argument("--workers", type=int, default=16)
+    parser.add_argument("--overrides-file", type=Path)
     parser.add_argument(
         "--output", type=Path,
         default=ROOT / "dynamic_source_probe.summary.json",
     )
     args = parser.parse_args()
-    return run(args.batch_index, args.batch_size, args.workers, args.output)
+    return run(
+        args.batch_index,
+        args.batch_size,
+        args.workers,
+        args.output,
+        args.overrides_file,
+    )
 
 
 if __name__ == "__main__":

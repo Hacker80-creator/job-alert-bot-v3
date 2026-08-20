@@ -3,11 +3,15 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any
+from urllib.parse import urljoin, urlparse
 
+import requests
+from bs4 import BeautifulSoup
 import custom_source_parsers_v30
 import job_match_expanded as expanded
 import job_monitor as bot
@@ -18,6 +22,72 @@ import source_registry_v44
 
 
 ROOT = Path(__file__).parent
+
+GENERIC_JOB_LABELS = {
+    "all jobs", "apply", "careers", "career opportunities", "find jobs",
+    "job search", "jobs", "open positions", "open roles", "opportunities",
+    "search jobs", "see jobs", "view jobs", "view open roles",
+}
+NO_OPENINGS_PATTERN = re.compile(
+    r"\b(?:currently\s+)?(?:have\s+)?no\s+(?:current\s+|open\s+)?"
+    r"(?:jobs?|openings?|positions?|roles?|vacancies)\b",
+    re.IGNORECASE,
+)
+JOB_DETAIL_PATH = re.compile(
+    r"/(?:jobs?|careers?|positions?|openings?|opportunities?|requisitions?)"
+    r"/(?!search(?:[/?#]|$)|all(?:[/?#]|$)|locations?(?:[/?#]|$)|"
+    r"categories(?:[/?#]|$))[^/?#]+",
+    re.IGNORECASE,
+)
+JOB_DETAIL_QUERY = re.compile(
+    r"(?:[?&](?:job_?id|job|position_?id|requisition_?id)=)[^&#]+",
+    re.IGNORECASE,
+)
+
+
+def assess_direct_source(company: dict[str, Any]) -> dict[str, Any]:
+    """Prove an HTML source exposes job records or an explicit empty state."""
+    response = requests.get(
+        company["url"],
+        headers=custom_source_parsers_v30.BROWSER_HEADERS,
+        timeout=40,
+    )
+    response.raise_for_status()
+    soup = BeautifulSoup(response.text, "html.parser")
+    visible_text = bot.clean_text(soup.get_text(" "))
+    if NO_OPENINGS_PATTERN.search(visible_text):
+        return {"monitorable": True, "evidence": "explicit_no_openings"}
+
+    jobposting_count = 0
+    for script in soup.find_all("script", type="application/ld+json"):
+        jobposting_count += len(re.findall(
+            r'"@type"\s*:\s*"JobPosting"', script.string or script.get_text(),
+            flags=re.IGNORECASE,
+        ))
+    if jobposting_count:
+        return {
+            "monitorable": True,
+            "evidence": "jobposting_jsonld",
+            "record_count": jobposting_count,
+        }
+
+    job_links: list[str] = []
+    for anchor in soup.find_all("a", href=True):
+        label = bot.clean_text(anchor.get_text(" "))
+        if not label or len(label) > 180 or label.casefold() in GENERIC_JOB_LABELS:
+            continue
+        href = urljoin(response.url, str(anchor.get("href") or ""))
+        parsed = urlparse(href)
+        candidate = f"{parsed.path}?{parsed.query}" if parsed.query else parsed.path
+        if JOB_DETAIL_PATH.search(candidate) or JOB_DETAIL_QUERY.search(candidate):
+            job_links.append(href)
+    if job_links:
+        return {
+            "monitorable": True,
+            "evidence": "server_rendered_job_links",
+            "record_count": len(set(job_links)),
+        }
+    return {"monitorable": False, "evidence": "no_verifiable_job_records"}
 
 
 def source_names(path: Path) -> list[str]:
@@ -66,10 +136,23 @@ def validate_source(company: dict[str, Any]) -> dict[str, Any]:
             "job_count": 0,
             "error": last_error or "production adapter failed after 3 attempts",
         }
+    direct_assessment: dict[str, Any] = {}
+    if not jobs and company.get("ats") == "direct_job_html":
+        try:
+            direct_assessment = assess_direct_source(company)
+        except Exception as exc:
+            direct_assessment = {
+                "monitorable": False,
+                "evidence": f"health_probe_failed: {type(exc).__name__}: {exc}",
+            }
+    empty_status = "NO_CURRENT_MATCHING_JOBS"
+    if direct_assessment and not direct_assessment["monitorable"]:
+        empty_status = "UNRESOLVED_DYNAMIC_SOURCE"
     return {
         "name": company["name"],
-        "status": "WORKING" if jobs else "NO_JOBS",
+        "status": "WORKING" if jobs else empty_status,
         "job_count": len(jobs),
+        **({"monitor_evidence": direct_assessment} if direct_assessment else {}),
         "sample_jobs": [
             {
                 "title": job.title,
@@ -103,11 +186,24 @@ def run(overrides_file: Path, output: Path, workers: int) -> int:
         futures = {pool.submit(validate_source, company): company["name"] for company in selected}
         for future in as_completed(futures):
             result = future.result()
-            print(
-                f"{result['status']} {result['name']}: "
-                f"{result['job_count']} raw jobs",
-                flush=True,
-            )
+            if result["status"] == "NO_CURRENT_MATCHING_JOBS":
+                print(
+                    f"NO_CURRENT_MATCHING_JOBS {result['name']}: "
+                    "source completed successfully",
+                    flush=True,
+                )
+            elif result["status"] == "UNRESOLVED_DYNAMIC_SOURCE":
+                print(
+                    f"UNRESOLVED_DYNAMIC_SOURCE {result['name']}: "
+                    "generic page returned no verifiable job records",
+                    flush=True,
+                )
+            else:
+                print(
+                    f"{result['status']} {result['name']}: "
+                    f"{result['job_count']} raw jobs",
+                    flush=True,
+                )
             results.append(result)
 
     results.sort(key=lambda item: item["name"].casefold())
@@ -115,7 +211,12 @@ def run(overrides_file: Path, output: Path, workers: int) -> int:
         "requested": len(names),
         "completed": len(results),
         "working": sum(item["status"] == "WORKING" for item in results),
-        "no_jobs": sum(item["status"] == "NO_JOBS" for item in results),
+        "no_current_matching_jobs": sum(
+            item["status"] == "NO_CURRENT_MATCHING_JOBS" for item in results
+        ),
+        "unresolved_dynamic_sources": sum(
+            item["status"] == "UNRESOLVED_DYNAMIC_SOURCE" for item in results
+        ),
         "failed": sum(item["status"] == "FAILED" for item in results),
         "missing": missing,
         "disabled": disabled,
@@ -125,10 +226,17 @@ def run(overrides_file: Path, output: Path, workers: int) -> int:
     print(
         "BRANCH_SOURCE_SUMMARY "
         f"requested={summary['requested']} completed={summary['completed']} "
-        f"working={summary['working']} no_jobs={summary['no_jobs']} "
+        f"working={summary['working']} "
+        f"no_current_matching_jobs={summary['no_current_matching_jobs']} "
+        f"unresolved_dynamic_sources={summary['unresolved_dynamic_sources']} "
         f"failed={summary['failed']} missing={len(missing)} disabled={len(disabled)}"
     )
-    return 1 if summary["failed"] or missing or disabled else 0
+    return 1 if (
+        summary["failed"]
+        or summary["unresolved_dynamic_sources"]
+        or missing
+        or disabled
+    ) else 0
 
 
 def main() -> int:

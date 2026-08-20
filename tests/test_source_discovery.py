@@ -14,6 +14,15 @@ import source_discovery
 
 
 class SourceDiscoveryTests(unittest.TestCase):
+    @patch("source_discovery.discover_company")
+    def test_run_names_probes_explicit_list(self, discover) -> None:
+        discover.side_effect = lambda name: {"name": name, "status": "unresolved"}
+
+        result = source_discovery.run_names(["Second", "First"], workers=2)
+
+        self.assertEqual(2, result["requested"])
+        self.assertEqual(["First", "Second"], [row["name"] for row in result["results"]])
+
     def test_identity_matching_rejects_short_brand_collisions(self) -> None:
         self.assertTrue(source_discovery.identity_matches("Datadog", "Careers at Datadog"))
         self.assertTrue(source_discovery.identity_matches("Tavant Technologies", "Tavant"))
@@ -25,6 +34,18 @@ class SourceDiscoveryTests(unittest.TestCase):
         self.assertIn("exampletechnologies", candidates)
         self.assertIn("example-technologies", candidates)
         self.assertIn("example", candidates)
+
+    @patch("source_discovery.get_json")
+    def test_empty_smartrecruiters_response_does_not_verify_guessed_slug(
+        self, get_json
+    ) -> None:
+        get_json.return_value = {"content": [], "totalFound": 0}
+
+        result = source_discovery.probe_smartrecruiters(
+            object(), "Example", "example"
+        )
+
+        self.assertIsNone(result)
 
     def test_merge_refuses_missing_batch_artifacts(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
@@ -52,7 +73,10 @@ class SourceDiscoveryTests(unittest.TestCase):
                 ],
             }), encoding="utf-8")
             output = folder / "out.yaml"
-            source_discovery.merge_results(folder, output, expected_parts=1)
+            with patch.object(
+                source_discovery, "DISCOVERED_FILE", folder / "existing.yaml"
+            ):
+                source_discovery.merge_results(folder, output, expected_parts=1)
             merged = yaml.safe_load(output.read_text(encoding="utf-8"))
             self.assertEqual(["Example"], [item["name"] for item in merged["companies"]])
 
