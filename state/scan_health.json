@@ -3,9 +3,6 @@
   "failed_sources": [
     "10x Genomics",
     "American Express",
-    "Cirrus Logic",
-    "CloudSEK",
-    "ColorTokens",
     "Credo Semiconductor",
     "Evalueserve",
     "Gramener",
@@ -17,10 +14,8 @@
     "ProductDossier",
     "River Mobility",
     "Skit.ai",
-    "Tata 1mg",
-    "UBS",
-    "athenahealth"
+    "UBS"
   ],
-  "last_notice_utc": "2026-08-20T08:01:44.872384+00:00",
+  "last_notice_utc": "2026-08-20T09:00:34.433757+00:00",
   "official_source_count": 790
 }
