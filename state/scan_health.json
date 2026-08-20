@@ -1,10 +1,11 @@
 {
   "allowlist_count": 1005,
   "failed_sources": [
+    "10x Genomics",
+    "American Express",
     "ColorTokens",
     "Credo Semiconductor",
     "Evalueserve",
-    "GitHub",
     "Gramener",
     "H&M Group",
     "Hitachi Astemo",
@@ -14,9 +15,8 @@
     "ProductDossier",
     "River Mobility",
     "Skit.ai",
-    "UBS",
-    "ZS Associates"
+    "UBS"
   ],
-  "last_notice_utc": "2026-08-13T11:34:55.611969+00:00",
+  "last_notice_utc": "2026-08-20T10:48:29.517386+00:00",
   "official_source_count": 790
 }
