@@ -156,7 +156,7 @@ class ProductionV44Tests(unittest.TestCase):
             "10x Genomics": "kula_html",
             "American Express": "oracle_hcm",
             "Cirrus Logic": "lever",
-            "Gramener": "static_job_links",
+            "Gramener": "straive_gramener_html",
             "IBM": "ibm_avature",
             "River Mobility": "river_careers",
         }
@@ -187,6 +187,13 @@ class ProductionV44Tests(unittest.TestCase):
         )
         self.assertEqual("103855", self.companies["IBM"]["india_location_filter"])
         self.assertEqual("583469", self.companies["IBM"]["remote_work_filter"])
+        self.assertEqual(
+            "https://www.straive.com/careers/job-postings/",
+            self.companies["Gramener"]["url"],
+        )
+        self.assertEqual(
+            "Gramener India", self.companies["Gramener"]["company_filter"]
+        )
 
     def test_workflow_runs_v44(self) -> None:
         workflow = (Path(__file__).parents[1] / ".github" / "workflows" / "job-alerts.yml").read_text(encoding="utf-8")
@@ -221,6 +228,40 @@ class ProductionV44Tests(unittest.TestCase):
         self.assertEqual("Data Engineer", jobs[0].title)
         self.assertEqual("abc-123", jobs[0].requisition_id)
         self.assertEqual("Bengaluru, India", jobs[0].location)
+
+    @patch("custom_source_parsers_v30.requests.get")
+    def test_straive_parser_keeps_only_gramener_jobs(self, get: Mock) -> None:
+        response = Mock()
+        response.url = "https://www.straive.com/careers/job-postings/"
+        response.text = (
+            '<table><tr data-company="Gramener India">'
+            '<td><a href="job-description?id=gram-123">Data Scientist</a></td>'
+            '<td>Analytics CoE</td>'
+            '<td title="Bangalore, India">Bangalore</td></tr>'
+            '<tr data-company="Straive - India">'
+            '<td><a href="job-description?id=parent-456">Data Analyst</a></td>'
+            '<td>Operations</td><td>Chennai, India</td></tr></table>'
+        )
+        response.raise_for_status.return_value = None
+        get.return_value = response
+
+        jobs = custom_source_parsers_v30.parse_straive_gramener_html({
+            "name": "Gramener",
+            "url": response.url,
+            "company_filter": "Gramener India",
+            "job_url_prefix": (
+                "https://straive.darwinbox.com/ms/candidate/"
+                "608647a17db00/careers/"
+            ),
+            "wlb_score": 4,
+        })
+
+        self.assertEqual(1, len(jobs))
+        self.assertEqual("gram-123", jobs[0].requisition_id)
+        self.assertEqual("Data Scientist", jobs[0].title)
+        self.assertEqual("Bangalore, India", jobs[0].location)
+        self.assertEqual("Analytics CoE", jobs[0].department)
+        self.assertTrue(jobs[0].url.endswith("/careers/gram-123"))
 
     @patch("custom_source_parsers_v30.requests.post")
     def test_ibm_avature_parses_pre_redirect_job_cards(self, post: Mock) -> None:

@@ -98,7 +98,6 @@ STATIC_JOB_LINK_SOURCES = {
     ),
     "Facilio": r"^https://facilio\.com/careers/[^/?#]+/?$",
     "HomeLane": r"^https://sentinel\.homelane\.com/jobs/[^/?#]+/?$",
-    "Gramener": r"^https://gramener\.com/careers/[a-z0-9-]+/?$",
     "HyperVerge": r"^https://www\.linkedin\.com/jobs/view/\d+/?(?:\?.*)?$",
     "InVideo": r"^https://careers\.invideo\.io/roles/[^/?#]+/?$",
     "Incedo": r"^https://www\.incedoinc\.com/career/[^/?#]+/?$",
@@ -649,6 +648,18 @@ def classify_source(name: str, url: str) -> dict[str, Any]:
             ats="evalueserve_html",
             url=url,
             career_site_url=url,
+        )
+    elif name == "Gramener":
+        company.update(
+            ats="straive_gramener_html",
+            url=url,
+            career_site_url="https://gramener.com/careers/",
+            company_filter="Gramener India",
+            job_url_prefix=(
+                "https://straive.darwinbox.com/ms/candidate/"
+                "608647a17db00/careers/"
+            ),
+            max_results=100,
         )
     elif name in STATIC_JOB_LINK_SOURCES:
         company.update(

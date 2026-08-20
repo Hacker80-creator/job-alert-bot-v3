@@ -763,6 +763,56 @@ def parse_static_job_links(company: dict[str, Any]) -> list[bot.Job]:
     return jobs
 
 
+def parse_straive_gramener_html(company: dict[str, Any]) -> list[bot.Job]:
+    """Read Gramener jobs from its parent Straive's official vacancy table."""
+    response = requests.get(company["url"], headers=BROWSER_HEADERS, timeout=40)
+    response.raise_for_status()
+    soup = BeautifulSoup(response.text, "html.parser")
+    company_filter = bot.clean_text(
+        company.get("company_filter", "Gramener India")
+    )
+    job_url_prefix = str(company["job_url_prefix"])
+    limit = max(1, int(company.get("max_results", 100)))
+    jobs: list[bot.Job] = []
+    seen_ids: set[str] = set()
+    for row in soup.select("tr[data-company]"):
+        if (
+            bot.clean_text(row.get("data-company")).casefold()
+            != company_filter.casefold()
+        ):
+            continue
+        anchor = row.select_one('a[href*="job-description?id="]')
+        cells = row.find_all("td", recursive=False)
+        if anchor is None or len(cells) < 3:
+            continue
+        listing_url = urljoin(response.url, str(anchor.get("href") or ""))
+        requisition_id = bot.clean_text(
+            (parse_qs(urlparse(listing_url).query).get("id") or [""])[0]
+        )
+        title = bot.clean_text(anchor.get_text(" "))
+        if not requisition_id or not title or requisition_id in seen_ids:
+            continue
+        seen_ids.add(requisition_id)
+        department = bot.clean_text(cells[1].get_text(" "))
+        location = bot.clean_text(
+            cells[2].get("title") or cells[2].get_text(" ")
+        )
+        jobs.append(bot.Job(
+            company=company["name"],
+            title=title,
+            location=location,
+            url=urljoin(job_url_prefix, requisition_id),
+            source="Official careers: Straive / Gramener",
+            description=" | ".join(filter(None, [title, department])),
+            department=department,
+            requisition_id=requisition_id,
+            wlb_score=company.get("wlb_score", 3),
+        ))
+        if len(jobs) >= limit:
+            break
+    return jobs
+
+
 def parse_quantzig_accordion(company: dict[str, Any]) -> list[bot.Job]:
     """Read the first-party job accordions on Quantzig's careers page."""
     response = requests.get(company["url"], headers=BROWSER_HEADERS, timeout=40)
@@ -1233,6 +1283,7 @@ def fetch_company_jobs_with_custom_v30(company: dict[str, Any]) -> list[bot.Job]
         "hrone_html": parse_hrone_html,
         "evalueserve_html": parse_evalueserve_html,
         "static_job_links": parse_static_job_links,
+        "straive_gramener_html": parse_straive_gramener_html,
         "quantzig_accordion": parse_quantzig_accordion,
         "tonbo_html": parse_tonbo_html,
         "kaleideo_wordpress": parse_kaleideo_wordpress,
