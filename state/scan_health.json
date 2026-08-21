@@ -1,6 +1,8 @@
 {
   "allowlist_count": 966,
-  "failed_sources": [],
-  "last_notice_utc": "2026-08-21T05:17:43.697905+00:00",
+  "failed_sources": [
+    "Maruti Suzuki"
+  ],
+  "last_notice_utc": "2026-08-21T05:55:06.885319+00:00",
   "official_source_count": 732
 }
