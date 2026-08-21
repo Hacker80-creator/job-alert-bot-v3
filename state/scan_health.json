@@ -1,6 +1,22 @@
 {
   "allowlist_count": 966,
-  "failed_sources": [],
-  "last_notice_utc": "2026-08-21T03:21:06.834244+00:00",
+  "failed_sources": [
+    "Adidas",
+    "Alstom",
+    "Avaya",
+    "Bayer",
+    "Nestl\u00e9",
+    "Niramai",
+    "Novo Nordisk",
+    "Reckitt",
+    "SAP",
+    "Schaeffler",
+    "Swiss Re",
+    "Tata Motors",
+    "Vestas",
+    "Volvo Cars",
+    "ZF Group"
+  ],
+  "last_notice_utc": "2026-08-21T04:22:29.414079+00:00",
   "official_source_count": 732
 }
