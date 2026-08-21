@@ -1,6 +1,8 @@
 {
   "allowlist_count": 966,
-  "failed_sources": [],
-  "last_notice_utc": "2026-08-21T14:54:58.629020+00:00",
+  "failed_sources": [
+    "Hero MotoCorp"
+  ],
+  "last_notice_utc": "2026-08-21T18:59:06.837532+00:00",
   "official_source_count": 732
 }
