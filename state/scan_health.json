@@ -1,6 +1,8 @@
 {
   "allowlist_count": 966,
-  "failed_sources": [],
-  "last_notice_utc": "2026-08-21T20:43:26.811767+00:00",
+  "failed_sources": [
+    "Dassault Syst\u00e8mes"
+  ],
+  "last_notice_utc": "2026-08-21T22:43:18.813264+00:00",
   "official_source_count": 732
 }
