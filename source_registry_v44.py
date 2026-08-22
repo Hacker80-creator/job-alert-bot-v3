@@ -121,6 +121,21 @@ STATIC_JOB_LINK_SOURCES = {
     "MetLife GOSC": (
         r"^https://www\.metlifecareers\.com/en_US/ml/JobDetail/[^?#]+/\d+/?$"
     ),
+    "Niramai": r"^https://niramai\.com/career/[^/?#]+/?$",
+}
+
+OFFICIAL_STATIC_JOB_BOARDS = {
+    # MaxLinear's own corporate page server-renders current featured jobs even
+    # when its iCIMS board challenges non-browser GitHub runner traffic.
+    "MaxLinear": {
+        "url": "https://www.maxlinear.com/company/careers",
+        "job_url_pattern": (
+            r"^https://careersintl-maxlinear\.icims\.com/"
+            r"jobs/\d+/[^?#]+/job/?$"
+        ),
+        "location_pattern": r"\b(IND-[A-Z]{2}-[A-Za-z]+)\b",
+        "fetch_job_details": False,
+    },
 }
 
 SUCCESSFACTORS_HOSTS = {
@@ -702,6 +717,14 @@ def classify_source(name: str, url: str) -> dict[str, Any]:
             ),
             max_results=100,
         )
+    elif name in OFFICIAL_STATIC_JOB_BOARDS:
+        board = OFFICIAL_STATIC_JOB_BOARDS[name]
+        company.update(
+            ats="static_job_links",
+            career_site_url=str(board["url"]),
+            max_results=100,
+            **board,
+        )
     elif name in STATIC_JOB_LINK_SOURCES:
         company.update(
             ats="static_job_links",
@@ -724,6 +747,8 @@ def classify_source(name: str, url: str) -> dict[str, Any]:
             company["use_card_context_as_location"] = False
         if name == "PVH Corp.":
             company["preserve_card_title"] = True
+        if name == "Niramai":
+            company["listing_retries"] = 3
     elif host == "job-boards.greenhouse.io":
         company.update(ats="greenhouse", slug=path.split("/", 1)[0])
     elif host == "jobs.lever.co":

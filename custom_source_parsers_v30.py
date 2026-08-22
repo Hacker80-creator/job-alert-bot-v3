@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import re
+import time
 from html import unescape
 from typing import Any
 from urllib.parse import parse_qs, urlencode, urljoin, urlparse
@@ -655,7 +656,17 @@ def _card_title(anchor: Any, card: Any) -> str:
 
 def parse_static_job_links(company: dict[str, Any]) -> list[bot.Job]:
     """Read stable first-party job-detail links from a corporate careers page."""
-    response = requests.get(company["url"], headers=BROWSER_HEADERS, timeout=40)
+    retries = max(1, int(company.get("listing_retries", 1)))
+    for attempt in range(retries):
+        try:
+            response = requests.get(
+                company["url"], headers=BROWSER_HEADERS, timeout=40
+            )
+            break
+        except (requests.Timeout, requests.ConnectionError):
+            if attempt >= retries - 1:
+                raise
+            time.sleep(1 + attempt * 2)
     response.raise_for_status()
     soup = BeautifulSoup(response.text, "html.parser")
     pattern = re.compile(company["job_url_pattern"], re.I)

@@ -16,14 +16,14 @@ class ProductionV44Tests(unittest.TestCase):
 
     def test_catalog_and_registry_counts(self) -> None:
         self.assertEqual(268, len(source_registry_v44._catalog_rows()))
-        self.assertEqual(113, len(source_registry_v44.deferred_source_names()))
+        self.assertEqual(115, len(source_registry_v44.deferred_source_names()))
         self.assertEqual(
-            113, len(set(source_registry_v44.deferred_source_names()))
+            115, len(set(source_registry_v44.deferred_source_names()))
         )
         self.assertEqual(266, len(source_registry_v44.build_source_overrides()))
         self.assertEqual(799, len(self.companies))
         self.assertEqual(
-            732,
+            730,
             sum(1 for item in self.companies.values() if item.get("enabled", True)),
         )
 
@@ -45,6 +45,21 @@ class ProductionV44Tests(unittest.TestCase):
             "https://niramai.com/careers/",
             self.companies["Niramai"]["career_site_url"],
         )
+        self.assertEqual("static_job_links", self.companies["Niramai"]["ats"])
+        self.assertEqual(3, self.companies["Niramai"]["listing_retries"])
+
+    def test_maxlinear_uses_runner_accessible_first_party_cards(self) -> None:
+        company = self.companies["MaxLinear"]
+        self.assertTrue(company["enabled"])
+        self.assertEqual("static_job_links", company["ats"])
+        self.assertEqual(
+            "https://www.maxlinear.com/company/careers", company["url"]
+        )
+
+    def test_waf_challenged_icims_sources_are_explicitly_runner_blocked(self) -> None:
+        for name in ("Blackhawk Network", "Waters Corporation"):
+            self.assertFalse(self.companies[name]["enabled"])
+            self.assertEqual("RUNNER_BLOCKED", self.companies[name]["source_status"])
 
     def test_runner_blocked_source_is_not_scanned_as_an_empty_board(self) -> None:
         self.assertFalse(self.companies["H&M Group"]["enabled"])
@@ -92,7 +107,7 @@ class ProductionV44Tests(unittest.TestCase):
             "ClearTax": "darwinbox_v2",
             "FarEye": "direct_job_html",
             "Blackhawk Network": "icims_html",
-            "MaxLinear": "icims_html",
+            "MaxLinear": "static_job_links",
             "Waters Corporation": "icims_html",
             "SiMa.ai": "jobvite_html",
             "CoinSwitch": "recruiterflow_html",

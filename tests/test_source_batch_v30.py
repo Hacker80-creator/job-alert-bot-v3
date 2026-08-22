@@ -149,6 +149,34 @@ class SourceBatchV30Tests(unittest.TestCase):
         self.assertEqual("IND-Bangalore", jobs[0].location)
         self.assertEqual("2026-3074", jobs[0].requisition_id)
 
+    @patch("custom_source_parsers_v30.time.sleep")
+    @patch("custom_source_parsers_v30.requests.get")
+    def test_static_job_listing_retries_transient_connection_failure(
+        self, get: Mock, sleep: Mock
+    ) -> None:
+        recovered = Mock(
+            text='''<article><a href="https://example.com/career/data-analyst/">
+              <h3>Data Analyst</h3></a></article>''',
+            url="https://example.com/careers/",
+        )
+        recovered.raise_for_status.return_value = None
+        get.side_effect = [
+            parsers.requests.ConnectionError("temporary route failure"), recovered
+        ]
+
+        jobs = parsers.parse_static_job_links({
+            "name": "Example",
+            "url": "https://example.com/careers/",
+            "job_url_pattern": r"^https://example\.com/career/[^/]+/$",
+            "listing_retries": 3,
+            "fetch_job_details": False,
+        })
+
+        self.assertEqual(1, len(jobs))
+        self.assertEqual("Data Analyst", jobs[0].title)
+        self.assertEqual(2, get.call_count)
+        sleep.assert_called_once_with(1)
+
     @patch("custom_source_parsers_v30.requests.get")
     def test_jobvite_maps_public_job_card(self, get: Mock) -> None:
         response = Mock(text='''<div class="jv-job-list"><a href="/simaai/job/o123">
