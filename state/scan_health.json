@@ -1,14 +1,13 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
+    "Aurobindo Pharma",
     "Blackhawk Network",
-    "JPMorgan Chase",
+    "HSBC",
     "KaleidEO",
     "MaxLinear",
-    "Niramai",
-    "Syngene International",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-08-22T18:00:54.484476+00:00",
+  "last_notice_utc": "2026-08-22T18:51:36.908988+00:00",
   "official_source_count": 732
 }
