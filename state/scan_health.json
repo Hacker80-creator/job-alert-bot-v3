@@ -1,12 +1,10 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
-    "Becton Dickinson",
     "Blackhawk Network",
     "MaxLinear",
-    "Sonata Software",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-08-22T08:50:44.465202+00:00",
+  "last_notice_utc": "2026-08-22T09:46:18.486182+00:00",
   "official_source_count": 732
 }
