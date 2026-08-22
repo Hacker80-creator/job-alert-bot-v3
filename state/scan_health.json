@@ -2,11 +2,10 @@
   "allowlist_count": 966,
   "failed_sources": [
     "Blackhawk Network",
-    "Lemnisk",
     "MaxLinear",
-    "Narayana Health Digital",
-    "Waters Corporation"
+    "Waters Corporation",
+    "athenahealth"
   ],
-  "last_notice_utc": "2026-08-22T01:53:35.491687+00:00",
+  "last_notice_utc": "2026-08-22T03:12:43.765407+00:00",
   "official_source_count": 732
 }
