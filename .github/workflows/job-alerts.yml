@@ -73,6 +73,14 @@ jobs:
           --workers 16
           --output dynamic_source_probe.summary.json
 
+      - name: Live-test repaired Workday source batch
+        if: ${{ always() && github.event_name == 'workflow_dispatch' && github.ref_name != 'main' }}
+        run: >-
+          python branch_source_validation.py
+          --overrides-file workday_non_json_repair_sources.txt
+          --output workday_non_json_repair.summary.json
+          --workers 8
+
       - name: Upload feature-branch source validation
         if: ${{ always() && github.event_name == 'workflow_dispatch' && github.ref_name != 'main' }}
         uses: actions/upload-artifact@v7
@@ -81,6 +89,7 @@ jobs:
           path: |
             branch_source_validation.summary.json
             dynamic_source_probe.summary.json
+            workday_non_json_repair.summary.json
           if-no-files-found: error
           retention-days: 7
 

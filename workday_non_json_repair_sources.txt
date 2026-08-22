@@ -1,0 +1,30 @@
+# Sources affected by the shared Workday non-JSON runner response in run 32560116955.
+3M|https://3m.wd1.myworkdayjobs.com/wday/cxs/3m/Search/jobs
+Airbus India|https://ag.wd3.myworkdayjobs.com/wday/cxs/ag/Airbus/jobs
+Analog Devices|https://analogdevices.wd1.myworkdayjobs.com/wday/cxs/analogdevices/External/jobs
+Autodesk|https://autodesk.wd1.myworkdayjobs.com/wday/cxs/autodesk/Ext/jobs
+Cadence|https://cadence.wd1.myworkdayjobs.com/wday/cxs/cadence/External_Careers/jobs
+CME Group|https://cmegroup.wd1.myworkdayjobs.com/wday/cxs/cmegroup/cme_careers/jobs
+Commonwealth Bank of Australia|https://cba.wd3.myworkdayjobs.com/wday/cxs/cba/CommBank_Careers/jobs
+CVS Health|https://cvshealth.wd1.myworkdayjobs.com/wday/cxs/cvshealth/CVS_Health_Careers/jobs
+DBS Bank|https://dbs.wd3.myworkdayjobs.com/wday/cxs/dbs/DBS_Careers/jobs
+FedEx|https://fedex.wd1.myworkdayjobs.com/wday/cxs/fedex/FXE-MEISA-External/jobs
+Genesys|https://genesys.wd1.myworkdayjobs.com/wday/cxs/genesys/Genesys/jobs
+Illumina|https://illumina.wd1.myworkdayjobs.com/wday/cxs/illumina/illumina-careers/jobs
+Intel|https://intel.wd1.myworkdayjobs.com/wday/cxs/intel/External/jobs
+IQVIA|https://iqvia.wd1.myworkdayjobs.com/wday/cxs/iqvia/IQVIA/jobs
+KLA|https://kla.wd1.myworkdayjobs.com/wday/cxs/kla/Search/jobs
+LSEG|https://lseg.wd3.myworkdayjobs.com/wday/cxs/lseg/Careers/jobs
+Marvell Technology|https://marvell.wd1.myworkdayjobs.com/wday/cxs/marvell/MarvellCareers/jobs
+Mavenir|https://mavenir.wd1.myworkdayjobs.com/wday/cxs/mavenir/Mavenir_Careers/jobs
+Medtronic|https://medtronic.wd1.myworkdayjobs.com/wday/cxs/medtronic/MedtronicCareers/jobs
+MUFG|https://mufgub.wd3.myworkdayjobs.com/wday/cxs/mufgub/MUFG-Careers/jobs
+Nasdaq|https://nasdaq.wd1.myworkdayjobs.com/wday/cxs/nasdaq/Global_External_Site/jobs
+NXP Semiconductors|https://nxp.wd3.myworkdayjobs.com/wday/cxs/nxp/careers/jobs
+Rackspace Technology|https://rackspace.wd1.myworkdayjobs.com/wday/cxs/rackspace/External/jobs
+Rockwell Automation|https://rockwellautomation.wd1.myworkdayjobs.com/wday/cxs/rockwellautomation/External_Rockwell_Automation/jobs
+Sabre|https://sabre.wd1.myworkdayjobs.com/wday/cxs/sabre/SabreJobs/jobs
+Shell|https://shell.wd3.myworkdayjobs.com/wday/cxs/shell/shellcareers/jobs
+Sun Life|https://sunlife.wd3.myworkdayjobs.com/wday/cxs/sunlife/Experienced-Jobs/jobs
+Valeo|https://valeo.wd3.myworkdayjobs.com/wday/cxs/valeo/valeo_jobs/jobs
+Zendesk|https://zendesk.wd1.myworkdayjobs.com/wday/cxs/zendesk/zendesk/jobs

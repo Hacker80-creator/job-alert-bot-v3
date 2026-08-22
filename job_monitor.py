@@ -48,6 +48,12 @@ HEADERS = {
     "Accept-Language": "en-US,en;q=0.9",
 }
 
+WORKDAY_USER_AGENT = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) "
+    "Chrome/127.0.0.0 Safari/537.36"
+)
+
 
 def canonical_job_url(url: str) -> str:
     """Normalize a job-specific public URL for cross-run deduplication."""
@@ -264,11 +270,27 @@ def clean_text(value: Any) -> str:
 
 
 def get_json(url: str, *, method: str = "GET", payload: dict[str, Any] | None = None) -> Any:
+    is_post = method.upper() == "POST"
+    request_headers = HEADERS
+    if is_post and "/wday/cxs/" in url:
+        parsed = urlsplit(url)
+        origin = f"{parsed.scheme}://{parsed.netloc}"
+        career_path = url.split("/wday/cxs/", 1)[1].split("/", 2)
+        career_site = career_path[1] if len(career_path) > 1 else ""
+        request_headers = {
+            **HEADERS,
+            "User-Agent": WORKDAY_USER_AGENT,
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "Origin": origin,
+            "Referer": f"{origin}/{career_site}",
+        }
+
     for attempt in range(3):
         try:
-            if method == "POST":
+            if is_post:
                 response = requests.post(
-                    url, json=payload or {}, headers=HEADERS, timeout=20
+                    url, json=payload or {}, headers=request_headers, timeout=20
                 )
             else:
                 response = requests.get(url, headers=HEADERS, timeout=20)
@@ -281,12 +303,27 @@ def get_json(url: str, *, method: str = "GET", payload: dict[str, Any] | None = 
         # Workday search POSTs occasionally return short-lived 429/5xx
         # responses. Retry the bounded list query, but do not retry GET detail
         # enrichment and amplify a tenant's rate limit.
-        retryable = method == "POST" and response.status_code in {429, 502, 503}
+        retryable = is_post and response.status_code in {429, 502, 503, 504}
         if retryable and attempt < 2:
             time.sleep(1 + attempt * 2)
             continue
         response.raise_for_status()
-        return response.json()
+        try:
+            return response.json()
+        except ValueError as exc:
+            # Workday occasionally answers a successful CXS POST with an
+            # empty body or an HTML edge response. Retry only bounded list
+            # POSTs; GET detail enrichment must not multiply tenant traffic.
+            if is_post and attempt < 2:
+                time.sleep(1 + attempt * 2)
+                continue
+            content_type = (response.headers.get("Content-Type", "") if hasattr(response, "headers") else "")
+            body = (getattr(response, "text", "") or "").lstrip()
+            body_kind = "empty" if not body else ("HTML" if body[:20].casefold().startswith(("<!doctype html", "<html")) else "non-JSON")
+            raise RuntimeError(
+                f"{body_kind} response (status {response.status_code}, "
+                f"content-type {content_type or 'unknown'})"
+            ) from exc
     raise RuntimeError("unreachable JSON retry state")
 
 
