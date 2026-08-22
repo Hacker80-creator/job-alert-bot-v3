@@ -2,10 +2,13 @@
   "allowlist_count": 966,
   "failed_sources": [
     "Blackhawk Network",
+    "HSBC",
     "KaleidEO",
     "MaxLinear",
+    "Niramai",
+    "Syngene International",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-08-22T21:39:01.310253+00:00",
+  "last_notice_utc": "2026-08-22T22:00:06.399572+00:00",
   "official_source_count": 732
 }
