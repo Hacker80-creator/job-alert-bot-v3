@@ -1,13 +1,13 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
+    "ANZ",
     "Blackhawk Network",
+    "CleverTap",
     "KaleidEO",
-    "Kwalee",
     "MaxLinear",
-    "Niramai",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-08-22T23:38:50.259089+00:00",
+  "last_notice_utc": "2026-08-22T23:58:45.836941+00:00",
   "official_source_count": 732
 }
