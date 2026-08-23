@@ -1,11 +1,12 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
+    "Birlasoft",
     "Blackhawk Network",
     "KaleidEO",
     "MaxLinear",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-08-23T15:03:47.210592+00:00",
+  "last_notice_utc": "2026-08-23T15:40:40.202953+00:00",
   "official_source_count": 732
 }
