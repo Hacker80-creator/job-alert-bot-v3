@@ -1,14 +1,11 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
-    "Alstom",
     "Blackhawk Network",
-    "Hero MotoCorp",
     "KaleidEO",
-    "Kwalee",
     "MaxLinear",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-08-23T04:22:12.665380+00:00",
+  "last_notice_utc": "2026-08-23T05:14:24.037113+00:00",
   "official_source_count": 732
 }
