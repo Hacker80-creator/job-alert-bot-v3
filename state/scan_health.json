@@ -2,10 +2,12 @@
   "allowlist_count": 966,
   "failed_sources": [
     "Blackhawk Network",
+    "Dassault Syst\u00e8mes",
     "KaleidEO",
+    "Kwalee",
     "MaxLinear",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-08-23T07:04:51.032960+00:00",
+  "last_notice_utc": "2026-08-23T07:50:32.785500+00:00",
   "official_source_count": 732
 }
