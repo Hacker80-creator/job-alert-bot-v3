@@ -2,10 +2,12 @@
   "allowlist_count": 966,
   "failed_sources": [
     "Blackhawk Network",
+    "ICICI Securities",
     "KaleidEO",
+    "Kwalee",
     "MaxLinear",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-08-23T13:48:57.361112+00:00",
+  "last_notice_utc": "2026-08-23T14:41:46.741571+00:00",
   "official_source_count": 732
 }
