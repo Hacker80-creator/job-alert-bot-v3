@@ -1,12 +1,13 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
+    "Analog Devices",
     "Blackhawk Network",
     "HDFC ERGO",
     "KaleidEO",
     "MaxLinear",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-08-24T19:46:43.964467+00:00",
+  "last_notice_utc": "2026-08-24T22:08:02.247460+00:00",
   "official_source_count": 732
 }
