@@ -1,12 +1,11 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
-    "ANZ",
     "Blackhawk Network",
     "KaleidEO",
     "MaxLinear",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-08-24T17:48:20.656751+00:00",
+  "last_notice_utc": "2026-08-24T19:02:53.376961+00:00",
   "official_source_count": 732
 }
