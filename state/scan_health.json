@@ -1,11 +1,25 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
+    "Bentley Systems",
     "Blackhawk Network",
+    "Boston Scientific",
+    "CommScope",
+    "Corning",
+    "Dana",
+    "Dynatrace",
+    "ExxonMobil",
+    "John Deere",
     "KaleidEO",
+    "Kellanova",
+    "Lupin",
+    "Marlabs",
     "MaxLinear",
+    "New York Life India",
+    "Nomura",
+    "Seagate",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-08-24T08:33:21.682353+00:00",
+  "last_notice_utc": "2026-08-24T11:15:11.918172+00:00",
   "official_source_count": 732
 }
