@@ -2,10 +2,12 @@
   "allowlist_count": 966,
   "failed_sources": [
     "Blackhawk Network",
+    "Dell Technologies",
     "KaleidEO",
+    "Lupin",
     "MaxLinear",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-08-24T15:59:26.054139+00:00",
+  "last_notice_utc": "2026-08-24T17:00:05.836516+00:00",
   "official_source_count": 732
 }
