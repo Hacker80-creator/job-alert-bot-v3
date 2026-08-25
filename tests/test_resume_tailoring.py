@@ -273,7 +273,7 @@ class ResumeTailoringTests(unittest.TestCase):
         filename = tailor.output_filename(make_job())
         self.assertEqual("MakeMyTrip_Product_Analyst_REQ_123456_Jagadev.docx", filename)
 
-    def test_discord_uses_multipart_and_preserves_existing_card(self) -> None:
+    def test_discord_sends_job_card_without_resume_attachment(self) -> None:
         response = Mock(status_code=204, text="")
         job = bot.Job(
             company="MakeMyTrip",
@@ -285,32 +285,16 @@ class ResumeTailoringTests(unittest.TestCase):
             reasons=["title match", "Python and SQL"],
             requisition_id="REQ-123456",
         )
-        result = tailor.TailoredResume(
-            path=MASTER,
-            supported_skills=("Python", "SQL"),
-            important_gaps=("AWS",),
-            model="gemini-3.6-flash",
-            changed_sections=("professional summary rewritten",),
-            comparison=tailor.ATSComparison(
-                summary_keywords_before=("Python",),
-                summary_keywords_after=("Python", "SQL"),
-                newly_surfaced_summary_keywords=("SQL",),
-                experience_bullets_rewritten=1,
-                project_bullets_rewritten=0,
-            ),
-            source_path=MASTER,
-        )
         original_webhook = bot.DISCORD_WEBHOOK_URL
         try:
             bot.DISCORD_WEBHOOK_URL = "https://discord.example/webhook"
             with patch.object(bot.requests, "post", return_value=response) as post:
-                self.assertTrue(
-                    bot.discord_post(job, result, include_original_resume=True)
-                )
+                self.assertTrue(bot.discord_post(job))
             kwargs = post.call_args.kwargs
-            self.assertIn("files", kwargs)
-            self.assertNotIn("json", kwargs)
-            payload = json.loads(kwargs["data"]["payload_json"])
+            self.assertNotIn("files", kwargs)
+            self.assertNotIn("data", kwargs)
+            payload = kwargs["json"]
+            self.assertEqual(job.url, payload["embeds"][0]["url"])
             fields = payload["embeds"][0]["fields"]
             names = {field["name"] for field in fields}
             self.assertTrue(
@@ -320,37 +304,22 @@ class ResumeTailoringTests(unittest.TestCase):
                 {
                     "Resume-supported skills", "Important gaps", "Tailored resume",
                     "ATS evidence comparison",
-                }.issubset(names)
+                }.isdisjoint(names)
             )
-            attachment = kwargs["files"]["files[0]"]
-            self.assertEqual("master_resume.docx", attachment[0])
-            self.assertGreater(len(attachment[1]), 1_000)
-            original = kwargs["files"]["files[1]"]
-            self.assertEqual("ORIGINAL_Jagadev.docx", original[0])
-            self.assertGreater(len(original[1]), 1_000)
         finally:
             bot.DISCORD_WEBHOOK_URL = original_webhook
 
-    def test_resume_worker_failure_never_suppresses_job_alert(self) -> None:
-        job = bot.Job("Example", "Data Analyst", "Bengaluru", "https://example.test/jobs/1", "test")
-        original_enabled = bot.ENABLE_RESUME_TAILORING
-        try:
-            bot.ENABLE_RESUME_TAILORING = True
-            with patch.object(
-                tailor, "generate_tailored_resume", side_effect=RuntimeError("boom")
-            ):
-                self.assertEqual({}, bot.prepare_tailored_resumes([job]))
-        finally:
-            bot.ENABLE_RESUME_TAILORING = original_enabled
-
-    def test_workflow_is_branch_safe_and_configures_models(self) -> None:
+    def test_workflow_is_branch_safe_and_has_no_resume_delivery(self) -> None:
         workflow = (ROOT / ".github" / "workflows" / "job-alerts.yml").read_text(encoding="utf-8")
         self.assertIn("ref: ${{ github.ref }}", workflow)
         self.assertIn("github.ref_name != 'main'", workflow)
         self.assertIn("always() && github.ref_name == 'main'", workflow)
-        self.assertIn("GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}", workflow)
-        self.assertIn('GEMINI_PRIMARY_MODEL: "gemini-3.6-flash"', workflow)
-        self.assertIn('GEMINI_FALLBACK_MODEL: "gemini-3.5-flash-lite"', workflow)
+        self.assertNotIn("GEMINI_API_KEY", workflow)
+        self.assertNotIn("ENABLE_RESUME_TAILORING", workflow)
+        self.assertNotIn("MASTER_RESUME_PATH", workflow)
+        self.assertNotIn("TAILORED_RESUME_DIR", workflow)
+        self.assertNotIn("resume_test_alert.py", workflow)
+        self.assertFalse((ROOT / "resume_test_alert.py").exists())
         self.assertNotIn("ANTHROPIC_API_KEY", workflow)
 
 
