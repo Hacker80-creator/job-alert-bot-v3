@@ -1,7 +1,6 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
-    "Amgen India",
     "Blackhawk Network",
     "CynLr",
     "Eka Software Solutions",
@@ -13,6 +12,6 @@
     "Walmart Global Tech",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-08-25T22:46:25.359756+00:00",
+  "last_notice_utc": "2026-08-25T23:10:11.003029+00:00",
   "official_source_count": 732
 }
