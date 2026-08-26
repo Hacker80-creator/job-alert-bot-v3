@@ -1,7 +1,6 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
-    "ANZ",
     "Blackhawk Network",
     "CynLr",
     "Eka Software Solutions",
@@ -10,9 +9,8 @@
     "MaxLinear",
     "Mudrex",
     "Ninjacart",
-    "Niramai",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-08-26T07:12:24.007839+00:00",
+  "last_notice_utc": "2026-08-26T08:03:18.123661+00:00",
   "official_source_count": 732
 }
