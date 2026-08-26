@@ -1,17 +1,28 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
+    "Allianz Technology",
+    "Baker Hughes",
     "Blackhawk Network",
+    "Cboe Global Markets",
+    "Cisco",
     "CynLr",
     "Eka Software Solutions",
+    "Enphase Energy",
+    "Fiserv",
+    "GSK",
     "HDFC ERGO",
     "Haptik",
     "MaxLinear",
     "Mudrex",
     "Ninjacart",
-    "Walmart Global Tech",
+    "Quest Global",
+    "Royal Enfield",
+    "STMicroelectronics",
+    "Syngene International",
+    "Ubisoft India",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-08-25T23:10:11.003029+00:00",
+  "last_notice_utc": "2026-08-26T00:01:31.239395+00:00",
   "official_source_count": 732
 }
