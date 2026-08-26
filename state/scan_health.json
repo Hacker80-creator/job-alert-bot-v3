@@ -1,17 +1,28 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
-    "ANZ",
+    "7-Eleven Global Solution Center",
     "Blackhawk Network",
+    "Bread Financial",
+    "Circle",
+    "Cisco",
     "CynLr",
     "Eka Software Solutions",
+    "GSK",
     "HDFC ERGO",
     "Haptik",
     "MaxLinear",
     "Mudrex",
+    "Niantic",
     "Ninjacart",
-    "Waters Corporation"
+    "PVH Corp.",
+    "Royal Enfield",
+    "STMicroelectronics",
+    "Teva Pharmaceuticals",
+    "UPS",
+    "Waters Corporation",
+    "eBay"
   ],
-  "last_notice_utc": "2026-08-26T02:00:27.812093+00:00",
+  "last_notice_utc": "2026-08-26T03:23:25.991068+00:00",
   "official_source_count": 732
 }
