@@ -166,7 +166,7 @@ def run_watchdog(
     now: datetime,
     max_age_minutes: int = 130,
     dry_run: bool = False,
-) -> str | None:
+) -> list[str]:
     stale = find_stale_workflows(
         client,
         now=now,
@@ -177,25 +177,41 @@ def run_watchdog(
             "WATCHDOG_OK: all scanners have a main-branch run within "
             f"{max_age_minutes} minutes"
         )
-        return None
+        return []
 
-    selected = stale[0]
-    age = (
-        "never"
-        if selected.latest_run_utc is None
-        else str(int((now - selected.latest_run_utc).total_seconds() // 60))
-        + " minutes"
-    )
-    print(
-        f"WATCHDOG_STALE: {selected.label} latest main run age={age}; "
-        f"stale_count={len(stale)}"
-    )
-    if dry_run:
-        print(f"WATCHDOG_DRY_RUN: would dispatch {selected.workflow_file}")
-    else:
-        client.dispatch_main(selected.workflow_file)
-        print(f"WATCHDOG_DISPATCHED: {selected.workflow_file} on main")
-    return selected.workflow_file
+    targets = [status.workflow_file for status in stale]
+    failures: list[str] = []
+    for selected in stale:
+        age = (
+            "never"
+            if selected.latest_run_utc is None
+            else str(int((now - selected.latest_run_utc).total_seconds() // 60))
+            + " minutes"
+        )
+        print(
+            f"WATCHDOG_STALE: {selected.label} latest main run age={age}; "
+            f"stale_count={len(stale)}"
+        )
+        if dry_run:
+            print(
+                f"WATCHDOG_DRY_RUN: would dispatch {selected.workflow_file}"
+            )
+            continue
+        try:
+            client.dispatch_main(selected.workflow_file)
+            print(f"WATCHDOG_DISPATCHED: {selected.workflow_file} on main")
+        except Exception as exc:  # Keep recovering the other independent scanners.
+            failures.append(f"{selected.workflow_file}: {exc}")
+            print(
+                f"WATCHDOG_DISPATCH_FAILED: {selected.workflow_file}: {exc}"
+            )
+
+    if failures:
+        raise RuntimeError(
+            "One or more stale scanners could not be dispatched: "
+            + "; ".join(failures)
+        )
+    return targets
 
 
 def main() -> int:

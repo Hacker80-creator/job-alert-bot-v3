@@ -6,8 +6,8 @@ on:
   push:
     branches:
       - feature/github-scheduler-watchdog
-  # A successful native/manual recovery of one scanner immediately checks the
-  # other two. This recovers stale scanners sequentially without source bursts.
+      - fix/watchdog-dispatch-all-stale
+  # Native/manual scanner completions provide an additional recovery check.
   workflow_run:
     workflows:
       - Bangalore product data job alerts
@@ -16,8 +16,8 @@ on:
     types:
       - completed
   schedule:
-    # Four off-peak checks per hour. The watchdog dispatches at most one stale
-    # scanner and never runs a scanner more often than the age threshold.
+    # Four off-peak checks per hour. Every stale scanner is recovered in the
+    # same check; recent or already-running scanners are never duplicated.
     - cron: "11,26,41,56 * * * *"
 
 concurrency:
@@ -51,7 +51,7 @@ jobs:
         if: ${{ github.ref_name != 'main' }}
         run: python -m unittest discover -s tests -v
 
-      - name: Recover one stale scanner
+      - name: Recover stale scanners
         if: ${{ github.ref_name == 'main' && github.event_name != 'push' }}
         env:
           GITHUB_TOKEN: ${{ github.token }}
