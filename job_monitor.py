@@ -3,7 +3,7 @@
 Primary source: official career feeds / ATS APIs.
 Secondary source: Indeed best-effort search, filtered by an approved product-company allowlist.
 
-The bot is designed for GitHub Actions every two hours.
+The bot is designed for GitHub Actions every 30 minutes.
 """
 from __future__ import annotations
 
@@ -1182,7 +1182,7 @@ def discord_post(job: Job) -> bool:
             "description": f"**{job.company}**\n{reasons}",
             "color": 5814783,
             "fields": fields,
-            "footer": {"text": "*Salary is estimated unless marked Posted \u2022 scanned every 2 hours"},
+            "footer": {"text": "*Salary is estimated unless marked Posted \u2022 scanned every 30 min"},
             "timestamp": datetime.now(timezone.utc).isoformat(),
         }]
     }

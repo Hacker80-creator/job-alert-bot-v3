@@ -230,9 +230,9 @@ class ReliabilityTests(unittest.TestCase):
             "IND-Bangalore-TowerE,RMZ Infin", bot.flatten_location(raw)
         )
 
-    def test_workflow_is_serialized_and_every_two_hours(self) -> None:
+    def test_workflow_is_serialized_and_every_thirty_minutes(self) -> None:
         workflow = (Path(__file__).parents[1] / ".github" / "workflows" / "job-alerts.yml").read_text(encoding="utf-8")
-        self.assertIn('cron: "7 */2 * * *"', workflow)
+        self.assertIn('cron: "7,37 * * * *"', workflow)
         self.assertIn("group: job-alert-bot-persistent-state", workflow)
         self.assertIn("contents: write", workflow)
         self.assertIn("always()", workflow)
