@@ -5,6 +5,7 @@ __pycache__/
 branch_source_validation.summary.json
 dynamic_source_probe.summary.json
 qa_source_validation.summary.json
+sap_bi_source_validation.summary.json
 *.log
 .venv/
 companies.json

@@ -137,6 +137,18 @@ production company registry plus the QA-only sources in
 `qa_scan_health.json` files and run every two hours at minute 37. QA/testing
 titles are explicitly excluded from the ML/data matcher.
 
+### Separate SAP and BI alerts
+
+Add a repository Actions secret named `SAP_BI_DISCORD_WEBHOOK_URL`. The SAP/BI
+pipeline reuses the complete existing production and QA-extension company
+registry without adding another company list. It accepts only the approved
+early-career SAP UI5/Fiori/BTP, Power BI, BI/reporting, SQL, support, and junior
+data titles defined in `sap_bi_role_filter.py`, for Bangalore/Bengaluru or
+Remote India and approximately 0-3 years of experience. Its deduplication and
+health state are isolated in `seen_sap_bi_jobs.json` and
+`sap_bi_scan_health.json`. It runs every two hours at minute 7 of odd UTC hours,
+between the existing ML/data and QA scans.
+
 Open `companies.yaml`.
 
 ### Add a product company
