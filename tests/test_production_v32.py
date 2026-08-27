@@ -44,7 +44,7 @@ class ProductionV32Tests(unittest.TestCase):
             Path(__file__).parents[1] / ".github" / "workflows" / "job-alerts.yml"
         ).read_text(encoding="utf-8")
         self.assertNotIn("python job_monitor_entry_v31.py", workflow)
-        self.assertIn('cron: "7 */2 * * *"', workflow)
+        self.assertIn('cron: "7,37 * * * *"', workflow)
         self.assertIn("contents: write", workflow)
 
 
