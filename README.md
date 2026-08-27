@@ -128,6 +128,15 @@ The workflow will then run automatically every two hours at minute 7 (UTC).
 
 ## Customization
 
+### Separate QA/testing alerts
+
+The QA pipeline is isolated from the ML/data channel. Add a repository Actions
+secret named `QA_DISCORD_WEBHOOK_URL`; scheduled QA scans use the complete
+production company registry plus the QA-only sources in
+`qa_company_sources.py`. QA alerts persist their own `seen_qa_jobs.json` and
+`qa_scan_health.json` files and run every two hours at minute 37. QA/testing
+titles are explicitly excluded from the ML/data matcher.
+
 Open `companies.yaml`.
 
 ### Add a product company

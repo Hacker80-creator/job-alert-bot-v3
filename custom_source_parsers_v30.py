@@ -3,6 +3,8 @@ from __future__ import annotations
 
 import json
 import re
+import shutil
+import subprocess
 from html import unescape
 from typing import Any
 from urllib.parse import parse_qs, urlencode, urljoin, urlparse
@@ -254,16 +256,55 @@ def parse_darwinbox_v2(company: dict[str, Any]) -> list[bot.Job]:
 def parse_icims_html(company: dict[str, Any]) -> list[bot.Job]:
     """Read the server-rendered vacancy cards in public iCIMS portals."""
     max_pages = max(1, int(company.get("max_pages", 30)))
+    request_headers = BROWSER_HEADERS
+    if company.get("minimal_browser_headers"):
+        # A few iCIMS tenants reject broad browser Accept headers even though
+        # the same public HTML endpoint accepts a normal browser User-Agent.
+        request_headers = {"User-Agent": BROWSER_HEADERS["User-Agent"]}
     jobs_by_id: dict[str, bot.Job] = {}
     for page in range(max_pages):
-        response = requests.get(
-            company["url"],
-            params={"ss": 1, "pr": page, "in_iframe": 1},
-            headers=BROWSER_HEADERS,
-            timeout=40,
-        )
-        response.raise_for_status()
-        soup = BeautifulSoup(response.text, "html.parser")
+        params = {"ss": 1, "pr": page, "in_iframe": 1}
+        if company.get("curl_browser_transport"):
+            curl = shutil.which("curl") or shutil.which("curl.exe")
+            if not curl:
+                raise RuntimeError("curl is required for this iCIMS tenant")
+            request_url = requests.Request(
+                "GET", company["url"], params=params
+            ).prepare().url
+            completed = subprocess.run(
+                [
+                    curl,
+                    "--fail",
+                    "--silent",
+                    "--show-error",
+                    "--location",
+                    "--max-time",
+                    "40",
+                    "--user-agent",
+                    str(
+                        company.get("curl_user_agent")
+                        or BROWSER_HEADERS["User-Agent"]
+                    ),
+                    str(request_url),
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+                timeout=45,
+            )
+            response_text = completed.stdout
+            response_url = str(request_url)
+        else:
+            response = requests.get(
+                company["url"],
+                params=params,
+                headers=request_headers,
+                timeout=40,
+            )
+            response.raise_for_status()
+            response_text = response.text
+            response_url = response.url
+        soup = BeautifulSoup(response_text, "html.parser")
         cards = soup.select("li.iCIMS_JobCardItem")
         added = 0
         for card in cards:
@@ -271,7 +312,7 @@ def parse_icims_html(company: dict[str, Any]) -> list[bot.Job]:
             title_node = card.select_one(".title h3")
             if link is None or title_node is None:
                 continue
-            url = urljoin(response.url, str(link.get("href") or ""))
+            url = urljoin(response_url, str(link.get("href") or ""))
             match = re.search(r"/jobs/(\d+)/", urlparse(url).path)
             job_id = match.group(1) if match else ""
             title = bot.clean_text(title_node.get_text(" "))

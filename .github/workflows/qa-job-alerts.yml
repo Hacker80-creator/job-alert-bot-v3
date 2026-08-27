@@ -1,0 +1,113 @@
+name: Bangalore QA job alerts
+
+on:
+  workflow_dispatch:
+  # Register and validate this new workflow before it reaches the default branch.
+  push:
+    branches:
+      - feature/qa-job-alerts
+  schedule:
+    # Independent two-hour cadence, offset from the ML/data workflow.
+    - cron: "37 */2 * * *"
+
+concurrency:
+  group: qa-job-alert-bot-persistent-state
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 28
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run reliability tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Validate QA-only company sources
+        if: ${{ github.ref_name != 'main' }}
+        run: python qa_job_alerts.py --validate-sources
+
+      - name: Upload QA source validation
+        if: ${{ always() && github.ref_name != 'main' }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: qa-source-validation
+          path: qa_source_validation.summary.json
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Scan QA career feeds
+        if: ${{ github.ref_name == 'main' }}
+        env:
+          QA_DISCORD_WEBHOOK_URL: ${{ secrets.QA_DISCORD_WEBHOOK_URL }}
+          MIN_SCORE: "70"
+          MAX_ALERTS_PER_RUN: "15"
+          SEND_STARTUP_SUMMARY: "false"
+          SEND_DAILY_HEALTH: "true"
+          DAILY_HEALTH_HOURS: "24"
+          MAX_SOURCE_WORKERS: "16"
+          ENABLE_INDEED: "false"
+        run: python qa_job_alerts.py
+
+      - name: Persist QA deduplication state
+        if: ${{ always() && github.ref_name == 'main' }}
+        run: |
+          if [[ -z $(git status --porcelain state/seen_qa_jobs.json state/qa_scan_health.json) ]]; then
+            echo "No QA state changes"
+            exit 0
+          fi
+
+          generated_state="$RUNNER_TEMP/qa-job-alert-generated-state"
+          mkdir -p "$generated_state"
+          for file in seen_qa_jobs.json qa_scan_health.json; do
+            if [[ -f "state/$file" ]]; then
+              cp "state/$file" "$generated_state/"
+            fi
+          done
+          git restore --source=HEAD --staged --worktree -- state/ 2>/dev/null || true
+          git clean -f -- state/seen_qa_jobs.json state/qa_scan_health.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git checkout -B qa-job-alert-state origin/main
+            python merge_job_state.py \
+              --generated-dir "$generated_state" \
+              --state-dir state \
+              --seen-file seen_qa_jobs.json \
+              --health-file qa_scan_health.json
+
+            if [[ -z $(git status --porcelain state/) ]]; then
+              echo "Generated QA state is already present on main"
+              exit 0
+            fi
+
+            git add state/
+            git commit -m "Update QA job bot persistent state"
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            echo "QA state push raced with another main update; retrying ($attempt/3)"
+            sleep $((attempt * 2))
+          done
+
+          echo "ERROR: unable to persist QA deduplication state after 3 attempts"
+          exit 1
