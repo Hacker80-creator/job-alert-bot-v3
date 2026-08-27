@@ -271,12 +271,14 @@ class QAAlertTests(unittest.TestCase):
     def test_qa_workflow_is_independent_and_secret_safe(self) -> None:
         workflow = (ROOT / ".github" / "workflows" / "qa-job-alerts.yml").read_text(encoding="utf-8")
         self.assertIn('cron: "37 */2 * * *"', workflow)
+        self.assertIn("- feature/qa-job-alerts", workflow)
         self.assertIn("group: qa-job-alert-bot-persistent-state", workflow)
         self.assertIn("QA_DISCORD_WEBHOOK_URL: ${{ secrets.QA_DISCORD_WEBHOOK_URL }}", workflow)
         self.assertNotIn("DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}", workflow)
         self.assertIn("seen_qa_jobs.json", workflow)
         self.assertIn("qa_scan_health.json", workflow)
         self.assertIn("github.ref_name == 'main'", workflow)
+        self.assertIn("github.ref_name != 'main'", workflow)
 
     def test_merge_state_supports_independent_qa_filenames(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

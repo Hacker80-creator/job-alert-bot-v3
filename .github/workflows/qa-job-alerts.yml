@@ -2,6 +2,10 @@ name: Bangalore QA job alerts
 
 on:
   workflow_dispatch:
+  # Register and validate this new workflow before it reaches the default branch.
+  push:
+    branches:
+      - feature/qa-job-alerts
   schedule:
     # Independent two-hour cadence, offset from the ML/data workflow.
     - cron: "37 */2 * * *"
@@ -37,11 +41,11 @@ jobs:
         run: python -m unittest discover -s tests -v
 
       - name: Validate QA-only company sources
-        if: ${{ github.event_name == 'workflow_dispatch' && github.ref_name != 'main' }}
+        if: ${{ github.ref_name != 'main' }}
         run: python qa_job_alerts.py --validate-sources
 
       - name: Upload QA source validation
-        if: ${{ always() && github.event_name == 'workflow_dispatch' && github.ref_name != 'main' }}
+        if: ${{ always() && github.ref_name != 'main' }}
         uses: actions/upload-artifact@v7
         with:
           name: qa-source-validation
