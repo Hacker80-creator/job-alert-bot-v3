@@ -3,8 +3,8 @@ name: Bangalore product data job alerts
 on:
   workflow_dispatch:
   schedule:
-    # Every 30 minutes. GitHub may delay scheduled jobs slightly.
-    - cron: "7,37 * * * *"
+    # Every two hours. GitHub may delay scheduled jobs slightly.
+    - cron: "7 */2 * * *"
 
 # Serialize scans so two runs cannot read the same dedup state and double-send.
 concurrency:
