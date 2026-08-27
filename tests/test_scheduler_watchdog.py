@@ -27,14 +27,22 @@ def run_record(
 
 
 class FakeClient:
-    def __init__(self, runs: dict[str, list[dict]]) -> None:
+    def __init__(
+        self,
+        runs: dict[str, list[dict]],
+        *,
+        fail_dispatch: set[str] | None = None,
+    ) -> None:
         self.runs = runs
         self.dispatched: list[str] = []
+        self.fail_dispatch = fail_dispatch or set()
 
     def list_main_runs(self, workflow_file: str) -> list[dict]:
         return self.runs.get(workflow_file, [])
 
     def dispatch_main(self, workflow_file: str) -> None:
+        if workflow_file in self.fail_dispatch:
+            raise RuntimeError("simulated dispatch failure")
         self.dispatched.append(workflow_file)
 
 
@@ -53,10 +61,10 @@ class SchedulerWatchdogTests(unittest.TestCase):
         selected = watchdog.run_watchdog(
             client, now=NOW, max_age_minutes=130
         )
-        self.assertIsNone(selected)
+        self.assertEqual([], selected)
         self.assertEqual([], client.dispatched)
 
-    def test_oldest_stale_workflow_is_dispatched(self) -> None:
+    def test_every_stale_workflow_is_dispatched_oldest_first(self) -> None:
         client = FakeClient({
             "job-alerts.yml": [run_record(NOW - timedelta(minutes=150))],
             "qa-job-alerts.yml": [run_record(NOW - timedelta(minutes=180))],
@@ -65,16 +73,22 @@ class SchedulerWatchdogTests(unittest.TestCase):
         selected = watchdog.run_watchdog(
             client, now=NOW, max_age_minutes=130
         )
-        self.assertEqual("qa-job-alerts.yml", selected)
-        self.assertEqual(["qa-job-alerts.yml"], client.dispatched)
+        expected = [
+            "qa-job-alerts.yml",
+            "job-alerts.yml",
+            "sap-bi-job-alerts.yml",
+        ]
+        self.assertEqual(expected, selected)
+        self.assertEqual(expected, client.dispatched)
 
-    def test_only_one_missing_workflow_is_dispatched_per_check(self) -> None:
+    def test_every_missing_workflow_is_dispatched_per_check(self) -> None:
         client = FakeClient({})
         selected = watchdog.run_watchdog(
             client, now=NOW, max_age_minutes=130
         )
-        self.assertEqual("job-alerts.yml", selected)
-        self.assertEqual(["job-alerts.yml"], client.dispatched)
+        expected = [workflow for _, workflow in watchdog.TARGET_WORKFLOWS]
+        self.assertEqual(expected, selected)
+        self.assertEqual(expected, client.dispatched)
 
     def test_feature_branch_runs_do_not_make_a_scanner_fresh(self) -> None:
         client = FakeClient({
@@ -87,7 +101,7 @@ class SchedulerWatchdogTests(unittest.TestCase):
         selected = watchdog.run_watchdog(
             client, now=NOW, max_age_minutes=130
         )
-        self.assertEqual("job-alerts.yml", selected)
+        self.assertEqual(["job-alerts.yml"], selected)
 
     def test_queued_or_manual_main_run_counts_as_fresh(self) -> None:
         client = FakeClient({
@@ -101,7 +115,8 @@ class SchedulerWatchdogTests(unittest.TestCase):
             "qa-job-alerts.yml": [run_record(NOW - timedelta(minutes=5))],
             "sap-bi-job-alerts.yml": [run_record(NOW - timedelta(minutes=5))],
         })
-        self.assertIsNone(
+        self.assertEqual(
+            [],
             watchdog.run_watchdog(client, now=NOW, max_age_minutes=130)
         )
 
@@ -113,8 +128,23 @@ class SchedulerWatchdogTests(unittest.TestCase):
             max_age_minutes=130,
             dry_run=True,
         )
-        self.assertEqual("job-alerts.yml", selected)
+        self.assertEqual(
+            [workflow for _, workflow in watchdog.TARGET_WORKFLOWS],
+            selected,
+        )
         self.assertEqual([], client.dispatched)
+
+    def test_one_dispatch_failure_does_not_block_other_stale_scanners(self) -> None:
+        client = FakeClient(
+            {},
+            fail_dispatch={"qa-job-alerts.yml"},
+        )
+        with self.assertRaisesRegex(RuntimeError, "qa-job-alerts.yml"):
+            watchdog.run_watchdog(client, now=NOW, max_age_minutes=130)
+        self.assertEqual(
+            ["job-alerts.yml", "sap-bi-job-alerts.yml"],
+            client.dispatched,
+        )
 
     def test_workflow_has_redundant_off_peak_schedule_and_write_scope(self) -> None:
         workflow = (
@@ -130,7 +160,9 @@ class SchedulerWatchdogTests(unittest.TestCase):
         )
         self.assertIn("github.ref_name != 'main'", workflow)
         self.assertIn("- feature/github-scheduler-watchdog", workflow)
+        self.assertIn("- fix/watchdog-dispatch-all-stale", workflow)
         self.assertIn("workflow_run:", workflow)
+        self.assertIn("Recover stale scanners", workflow)
         self.assertIn("- Bangalore product data job alerts", workflow)
         self.assertIn("- Bangalore QA job alerts", workflow)
         self.assertIn("- Bangalore SAP and BI job alerts", workflow)
