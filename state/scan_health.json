@@ -1,13 +1,13 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
+    "Ameriprise Financial",
     "Blackhawk Network",
     "HDFC ERGO",
-    "Klarna",
     "MaxLinear",
     "Niramai",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-08-27T03:40:43.017134+00:00",
+  "last_notice_utc": "2026-08-27T16:37:34.928205+00:00",
   "official_source_count": 732
 }
