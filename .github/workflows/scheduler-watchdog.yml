@@ -1,0 +1,59 @@
+name: Job alert scheduler watchdog
+
+on:
+  workflow_dispatch:
+  # Register and validate the watchdog before it reaches the default branch.
+  push:
+    branches:
+      - feature/github-scheduler-watchdog
+  # A successful native/manual recovery of one scanner immediately checks the
+  # other two. This recovers stale scanners sequentially without source bursts.
+  workflow_run:
+    workflows:
+      - Bangalore product data job alerts
+      - Bangalore QA job alerts
+      - Bangalore SAP and BI job alerts
+    types:
+      - completed
+  schedule:
+    # Four off-peak checks per hour. The watchdog dispatches at most one stale
+    # scanner and never runs a scanner more often than the age threshold.
+    - cron: "11,26,41,56 * * * *"
+
+concurrency:
+  group: job-alert-scheduler-watchdog
+  cancel-in-progress: false
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  watchdog:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install test dependencies
+        if: ${{ github.ref_name != 'main' }}
+        run: pip install -r requirements.txt
+
+      - name: Validate watchdog and all scanner tests
+        if: ${{ github.ref_name != 'main' }}
+        run: python -m unittest discover -s tests -v
+
+      - name: Recover one stale scanner
+        if: ${{ github.ref_name == 'main' && github.event_name != 'push' }}
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          WATCHDOG_MAX_AGE_MINUTES: "130"
+        run: python github_scheduler_watchdog.py

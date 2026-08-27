@@ -149,6 +149,16 @@ health state are isolated in `seen_sap_bi_jobs.json` and
 `sap_bi_scan_health.json`. It runs every two hours at minute 7 of odd UTC hours,
 between the existing ML/data and QA scans.
 
+### GitHub scheduler watchdog
+
+`scheduler-watchdog.yml` is a GitHub-native fallback for delayed or dropped
+native cron events. It checks actual `main` workflow history four times per
+hour, at off-peak minutes, and dispatches at most one scanner when its latest
+run is more than 130 minutes old. The original schedules stay enabled, recent
+manual or native runs count as healthy, and the scanners' separate concurrency
+and deduplication controls remain authoritative. Scanner-completion events also
+invoke the watchdog, allowing multiple stale scanners to recover sequentially.
+
 Open `companies.yaml`.
 
 ### Add a product company
