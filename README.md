@@ -1,11 +1,11 @@
 # Bangalore Product Company DS/Analytics Job Alert Bot v3
 
-This bot checks official company career feeds every 30 minutes and sends matching jobs to Discord.
+This bot checks official company career feeds every two hours and sends matching jobs to Discord.
 
 ## What this version does
 
 - Discord notifications, not Telegram.
-- Runs every 30 minutes using GitHub Actions.
+- Runs every two hours using GitHub Actions.
 - Product-company allowlist only.
 - Includes IQVIA as an approved healthcare-data exception because you explicitly asked for it.
 - Official careers pages / ATS feeds are the primary source.
@@ -124,7 +124,7 @@ Open:
 Actions → Bangalore product data job alerts → Run workflow
 ```
 
-The workflow will then run automatically every 30 minutes at minute 7 and minute 37 of each hour.
+The workflow will then run automatically every two hours at minute 7 (UTC).
 
 ## Customization
 
