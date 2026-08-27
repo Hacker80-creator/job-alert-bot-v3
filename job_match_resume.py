@@ -13,6 +13,7 @@ import job_match_expanded as expanded
 import job_match_precision as precision
 import job_match_production as production
 import job_monitor as bot
+from qa_role_filter import is_qa_title
 
 
 PLATFORM_TITLE = re.compile(
@@ -215,6 +216,8 @@ def _resume_lane(job: bot.Job, settings: dict[str, Any]) -> tuple[int, list[str]
 
 def resume_score_job(job: bot.Job, settings: dict[str, Any]) -> tuple[int, list[str]]:
     """Keep proven data/AI decisions, then evaluate the adjacent resume lane."""
+    if is_qa_title(job.title):
+        return 0, ["QA/testing roles are routed exclusively to the QA channel"]
     if REQUIRED_DEGREE_TITLE.search(job.title or ""):
         return 0, ["title requires a PhD/doctoral qualification not in the resume"]
     score, reasons = precision.precision_score_job(job, settings)

@@ -33,18 +33,24 @@ def merge_seen_state(
     return merged
 
 
-def merge_state(generated_dir: Path, state_dir: Path) -> None:
-    latest_seen = read_object(state_dir / "seen_jobs.json")
-    generated_seen = read_object(generated_dir / "seen_jobs.json")
+def merge_state(
+    generated_dir: Path,
+    state_dir: Path,
+    *,
+    seen_file: str = "seen_jobs.json",
+    health_file: str = "scan_health.json",
+) -> None:
+    latest_seen = read_object(state_dir / seen_file)
+    generated_seen = read_object(generated_dir / seen_file)
     write_object(
-        state_dir / "seen_jobs.json",
+        state_dir / seen_file,
         merge_seen_state(latest_seen, generated_seen),
     )
 
-    generated_health_path = generated_dir / "scan_health.json"
+    generated_health_path = generated_dir / health_file
     if generated_health_path.exists():
         write_object(
-            state_dir / "scan_health.json",
+            state_dir / health_file,
             read_object(generated_health_path),
         )
 
@@ -53,8 +59,15 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--generated-dir", type=Path, required=True)
     parser.add_argument("--state-dir", type=Path, required=True)
+    parser.add_argument("--seen-file", default="seen_jobs.json")
+    parser.add_argument("--health-file", default="scan_health.json")
     args = parser.parse_args()
-    merge_state(args.generated_dir, args.state_dir)
+    merge_state(
+        args.generated_dir,
+        args.state_dir,
+        seen_file=args.seen_file,
+        health_file=args.health_file,
+    )
     return 0
 
 

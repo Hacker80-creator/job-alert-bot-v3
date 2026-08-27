@@ -28,79 +28,121 @@ def decode_json_envelope(response: requests.Response) -> dict[str, Any]:
 
 def parse_zwayam_hardened(company: dict[str, Any]) -> list[bot.Job]:
     """Read Zwayam with retry, longer read timeout and double-JSON support."""
-    jobs: list[bot.Job] = []
+    jobs_by_url: dict[str, bot.Job] = {}
     page_size = 10
-    max_results = max(page_size, int(company.get("max_results", 100)))
+    max_results = max(
+        page_size,
+        int(company.get("max_results_per_term", company.get("max_results", 100))),
+    )
     portal_url = company["career_site_url"].rstrip("/")
     headers = {
         **bot.HEADERS,
         "Origin": f"https://{company['domain']}",
         "Referer": f"{portal_url}/",
     }
+    if company.get("browser_user_agent"):
+        headers["User-Agent"] = str(company["browser_user_agent"])
+    if company.get("tenant_group_id"):
+        headers["TenantGroupId"] = str(company["tenant_group_id"])
+    search_terms = company.get("zwayam_search_terms") or [""]
 
-    for offset in range(0, max_results, page_size):
-        criteria = {
-            "paginationStartNo": offset,
-            "selectedCall": "sort",
-            "sortCriteria": {"name": "modifiedDate", "isAscending": False},
-            "anyOfTheseWords": "",
-        }
-        response: requests.Response | None = None
-        for attempt in range(3):
-            try:
-                response = requests.post(
-                    company["url"],
-                    data={
+    for search_term in search_terms:
+        for offset in range(0, max_results, page_size):
+            criteria = {
+                "paginationStartNo": offset,
+                "selectedCall": "sort",
+                "sortCriteria": {"name": "modifiedDate", "isAscending": False},
+                "anyOfTheseWords": str(search_term),
+            }
+            response: requests.Response | None = None
+            for attempt in range(3):
+                try:
+                    form_data = {
                         "filterCri": json.dumps(criteria),
                         "domain": company["domain"],
                         "companyId": company["company_id"],
-                    },
-                    headers=headers,
-                    timeout=(10, int(company.get("read_timeout_seconds", 45))),
-                )
-                response.raise_for_status()
-                break
-            except requests.RequestException:
-                if attempt == 2:
-                    raise
-                time.sleep(1.5 * (attempt + 1))
-        if response is None:
-            raise RuntimeError("Zwayam request did not return a response")
+                    }
+                    request_body: dict[str, Any]
+                    if company.get("multipart_form"):
+                        request_body = {
+                            "files": {
+                                key: (None, str(value))
+                                for key, value in form_data.items()
+                            }
+                        }
+                    else:
+                        request_body = {"data": form_data}
+                    response = requests.post(
+                        company["url"],
+                        headers=headers,
+                        timeout=(10, int(company.get("read_timeout_seconds", 45))),
+                        **request_body,
+                    )
+                    response.raise_for_status()
+                    break
+                except requests.RequestException:
+                    if attempt == 2:
+                        raise
+                    time.sleep(1.5 * (attempt + 1))
+            if response is None:
+                raise RuntimeError("Zwayam request did not return a response")
 
-        data = decode_json_envelope(response).get("data") or {}
-        raw_jobs = data.get("data") or []
-        for item in raw_jobs:
-            source = item.get("_source") or item
-            slug = bot.clean_text(source.get("jobUrl"))
-            salary_parts = [source.get("minJobSalary"), source.get("maxJobSalary")]
-            salary_text = ""
-            if all(str(value or "").strip() for value in salary_parts):
-                salary_text = f"INR {salary_parts[0]}-{salary_parts[1]} per annum"
-            description = " ".join(filter(None, [
-                bot.clean_text(source.get("mediumDescription")),
-                bot.clean_text(source.get("role")),
-                bot.clean_text(source.get("jdSkillsKnown")),
-                bot.clean_text(source.get("experienceUIField") or source.get("yrsOfExperience")),
-            ]))
-            jobs.append(bot.Job(
-                company=company["name"],
-                title=bot.clean_text(source.get("jobTitle")),
-                location=bot.flatten_location(
-                    source.get("locationSeparatedbySlash")
-                    or source.get("jobLocationRecord")
-                    or source.get("location")
-                ),
-                url=f"{portal_url}/job/{slug}" if slug else portal_url,
-                source="Official careers: Zwayam",
-                description=description,
-                department=bot.clean_text(source.get("text1") or source.get("departmentName")),
-                salary_text=salary_text,
-                wlb_score=company.get("wlb_score", 3),
-            ))
-        if not raw_jobs or not data.get("hasMoreData"):
-            break
-        time.sleep(0.15)
-    return jobs
+            data = decode_json_envelope(response).get("data") or {}
+            raw_jobs = data.get("data") or []
+            for item in raw_jobs:
+                source = item.get("_source") or item
+                slug = bot.clean_text(source.get("jobUrl"))
+                salary_parts = [source.get("minJobSalary"), source.get("maxJobSalary")]
+                salary_text = ""
+                if all(str(value or "").strip() for value in salary_parts):
+                    salary_text = f"INR {salary_parts[0]}-{salary_parts[1]} per annum"
+                experience = bot.clean_text(
+                    source.get("experienceUIField") or source.get("yrsOfExperience")
+                )
+                if not experience and (
+                    source.get("minYearOfExperience") is not None
+                    or source.get("maxYearOfExperience") is not None
+                ):
+                    experience = (
+                        f"Experience: {source.get('minYearOfExperience', '')}-"
+                        f"{source.get('maxYearOfExperience', '')} years"
+                    )
+                description = " ".join(filter(None, [
+                    bot.clean_text(source.get("mediumDescription")),
+                    bot.clean_text(source.get("role") or source.get("roles")),
+                    bot.clean_text(source.get("jdSkillsKnown")),
+                    experience,
+                ]))
+                job_url = portal_url
+                if slug:
+                    job_url = str(
+                        company.get("job_path_template", "{portal}/job/{slug}")
+                    ).format(portal=portal_url, slug=slug)
+                job = bot.Job(
+                    company=company["name"],
+                    title=bot.clean_text(source.get("jobTitle")),
+                    location=bot.flatten_location(
+                        source.get("locationSeparatedbySlash")
+                        or source.get("jobLocationRecord")
+                        or source.get("location")
+                    ),
+                    url=job_url,
+                    source="Official careers: Zwayam",
+                    description=description,
+                    department=bot.clean_text(
+                        source.get("text1") or source.get("departmentName")
+                    ),
+                    salary_text=salary_text,
+                    requisition_id=bot.clean_text(
+                        source.get("referenceNumber") or source.get("id")
+                    ),
+                    wlb_score=company.get("wlb_score", 3),
+                )
+                jobs_by_url[job.url] = job
+            if not raw_jobs or not data.get("hasMoreData"):
+                break
+            time.sleep(0.15)
+    return list(jobs_by_url.values())
 
 
 def parse_phenom(company: dict[str, Any]) -> list[bot.Job]:
