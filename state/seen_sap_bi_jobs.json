@@ -1,4 +1,14 @@
 {
+  "063f3e1d139d46264ed7266f": {
+    "company": "Target",
+    "first_seen_utc": "2026-08-27T19:17:26.024683+00:00",
+    "location": "Bangalore,India",
+    "requisition_id": "",
+    "score": 75,
+    "source": "Official careers: Workday",
+    "title": "Data Analyst",
+    "url": "https://target.wd5.myworkdayjobs.com/en-US/targetcareers/job/BangaloreIndia/Data-Analyst_R0000431066"
+  },
   "11b3bda04fe2a0570ae29941": {
     "company": "Infosys",
     "first_seen_utc": "2026-08-27T16:37:55.055038+00:00",
@@ -48,6 +58,16 @@
     "source": "Official careers: Phenom",
     "title": "Technical Data Analyst",
     "url": "https://careers.quest-global.com/global/en/job/QGRQGAGLOBALP120208EXTERNALENGLOBAL/technical-data-analyst"
+  },
+  "4d0f08183c20816f37d26cf9": {
+    "company": "Guidewire",
+    "first_seen_utc": "2026-08-27T19:17:26.024683+00:00",
+    "location": "India - Bangalore",
+    "requisition_id": "",
+    "score": 74,
+    "source": "Official careers: Workday",
+    "title": "Java Application Support Engineer- (Japanese Speaking)",
+    "url": "https://guidewire.wd5.myworkdayjobs.com/external/job/India---Bangalore/Java-Application-Support-Engineer---Japanese-Speaking-_JR_15134"
   },
   "5c1d0e4e12a3de2d39afc2bc": {
     "company": "S&P Global",
@@ -119,6 +139,16 @@
     "title": "Cash Recon & Reporting - Analyst",
     "url": "https://mufgub.wd3.myworkdayjobs.com/MUFG-Careers/job/MUFG-Global-Service-Private-Ltd---Bengaluru-BCIT/Cash-Recon---Reporting---Analyst_10078959-WD"
   },
+  "cf7e7fb74cfdfcc7ed8b4515": {
+    "company": "Citi",
+    "first_seen_utc": "2026-08-27T19:17:26.024683+00:00",
+    "location": "Hybrid Save for Later Issue Remediation Data Analyst Bengaluru, Karnataka, India",
+    "requisition_id": "",
+    "score": 70,
+    "source": "Official careers: HTML SAP/BI listing",
+    "title": "Issue Remediation Data Analyst",
+    "url": "https://jobs.citi.com/job/bengaluru/issue-remediation-data-analyst/287/99709912064"
+  },
   "d8e55cdeada2c43becb6e227": {
     "company": "Siemens",
     "first_seen_utc": "2026-08-27T16:37:55.055038+00:00",
@@ -128,6 +158,26 @@
     "source": "Official careers: Avature",
     "title": "Application Support Engineer",
     "url": "https://jobs.siemens.com/en_US/externaljobs/JobDetail/509009"
+  },
+  "da56c93f210b99d21fb1238b": {
+    "company": "Siemens",
+    "first_seen_utc": "2026-08-27T19:17:26.024683+00:00",
+    "location": "Bangalore , Karnataka , India",
+    "requisition_id": "",
+    "score": 75,
+    "source": "Official careers: Avature",
+    "title": "Data Analyst",
+    "url": "https://jobs.siemens.com/en_US/externaljobs/JobDetail/481214"
+  },
+  "e05cd8bbc550e5389184be7b": {
+    "company": "State Street",
+    "first_seen_utc": "2026-08-27T19:17:26.024683+00:00",
+    "location": "Bangalore, India",
+    "requisition_id": "",
+    "score": 75,
+    "source": "Official careers: Workday",
+    "title": "Corporate Audit Integrated Data Analyst, Officer",
+    "url": "https://statestreet.wd1.myworkdayjobs.com/en-US/Global/job/Bangalore-India/Corporate-Audit-Integrated-Data-Analyst--Officer_R-786717"
   },
   "e71fa4370acf7861df8fe0be": {
     "company": "Applied Materials",
