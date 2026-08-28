@@ -1,4 +1,24 @@
 {
+  "01b42110c46696db52c21dfb": {
+    "company": "Yubi",
+    "first_seen_utc": "2026-08-28T11:38:19.661100+00:00",
+    "location": "Bangalore",
+    "requisition_id": "",
+    "score": 70,
+    "source": "Official careers: Zoho Recruit",
+    "title": "QA Engineer",
+    "url": "https://go-yubi.zohorecruit.in/jobs/Careers/66789000038305223"
+  },
+  "029e5a2c5fa8d4bfc9df8862": {
+    "company": "Exponent Energy",
+    "first_seen_utc": "2026-08-28T11:38:19.661100+00:00",
+    "location": "Bengaluru Karnataka India",
+    "requisition_id": "",
+    "score": 70,
+    "source": "Official careers: Workable",
+    "title": "Integration Test Engineer",
+    "url": "https://apply.workable.com/j/5C6E4442E2"
+  },
   "0685b51abe2d558351bfbf6a": {
     "company": "Capco",
     "first_seen_utc": "2026-08-27T16:36:56.728274+00:00",
@@ -28,6 +48,16 @@
     "source": "Official careers: Phenom",
     "title": "Software Quality Engineer \u2013 UI & API Testing",
     "url": "https://hpe.wd5.myworkdayjobs.com/Jobsathpe/job/Bengaluru-Karntaka-India/Software-Quality-Engineer---UI---API-Testing_1199178-1"
+  },
+  "0fee607215ab7e5aee739d80": {
+    "company": "Siemens Healthineers",
+    "first_seen_utc": "2026-08-28T11:38:19.661100+00:00",
+    "location": "Bangalore , Karnataka , India",
+    "requisition_id": "",
+    "score": 75,
+    "source": "Official careers: Siemens Healthineers Avature",
+    "title": "Manual Validation Engineer",
+    "url": "https://jobs.siemens-healthineers.com/en_US/searchjobs/JobDetail/520150"
   },
   "114fe545862566a697c6d69a": {
     "company": "Quest Global",
@@ -128,6 +158,16 @@
     "source": "Official careers: Workable",
     "title": "Quality Analyst (Language AI Projects) - Hindi",
     "url": "https://apply.workable.com/j/A7616C1995"
+  },
+  "3006f4c9d54c85af32d45adb": {
+    "company": "Hitachi Energy",
+    "first_seen_utc": "2026-08-28T11:38:19.661100+00:00",
+    "location": "Bengaluru, Karnataka, India",
+    "requisition_id": "",
+    "score": 75,
+    "source": "Official careers: Workday",
+    "title": "Communication Networks Test Engineer",
+    "url": "https://hitachi.wd1.myworkdayjobs.com/hitachi/job/Bengaluru-Karnataka-India/Communication-Networks-Test-Engineer_R0133040"
   },
   "34b313e9f119ee16b6eed7aa": {
     "company": "Hewlett Packard Enterprise",
@@ -259,6 +299,16 @@
     "title": "QA Engineer",
     "url": "https://thermofisher.wd5.myworkdayjobs.com/ThermoFisherCareers/job/Bengaluru-India/QA-Engineer_R-01356909"
   },
+  "5496e38bd2e29c671e2e7e18": {
+    "company": "Hewlett Packard Enterprise",
+    "first_seen_utc": "2026-08-28T11:38:19.661100+00:00",
+    "location": "Bengaluru, Karn\u0101taka, 560048",
+    "requisition_id": "",
+    "score": 70,
+    "source": "Official careers: Phenom",
+    "title": "QA Automation Engineer \u2013 GenAI, Storage & System Testing",
+    "url": "https://hpe.wd5.myworkdayjobs.com/Jobsathpe/job/Bengaluru-Karntaka-India/QA-Automation-Engineer---GenAI--Storage---System-Testing_1210905-2"
+  },
   "5aadb7fc7d643ae6a3541170": {
     "company": "Texas Instruments",
     "first_seen_utc": "2026-08-28T02:32:23.620855+00:00",
@@ -328,6 +378,16 @@
     "source": "Official careers: Workday",
     "title": "R&D Control and HIL Test Engineer",
     "url": "https://hitachi.wd1.myworkdayjobs.com/hitachi/job/Bengaluru-Karnataka-India/Control-and-HIL-Engineer_R0130877"
+  },
+  "6d373eced1fed9359cf0463c": {
+    "company": "GalaxEye Space",
+    "first_seen_utc": "2026-08-28T11:38:19.661100+00:00",
+    "location": "Bangalore North; India",
+    "requisition_id": "214465000000644985",
+    "score": 70,
+    "source": "Official careers: Zoho Recruit",
+    "title": "Product QA Engineer - SAR & EO Image Validation",
+    "url": "https://careers.galaxeye.space/jobs/Careers/214465000000644985/Product-QA-Engineer-SAR-EO-Image-Validation?source=CareerSite"
   },
   "6e10cfa6fc68e285a868010e": {
     "company": "Oracle",
@@ -629,6 +689,16 @@
     "title": "Junior Hardware Test Engineer",
     "url": "https://careers.kula.ai/digantara/27402/"
   },
+  "bc2db29c8c3b36a59f7c06e1": {
+    "company": "Siemens",
+    "first_seen_utc": "2026-08-28T11:38:19.661100+00:00",
+    "location": "Bangalore , Karnataka , India",
+    "requisition_id": "",
+    "score": 75,
+    "source": "Official careers: Avature",
+    "title": "TCMS Test Engineer",
+    "url": "https://jobs.siemens.com/en_US/externaljobs/JobDetail/519676"
+  },
   "c3584834f300f29c3ee1fef8": {
     "company": "LSEG",
     "first_seen_utc": "2026-08-27T16:36:56.728274+00:00",
@@ -659,6 +729,26 @@
     "title": "Software Engineer II - Quality Analyst, Automation / Functional, Playwright, Mongo/Oracle, API",
     "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210779419"
   },
+  "cc8878e7cce7d2f79c194964": {
+    "company": "Yubi",
+    "first_seen_utc": "2026-08-28T11:38:19.661100+00:00",
+    "location": "Bangalore North",
+    "requisition_id": "",
+    "score": 70,
+    "source": "Official careers: Zoho Recruit",
+    "title": "QA Engineer",
+    "url": "https://go-yubi.zohorecruit.in/jobs/Careers/66789000027405203"
+  },
+  "cc986886f2c39da120de714c": {
+    "company": "Quest Global",
+    "first_seen_utc": "2026-08-28T11:38:19.661100+00:00",
+    "location": "Bengaluru, Karnataka, India",
+    "requisition_id": "",
+    "score": 70,
+    "source": "Official careers: Phenom",
+    "title": "Post Silicon Validation Engineer",
+    "url": "https://careers.quest-global.com/global/en/job/QGRQGAGLOBALP115820EXTERNALENGLOBAL/post-silicon-validation-engineer"
+  },
   "d0415d95506c7bb11dd659e5": {
     "company": "Moody's",
     "first_seen_utc": "2026-08-28T02:32:23.620855+00:00",
@@ -668,6 +758,16 @@
     "source": "Official careers: HTML QA listing",
     "title": "Asst Dir-QA Engineer - Databricks & Python",
     "url": "https://careers.moodys.com/en/job/bengaluru/asst-dir-qa-engineer-databricks-and-python/49841/98847151968"
+  },
+  "d10814e59495bcf304e1ed63": {
+    "company": "Birlasoft",
+    "first_seen_utc": "2026-08-28T11:38:19.661100+00:00",
+    "location": "INDIA - BENGALURU - AUTOMOTIVE, IN",
+    "requisition_id": "",
+    "score": 70,
+    "source": "Official careers: SAP SuccessFactors",
+    "title": "Automation tester Subcontractor",
+    "url": "https://jobs.birlasoft.com/job/Bengaluru-Automation-tester-Subcontractor-INDI/59195844/"
   },
   "d5eaf0fbeb010b13b9bcb6f2": {
     "company": "AMD",
@@ -729,6 +829,36 @@
     "title": "Software Development Engineer in Test II",
     "url": "https://job-boards.greenhouse.io/hackerrank/jobs/7771695"
   },
+  "ec5af56451249815af73baca": {
+    "company": "CGI",
+    "first_seen_utc": "2026-08-28T11:38:19.661100+00:00",
+    "location": "Bangalore, India",
+    "requisition_id": "",
+    "score": 70,
+    "source": "Official careers: Njoyn",
+    "title": "Job Description \u2013 SDET Quality Engineering (QE) - Enablement Platform",
+    "url": "https://cgi.njoyn.com/corp/xweb/xweb.asp?NTKN=c&clid=21001&Page=JobDetails&Jobid=J0726-2300&BRID=1325287&lang=1"
+  },
+  "ed7ff8ff9c000e484bce2c5a": {
+    "company": "GalaxEye Space",
+    "first_seen_utc": "2026-08-28T11:38:19.661100+00:00",
+    "location": "Bangalore North; India",
+    "requisition_id": "214465000000371156",
+    "score": 70,
+    "source": "Official careers: Zoho Recruit",
+    "title": "Simulation CAD & Asset QA Engineer (3D Assets)",
+    "url": "https://careers.galaxeye.space/jobs/Careers/214465000000371156/Simulation-CAD-Asset-QA-Engineer-3D-Assets?source=CareerSite"
+  },
+  "f3bdf330b0d5b1fce92b44ba": {
+    "company": "SentinelOne",
+    "first_seen_utc": "2026-08-28T11:38:19.661100+00:00",
+    "location": "Bengaluru, Karnataka; Asia, Pacific & Japan; India",
+    "requisition_id": "7972060003",
+    "score": 70,
+    "source": "Official careers: HTML QA listing",
+    "title": "Software Development Engineer in Test",
+    "url": "https://www.sentinelone.com/jobs/?gh_jid=7972060003"
+  },
   "f549cc5575c8129e357adfa0": {
     "company": "Illumina",
     "first_seen_utc": "2026-08-27T22:44:27.045680+00:00",
@@ -738,6 +868,26 @@
     "source": "Official careers: Workday India facet",
     "title": "Software Quality Engineer 2",
     "url": "https://illumina.wd1.myworkdayjobs.com/illumina-careers/job/India---Bengaluru---Manyata/Software-Quality-Engineer-2_42968-JOB"
+  },
+  "f753c181b626bcd39867557e": {
+    "company": "Quest Global",
+    "first_seen_utc": "2026-08-28T11:38:19.661100+00:00",
+    "location": "Bengaluru, Karnataka, India",
+    "requisition_id": "",
+    "score": 70,
+    "source": "Official careers: Phenom",
+    "title": "Verification and Validation Engineer \u2013 Brakes System Software",
+    "url": "https://careers.quest-global.com/global/en/job/QGRQGAGLOBALP122075EXTERNALENGLOBAL/verification-and-validation-engineer-brakes-system-software"
+  },
+  "f9031eafcc329d1cbb5894e4": {
+    "company": "IBM",
+    "first_seen_utc": "2026-08-28T11:38:19.661100+00:00",
+    "location": "Bangalore, India",
+    "requisition_id": "130430",
+    "score": 70,
+    "source": "Official careers: IBM Avature",
+    "title": "Quality Analyst(Human Resource Operations \u2013 Contact Center)",
+    "url": "https://careers.ibm.com/en_US/careers/JobDetail?jobId=130430"
   },
   "fe4f0964aa792a6e688f238d": {
     "company": "Quest Global",
