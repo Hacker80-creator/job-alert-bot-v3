@@ -1,17 +1,14 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
-    "Acer",
     "Ameriprise Financial",
-    "Amgen India",
     "Blackhawk Network",
     "Cognizant",
     "HDFC ERGO",
-    "MassMutual",
     "MaxLinear",
     "TheMathCompany",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-08-27T23:06:25.931502+00:00",
+  "last_notice_utc": "2026-08-28T02:32:50.440834+00:00",
   "official_source_count": 757
 }
