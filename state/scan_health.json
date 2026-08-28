@@ -2,12 +2,22 @@
   "allowlist_count": 966,
   "failed_sources": [
     "Ameriprise Financial",
+    "Baker Hughes",
     "Blackhawk Network",
+    "Cisco",
+    "Etsy",
+    "GSK",
     "HDFC ERGO",
+    "Hero MotoCorp",
     "Marlabs",
     "MaxLinear",
+    "Niantic",
+    "Quest Global",
+    "STMicroelectronics",
+    "Teva Pharmaceuticals",
+    "Thermo Fisher Scientific",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-08-28T11:28:04.673397+00:00",
+  "last_notice_utc": "2026-08-28T14:41:16.697171+00:00",
   "official_source_count": 732
 }
