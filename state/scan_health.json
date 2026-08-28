@@ -1,13 +1,13 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
-    "ACI Worldwide",
     "Ameriprise Financial",
     "Blackhawk Network",
     "HDFC ERGO",
+    "Maruti Suzuki",
     "MaxLinear",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-08-28T02:33:15.806252+00:00",
+  "last_notice_utc": "2026-08-28T06:41:37.530436+00:00",
   "official_source_count": 732
 }
