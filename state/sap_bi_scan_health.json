@@ -1,18 +1,20 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
+    "ANZ",
     "Ameriprise Financial",
     "Blackhawk Network",
     "Ciena",
     "Cognizant",
     "HDFC ERGO",
+    "HP Inc.",
     "Marlabs",
     "MaxLinear",
     "PhonePe",
-    "Qualcomm",
+    "Porter",
     "TheMathCompany",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-08-29T03:14:45.239747+00:00",
+  "last_notice_utc": "2026-08-29T03:25:25.130597+00:00",
   "official_source_count": 757
 }
