@@ -1,17 +1,18 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
-    "ANZ",
     "Ameriprise Financial",
     "Blackhawk Network",
     "Ciena",
     "HDFC ERGO",
+    "Icertis",
+    "Kwalee",
     "Marlabs",
     "Maruti Suzuki",
     "MaxLinear",
     "PhonePe",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-08-30T15:00:17.086177+00:00",
+  "last_notice_utc": "2026-08-30T17:10:51.638044+00:00",
   "official_source_count": 732
 }
