@@ -3,10 +3,11 @@
   "failed_sources": [
     "Ameriprise Financial",
     "Blackhawk Network",
+    "Chegg",
     "Ciena",
     "Cognizant",
+    "Dassault Syst\u00e8mes",
     "HDFC ERGO",
-    "ICICI Securities",
     "Marlabs",
     "Maruti Suzuki",
     "MaxLinear",
@@ -14,6 +15,6 @@
     "TheMathCompany",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-08-30T12:57:15.807386+00:00",
+  "last_notice_utc": "2026-08-30T15:11:10.326910+00:00",
   "official_source_count": 757
 }
