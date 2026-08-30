@@ -1,18 +1,34 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
+    "Allianz Technology",
     "Ameriprise Financial",
+    "Baker Hughes",
     "Blackhawk Network",
+    "Bread Financial",
     "Ciena",
+    "Cisco",
     "Cognizant",
+    "Expleo",
+    "GSK",
+    "Goldman Sachs",
     "HDFC ERGO",
+    "Incedo",
     "Marlabs",
     "MaxLinear",
-    "Niramai",
+    "Niantic",
     "PhonePe",
+    "Quest Global",
+    "Roche",
+    "STMicroelectronics",
+    "Teva Pharmaceuticals",
     "TheMathCompany",
-    "Waters Corporation"
+    "Thermo Fisher Scientific",
+    "Trane Technologies",
+    "Virtusa",
+    "Waters Corporation",
+    "Zurich Insurance Group"
   ],
-  "last_notice_utc": "2026-08-30T19:58:32.311254+00:00",
+  "last_notice_utc": "2026-08-30T22:03:13.990160+00:00",
   "official_source_count": 757
 }
