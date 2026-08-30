@@ -1,12 +1,11 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
+    "ANZ",
     "Ameriprise Financial",
     "Blackhawk Network",
-    "Chegg",
     "Ciena",
     "Cognizant",
-    "Dassault Syst\u00e8mes",
     "HDFC ERGO",
     "Marlabs",
     "Maruti Suzuki",
@@ -15,6 +14,6 @@
     "TheMathCompany",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-08-30T15:11:10.326910+00:00",
+  "last_notice_utc": "2026-08-30T17:30:47.476667+00:00",
   "official_source_count": 757
 }
