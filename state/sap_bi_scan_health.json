@@ -1,29 +1,19 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
-    "Allianz Technology",
     "Ameriprise Financial",
-    "Atlassian",
     "Blackhawk Network",
-    "Boehringer Ingelheim",
-    "Cboe Global Markets",
     "Ciena",
-    "Circle",
     "Cognizant",
-    "Dassault Syst\u00e8mes",
-    "Fiserv",
     "HDFC ERGO",
+    "ICICI Securities",
     "Marlabs",
+    "Maruti Suzuki",
     "MaxLinear",
-    "Netflix",
     "PhonePe",
-    "Roche",
-    "Royal Enfield",
-    "STMicroelectronics",
     "TheMathCompany",
-    "Trane Technologies",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-08-30T08:52:01.292494+00:00",
+  "last_notice_utc": "2026-08-30T12:57:15.807386+00:00",
   "official_source_count": 757
 }
