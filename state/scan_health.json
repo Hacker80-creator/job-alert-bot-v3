@@ -1,7 +1,6 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
-    "ANZ",
     "Ameriprise Financial",
     "Blackhawk Network",
     "Ciena",
@@ -11,6 +10,6 @@
     "PhonePe",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-08-31T13:46:52.261116+00:00",
+  "last_notice_utc": "2026-08-31T13:58:09.339777+00:00",
   "official_source_count": 732
 }
