@@ -2,6 +2,7 @@
   "allowlist_count": 988,
   "failed_sources": [
     "Ameriprise Financial",
+    "Becton Dickinson",
     "Blackhawk Network",
     "Ciena",
     "CoRover",
@@ -10,11 +11,10 @@
     "Marlabs",
     "Maruti Suzuki",
     "MaxLinear",
-    "Niramai",
     "PhonePe",
     "TheMathCompany",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-08-31T09:14:15.818688+00:00",
+  "last_notice_utc": "2026-08-31T09:48:24.063910+00:00",
   "official_source_count": 757
 }
