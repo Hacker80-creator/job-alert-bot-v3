@@ -1,11 +1,10 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
-    "Acer",
     "Ameriprise Financial",
     "Blackhawk Network",
     "Ciena",
-    "Dassault Syst\u00e8mes",
+    "CoRover",
     "HDFC ERGO",
     "Marlabs",
     "Maruti Suzuki",
@@ -13,6 +12,6 @@
     "PhonePe",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-08-31T05:35:04.181538+00:00",
+  "last_notice_utc": "2026-08-31T09:14:36.380881+00:00",
   "official_source_count": 732
 }
