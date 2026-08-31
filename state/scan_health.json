@@ -2,6 +2,7 @@
   "allowlist_count": 966,
   "failed_sources": [
     "Ameriprise Financial",
+    "Birlasoft",
     "Blackhawk Network",
     "HDFC ERGO",
     "Marlabs",
@@ -9,6 +10,6 @@
     "PhonePe",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-08-31T18:05:29.969947+00:00",
+  "last_notice_utc": "2026-08-31T23:57:50.074704+00:00",
   "official_source_count": 732
 }
