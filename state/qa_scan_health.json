@@ -3,15 +3,18 @@
   "failed_sources": [
     "Ameriprise Financial",
     "Blackhawk Network",
-    "Ciena",
     "Cognizant",
+    "Dassault Syst\u00e8mes",
     "HDFC ERGO",
     "Marlabs",
+    "Maruti Suzuki",
     "MaxLinear",
+    "Niramai",
     "PhonePe",
     "TheMathCompany",
-    "Waters Corporation"
+    "Waters Corporation",
+    "athenahealth"
   ],
-  "last_notice_utc": "2026-08-31T13:46:17.824343+00:00",
+  "last_notice_utc": "2026-08-31T17:54:13.380363+00:00",
   "official_source_count": 757
 }
