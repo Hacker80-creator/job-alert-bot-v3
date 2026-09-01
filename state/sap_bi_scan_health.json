@@ -1,6 +1,7 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
+    "3M",
     "Ameriprise Financial",
     "Blackhawk Network",
     "Cognizant",
@@ -8,11 +9,10 @@
     "Marlabs",
     "Marqeta",
     "MaxLinear",
-    "Novo Nordisk",
     "PhonePe",
     "TheMathCompany",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-01T11:56:31.457573+00:00",
+  "last_notice_utc": "2026-09-01T12:42:21.609335+00:00",
   "official_source_count": 757
 }
