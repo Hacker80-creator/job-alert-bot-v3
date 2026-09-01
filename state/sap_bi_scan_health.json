@@ -1,10 +1,10 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
-    "3M",
     "Ameriprise Financial",
     "Blackhawk Network",
     "Cognizant",
+    "Eli Lilly",
     "HDFC ERGO",
     "Marlabs",
     "Marqeta",
@@ -13,6 +13,6 @@
     "TheMathCompany",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-01T12:42:21.609335+00:00",
+  "last_notice_utc": "2026-09-01T16:45:48.692437+00:00",
   "official_source_count": 757
 }
