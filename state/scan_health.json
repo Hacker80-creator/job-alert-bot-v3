@@ -2,18 +2,14 @@
   "allowlist_count": 966,
   "failed_sources": [
     "Ameriprise Financial",
-    "Becton Dickinson",
     "Blackhawk Network",
     "HDFC ERGO",
-    "Kwalee",
-    "M2P Fintech",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
     "PhonePe",
-    "The Coca-Cola Company",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-02T11:22:01.311543+00:00",
+  "last_notice_utc": "2026-09-02T16:42:27.624224+00:00",
   "official_source_count": 732
 }
