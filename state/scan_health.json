@@ -3,7 +3,7 @@
   "failed_sources": [
     "Ameriprise Financial",
     "Blackhawk Network",
-    "CGI",
+    "Carrier",
     "HDFC ERGO",
     "Marlabs",
     "Marqeta",
@@ -12,6 +12,6 @@
     "PhonePe",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-02T04:32:57.835028+00:00",
+  "last_notice_utc": "2026-09-02T04:44:03.862115+00:00",
   "official_source_count": 732
 }
