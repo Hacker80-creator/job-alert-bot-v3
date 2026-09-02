@@ -1,7 +1,6 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
-    "Acer",
     "Ameriprise Financial",
     "Blackhawk Network",
     "Cognizant",
@@ -10,10 +9,9 @@
     "Marqeta",
     "MaxLinear",
     "PhonePe",
-    "River Mobility",
     "TheMathCompany",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-02T12:15:03.473765+00:00",
+  "last_notice_utc": "2026-09-02T16:54:03.260548+00:00",
   "official_source_count": 757
 }
