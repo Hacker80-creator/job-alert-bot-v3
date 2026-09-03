@@ -1,23 +1,19 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
-    "10x Genomics",
-    "Acko",
     "Ameriprise Financial",
     "Blackhawk Network",
-    "CleverTap",
     "Cognizant",
-    "Digantara",
-    "Growfin",
     "HDFC ERGO",
+    "Kenvue",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
-    "Parexel",
+    "Niramai",
     "PhonePe",
     "TheMathCompany",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-03T17:13:26.709222+00:00",
+  "last_notice_utc": "2026-09-03T19:54:51.424098+00:00",
   "official_source_count": 757
 }
