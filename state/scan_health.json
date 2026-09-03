@@ -1,6 +1,8 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
+    "ANZ",
+    "Acer",
     "Ameriprise Financial",
     "Blackhawk Network",
     "HDFC ERGO",
@@ -9,8 +11,9 @@
     "MaxLinear",
     "Niramai",
     "PhonePe",
+    "Takeda",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-03T07:18:35.967411+00:00",
+  "last_notice_utc": "2026-09-03T12:05:10.705761+00:00",
   "official_source_count": 732
 }
