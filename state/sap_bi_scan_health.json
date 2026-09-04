@@ -2,6 +2,7 @@
   "allowlist_count": 988,
   "failed_sources": [
     "Ameriprise Financial",
+    "Birlasoft",
     "Blackhawk Network",
     "Cognizant",
     "HDFC ERGO",
@@ -12,6 +13,6 @@
     "TheMathCompany",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-04T05:55:25.371805+00:00",
+  "last_notice_utc": "2026-09-04T17:00:44.551758+00:00",
   "official_source_count": 757
 }
