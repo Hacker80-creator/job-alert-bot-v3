@@ -2,15 +2,17 @@
   "allowlist_count": 966,
   "failed_sources": [
     "Ameriprise Financial",
+    "Birlasoft",
     "Blackhawk Network",
     "HDFC ERGO",
-    "LG Soft India",
+    "Kwalee",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
     "PhonePe",
+    "TheMathCompany",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-04T04:35:20.439946+00:00",
+  "last_notice_utc": "2026-09-04T11:22:16.188395+00:00",
   "official_source_count": 732
 }
