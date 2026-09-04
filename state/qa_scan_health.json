@@ -2,18 +2,17 @@
   "allowlist_count": 988,
   "failed_sources": [
     "Ameriprise Financial",
-    "Aurobindo Pharma",
     "Blackhawk Network",
     "Cognizant",
+    "Gramener",
     "HDFC ERGO",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
-    "Niramai",
     "PhonePe",
     "TheMathCompany",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-04T11:52:52.682323+00:00",
+  "last_notice_utc": "2026-09-04T15:15:00.455367+00:00",
   "official_source_count": 757
 }
