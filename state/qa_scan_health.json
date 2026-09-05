@@ -1,7 +1,6 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
-    "ANZ",
     "Ameriprise Financial",
     "Blackhawk Network",
     "Cognizant",
@@ -14,6 +13,6 @@
     "TheMathCompany",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-05T00:31:40.080262+00:00",
+  "last_notice_utc": "2026-09-05T04:38:51.182196+00:00",
   "official_source_count": 757
 }
