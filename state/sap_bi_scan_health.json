@@ -2,7 +2,6 @@
   "allowlist_count": 988,
   "failed_sources": [
     "Ameriprise Financial",
-    "Baxter",
     "Blackhawk Network",
     "Cognizant",
     "HDFC ERGO",
@@ -10,9 +9,10 @@
     "Marqeta",
     "MaxLinear",
     "PhonePe",
+    "Seagate",
     "TheMathCompany",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-05T01:01:02.596689+00:00",
+  "last_notice_utc": "2026-09-05T04:40:08.986682+00:00",
   "official_source_count": 757
 }
