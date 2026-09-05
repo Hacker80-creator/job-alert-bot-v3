@@ -1,20 +1,31 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
-    "Acer",
     "Ameriprise Financial",
     "Blackhawk Network",
     "Cognizant",
+    "Dream Sports",
+    "Dream11",
+    "Exotel",
+    "Flipkart",
     "HDFC ERGO",
+    "Hero MotoCorp",
+    "IDfy",
+    "Lemnisk",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
+    "MoEngage",
+    "NetApp",
     "Niramai",
-    "Oracle",
+    "Ola",
     "PhonePe",
     "TheMathCompany",
-    "Waters Corporation"
+    "Urban Company",
+    "Waters Corporation",
+    "WebEngage",
+    "redBus"
   ],
-  "last_notice_utc": "2026-09-05T15:40:39.614408+00:00",
+  "last_notice_utc": "2026-09-05T18:33:21.312497+00:00",
   "official_source_count": 757
 }
