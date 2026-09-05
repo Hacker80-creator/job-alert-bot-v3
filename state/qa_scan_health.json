@@ -3,15 +3,24 @@
   "failed_sources": [
     "Ameriprise Financial",
     "Blackhawk Network",
+    "Boehringer Ingelheim",
+    "Bread Financial",
+    "Carrier",
     "Cognizant",
+    "GSK",
     "HDFC ERGO",
+    "Kissflow",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
     "PhonePe",
+    "Raytheon Technologies",
+    "STMicroelectronics",
+    "Teva Pharmaceuticals",
     "TheMathCompany",
-    "Waters Corporation"
+    "Waters Corporation",
+    "athenahealth"
   ],
-  "last_notice_utc": "2026-09-05T05:04:36.536917+00:00",
+  "last_notice_utc": "2026-09-05T08:45:54.507093+00:00",
   "official_source_count": 757
 }
