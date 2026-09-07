@@ -2,6 +2,7 @@
   "allowlist_count": 988,
   "failed_sources": [
     "Ameriprise Financial",
+    "Amgen India",
     "Blackhawk Network",
     "Cognizant",
     "HDFC ERGO",
@@ -9,10 +10,9 @@
     "Marqeta",
     "MaxLinear",
     "PhonePe",
-    "Pine Labs",
     "TheMathCompany",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-07T01:02:50.651690+00:00",
+  "last_notice_utc": "2026-09-07T04:50:38.602370+00:00",
   "official_source_count": 757
 }
