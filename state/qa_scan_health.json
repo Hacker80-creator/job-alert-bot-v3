@@ -1,18 +1,33 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
+    "Adidas",
+    "Alstom",
     "Ameriprise Financial",
+    "Avaya",
+    "Bayer",
     "Blackhawk Network",
     "Cognizant",
     "Dassault Syst\u00e8mes",
     "HDFC ERGO",
+    "LTIMindtree",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
+    "Nestl\u00e9",
+    "Novo Nordisk",
     "PhonePe",
+    "Reckitt",
+    "SAP",
+    "Schaeffler",
+    "Swiss Re",
+    "Tata Motors",
     "TheMathCompany",
-    "Waters Corporation"
+    "Vestas",
+    "Volvo Cars",
+    "Waters Corporation",
+    "ZF Group"
   ],
-  "last_notice_utc": "2026-09-08T21:21:54.060344+00:00",
+  "last_notice_utc": "2026-09-08T21:33:01.699261+00:00",
   "official_source_count": 757
 }
