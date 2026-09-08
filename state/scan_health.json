@@ -3,14 +3,15 @@
   "failed_sources": [
     "Ameriprise Financial",
     "Blackhawk Network",
+    "CommScope",
+    "Dassault Syst\u00e8mes",
     "HDFC ERGO",
     "Marlabs",
     "Marqeta",
-    "Maruti Suzuki",
     "MaxLinear",
     "PhonePe",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-08T16:46:50.839785+00:00",
+  "last_notice_utc": "2026-09-08T21:21:53.192532+00:00",
   "official_source_count": 732
 }
