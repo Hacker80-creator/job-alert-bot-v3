@@ -1,12 +1,11 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
+    "ANZ",
     "Ameriprise Financial",
     "Blackhawk Network",
     "Cognizant",
-    "Dassault Syst\u00e8mes",
     "HDFC ERGO",
-    "Hero MotoCorp",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
@@ -15,6 +14,6 @@
     "TheMathCompany",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-09T00:30:41.223724+00:00",
+  "last_notice_utc": "2026-09-09T00:44:16.128084+00:00",
   "official_source_count": 757
 }
