@@ -1,7 +1,9 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
+    "American Express",
     "Ameriprise Financial",
+    "Baxter",
     "Blackhawk Network",
     "Cognizant",
     "HDFC ERGO",
@@ -13,6 +15,6 @@
     "TheMathCompany",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-09T00:30:49.128826+00:00",
+  "last_notice_utc": "2026-09-09T01:22:11.199690+00:00",
   "official_source_count": 757
 }
