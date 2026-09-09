@@ -2,6 +2,7 @@
   "allowlist_count": 966,
   "failed_sources": [
     "Ameriprise Financial",
+    "Aurobindo Pharma",
     "Blackhawk Network",
     "HDFC ERGO",
     "Marlabs",
@@ -9,8 +10,9 @@
     "Maruti Suzuki",
     "MaxLinear",
     "PhonePe",
+    "Tata 1mg",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-09T05:34:50.870209+00:00",
+  "last_notice_utc": "2026-09-09T07:31:24.239975+00:00",
   "official_source_count": 732
 }
