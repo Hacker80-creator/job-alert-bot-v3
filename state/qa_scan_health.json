@@ -1,32 +1,18 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
+    "ANZ",
     "Ameriprise Financial",
     "Blackhawk Network",
-    "Bloomberg",
-    "Cipla",
-    "Electronic Arts",
-    "Epic Systems",
+    "Cognizant",
     "HDFC ERGO",
-    "HSBC",
-    "IBM",
-    "Lenovo",
-    "Macquarie Group",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
-    "MetLife GOSC",
     "PhonePe",
-    "Qatar Airways Technology",
-    "Siemens",
-    "Siemens Energy",
-    "Siemens Healthineers",
-    "Tesco Bengaluru",
     "TheMathCompany",
-    "TotalEnergies",
-    "Waters Corporation",
-    "lululemon"
+    "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-09T15:21:16.288168+00:00",
+  "last_notice_utc": "2026-09-09T17:03:35.581610+00:00",
   "official_source_count": 757
 }
