@@ -1,9 +1,9 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
-    "ANZ",
     "Ameriprise Financial",
     "Blackhawk Network",
+    "Dell Technologies",
     "HDFC ERGO",
     "Marlabs",
     "Marqeta",
@@ -11,6 +11,6 @@
     "PhonePe",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-10T17:00:51.082647+00:00",
+  "last_notice_utc": "2026-09-10T17:50:32.472586+00:00",
   "official_source_count": 732
 }
