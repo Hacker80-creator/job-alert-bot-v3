@@ -2,8 +2,9 @@
   "allowlist_count": 966,
   "failed_sources": [
     "Ameriprise Financial",
+    "AstraZeneca",
     "Blackhawk Network",
-    "Edwards Lifesciences",
+    "ExxonMobil",
     "HDFC ERGO",
     "Marlabs",
     "Marqeta",
@@ -11,6 +12,6 @@
     "PhonePe",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-09T23:23:25.315800+00:00",
+  "last_notice_utc": "2026-09-10T00:19:53.847858+00:00",
   "official_source_count": 732
 }
