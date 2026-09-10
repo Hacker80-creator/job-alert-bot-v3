@@ -1,19 +1,19 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
-    "ANZ",
     "Ameriprise Financial",
     "Blackhawk Network",
     "Cognizant",
+    "Dell Technologies",
     "HDFC ERGO",
+    "Increff",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
     "PhonePe",
-    "Syngene International",
     "TheMathCompany",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-10T17:09:11.459513+00:00",
+  "last_notice_utc": "2026-09-10T19:44:02.145152+00:00",
   "official_source_count": 757
 }
