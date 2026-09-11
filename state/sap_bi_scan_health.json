@@ -1,6 +1,7 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
+    "Amadeus",
     "Ameriprise Financial",
     "Blackhawk Network",
     "Cognizant",
@@ -9,10 +10,9 @@
     "Marqeta",
     "MaxLinear",
     "PhonePe",
-    "Qualitest",
     "TheMathCompany",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-11T19:44:36.916774+00:00",
+  "last_notice_utc": "2026-09-11T22:42:15.456476+00:00",
   "official_source_count": 757
 }
