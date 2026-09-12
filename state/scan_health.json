@@ -1,15 +1,16 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
+    "ANZ",
     "Ameriprise Financial",
     "Blackhawk Network",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
-    "Niramai",
     "PhonePe",
+    "Syngene International",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-12T19:32:54.103786+00:00",
+  "last_notice_utc": "2026-09-12T20:40:17.431609+00:00",
   "official_source_count": 732
 }
