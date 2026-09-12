@@ -2,23 +2,17 @@
   "allowlist_count": 988,
   "failed_sources": [
     "Ameriprise Financial",
-    "Apna",
     "Blackhawk Network",
+    "Boeing",
     "Cognizant",
-    "Exponent Energy",
     "HDFC ERGO",
-    "Innominds",
-    "Innovaccer",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
-    "Niramai",
     "PhonePe",
-    "Seismic",
     "TheMathCompany",
-    "Tiger Analytics",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-12T05:08:30.998470+00:00",
+  "last_notice_utc": "2026-09-12T05:48:31.996247+00:00",
   "official_source_count": 757
 }
