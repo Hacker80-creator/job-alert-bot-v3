@@ -2,6 +2,7 @@
   "allowlist_count": 966,
   "failed_sources": [
     "Ameriprise Financial",
+    "BlackRock",
     "Blackhawk Network",
     "Marlabs",
     "Marqeta",
@@ -9,6 +10,6 @@
     "PhonePe",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-15T00:42:36.578021+00:00",
+  "last_notice_utc": "2026-09-15T10:34:58.828424+00:00",
   "official_source_count": 732
 }
