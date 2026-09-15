@@ -1,6 +1,7 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
+    "Adidas",
     "Ameriprise Financial",
     "Blackhawk Network",
     "Marlabs",
@@ -9,6 +10,6 @@
     "PhonePe",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-15T18:19:31.820995+00:00",
+  "last_notice_utc": "2026-09-15T22:05:00.716383+00:00",
   "official_source_count": 732
 }
