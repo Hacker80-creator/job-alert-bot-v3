@@ -2,10 +2,9 @@
   "allowlist_count": 988,
   "failed_sources": [
     "Ameriprise Financial",
-    "Birlasoft",
     "Blackhawk Network",
+    "Cipla",
     "Cognizant",
-    "Dell Technologies",
     "HDFC ERGO",
     "Marlabs",
     "Marqeta",
@@ -14,6 +13,6 @@
     "TheMathCompany",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-15T15:18:03.686193+00:00",
+  "last_notice_utc": "2026-09-15T17:24:43.878493+00:00",
   "official_source_count": 757
 }
