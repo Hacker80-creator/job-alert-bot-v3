@@ -2,14 +2,16 @@
   "allowlist_count": 966,
   "failed_sources": [
     "Ameriprise Financial",
-    "BlackRock",
     "Blackhawk Network",
+    "Cirrus Logic",
+    "Lazada",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
     "PhonePe",
+    "Sanofi",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-15T10:34:58.828424+00:00",
+  "last_notice_utc": "2026-09-15T12:59:13.666552+00:00",
   "official_source_count": 732
 }
