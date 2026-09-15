@@ -2,18 +2,18 @@
   "allowlist_count": 988,
   "failed_sources": [
     "Ameriprise Financial",
+    "Birlasoft",
     "Blackhawk Network",
-    "Cargill",
     "Cognizant",
+    "Dell Technologies",
     "HDFC ERGO",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
     "PhonePe",
     "TheMathCompany",
-    "Waters Corporation",
-    "Zurich Insurance Group"
+    "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-15T12:14:03.129447+00:00",
+  "last_notice_utc": "2026-09-15T15:18:03.686193+00:00",
   "official_source_count": 757
 }
