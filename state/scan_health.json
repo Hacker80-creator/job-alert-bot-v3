@@ -1,15 +1,16 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
-    "Adidas",
     "Ameriprise Financial",
+    "BlackRock",
     "Blackhawk Network",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
     "PhonePe",
+    "Volvo Cars",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-15T22:05:00.716383+00:00",
+  "last_notice_utc": "2026-09-15T23:02:31.478236+00:00",
   "official_source_count": 732
 }
