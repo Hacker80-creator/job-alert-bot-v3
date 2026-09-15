@@ -1,29 +1,16 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
-    "Adidas",
-    "Alstom",
     "Ameriprise Financial",
-    "Avaya",
-    "Bayer",
     "Blackhawk Network",
-    "Boehringer Ingelheim",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
-    "Nestl\u00e9",
-    "Novo Nordisk",
+    "Pegasystems",
     "PhonePe",
-    "Reckitt",
-    "SAP",
-    "Schaeffler",
-    "Swiss Re",
-    "Tata Motors",
-    "Vestas",
-    "Volvo Cars",
-    "Waters Corporation",
-    "ZF Group"
+    "Syngene International",
+    "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-15T13:40:01.225296+00:00",
+  "last_notice_utc": "2026-09-15T17:36:08.565175+00:00",
   "official_source_count": 732
 }
