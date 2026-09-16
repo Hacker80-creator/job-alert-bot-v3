@@ -2,15 +2,14 @@
   "allowlist_count": 966,
   "failed_sources": [
     "Ameriprise Financial",
-    "BlackRock",
     "Blackhawk Network",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
     "PhonePe",
-    "Volvo Cars",
+    "Sahaj Software",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-15T23:02:31.478236+00:00",
+  "last_notice_utc": "2026-09-16T01:40:42.811768+00:00",
   "official_source_count": 732
 }
