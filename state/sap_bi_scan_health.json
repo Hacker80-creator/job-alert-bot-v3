@@ -1,20 +1,20 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
+    "ADM",
     "Ameriprise Financial",
     "Blackhawk Network",
     "Cognizant",
     "HDFC ERGO",
-    "M2P Fintech",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
     "PhonePe",
     "Postman",
-    "Tavant Technologies",
+    "Quest Global",
     "TheMathCompany",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-17T01:29:05.099698+00:00",
+  "last_notice_utc": "2026-09-17T06:57:10.158797+00:00",
   "official_source_count": 757
 }
