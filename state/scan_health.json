@@ -1,8 +1,8 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
-    "ANZ",
     "Ameriprise Financial",
+    "Birlasoft",
     "Blackhawk Network",
     "Marlabs",
     "Marqeta",
@@ -11,6 +11,6 @@
     "Postman",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-17T13:35:10.868693+00:00",
+  "last_notice_utc": "2026-09-17T14:08:26.691805+00:00",
   "official_source_count": 732
 }
