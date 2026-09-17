@@ -1,11 +1,9 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
-    "Acer",
     "Ameriprise Financial",
     "Blackhawk Network",
     "Cognizant",
-    "Dell Technologies",
     "HDFC ERGO",
     "Hero MotoCorp",
     "Marlabs",
@@ -13,10 +11,9 @@
     "MaxLinear",
     "PhonePe",
     "Postman",
-    "Syngene International",
     "TheMathCompany",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-17T12:25:11.172872+00:00",
+  "last_notice_utc": "2026-09-17T14:26:57.520306+00:00",
   "official_source_count": 757
 }
