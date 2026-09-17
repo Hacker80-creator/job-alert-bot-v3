@@ -2,20 +2,18 @@
   "allowlist_count": 988,
   "failed_sources": [
     "Ameriprise Financial",
-    "Birlasoft",
     "Blackhawk Network",
     "Cognizant",
     "HDFC ERGO",
-    "Hero MotoCorp",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
+    "Niramai",
     "PhonePe",
     "Postman",
-    "Syngene International",
     "TheMathCompany",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-17T22:04:04.057436+00:00",
+  "last_notice_utc": "2026-09-17T22:16:02.799746+00:00",
   "official_source_count": 757
 }
