@@ -1,9 +1,7 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
-    "Alstom",
     "Ameriprise Financial",
-    "Birlasoft",
     "Blackhawk Network",
     "Marlabs",
     "Marqeta",
@@ -12,6 +10,6 @@
     "Postman",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-18T01:34:19.810212+00:00",
+  "last_notice_utc": "2026-09-18T04:46:24.461141+00:00",
   "official_source_count": 732
 }
