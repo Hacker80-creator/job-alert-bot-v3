@@ -1,6 +1,7 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
+    "7-Eleven Global Solution Center",
     "Ameriprise Financial",
     "Blackhawk Network",
     "Coforge",
@@ -12,11 +13,11 @@
     "HDFC ERGO",
     "Impetus Technologies",
     "Info Edge",
-    "Lemnisk",
     "Livspace",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
+    "Mphasis",
     "Persistent Systems",
     "PhonePe",
     "Postman",
@@ -29,6 +30,6 @@
     "Torry Harris Integration Solutions",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-19T19:01:51.221959+00:00",
+  "last_notice_utc": "2026-09-19T19:27:05.510171+00:00",
   "official_source_count": 757
 }
