@@ -1,11 +1,12 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
+    "Akamai",
     "Ameriprise Financial",
     "Blackhawk Network",
     "Cognizant",
-    "Dream11",
     "HDFC ERGO",
+    "Honeywell",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
@@ -15,6 +16,6 @@
     "TheMathCompany",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-19T05:09:12.921651+00:00",
+  "last_notice_utc": "2026-09-19T05:19:07.662533+00:00",
   "official_source_count": 757
 }
