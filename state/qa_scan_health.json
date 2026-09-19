@@ -1,19 +1,25 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
+    "7-Eleven Global Solution Center",
     "Ameriprise Financial",
     "Blackhawk Network",
+    "CitiusTech",
     "Cognizant",
     "HDFC ERGO",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
+    "Mphasis",
     "PhonePe",
     "Postman",
+    "Roche",
     "Siemens Healthineers",
+    "Tata Technologies",
     "TheMathCompany",
+    "UST",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-19T11:39:35.644951+00:00",
+  "last_notice_utc": "2026-09-19T16:12:11.989312+00:00",
   "official_source_count": 757
 }
