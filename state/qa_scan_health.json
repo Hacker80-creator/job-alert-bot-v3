@@ -1,10 +1,8 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
-    "7-Eleven Global Solution Center",
     "Ameriprise Financial",
     "Blackhawk Network",
-    "CitiusTech",
     "Coforge",
     "Cognizant",
     "Curefit",
@@ -14,7 +12,6 @@
     "HDFC ERGO",
     "Impetus Technologies",
     "Info Edge",
-    "Lemnisk",
     "Livspace",
     "Marlabs",
     "Marqeta",
@@ -26,14 +23,11 @@
     "Reverie Language Technologies",
     "Siemens Healthineers",
     "Sony India Software Centre",
-    "Tata Technologies",
     "Tavant Technologies",
     "TheMathCompany",
     "Torry Harris Integration Solutions",
-    "UST",
-    "UnitedHealth Group",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-19T19:11:47.069727+00:00",
+  "last_notice_utc": "2026-09-19T21:16:56.076299+00:00",
   "official_source_count": 757
 }
