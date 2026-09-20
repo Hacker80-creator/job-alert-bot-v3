@@ -2,7 +2,6 @@
   "allowlist_count": 988,
   "failed_sources": [
     "Ameriprise Financial",
-    "BlackRock",
     "Blackhawk Network",
     "Cognizant",
     "HDFC ERGO",
@@ -12,10 +11,10 @@
     "PhonePe",
     "Postman",
     "Siemens Healthineers",
-    "TCS",
+    "Syngene International",
     "TheMathCompany",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-20T16:37:40.020369+00:00",
+  "last_notice_utc": "2026-09-20T19:04:25.771090+00:00",
   "official_source_count": 757
 }
