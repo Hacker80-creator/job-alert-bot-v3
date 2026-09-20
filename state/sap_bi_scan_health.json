@@ -3,19 +3,22 @@
   "failed_sources": [
     "Ameriprise Financial",
     "Blackhawk Network",
+    "CitiusTech",
     "Cognizant",
     "HDFC ERGO",
-    "IBM",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
+    "Mphasis",
     "PhonePe",
     "Postman",
     "Siemens Healthineers",
     "TCS",
+    "Tata Technologies",
     "TheMathCompany",
+    "UST",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-20T14:55:00.629302+00:00",
+  "last_notice_utc": "2026-09-20T16:55:23.320481+00:00",
   "official_source_count": 757
 }
