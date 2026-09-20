@@ -3,6 +3,7 @@
   "failed_sources": [
     "Ameriprise Financial",
     "Blackhawk Network",
+    "IBM",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
@@ -11,6 +12,6 @@
     "Siemens Healthineers",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-20T11:25:46.268734+00:00",
+  "last_notice_utc": "2026-09-20T14:55:11.539599+00:00",
   "official_source_count": 732
 }
