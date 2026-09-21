@@ -2,18 +2,19 @@
   "allowlist_count": 988,
   "failed_sources": [
     "Ameriprise Financial",
+    "Amgen India",
     "Blackhawk Network",
     "Cognizant",
     "HDFC ERGO",
-    "Kwalee",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
+    "Oracle",
     "PhonePe",
     "Postman",
     "TheMathCompany",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-21T22:58:22.761123+00:00",
+  "last_notice_utc": "2026-09-21T23:43:43.229974+00:00",
   "official_source_count": 757
 }
