@@ -1,7 +1,9 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
+    "Allianz Technology",
     "Ameriprise Financial",
+    "Aurobindo Pharma",
     "Blackhawk Network",
     "Cognizant",
     "HDFC ERGO",
@@ -10,10 +12,12 @@
     "MaxLinear",
     "PhonePe",
     "Postman",
+    "Quest Global",
     "Siemens Healthineers",
     "TheMathCompany",
-    "Waters Corporation"
+    "Waters Corporation",
+    "Zurich Insurance Group"
   ],
-  "last_notice_utc": "2026-09-20T23:19:48.683955+00:00",
+  "last_notice_utc": "2026-09-21T05:09:56.718388+00:00",
   "official_source_count": 757
 }
