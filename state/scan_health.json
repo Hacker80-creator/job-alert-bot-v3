@@ -1,7 +1,6 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
-    "ANZ",
     "Ameriprise Financial",
     "Blackhawk Network",
     "Marlabs",
@@ -11,6 +10,6 @@
     "Postman",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-22T17:05:27.961053+00:00",
+  "last_notice_utc": "2026-09-22T19:27:50.550908+00:00",
   "official_source_count": 732
 }
