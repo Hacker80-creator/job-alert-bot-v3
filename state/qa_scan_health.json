@@ -1,7 +1,6 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
-    "Acer",
     "Ameriprise Financial",
     "Blackhawk Network",
     "Cognizant",
@@ -11,9 +10,10 @@
     "MaxLinear",
     "PhonePe",
     "Postman",
+    "Schaeffler",
     "TheMathCompany",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-23T18:44:07.020027+00:00",
+  "last_notice_utc": "2026-09-23T18:54:31.262661+00:00",
   "official_source_count": 757
 }
