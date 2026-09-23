@@ -1,12 +1,8 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
-    "ANZ",
-    "Acer",
     "Ameriprise Financial",
-    "Aurobindo Pharma",
     "Blackhawk Network",
-    "HealthifyMe",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
@@ -14,6 +10,6 @@
     "Postman",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-23T07:52:38.740529+00:00",
+  "last_notice_utc": "2026-09-23T10:17:32.985846+00:00",
   "official_source_count": 732
 }
