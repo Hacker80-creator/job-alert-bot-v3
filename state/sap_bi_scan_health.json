@@ -2,18 +2,18 @@
   "allowlist_count": 988,
   "failed_sources": [
     "Ameriprise Financial",
+    "Analog Devices",
     "Blackhawk Network",
     "Cognizant",
     "HDFC ERGO",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
-    "Niramai",
     "PhonePe",
     "Postman",
     "TheMathCompany",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-24T14:20:40.773420+00:00",
+  "last_notice_utc": "2026-09-24T17:26:06.625004+00:00",
   "official_source_count": 757
 }
