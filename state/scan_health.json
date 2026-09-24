@@ -2,15 +2,15 @@
   "allowlist_count": 966,
   "failed_sources": [
     "Ameriprise Financial",
+    "Birlasoft",
     "Blackhawk Network",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
     "PhonePe",
     "Postman",
-    "Syngene International",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-24T17:15:17.203288+00:00",
+  "last_notice_utc": "2026-09-24T19:29:53.624752+00:00",
   "official_source_count": 732
 }
