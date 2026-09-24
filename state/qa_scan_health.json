@@ -3,8 +3,8 @@
   "failed_sources": [
     "Ameriprise Financial",
     "Blackhawk Network",
-    "Carrier",
     "Cognizant",
+    "HDFC ERGO",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
@@ -13,6 +13,6 @@
     "TheMathCompany",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-24T01:01:51.558747+00:00",
+  "last_notice_utc": "2026-09-24T04:59:59.477919+00:00",
   "official_source_count": 757
 }
