@@ -2,8 +2,10 @@
   "allowlist_count": 966,
   "failed_sources": [
     "Ameriprise Financial",
+    "Autodesk",
     "Blackhawk Network",
-    "Ford",
+    "Globant",
+    "Hero MotoCorp",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
@@ -11,6 +13,6 @@
     "Postman",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-25T13:51:36.320365+00:00",
+  "last_notice_utc": "2026-09-25T17:52:15.136750+00:00",
   "official_source_count": 732
 }
