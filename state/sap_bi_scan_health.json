@@ -1,20 +1,20 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
-    "Alstom",
     "Ameriprise Financial",
-    "Avaya",
     "Blackhawk Network",
+    "Cipla",
     "Cognizant",
     "HDFC ERGO",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
+    "Narayana Health Digital",
     "PhonePe",
     "Postman",
     "TheMathCompany",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-24T22:23:54.242525+00:00",
+  "last_notice_utc": "2026-09-25T00:53:49.597307+00:00",
   "official_source_count": 757
 }
