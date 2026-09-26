@@ -1,9 +1,11 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
+    "ANZ",
     "Ameriprise Financial",
     "Atomicwork",
     "Blackhawk Network",
+    "Boston Scientific",
     "Cognizant",
     "HDFC ERGO",
     "Marlabs",
@@ -14,6 +16,6 @@
     "TheMathCompany",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-26T08:09:05.148260+00:00",
+  "last_notice_utc": "2026-09-26T11:26:59.155218+00:00",
   "official_source_count": 757
 }
