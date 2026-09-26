@@ -2,15 +2,15 @@
   "allowlist_count": 966,
   "failed_sources": [
     "Ameriprise Financial",
+    "Atomicwork",
     "Blackhawk Network",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
     "PhonePe",
     "Postman",
-    "Vestas",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-26T05:00:49.929361+00:00",
+  "last_notice_utc": "2026-09-26T08:19:54.268502+00:00",
   "official_source_count": 732
 }
