@@ -2,11 +2,10 @@
   "allowlist_count": 988,
   "failed_sources": [
     "Ameriprise Financial",
+    "Atomicwork",
     "Blackhawk Network",
     "Cognizant",
-    "Cummins",
     "HDFC ERGO",
-    "Honeywell",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
@@ -15,6 +14,6 @@
     "TheMathCompany",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-26T05:10:49.299861+00:00",
+  "last_notice_utc": "2026-09-26T08:09:05.148260+00:00",
   "official_source_count": 757
 }
