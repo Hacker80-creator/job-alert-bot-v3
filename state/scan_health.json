@@ -2,6 +2,7 @@
   "allowlist_count": 966,
   "failed_sources": [
     "Ameriprise Financial",
+    "Amplitude",
     "Atomicwork",
     "Blackhawk Network",
     "Marlabs",
@@ -11,6 +12,6 @@
     "Postman",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-28T13:56:02.532856+00:00",
+  "last_notice_utc": "2026-09-28T18:56:34.778429+00:00",
   "official_source_count": 732
 }
