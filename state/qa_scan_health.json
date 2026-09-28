@@ -2,11 +2,12 @@
   "allowlist_count": 988,
   "failed_sources": [
     "Ameriprise Financial",
+    "Amplitude",
     "Atomicwork",
     "Blackhawk Network",
     "Cognizant",
     "HDFC ERGO",
-    "Kwalee",
+    "Hero MotoCorp",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
@@ -15,6 +16,6 @@
     "TheMathCompany",
     "Waters Corporation"
   ],
-  "last_notice_utc": "2026-09-28T14:36:18.980500+00:00",
+  "last_notice_utc": "2026-09-28T18:56:10.926305+00:00",
   "official_source_count": 757
 }
