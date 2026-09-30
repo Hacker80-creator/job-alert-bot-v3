@@ -3,10 +3,11 @@
   "failed_sources": [
     "Ameriprise Financial",
     "Amplitude",
-    "Atomicwork",
     "Blackhawk Network",
+    "Chronosphere",
     "Cognizant",
     "HDFC ERGO",
+    "IBM",
     "LTIMindtree",
     "Marlabs",
     "Marqeta",
@@ -17,6 +18,6 @@
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-09-30T05:46:37.213719+00:00",
+  "last_notice_utc": "2026-09-30T08:35:11.957377+00:00",
   "official_source_count": 757
 }
