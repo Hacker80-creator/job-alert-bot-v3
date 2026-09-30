@@ -3,7 +3,6 @@
   "failed_sources": [
     "Ameriprise Financial",
     "Amplitude",
-    "Birlasoft",
     "Blackhawk Network",
     "Chronosphere",
     "Cognizant",
@@ -14,10 +13,11 @@
     "MaxLinear",
     "PhonePe",
     "Postman",
+    "Presidio",
     "TheMathCompany",
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-09-30T19:33:03.647447+00:00",
+  "last_notice_utc": "2026-09-30T21:08:16.265275+00:00",
   "official_source_count": 757
 }
