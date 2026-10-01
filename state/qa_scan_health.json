@@ -1,11 +1,13 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
+    "10x Genomics",
     "Ameriprise Financial",
     "Amplitude",
     "Blackhawk Network",
     "Chronosphere",
     "Cognizant",
+    "Corning",
     "HDFC ERGO",
     "LTIMindtree",
     "Marlabs",
@@ -17,6 +19,6 @@
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-01T16:39:28.344273+00:00",
+  "last_notice_utc": "2026-10-01T17:18:18.587872+00:00",
   "official_source_count": 757
 }
