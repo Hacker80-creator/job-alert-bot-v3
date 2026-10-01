@@ -1,19 +1,21 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
+    "American Express",
     "Ameriprise Financial",
     "Amplitude",
     "Blackhawk Network",
     "Chronosphere",
+    "Hero MotoCorp",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
     "PhonePe",
     "Postman",
-    "Syngene International",
+    "Sonatype",
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-01T09:35:19.501563+00:00",
+  "last_notice_utc": "2026-10-01T13:15:09.157130+00:00",
   "official_source_count": 732
 }
