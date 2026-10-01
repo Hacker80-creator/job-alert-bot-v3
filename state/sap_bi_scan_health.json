@@ -3,6 +3,7 @@
   "failed_sources": [
     "Ameriprise Financial",
     "Amplitude",
+    "Analog Devices",
     "Blackhawk Network",
     "Chronosphere",
     "Cognizant",
@@ -13,10 +14,12 @@
     "MaxLinear",
     "PhonePe",
     "Postman",
+    "Rupeek",
+    "TCS",
     "TheMathCompany",
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-01T09:35:07.460280+00:00",
+  "last_notice_utc": "2026-10-01T13:26:41.154785+00:00",
   "official_source_count": 757
 }
