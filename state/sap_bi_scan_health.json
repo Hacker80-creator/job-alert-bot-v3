@@ -1,7 +1,6 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
-    "ANZ",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
@@ -9,6 +8,7 @@
     "Chronosphere",
     "Cognizant",
     "Cohesity",
+    "Electronic Arts",
     "HDFC ERGO",
     "Hightouch",
     "LTIMindtree",
@@ -21,6 +21,6 @@
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-03T14:29:31.394232+00:00",
+  "last_notice_utc": "2026-10-03T17:02:39.860590+00:00",
   "official_source_count": 757
 }
