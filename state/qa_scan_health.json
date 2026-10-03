@@ -1,13 +1,13 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
+    "ANZ",
     "Ameriprise Financial",
     "Amplitude",
     "Blackhawk Network",
     "Chronosphere",
     "Cognizant",
     "Cohesity",
-    "Gramener",
     "HDFC ERGO",
     "Hightouch",
     "LTIMindtree",
@@ -20,6 +20,6 @@
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-03T00:08:53.641197+00:00",
+  "last_notice_utc": "2026-10-03T01:24:31.387828+00:00",
   "official_source_count": 757
 }
