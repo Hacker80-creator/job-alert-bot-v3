@@ -1,7 +1,6 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
-    "Alteryx",
     "Ameriprise Financial",
     "Amplitude",
     "Blackhawk Network",
@@ -9,7 +8,6 @@
     "Cognizant",
     "Cohesity",
     "HDFC ERGO",
-    "Hero MotoCorp",
     "Hightouch",
     "LTIMindtree",
     "Marlabs",
@@ -17,11 +15,10 @@
     "MaxLinear",
     "PhonePe",
     "Postman",
-    "Royal Enfield",
     "TheMathCompany",
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-03T05:32:01.171554+00:00",
+  "last_notice_utc": "2026-10-03T05:51:44.821283+00:00",
   "official_source_count": 757
 }
