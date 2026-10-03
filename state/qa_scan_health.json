@@ -1,26 +1,29 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
+    "7-Eleven Global Solution Center",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
     "Blackhawk Network",
     "Chronosphere",
-    "Cipla",
     "Cognizant",
     "Cohesity",
     "HDFC ERGO",
     "Hightouch",
+    "ICICI Securities",
     "LTIMindtree",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
     "PhonePe",
     "Postman",
+    "Qualcomm",
     "TheMathCompany",
+    "UST",
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-03T19:22:54.703912+00:00",
+  "last_notice_utc": "2026-10-03T21:52:25.393364+00:00",
   "official_source_count": 757
 }
