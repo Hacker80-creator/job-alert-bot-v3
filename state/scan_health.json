@@ -1,7 +1,6 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
-    "7-Eleven Global Solution Center",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
@@ -17,6 +16,6 @@
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-04T00:43:24.908450+00:00",
+  "last_notice_utc": "2026-10-04T07:31:59.380688+00:00",
   "official_source_count": 732
 }
