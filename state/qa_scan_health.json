@@ -1,14 +1,11 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
-    "7-Eleven Global Solution Center",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
-    "Birlasoft",
     "Blackhawk Network",
     "Chronosphere",
-    "CitiusTech",
     "Cognizant",
     "Cohesity",
     "HDFC ERGO",
@@ -19,12 +16,10 @@
     "MaxLinear",
     "PhonePe",
     "Postman",
-    "Tata Technologies",
     "TheMathCompany",
-    "UST",
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-04T02:07:33.413148+00:00",
+  "last_notice_utc": "2026-10-04T07:31:47.594656+00:00",
   "official_source_count": 757
 }
