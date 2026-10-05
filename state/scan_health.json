@@ -1,6 +1,7 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
+    "7-Eleven Global Solution Center",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
@@ -12,12 +13,11 @@
     "Marlabs",
     "Marqeta",
     "MaxLinear",
-    "Niramai",
     "PhonePe",
     "Postman",
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-05T18:46:26.598576+00:00",
+  "last_notice_utc": "2026-10-05T22:44:13.560111+00:00",
   "official_source_count": 732
 }
