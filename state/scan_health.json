@@ -1,11 +1,11 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
-    "3M",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
     "Blackhawk Network",
+    "Boeing",
     "Chronosphere",
     "Cohesity",
     "CoinDCX",
@@ -14,11 +14,12 @@
     "Marlabs",
     "Marqeta",
     "MaxLinear",
+    "Oracle",
     "PhonePe",
     "Postman",
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-06T15:14:42.315667+00:00",
+  "last_notice_utc": "2026-10-06T17:30:46.536781+00:00",
   "official_source_count": 732
 }
