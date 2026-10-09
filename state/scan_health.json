@@ -1,6 +1,7 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
+    "ANZ",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
@@ -15,12 +16,9 @@
     "MaxLinear",
     "PhonePe",
     "Postman",
-    "Syngene International",
-    "Tesco Bengaluru",
-    "Teva Pharmaceuticals",
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-09T15:54:35.244596+00:00",
+  "last_notice_utc": "2026-10-09T17:08:43.124110+00:00",
   "official_source_count": 732
 }
