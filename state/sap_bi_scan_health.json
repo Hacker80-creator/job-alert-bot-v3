@@ -3,7 +3,6 @@
   "failed_sources": [
     "Ameriprise Financial",
     "Amplitude",
-    "Arm",
     "Atomicwork",
     "Blackhawk Network",
     "Chronosphere",
@@ -11,7 +10,6 @@
     "Cohesity",
     "CoinDCX",
     "Dassault Syst\u00e8mes",
-    "Ford",
     "GlobalLogic",
     "HDFC ERGO",
     "Hightouch",
@@ -26,6 +24,6 @@
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-10T02:15:16.077866+00:00",
+  "last_notice_utc": "2026-10-10T06:03:48.920883+00:00",
   "official_source_count": 757
 }
