@@ -1,17 +1,14 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
-    "Acer",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
-    "Birlasoft",
     "Blackhawk Network",
     "Chronosphere",
     "Cognizant",
     "Cohesity",
     "CoinDCX",
-    "GlobalLogic",
     "HDFC ERGO",
     "Hightouch",
     "HubSpot",
@@ -19,13 +16,14 @@
     "Marlabs",
     "Marqeta",
     "MaxLinear",
-    "Narayana Health Digital",
+    "Nestl\u00e9",
     "PhonePe",
     "Postman",
+    "Syngene International",
     "TheMathCompany",
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-10T12:44:58.171465+00:00",
+  "last_notice_utc": "2026-10-10T16:06:59.605146+00:00",
   "official_source_count": 757
 }
