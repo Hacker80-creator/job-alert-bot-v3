@@ -1,6 +1,7 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
+    "ANZ",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
@@ -10,7 +11,6 @@
     "Cohesity",
     "CoinDCX",
     "HDFC ERGO",
-    "Hero MotoCorp",
     "Hightouch",
     "HubSpot",
     "LTIMindtree",
@@ -21,8 +21,9 @@
     "Postman",
     "TheMathCompany",
     "Waters Corporation",
-    "Zoom"
+    "Zoom",
+    "Zurich Insurance Group"
   ],
-  "last_notice_utc": "2026-10-12T06:08:39.628172+00:00",
+  "last_notice_utc": "2026-10-12T07:25:07.235220+00:00",
   "official_source_count": 757
 }
