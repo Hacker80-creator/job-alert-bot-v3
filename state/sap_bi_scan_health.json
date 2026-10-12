@@ -1,7 +1,6 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
-    "ANZ",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
@@ -21,9 +20,8 @@
     "Postman",
     "TheMathCompany",
     "Waters Corporation",
-    "Zoom",
-    "Zurich Insurance Group"
+    "Zoom"
   ],
-  "last_notice_utc": "2026-10-12T07:25:07.235220+00:00",
+  "last_notice_utc": "2026-10-12T15:36:27.000829+00:00",
   "official_source_count": 757
 }
