@@ -1,7 +1,6 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
-    "ANZ",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
@@ -15,11 +14,11 @@
     "HDFC ERGO",
     "Hightouch",
     "HubSpot",
+    "Kwalee",
     "LTIMindtree",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
-    "Narayana Health Digital",
     "PhonePe",
     "Postman",
     "ProductDossier",
@@ -28,6 +27,6 @@
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-13T18:18:15.985005+00:00",
+  "last_notice_utc": "2026-10-13T21:32:51.868033+00:00",
   "official_source_count": 757
 }
