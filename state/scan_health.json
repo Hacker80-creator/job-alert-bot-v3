@@ -1,13 +1,19 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
+    "Acer",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
+    "Aurobindo Pharma",
     "Blackhawk Network",
     "Chronosphere",
+    "Cipla",
     "Cohesity",
     "CoinDCX",
+    "Credo Semiconductor",
+    "Evalueserve",
+    "Hero MotoCorp",
     "Hightouch",
     "HubSpot",
     "Marlabs",
@@ -15,9 +21,11 @@
     "MaxLinear",
     "PhonePe",
     "Postman",
+    "ProductDossier",
+    "Sumo Digital India",
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-13T16:04:41.923714+00:00",
+  "last_notice_utc": "2026-10-13T18:29:12.938755+00:00",
   "official_source_count": 732
 }
