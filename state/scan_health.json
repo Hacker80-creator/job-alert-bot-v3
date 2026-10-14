@@ -1,17 +1,18 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
-    "ANZ",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
     "Blackhawk Network",
+    "Boeing",
     "Chronosphere",
-    "Cipla",
     "Cohesity",
     "CoinDCX",
+    "Emerson",
     "Hightouch",
     "HubSpot",
+    "IKEA Digital",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
@@ -20,6 +21,6 @@
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-14T12:40:53.804655+00:00",
+  "last_notice_utc": "2026-10-14T13:54:47.858959+00:00",
   "official_source_count": 732
 }
