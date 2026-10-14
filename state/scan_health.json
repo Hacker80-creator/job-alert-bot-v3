@@ -1,7 +1,6 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
-    "Adidas",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
@@ -14,11 +13,13 @@
     "Marlabs",
     "Marqeta",
     "MaxLinear",
+    "MoneyGram",
+    "Nestl\u00e9",
     "PhonePe",
     "Postman",
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-14T18:43:48.364724+00:00",
+  "last_notice_utc": "2026-10-14T21:07:24.044291+00:00",
   "official_source_count": 732
 }
