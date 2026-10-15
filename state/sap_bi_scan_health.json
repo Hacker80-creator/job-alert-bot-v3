@@ -1,11 +1,12 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
-    "ADM",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
+    "Becton Dickinson",
     "Blackhawk Network",
+    "Boeing",
     "Chronosphere",
     "Cognizant",
     "Cohesity",
@@ -13,18 +14,18 @@
     "HDFC ERGO",
     "Hightouch",
     "HubSpot",
-    "IDfy",
     "LTIMindtree",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
+    "NetApp",
     "PhonePe",
     "Postman",
-    "Syngene International",
+    "Synopsys",
     "TheMathCompany",
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-15T08:22:51.437550+00:00",
+  "last_notice_utc": "2026-10-15T11:42:33.828527+00:00",
   "official_source_count": 757
 }
