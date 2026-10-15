@@ -2,6 +2,7 @@
   "allowlist_count": 966,
   "failed_sources": [
     "ANZ",
+    "Acer",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
@@ -11,7 +12,6 @@
     "CoinDCX",
     "Hightouch",
     "HubSpot",
-    "IKEA Digital",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
@@ -21,6 +21,6 @@
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-15T17:03:47.147433+00:00",
+  "last_notice_utc": "2026-10-15T19:24:25.090128+00:00",
   "official_source_count": 732
 }
