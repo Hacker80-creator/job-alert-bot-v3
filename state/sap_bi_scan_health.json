@@ -1,6 +1,7 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
+    "ADM",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
@@ -12,17 +13,18 @@
     "HDFC ERGO",
     "Hightouch",
     "HubSpot",
-    "Kellanova",
+    "IDfy",
     "LTIMindtree",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
     "PhonePe",
     "Postman",
+    "Syngene International",
     "TheMathCompany",
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-15T07:31:08.393635+00:00",
+  "last_notice_utc": "2026-10-15T08:22:51.437550+00:00",
   "official_source_count": 757
 }
