@@ -1,7 +1,6 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
-    "ANZ",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
@@ -11,17 +10,15 @@
     "CoinDCX",
     "Hightouch",
     "HubSpot",
-    "IKEA Digital",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
-    "MoneyGram",
     "Nestl\u00e9",
     "PhonePe",
     "Postman",
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-15T01:45:29.464282+00:00",
+  "last_notice_utc": "2026-10-15T04:38:09.822690+00:00",
   "official_source_count": 732
 }
