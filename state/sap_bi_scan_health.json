@@ -38,9 +38,7 @@
     "Illumina",
     "Intel",
     "KLA",
-    "Kwalee",
     "LSEG",
-    "Lazada",
     "Levi Strauss & Co.",
     "Logitech",
     "MUFG",
@@ -62,7 +60,6 @@
     "Sabre",
     "Shell",
     "Sun Life",
-    "Sun Pharma",
     "TheMathCompany",
     "TransUnion",
     "Tricentis",
@@ -72,6 +69,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-17T07:12:24.904283+00:00",
+  "last_notice_utc": "2026-10-17T07:51:34.400218+00:00",
   "official_source_count": 757
 }
