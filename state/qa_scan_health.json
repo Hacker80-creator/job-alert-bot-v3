@@ -1,10 +1,10 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
+    "Amadeus",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
-    "Aurobindo Pharma",
     "Blackhawk Network",
     "Chronosphere",
     "Cognizant",
@@ -18,10 +18,11 @@
     "MaxLinear",
     "PhonePe",
     "Postman",
+    "Syngene International",
     "TheMathCompany",
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-16T21:50:24.166712+00:00",
+  "last_notice_utc": "2026-10-17T00:08:53.350310+00:00",
   "official_source_count": 757
 }
