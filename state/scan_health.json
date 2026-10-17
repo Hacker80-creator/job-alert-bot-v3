@@ -1,6 +1,7 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
+    "Alteryx",
     "Amadeus",
     "Ameriprise Financial",
     "Amplitude",
@@ -9,24 +10,17 @@
     "Chronosphere",
     "Cohesity",
     "CoinDCX",
-    "CommScope",
-    "Corning",
-    "Dana",
-    "Dynatrace",
-    "ExxonMobil",
     "Hightouch",
     "HubSpot",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
     "Nestl\u00e9",
-    "Nomura",
     "PhonePe",
     "Postman",
-    "Seagate",
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-17T00:34:19.345143+00:00",
+  "last_notice_utc": "2026-10-17T04:25:57.194008+00:00",
   "official_source_count": 732
 }
