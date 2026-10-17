@@ -1,6 +1,7 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
+    "Amadeus",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
@@ -8,6 +9,7 @@
     "Chronosphere",
     "Cohesity",
     "CoinDCX",
+    "Hero MotoCorp",
     "Hightouch",
     "HubSpot",
     "Marlabs",
@@ -19,6 +21,6 @@
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-16T21:11:04.126685+00:00",
+  "last_notice_utc": "2026-10-17T00:09:00.903464+00:00",
   "official_source_count": 732
 }
