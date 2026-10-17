@@ -1,6 +1,7 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
+    "Alteryx",
     "Amadeus",
     "Ameriprise Financial",
     "Amplitude",
@@ -14,17 +15,15 @@
     "Hightouch",
     "HubSpot",
     "IKEA Digital",
-    "Lazada",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
-    "Parexel",
     "PhonePe",
     "Postman",
     "TheMathCompany",
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-17T01:25:08.552567+00:00",
+  "last_notice_utc": "2026-10-17T04:26:09.749293+00:00",
   "official_source_count": 757
 }
