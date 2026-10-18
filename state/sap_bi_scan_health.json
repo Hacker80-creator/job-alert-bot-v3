@@ -1,7 +1,7 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
-    "Acer",
+    "ANZ",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
@@ -13,6 +13,7 @@
     "HDFC ERGO",
     "Hightouch",
     "HubSpot",
+    "IKEA Digital",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
@@ -20,9 +21,8 @@
     "Postman",
     "TheMathCompany",
     "Waters Corporation",
-    "Zoho",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-18T12:01:21.267579+00:00",
+  "last_notice_utc": "2026-10-18T12:11:21.686030+00:00",
   "official_source_count": 757
 }
