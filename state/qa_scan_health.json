@@ -1,6 +1,7 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
+    "Acer",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
@@ -17,11 +18,10 @@
     "MaxLinear",
     "PhonePe",
     "Postman",
-    "Syngene International",
     "TheMathCompany",
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-19T13:11:32.900127+00:00",
+  "last_notice_utc": "2026-10-19T14:04:07.575267+00:00",
   "official_source_count": 757
 }
