@@ -1,10 +1,10 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
+    "American Express",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
-    "Birlasoft",
     "Blackhawk Network",
     "Chronosphere",
     "Cognizant",
@@ -16,13 +16,13 @@
     "Marlabs",
     "Marqeta",
     "MaxLinear",
+    "Niramai",
     "PhonePe",
     "Postman",
-    "TCS",
     "TheMathCompany",
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-20T11:47:41.920764+00:00",
+  "last_notice_utc": "2026-10-20T12:51:04.193182+00:00",
   "official_source_count": 757
 }
