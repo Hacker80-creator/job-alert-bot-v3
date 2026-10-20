@@ -1,12 +1,10 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
-    "Acer",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
     "Blackhawk Network",
-    "Boeing",
     "Chronosphere",
     "Cognizant",
     "Cohesity",
@@ -18,10 +16,11 @@
     "MaxLinear",
     "PhonePe",
     "Postman",
+    "TCS",
     "TheMathCompany",
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-20T17:14:53.450788+00:00",
+  "last_notice_utc": "2026-10-20T17:39:56.497931+00:00",
   "official_source_count": 757
 }
