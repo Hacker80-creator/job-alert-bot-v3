@@ -1,6 +1,7 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
+    "Acer",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
@@ -9,7 +10,6 @@
     "Cognizant",
     "Cohesity",
     "CoinDCX",
-    "Grammarly",
     "HDFC ERGO",
     "Hightouch",
     "Marlabs",
@@ -21,6 +21,6 @@
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-21T08:38:52.084066+00:00",
+  "last_notice_utc": "2026-10-21T13:22:56.456194+00:00",
   "official_source_count": 757
 }
