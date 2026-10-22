@@ -1,6 +1,7 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
+    "ANZ",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
@@ -15,13 +16,12 @@
     "Marlabs",
     "Marqeta",
     "MaxLinear",
-    "Oracle",
     "PhonePe",
     "Postman",
     "TheMathCompany",
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-22T14:48:42.156288+00:00",
+  "last_notice_utc": "2026-10-22T17:28:00.910595+00:00",
   "official_source_count": 757
 }
