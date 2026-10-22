@@ -1,10 +1,12 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
+    "ANZ",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
     "Blackhawk Network",
+    "Boehringer Ingelheim",
     "Chronosphere",
     "Cognizant",
     "Cohesity",
@@ -16,12 +18,10 @@
     "MaxLinear",
     "PhonePe",
     "Postman",
-    "Tata 1mg",
     "TheMathCompany",
     "Waters Corporation",
-    "Zoom",
-    "athenahealth"
+    "Zoom"
   ],
-  "last_notice_utc": "2026-10-22T13:05:26.979647+00:00",
+  "last_notice_utc": "2026-10-22T17:29:29.410301+00:00",
   "official_source_count": 757
 }
