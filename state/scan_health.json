@@ -1,11 +1,11 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
-    "ANZ",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
     "Blackhawk Network",
+    "Boehringer Ingelheim",
     "Chronosphere",
     "Cohesity",
     "CoinDCX",
@@ -16,9 +16,9 @@
     "PhonePe",
     "Postman",
     "Waters Corporation",
-    "Willis Towers Watson",
+    "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-22T11:53:15.269892+00:00",
+  "last_notice_utc": "2026-10-22T14:48:40.144955+00:00",
   "official_source_count": 732
 }
