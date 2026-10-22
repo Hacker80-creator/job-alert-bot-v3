@@ -1,6 +1,7 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
+    "ANZ",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
@@ -15,8 +16,9 @@
     "PhonePe",
     "Postman",
     "Waters Corporation",
+    "Willis Towers Watson",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-22T04:44:37.188555+00:00",
+  "last_notice_utc": "2026-10-22T11:53:15.269892+00:00",
   "official_source_count": 732
 }
