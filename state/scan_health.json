@@ -1,12 +1,13 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
-    "ANZ",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
+    "Aurobindo Pharma",
     "Blackhawk Network",
     "Boehringer Ingelheim",
+    "Cargill",
     "Chronosphere",
     "Cohesity",
     "CoinDCX",
@@ -19,6 +20,6 @@
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-23T00:57:04.915941+00:00",
+  "last_notice_utc": "2026-10-23T05:28:24.831586+00:00",
   "official_source_count": 732
 }
