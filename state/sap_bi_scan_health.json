@@ -5,7 +5,6 @@
     "Amplitude",
     "Atomicwork",
     "Blackhawk Network",
-    "CGI",
     "Chronosphere",
     "Cognizant",
     "Cohesity",
@@ -14,10 +13,10 @@
     "HDFC ERGO",
     "Hightouch",
     "IDfy",
-    "Lemnisk",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
+    "NetApp",
     "Ola",
     "PhonePe",
     "Postman",
@@ -28,6 +27,6 @@
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-24T18:13:14.528147+00:00",
+  "last_notice_utc": "2026-10-24T21:40:44.418014+00:00",
   "official_source_count": 757
 }
