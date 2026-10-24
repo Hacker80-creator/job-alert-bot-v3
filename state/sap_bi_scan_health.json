@@ -3,10 +3,8 @@
   "failed_sources": [
     "Ameriprise Financial",
     "Amplitude",
-    "AstraZeneca",
     "Atomicwork",
     "Blackhawk Network",
-    "Capital One",
     "Chronosphere",
     "Cognizant",
     "Cohesity",
@@ -18,9 +16,11 @@
     "MaxLinear",
     "PhonePe",
     "Postman",
+    "Tech Mahindra",
+    "TheMathCompany",
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-24T01:00:33.433633+00:00",
+  "last_notice_utc": "2026-10-24T01:39:02.766698+00:00",
   "official_source_count": 757
 }
