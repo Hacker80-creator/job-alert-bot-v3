@@ -1,11 +1,12 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
+    "ANZ",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
+    "BlackRock",
     "Blackhawk Network",
-    "Boehringer Ingelheim",
     "Chronosphere",
     "Cognizant",
     "Cohesity",
@@ -20,9 +21,8 @@
     "Royal Enfield",
     "TheMathCompany",
     "Waters Corporation",
-    "Zoom",
-    "Zurich Insurance Group"
+    "Zoom"
   ],
-  "last_notice_utc": "2026-10-24T23:50:46.744630+00:00",
+  "last_notice_utc": "2026-10-25T01:10:31.370226+00:00",
   "official_source_count": 757
 }
