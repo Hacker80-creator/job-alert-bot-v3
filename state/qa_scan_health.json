@@ -3,8 +3,10 @@
   "failed_sources": [
     "Ameriprise Financial",
     "Amplitude",
+    "AstraZeneca",
     "Atomicwork",
     "Blackhawk Network",
+    "Capital One",
     "Chronosphere",
     "Cognizant",
     "Cohesity",
@@ -14,15 +16,13 @@
     "Marlabs",
     "Marqeta",
     "MaxLinear",
-    "Niramai",
     "PhonePe",
     "Postman",
     "Royal Enfield",
-    "Sanofi",
     "TheMathCompany",
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-25T01:20:50.223085+00:00",
+  "last_notice_utc": "2026-10-25T04:52:08.272836+00:00",
   "official_source_count": 757
 }
