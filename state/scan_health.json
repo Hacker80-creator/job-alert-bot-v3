@@ -1,7 +1,6 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
-    "Alstom",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
@@ -10,7 +9,7 @@
     "Cohesity",
     "CoinDCX",
     "Hightouch",
-    "Incedo",
+    "KaleidEO",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
@@ -20,6 +19,6 @@
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-25T19:19:04.435623+00:00",
+  "last_notice_utc": "2026-10-25T21:33:42.472506+00:00",
   "official_source_count": 732
 }
