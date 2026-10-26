@@ -3,15 +3,16 @@
   "failed_sources": [
     "Ameriprise Financial",
     "Amplitude",
+    "Ati Motors / Ati Robotics",
     "Atomicwork",
     "Blackhawk Network",
     "Chronosphere",
     "Cognizant",
     "Cohesity",
     "CoinDCX",
-    "GSK",
     "HDFC ERGO",
     "Hightouch",
+    "Lazada",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
@@ -22,6 +23,6 @@
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-26T14:18:15.759083+00:00",
+  "last_notice_utc": "2026-10-26T20:05:09.472864+00:00",
   "official_source_count": 757
 }
