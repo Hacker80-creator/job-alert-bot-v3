@@ -1,21 +1,23 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
+    "Acer",
     "Ameriprise Financial",
     "Amplitude",
     "Ati Motors / Ati Robotics",
     "Atomicwork",
     "Blackhawk Network",
     "Chronosphere",
+    "Cipla",
     "Cognizant",
     "Cohesity",
     "CoinDCX",
     "HDFC ERGO",
-    "HealthifyMe",
     "Hightouch",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
+    "Pegasystems",
     "PhonePe",
     "Postman",
     "Royal Enfield",
@@ -23,6 +25,6 @@
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-26T23:37:32.900346+00:00",
+  "last_notice_utc": "2026-10-27T00:32:19.358766+00:00",
   "official_source_count": 757
 }
