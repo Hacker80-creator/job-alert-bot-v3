@@ -1,12 +1,12 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
-    "Acer",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
     "Blackhawk Network",
     "Chronosphere",
+    "Cipla",
     "Cognizant",
     "Cohesity",
     "CoinDCX",
@@ -22,6 +22,6 @@
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-27T08:41:57.531192+00:00",
+  "last_notice_utc": "2026-10-27T12:24:23.761366+00:00",
   "official_source_count": 757
 }
