@@ -1,12 +1,9 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
-    "ANZ",
     "Ameriprise Financial",
     "Amplitude",
-    "AstraZeneca",
     "Atomicwork",
-    "BlackRock",
     "Blackhawk Network",
     "Chronosphere",
     "Cohesity",
@@ -18,12 +15,9 @@
     "PhonePe",
     "Postman",
     "Royal Enfield",
-    "Rupeek",
-    "Syngene International",
-    "UnitedHealth Group",
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-28T01:28:54.943331+00:00",
+  "last_notice_utc": "2026-10-28T07:08:53.630650+00:00",
   "official_source_count": 732
 }
