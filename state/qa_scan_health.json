@@ -1,7 +1,6 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
-    "3M",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
@@ -21,6 +20,6 @@
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-10-29T17:47:07.433739+00:00",
+  "last_notice_utc": "2026-10-29T19:59:46.443536+00:00",
   "official_source_count": 757
 }
