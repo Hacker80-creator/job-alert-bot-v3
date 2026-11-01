@@ -2,7 +2,6 @@
   "allowlist_count": 988,
   "failed_sources": [
     "Ameriprise Financial",
-    "Amgen India",
     "Amplitude",
     "Atomicwork",
     "Blackhawk Network",
@@ -12,11 +11,11 @@
     "Dr. Reddy\u2019s Laboratories",
     "HDFC ERGO",
     "Hightouch",
+    "IBM",
     "M2P Fintech",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
-    "Mimecast",
     "PhonePe",
     "Postman",
     "Royal Enfield",
@@ -24,6 +23,6 @@
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-01T00:11:47.119423+00:00",
+  "last_notice_utc": "2026-11-01T06:14:17.657978+00:00",
   "official_source_count": 757
 }
