@@ -1,7 +1,6 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
-    "ANZ",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
@@ -11,19 +10,20 @@
     "CoinDCX",
     "Dr. Reddy\u2019s Laboratories",
     "Hightouch",
+    "IKEA Digital",
     "M2P Fintech",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
+    "Mimecast",
     "PhonePe",
     "Postman",
     "SentinelOne",
+    "Siemens Healthineers",
     "Sun Pharma",
-    "Tata Motors",
-    "Volvo Cars",
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-02T23:37:43.725688+00:00",
+  "last_notice_utc": "2026-11-03T02:57:29.782856+00:00",
   "official_source_count": 732
 }
