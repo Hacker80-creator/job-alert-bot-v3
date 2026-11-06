@@ -1,16 +1,17 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
+    "Acer",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
     "Blackhawk Network",
     "Chronosphere",
-    "Cipla",
     "Cognizant",
     "Cohesity",
     "CoinDCX",
     "Dr. Reddy\u2019s Laboratories",
+    "Edwards Lifesciences",
     "HDFC ERGO",
     "Hightouch",
     "Marlabs",
@@ -25,6 +26,6 @@
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-06T19:37:09.704135+00:00",
+  "last_notice_utc": "2026-11-06T21:54:16.761256+00:00",
   "official_source_count": 757
 }
