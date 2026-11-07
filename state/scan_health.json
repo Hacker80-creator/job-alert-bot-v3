@@ -1,7 +1,6 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
-    "ANZ",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
@@ -11,7 +10,6 @@
     "CoinDCX",
     "Dr. Reddy\u2019s Laboratories",
     "Hightouch",
-    "Lemnisk",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
@@ -22,8 +20,9 @@
     "SentinelOne",
     "Sun Pharma",
     "Waters Corporation",
-    "Zoom"
+    "Zoom",
+    "Zurich Insurance Group"
   ],
-  "last_notice_utc": "2026-11-07T18:52:40.516898+00:00",
+  "last_notice_utc": "2026-11-07T22:59:58.686026+00:00",
   "official_source_count": 732
 }
