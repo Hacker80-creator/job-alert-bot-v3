@@ -1,6 +1,7 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
+    "ANZ",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
@@ -10,10 +11,11 @@
     "CoinDCX",
     "Dr. Reddy\u2019s Laboratories",
     "Hightouch",
-    "IKEA Digital",
+    "Lemnisk",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
+    "NXP Semiconductors",
     "PhonePe",
     "Postman",
     "Rupeek",
@@ -22,6 +24,6 @@
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-07T15:18:27.740270+00:00",
+  "last_notice_utc": "2026-11-07T18:52:40.516898+00:00",
   "official_source_count": 732
 }
