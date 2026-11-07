@@ -1,6 +1,7 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
+    "ANZ",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
@@ -10,6 +11,7 @@
     "Cohesity",
     "CoinDCX",
     "Dr. Reddy\u2019s Laboratories",
+    "Expleo",
     "HDFC ERGO",
     "Hightouch",
     "Marlabs",
@@ -24,6 +26,6 @@
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-06T10:52:06.903632+00:00",
+  "last_notice_utc": "2026-11-07T02:11:52.664284+00:00",
   "official_source_count": 757
 }
