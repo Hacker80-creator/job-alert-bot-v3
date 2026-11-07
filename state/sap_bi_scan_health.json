@@ -1,7 +1,6 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
-    "Acer",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
@@ -13,9 +12,9 @@
     "Dr. Reddy\u2019s Laboratories",
     "HDFC ERGO",
     "Hightouch",
+    "IBM",
     "Marlabs",
     "Marqeta",
-    "Marvell Technology",
     "MaxLinear",
     "PhonePe",
     "Postman",
@@ -26,6 +25,6 @@
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-07T09:33:55.654099+00:00",
+  "last_notice_utc": "2026-11-07T13:13:48.914522+00:00",
   "official_source_count": 757
 }
