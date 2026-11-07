@@ -1,7 +1,6 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
-    "Acer",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
@@ -11,7 +10,6 @@
     "Cohesity",
     "CoinDCX",
     "Dr. Reddy\u2019s Laboratories",
-    "Edwards Lifesciences",
     "HDFC ERGO",
     "Hightouch",
     "Marlabs",
@@ -22,10 +20,9 @@
     "Rupeek",
     "SentinelOne",
     "Sun Pharma",
-    "TheMathCompany",
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-06T21:54:16.761256+00:00",
+  "last_notice_utc": "2026-11-07T00:25:01.555718+00:00",
   "official_source_count": 757
 }
