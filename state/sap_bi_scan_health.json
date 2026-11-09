@@ -1,7 +1,6 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
-    "Acer",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
@@ -15,7 +14,7 @@
     "HDFC ERGO",
     "Hightouch",
     "Hyundai Motor India",
-    "Lupin",
+    "Intel",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
@@ -25,10 +24,11 @@
     "Rupeek",
     "SentinelOne",
     "Sun Pharma",
+    "Tech Mahindra",
     "TheMathCompany",
     "Waters Corporation",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-09T19:05:19.634155+00:00",
+  "last_notice_utc": "2026-11-09T19:53:52.367737+00:00",
   "official_source_count": 757
 }
