@@ -3,10 +3,10 @@
   "failed_sources": [
     "Ameriprise Financial",
     "Amplitude",
+    "Ati Motors / Ati Robotics",
     "Atomicwork",
     "Blackhawk Network",
     "Chronosphere",
-    "Cipla",
     "Clari",
     "Cognizant",
     "Cohesity",
@@ -15,11 +15,11 @@
     "HDFC ERGO",
     "Hightouch",
     "Hyundai Motor India",
-    "Lazada",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
     "NXP Semiconductors",
+    "Oracle",
     "PhonePe",
     "Postman",
     "Rupeek",
@@ -30,6 +30,6 @@
     "Weights & Biases",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-10T13:07:37.214562+00:00",
+  "last_notice_utc": "2026-11-10T19:04:39.325321+00:00",
   "official_source_count": 757
 }
