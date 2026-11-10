@@ -3,6 +3,7 @@
   "failed_sources": [
     "Ameriprise Financial",
     "Amplitude",
+    "Ati Motors / Ati Robotics",
     "Atomicwork",
     "Blackhawk Network",
     "Chronosphere",
@@ -12,11 +13,11 @@
     "Dr. Reddy\u2019s Laboratories",
     "Hightouch",
     "Hyundai Motor India",
-    "IBM",
     "Marlabs",
     "Marqeta",
     "MaxLinear",
     "NXP Semiconductors",
+    "Oracle",
     "PhonePe",
     "Postman",
     "Rupeek",
@@ -26,6 +27,6 @@
     "Weights & Biases",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-10T12:40:57.669887+00:00",
+  "last_notice_utc": "2026-11-10T19:05:03.643065+00:00",
   "official_source_count": 732
 }
