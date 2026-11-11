@@ -1,6 +1,7 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
+    "Alstom",
     "Ameriprise Financial",
     "Amplitude",
     "Ati Motors / Ati Robotics",
@@ -29,6 +30,6 @@
     "Weights & Biases",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-10T21:08:26.428340+00:00",
+  "last_notice_utc": "2026-11-11T00:00:11.472954+00:00",
   "official_source_count": 757
 }
