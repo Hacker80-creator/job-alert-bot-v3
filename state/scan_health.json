@@ -1,6 +1,7 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
+    "Alstom",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
@@ -9,9 +10,8 @@
     "Clari",
     "Cohesity",
     "CoinDCX",
+    "Dell Technologies",
     "Dr. Reddy\u2019s Laboratories",
-    "Dream11",
-    "Edwards Lifesciences",
     "Equifax",
     "Hightouch",
     "Hyundai Motor India",
@@ -27,11 +27,12 @@
     "SAP",
     "SentinelOne",
     "Sun Pharma",
+    "Vestas",
     "Waters Corporation",
     "Weights & Biases",
     "Wells Fargo",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-12T09:53:49.777125+00:00",
+  "last_notice_utc": "2026-11-12T17:04:24.740873+00:00",
   "official_source_count": 732
 }
