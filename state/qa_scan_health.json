@@ -1,7 +1,6 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
-    "Acer",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
@@ -34,6 +33,6 @@
     "Wells Fargo",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-12T08:22:34.613278+00:00",
+  "last_notice_utc": "2026-11-12T10:23:51.261971+00:00",
   "official_source_count": 757
 }
