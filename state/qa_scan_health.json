@@ -1,7 +1,6 @@
 {
   "allowlist_count": 988,
   "failed_sources": [
-    "Alstom",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
@@ -11,11 +10,9 @@
     "Cognizant",
     "Cohesity",
     "CoinDCX",
-    "Coupa",
     "Dr. Reddy\u2019s Laboratories",
     "Equifax",
     "HDFC ERGO",
-    "Hero MotoCorp",
     "Hightouch",
     "Hyundai Motor India",
     "Iterable",
@@ -24,6 +21,7 @@
     "MaxLinear",
     "Mimecast",
     "NXP Semiconductors",
+    "New York Life India",
     "PhonePe",
     "Postman",
     "Rupeek",
@@ -31,12 +29,11 @@
     "SentinelOne",
     "Sun Pharma",
     "TheMathCompany",
-    "Volvo Cars",
     "Waters Corporation",
     "Weights & Biases",
     "Wells Fargo",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-12T17:04:23.627702+00:00",
+  "last_notice_utc": "2026-11-12T18:44:27.879716+00:00",
   "official_source_count": 757
 }
