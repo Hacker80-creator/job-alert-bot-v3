@@ -8,13 +8,11 @@
     "Atomicwork",
     "Autodesk",
     "Blackhawk Network",
-    "Bristol Myers Squibb",
     "CME Group",
     "CVS Health",
     "Cadence",
     "Chronosphere",
     "Cigna",
-    "Cipla",
     "Clari",
     "Cognizant",
     "Cohesity",
@@ -39,6 +37,7 @@
     "Mimecast",
     "NXP Semiconductors",
     "Nasdaq",
+    "Novo Nordisk",
     "PhonePe",
     "Postman",
     "Rockwell Automation",
@@ -53,9 +52,8 @@
     "Weights & Biases",
     "Wells Fargo",
     "Workday",
-    "ZF Group",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-14T15:18:02.372499+00:00",
+  "last_notice_utc": "2026-11-14T15:28:53.542737+00:00",
   "official_source_count": 757
 }
