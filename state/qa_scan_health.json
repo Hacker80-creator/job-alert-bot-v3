@@ -2,8 +2,8 @@
   "allowlist_count": 988,
   "failed_sources": [
     "3M",
-    "Adidas",
     "Agilent Technologies",
+    "Alteryx",
     "Ameriprise Financial",
     "Amplitude",
     "Analog Devices",
@@ -16,7 +16,6 @@
     "Boston Scientific",
     "Bristol Myers Squibb",
     "Broadridge",
-    "CGI",
     "CME Group",
     "CVS Health",
     "Cadence",
@@ -24,7 +23,6 @@
     "Chronosphere",
     "Ciena",
     "Cigna",
-    "Cipla",
     "Clari",
     "Cognizant",
     "Cohesity",
@@ -32,8 +30,11 @@
     "CommScope",
     "Corning",
     "Dana",
+    "Dell Technologies",
     "Dr. Reddy\u2019s Laboratories",
+    "Dream11",
     "Dynatrace",
+    "Eli Lilly",
     "Equifax",
     "ExxonMobil",
     "F5",
@@ -58,7 +59,6 @@
     "Mavenir",
     "MaxLinear",
     "Medtronic",
-    "Microsoft",
     "Mimecast",
     "Motorola Solutions",
     "NXP Semiconductors",
@@ -89,6 +89,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-14T06:29:02.764376+00:00",
+  "last_notice_utc": "2026-11-14T07:07:37.602936+00:00",
   "official_source_count": 757
 }
