@@ -1,7 +1,6 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
-    "ANZ",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
@@ -21,19 +20,16 @@
     "Mimecast",
     "NXP Semiconductors",
     "PhonePe",
-    "Pixxel",
     "Postman",
-    "Raytheon Technologies",
     "Rupeek",
     "SAP",
     "SentinelOne",
     "Sun Pharma",
-    "Tessolve",
     "Waters Corporation",
     "Weights & Biases",
     "Wells Fargo",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-15T20:00:45.072540+00:00",
+  "last_notice_utc": "2026-11-15T22:55:20.666331+00:00",
   "official_source_count": 732
 }
