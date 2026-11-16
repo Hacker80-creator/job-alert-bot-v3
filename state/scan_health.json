@@ -2,6 +2,7 @@
   "allowlist_count": 966,
   "failed_sources": [
     "3M",
+    "ANZ",
     "Agilent Technologies",
     "Airbus India",
     "Alteryx",
@@ -59,7 +60,6 @@
     "Postman",
     "Proofpoint",
     "Rackspace Technology",
-    "Raytheon Technologies",
     "Rockwell Automation",
     "Rupeek",
     "S&P Global",
@@ -67,7 +67,6 @@
     "Sabre",
     "SentinelOne",
     "Shell",
-    "Sonata Software",
     "Sun Life",
     "Sun Pharma",
     "The Coca-Cola Company",
@@ -80,6 +79,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-16T11:11:59.035442+00:00",
+  "last_notice_utc": "2026-11-16T18:35:44.914489+00:00",
   "official_source_count": 732
 }
