@@ -17,6 +17,7 @@
     "Blackhawk Network",
     "Bristol Myers Squibb",
     "Broadridge",
+    "CME Group",
     "CVS Health",
     "Cadence",
     "Chegg",
@@ -60,7 +61,7 @@
     "Postman",
     "Proofpoint",
     "Rackspace Technology",
-    "Raytheon Technologies",
+    "Rapido",
     "Rockwell Automation",
     "Rupeek",
     "S&P Global",
@@ -82,6 +83,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-16T11:11:57.453255+00:00",
+  "last_notice_utc": "2026-11-16T18:47:38.594469+00:00",
   "official_source_count": 757
 }
