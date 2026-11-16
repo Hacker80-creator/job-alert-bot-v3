@@ -1,6 +1,8 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
+    "Alteryx",
+    "Amadeus",
     "Ameriprise Financial",
     "Amplitude",
     "Atomicwork",
@@ -30,6 +32,6 @@
     "Wells Fargo",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-15T22:55:20.666331+00:00",
+  "last_notice_utc": "2026-11-16T03:13:00.636126+00:00",
   "official_source_count": 732
 }
