@@ -5,6 +5,7 @@
     "Agilent Technologies",
     "Airbus India",
     "Alteryx",
+    "Amadeus",
     "Ameriprise Financial",
     "Amplitude",
     "Analog Devices",
@@ -16,6 +17,7 @@
     "Blackhawk Network",
     "Bristol Myers Squibb",
     "Broadridge",
+    "CME Group",
     "CVS Health",
     "Cadence",
     "Chegg",
@@ -58,13 +60,11 @@
     "Postman",
     "Proofpoint",
     "Rackspace Technology",
-    "Raytheon Technologies",
     "Rockwell Automation",
     "Rupeek",
     "S&P Global",
     "SAP",
     "Sabre",
-    "Seismic",
     "SentinelOne",
     "Shell",
     "Sun Life",
@@ -81,6 +81,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-16T08:03:44.968863+00:00",
+  "last_notice_utc": "2026-11-16T11:13:06.860803+00:00",
   "official_source_count": 757
 }
