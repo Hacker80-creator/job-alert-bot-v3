@@ -39,6 +39,7 @@
     "Hyundai Motor India",
     "IQVIA",
     "Illumina",
+    "Infosys",
     "Intel",
     "Iterable",
     "KLA",
@@ -72,15 +73,15 @@
     "The Coca-Cola Company",
     "TheMathCompany",
     "TransUnion",
-    "Tricentis",
     "Valeo",
     "Waters Corporation",
     "Weights & Biases",
     "Wells Fargo",
     "Workday",
     "Zendesk",
-    "Zoom"
+    "Zoom",
+    "Zurich Insurance Group"
   ],
-  "last_notice_utc": "2026-11-16T19:42:37.491189+00:00",
+  "last_notice_utc": "2026-11-17T03:53:20.743630+00:00",
   "official_source_count": 757
 }
