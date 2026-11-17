@@ -17,7 +17,6 @@
     "Blackhawk Network",
     "Bristol Myers Squibb",
     "Broadridge",
-    "CME Group",
     "CVS Health",
     "Cadence",
     "Chegg",
@@ -70,7 +69,6 @@
     "Shell",
     "Sun Life",
     "Sun Pharma",
-    "Syngene International",
     "The Coca-Cola Company",
     "TheMathCompany",
     "TransUnion",
@@ -83,6 +81,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-17T03:16:54.150657+00:00",
+  "last_notice_utc": "2026-11-17T03:27:50.635976+00:00",
   "official_source_count": 757
 }
