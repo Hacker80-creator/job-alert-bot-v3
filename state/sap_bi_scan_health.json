@@ -5,6 +5,7 @@
     "Agilent Technologies",
     "Airbus India",
     "Alteryx",
+    "Amadeus",
     "Ameriprise Financial",
     "Amplitude",
     "Analog Devices",
@@ -15,9 +16,11 @@
     "Bayer",
     "Bentley Systems",
     "Blackhawk Network",
+    "Boehringer Ingelheim",
     "Bristol Myers Squibb",
     "Broadridge",
     "CME Group",
+    "CVS Health",
     "Cadence",
     "Chegg",
     "Chronosphere",
@@ -65,7 +68,6 @@
     "Sabre",
     "SentinelOne",
     "Shell",
-    "Siemens",
     "Sun Life",
     "Sun Pharma",
     "The Coca-Cola Company",
@@ -78,8 +80,9 @@
     "Wells Fargo",
     "Workday",
     "Zendesk",
-    "Zoom"
+    "Zoom",
+    "Zurich Insurance Group"
   ],
-  "last_notice_utc": "2026-11-18T14:00:31.438425+00:00",
+  "last_notice_utc": "2026-11-18T17:36:30.109541+00:00",
   "official_source_count": 757
 }
