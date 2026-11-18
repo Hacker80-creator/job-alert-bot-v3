@@ -1,13 +1,10 @@
 {
   "allowlist_count": 966,
   "failed_sources": [
-    "10x Genomics",
     "3M",
-    "Acko",
     "Agilent Technologies",
     "Airbus India",
     "Alteryx",
-    "Amadeus",
     "Ameriprise Financial",
     "Amplitude",
     "Analog Devices",
@@ -18,6 +15,7 @@
     "Bayer",
     "Bentley Systems",
     "Blackhawk Network",
+    "Boehringer Ingelheim",
     "Bristol Myers Squibb",
     "Broadridge",
     "CME Group",
@@ -28,7 +26,6 @@
     "Ciena",
     "Cigna",
     "Clari",
-    "CleverTap",
     "Cohesity",
     "CoinDCX",
     "Commonwealth Bank of Australia",
@@ -38,8 +35,6 @@
     "F5",
     "FedEx",
     "Genesys",
-    "Growfin",
-    "Hero MotoCorp",
     "Hightouch",
     "IQVIA",
     "Illumina",
@@ -64,6 +59,7 @@
     "Postman",
     "Proofpoint",
     "Rackspace Technology",
+    "Rapido",
     "Rockwell Automation",
     "Rupeek",
     "S&P Global",
@@ -81,8 +77,9 @@
     "Wells Fargo",
     "Workday",
     "Zendesk",
-    "Zoom"
+    "Zoom",
+    "Zurich Insurance Group"
   ],
-  "last_notice_utc": "2026-11-18T14:12:49.773657+00:00",
+  "last_notice_utc": "2026-11-18T17:23:18.362335+00:00",
   "official_source_count": 732
 }
