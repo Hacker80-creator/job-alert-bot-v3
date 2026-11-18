@@ -5,6 +5,7 @@
     "Agilent Technologies",
     "Airbus India",
     "Alteryx",
+    "Amadeus",
     "Ameriprise Financial",
     "Amplitude",
     "Analog Devices",
@@ -17,7 +18,6 @@
     "Blackhawk Network",
     "Bristol Myers Squibb",
     "Broadridge",
-    "CME Group",
     "CVS Health",
     "Cadence",
     "Chegg",
@@ -38,7 +38,6 @@
     "Hightouch",
     "IQVIA",
     "Illumina",
-    "Insider",
     "Intel",
     "Iterable",
     "KLA",
@@ -69,7 +68,6 @@
     "Shell",
     "Sun Life",
     "Sun Pharma",
-    "Synopsys",
     "The Coca-Cola Company",
     "TheMathCompany",
     "TransUnion",
@@ -82,6 +80,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-18T03:09:58.568859+00:00",
+  "last_notice_utc": "2026-11-18T04:20:43.969173+00:00",
   "official_source_count": 757
 }
