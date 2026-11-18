@@ -18,7 +18,7 @@
     "Blackhawk Network",
     "Bristol Myers Squibb",
     "Broadridge",
-    "CVS Health",
+    "CME Group",
     "Cadence",
     "Chegg",
     "Chronosphere",
@@ -38,6 +38,7 @@
     "Hightouch",
     "IQVIA",
     "Illumina",
+    "Infosys",
     "Intel",
     "Iterable",
     "KLA",
@@ -68,7 +69,6 @@
     "Shell",
     "Sun Life",
     "Sun Pharma",
-    "The Coca-Cola Company",
     "TheMathCompany",
     "TransUnion",
     "Tricentis",
@@ -80,6 +80,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-18T04:20:43.969173+00:00",
+  "last_notice_utc": "2026-11-18T07:38:28.121499+00:00",
   "official_source_count": 757
 }
