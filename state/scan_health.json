@@ -2,6 +2,7 @@
   "allowlist_count": 966,
   "failed_sources": [
     "3M",
+    "Acer",
     "Agilent Technologies",
     "Airbus India",
     "Alteryx",
@@ -40,6 +41,7 @@
     "Intel",
     "Iterable",
     "KLA",
+    "Kantar",
     "LSEG",
     "Levi Strauss & Co.",
     "Logitech",
@@ -77,6 +79,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-18T03:09:49.263926+00:00",
+  "last_notice_utc": "2026-11-18T07:25:44.783784+00:00",
   "official_source_count": 732
 }
