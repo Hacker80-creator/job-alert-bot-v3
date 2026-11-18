@@ -15,7 +15,6 @@
     "Bayer",
     "Bentley Systems",
     "Blackhawk Network",
-    "Boehringer Ingelheim",
     "Bristol Myers Squibb",
     "Broadridge",
     "CME Group",
@@ -26,6 +25,7 @@
     "Ciena",
     "Cigna",
     "Clari",
+    "ClearTax",
     "Cohesity",
     "CoinDCX",
     "Commonwealth Bank of Australia",
@@ -59,7 +59,6 @@
     "Postman",
     "Proofpoint",
     "Rackspace Technology",
-    "Rapido",
     "Rockwell Automation",
     "Rupeek",
     "S&P Global",
@@ -77,9 +76,8 @@
     "Wells Fargo",
     "Workday",
     "Zendesk",
-    "Zoom",
-    "Zurich Insurance Group"
+    "Zoom"
   ],
-  "last_notice_utc": "2026-11-18T17:23:18.362335+00:00",
+  "last_notice_utc": "2026-11-18T19:44:50.045992+00:00",
   "official_source_count": 732
 }
