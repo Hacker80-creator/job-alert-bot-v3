@@ -5,6 +5,7 @@
     "Agilent Technologies",
     "Airbus India",
     "Alteryx",
+    "Amadeus",
     "Ameriprise Financial",
     "Amplitude",
     "Analog Devices",
@@ -15,7 +16,6 @@
     "Bayer",
     "Bentley Systems",
     "Blackhawk Network",
-    "Boehringer Ingelheim",
     "Bristol Myers Squibb",
     "Broadridge",
     "CME Group",
@@ -42,7 +42,6 @@
     "Illumina",
     "Intel",
     "Iterable",
-    "Josh Software",
     "KLA",
     "LSEG",
     "Levi Strauss & Co.",
@@ -81,9 +80,8 @@
     "Wells Fargo",
     "Workday",
     "Zendesk",
-    "Zoom",
-    "Zurich Insurance Group"
+    "Zoom"
   ],
-  "last_notice_utc": "2026-11-18T17:34:58.179943+00:00",
+  "last_notice_utc": "2026-11-18T17:46:08.919369+00:00",
   "official_source_count": 757
 }
