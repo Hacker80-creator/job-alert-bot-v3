@@ -15,6 +15,7 @@
     "Automation Anywhere",
     "Bayer",
     "Bentley Systems",
+    "Birlasoft",
     "Blackhawk Network",
     "Bristol Myers Squibb",
     "Broadridge",
@@ -50,6 +51,7 @@
     "Marvell Technology",
     "Mavenir",
     "MaxLinear",
+    "MediaTek",
     "Medtronic",
     "Mimecast",
     "Motorola Solutions",
@@ -59,6 +61,7 @@
     "Postman",
     "Proofpoint",
     "Rackspace Technology",
+    "Raytheon Technologies",
     "Rockwell Automation",
     "Rupeek",
     "S&P Global",
@@ -68,6 +71,7 @@
     "Shell",
     "Sun Life",
     "Sun Pharma",
+    "Syngene International",
     "The Coca-Cola Company",
     "TransUnion",
     "Valeo",
@@ -78,6 +82,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-19T00:28:21.777916+00:00",
+  "last_notice_utc": "2026-11-19T04:29:06.761235+00:00",
   "official_source_count": 732
 }
