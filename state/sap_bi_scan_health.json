@@ -36,6 +36,7 @@
     "F5",
     "FedEx",
     "Genesys",
+    "Hero MotoCorp",
     "Hightouch",
     "IQVIA",
     "Illumina",
@@ -70,7 +71,6 @@
     "Shell",
     "Sun Life",
     "Sun Pharma",
-    "TCS",
     "The Coca-Cola Company",
     "TheMathCompany",
     "TransUnion",
@@ -83,6 +83,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-19T01:06:41.501326+00:00",
+  "last_notice_utc": "2026-11-19T04:16:52.908601+00:00",
   "official_source_count": 757
 }
