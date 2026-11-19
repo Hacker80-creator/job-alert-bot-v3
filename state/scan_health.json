@@ -26,7 +26,6 @@
     "Ciena",
     "Cigna",
     "Clari",
-    "ClearTax",
     "Cohesity",
     "CoinDCX",
     "Commonwealth Bank of Australia",
@@ -55,12 +54,11 @@
     "MaxLinear",
     "Medtronic",
     "Mimecast",
-    "Moneyview",
     "Motorola Solutions",
     "NXP Semiconductors",
     "Nasdaq",
-    "Pegasystems",
     "PhonePe",
+    "Pixxel",
     "Porter",
     "Postman",
     "Proofpoint",
@@ -77,7 +75,6 @@
     "Spinny",
     "Sun Life",
     "Sun Pharma",
-    "Tessolve",
     "The Coca-Cola Company",
     "TransUnion",
     "Valeo",
@@ -88,6 +85,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-19T18:49:49.470339+00:00",
+  "last_notice_utc": "2026-11-19T20:39:51.437846+00:00",
   "official_source_count": 732
 }
