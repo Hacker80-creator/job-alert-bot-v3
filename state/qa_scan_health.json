@@ -2,10 +2,10 @@
   "allowlist_count": 988,
   "failed_sources": [
     "3M",
+    "Acer",
     "Agilent Technologies",
     "Airbus India",
     "Alteryx",
-    "Amadeus",
     "Ameriprise Financial",
     "Amplitude",
     "Analog Devices",
@@ -83,6 +83,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-20T03:53:45.415447+00:00",
+  "last_notice_utc": "2026-11-20T08:05:30.535240+00:00",
   "official_source_count": 757
 }
