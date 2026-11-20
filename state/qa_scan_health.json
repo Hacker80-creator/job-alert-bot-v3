@@ -18,6 +18,7 @@
     "Bristol Myers Squibb",
     "Broadridge",
     "CME Group",
+    "CVS Health",
     "Cadence",
     "Chegg",
     "Chronosphere",
@@ -48,6 +49,7 @@
     "Marlabs",
     "Marqeta",
     "Marvell Technology",
+    "Matillion",
     "Mavenir",
     "MaxLinear",
     "Medtronic",
@@ -56,7 +58,6 @@
     "NXP Semiconductors",
     "Nasdaq",
     "PhonePe",
-    "Porter",
     "Postman",
     "Proofpoint",
     "Rackspace Technology",
@@ -82,6 +83,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-19T21:08:00.603770+00:00",
+  "last_notice_utc": "2026-11-20T01:05:51.808445+00:00",
   "official_source_count": 757
 }
