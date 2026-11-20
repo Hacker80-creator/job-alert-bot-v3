@@ -18,8 +18,6 @@
     "Blackhawk Network",
     "Bristol Myers Squibb",
     "Broadridge",
-    "CME Group",
-    "CVS Health",
     "Cadence",
     "Chegg",
     "Chronosphere",
@@ -31,7 +29,6 @@
     "CoinDCX",
     "Commonwealth Bank of Australia",
     "DBS Bank",
-    "Darwinbox",
     "Dr. Reddy\u2019s Laboratories",
     "Equifax",
     "F5",
@@ -61,7 +58,6 @@
     "Postman",
     "Proofpoint",
     "Rackspace Technology",
-    "Rapido",
     "Raytheon Technologies",
     "Rockwell Automation",
     "Rupeek",
@@ -75,7 +71,6 @@
     "The Coca-Cola Company",
     "TheMathCompany",
     "TransUnion",
-    "Tricentis",
     "Valeo",
     "Waters Corporation",
     "Weights & Biases",
@@ -84,6 +79,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-19T22:50:53.243946+00:00",
+  "last_notice_utc": "2026-11-20T01:07:27.804278+00:00",
   "official_source_count": 757
 }
