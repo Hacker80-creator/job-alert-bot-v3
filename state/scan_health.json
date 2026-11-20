@@ -55,6 +55,7 @@
     "NXP Semiconductors",
     "Nasdaq",
     "PhonePe",
+    "Porter",
     "Postman",
     "Proofpoint",
     "Rackspace Technology",
@@ -68,7 +69,6 @@
     "Shell",
     "Sun Life",
     "Sun Pharma",
-    "Tessolve",
     "The Coca-Cola Company",
     "TransUnion",
     "Valeo",
@@ -79,6 +79,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-19T23:03:16.623642+00:00",
+  "last_notice_utc": "2026-11-20T03:14:55.801973+00:00",
   "official_source_count": 732
 }
