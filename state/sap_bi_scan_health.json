@@ -19,13 +19,13 @@
     "Bristol Myers Squibb",
     "Broadridge",
     "CME Group",
-    "CVS Health",
     "Cadence",
     "Chegg",
     "Chronosphere",
     "Ciena",
     "Cigna",
     "Clari",
+    "ClearTax",
     "Cognizant",
     "Cohesity",
     "CoinDCX",
@@ -56,10 +56,8 @@
     "Motorola Solutions",
     "NXP Semiconductors",
     "Nasdaq",
-    "New York Life India",
     "PhonePe",
     "Postman",
-    "Presidio",
     "Proofpoint",
     "Rackspace Technology",
     "Raytheon Technologies",
@@ -84,6 +82,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-20T22:11:43.858968+00:00",
+  "last_notice_utc": "2026-11-20T22:24:56.494703+00:00",
   "official_source_count": 757
 }
