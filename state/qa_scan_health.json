@@ -5,6 +5,7 @@
     "Agilent Technologies",
     "Airbus India",
     "Alteryx",
+    "Amadeus",
     "Ameriprise Financial",
     "Amplitude",
     "Analog Devices",
@@ -49,7 +50,6 @@
     "Marlabs",
     "Marqeta",
     "Marvell Technology",
-    "Matillion",
     "Mavenir",
     "MaxLinear",
     "Medtronic",
@@ -69,6 +69,7 @@
     "Sabre",
     "SentinelOne",
     "Shell",
+    "Spinny",
     "Sun Life",
     "Sun Pharma",
     "The Coca-Cola Company",
@@ -83,6 +84,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-20T01:05:51.808445+00:00",
+  "last_notice_utc": "2026-11-20T03:26:33.302880+00:00",
   "official_source_count": 757
 }
