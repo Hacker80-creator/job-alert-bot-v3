@@ -5,6 +5,7 @@
     "Agilent Technologies",
     "Airbus India",
     "Alteryx",
+    "Amadeus",
     "Ameriprise Financial",
     "Amplitude",
     "Analog Devices",
@@ -40,7 +41,9 @@
     "Intel",
     "Iterable",
     "KLA",
+    "LG Soft India",
     "LSEG",
+    "LeadSquared",
     "Levi Strauss & Co.",
     "Logitech",
     "MUFG",
@@ -55,7 +58,6 @@
     "NXP Semiconductors",
     "Nasdaq",
     "PhonePe",
-    "Porter",
     "Postman",
     "Proofpoint",
     "Rackspace Technology",
@@ -79,6 +81,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-20T03:14:55.801973+00:00",
+  "last_notice_utc": "2026-11-20T08:05:00.176162+00:00",
   "official_source_count": 732
 }
