@@ -5,6 +5,7 @@
     "Agilent Technologies",
     "Airbus India",
     "Alteryx",
+    "Amadeus",
     "Ameriprise Financial",
     "Amplitude",
     "Analog Devices",
@@ -18,6 +19,7 @@
     "Bristol Myers Squibb",
     "Broadridge",
     "CME Group",
+    "CVS Health",
     "Cadence",
     "Chegg",
     "Chronosphere",
@@ -55,6 +57,7 @@
     "NXP Semiconductors",
     "Nasdaq",
     "PhonePe",
+    "Porter",
     "Postman",
     "Proofpoint",
     "Rackspace Technology",
@@ -80,6 +83,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-21T21:06:50.916995+00:00",
+  "last_notice_utc": "2026-11-21T23:40:57.363988+00:00",
   "official_source_count": 757
 }
