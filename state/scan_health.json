@@ -29,7 +29,6 @@
     "CoinDCX",
     "Commonwealth Bank of Australia",
     "DBS Bank",
-    "Darwinbox",
     "Dr. Reddy\u2019s Laboratories",
     "Equifax",
     "F5",
@@ -59,10 +58,12 @@
     "Postman",
     "Proofpoint",
     "Rackspace Technology",
+    "Raytheon Technologies",
     "Rockwell Automation",
     "Rupeek",
     "S&P Global",
     "SAP",
+    "SLB",
     "Sabre",
     "SentinelOne",
     "Shell",
@@ -78,6 +79,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-22T18:49:10.912364+00:00",
+  "last_notice_utc": "2026-11-22T20:52:46.603377+00:00",
   "official_source_count": 732
 }
