@@ -5,6 +5,7 @@
     "Agilent Technologies",
     "Airbus India",
     "Alteryx",
+    "Amadeus",
     "Ameriprise Financial",
     "Amplitude",
     "Analog Devices",
@@ -47,6 +48,7 @@
     "KLA",
     "LG Soft India",
     "LSEG",
+    "LeadSquared",
     "Levi Strauss & Co.",
     "Logitech",
     "MUFG",
@@ -63,7 +65,6 @@
     "Nasdaq",
     "PhonePe",
     "Pixxel",
-    "Porter",
     "Postman",
     "Proofpoint",
     "Rackspace Technology",
@@ -81,10 +82,10 @@
     "Sun Pharma",
     "TCS",
     "Tata 1mg",
+    "Tessolve",
     "The Coca-Cola Company",
     "TheMathCompany",
     "TransUnion",
-    "Tricentis",
     "Valeo",
     "Waters Corporation",
     "Weights & Biases",
@@ -93,6 +94,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-23T00:34:17.059381+00:00",
+  "last_notice_utc": "2026-11-23T03:00:18.699438+00:00",
   "official_source_count": 757
 }
