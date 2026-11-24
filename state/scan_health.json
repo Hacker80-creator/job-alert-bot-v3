@@ -14,7 +14,6 @@
     "Automation Anywhere",
     "Bayer",
     "Bentley Systems",
-    "Birlasoft",
     "Blackhawk Network",
     "Bristol Myers Squibb",
     "Broadridge",
@@ -57,7 +56,6 @@
     "MaxLinear",
     "Medtronic",
     "Mimecast",
-    "Moneyview",
     "Motorola Solutions",
     "NXP Semiconductors",
     "Nasdaq",
@@ -75,13 +73,12 @@
     "Sabre",
     "SentinelOne",
     "Shell",
-    "Sonata Software",
     "Spinny",
     "Sun Life",
     "Sun Pharma",
-    "Tata 1mg",
     "Tessolve",
     "The Coca-Cola Company",
+    "Thoughtworks",
     "TransUnion",
     "Valeo",
     "Waters Corporation",
@@ -91,6 +88,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-24T07:18:30.353705+00:00",
+  "last_notice_utc": "2026-11-24T14:57:41.461282+00:00",
   "official_source_count": 732
 }
