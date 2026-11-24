@@ -5,7 +5,6 @@
     "Agilent Technologies",
     "Airbus India",
     "Alteryx",
-    "Amadeus",
     "Ameriprise Financial",
     "Amplitude",
     "Analog Devices",
@@ -45,6 +44,7 @@
     "Intel",
     "Iterable",
     "KLA",
+    "LG Soft India",
     "LSEG",
     "LeadSquared",
     "Levi Strauss & Co.",
@@ -76,6 +76,7 @@
     "SentinelOne",
     "Shell",
     "Sonata Software",
+    "Spinny",
     "Sun Life",
     "Sun Pharma",
     "Tata 1mg",
@@ -83,7 +84,6 @@
     "The Coca-Cola Company",
     "TheMathCompany",
     "TransUnion",
-    "Tricentis",
     "Valeo",
     "Waters Corporation",
     "Weights & Biases",
@@ -92,6 +92,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-23T21:24:08.388347+00:00",
+  "last_notice_utc": "2026-11-24T03:16:00.535294+00:00",
   "official_source_count": 757
 }
