@@ -38,6 +38,7 @@
     "F5",
     "FedEx",
     "Genesys",
+    "Halliburton",
     "Hightouch",
     "IQVIA",
     "Illumina",
@@ -57,6 +58,7 @@
     "MaxLinear",
     "Medtronic",
     "Mimecast",
+    "Moneyview",
     "Motorola Solutions",
     "NXP Semiconductors",
     "Nasdaq",
@@ -67,7 +69,6 @@
     "Proofpoint",
     "Rackspace Technology",
     "Rapido",
-    "Raytheon Technologies",
     "Rockwell Automation",
     "Rupeek",
     "S&P Global",
@@ -84,6 +85,7 @@
     "The Coca-Cola Company",
     "TheMathCompany",
     "TransUnion",
+    "Tricentis",
     "Valeo",
     "Waters Corporation",
     "Weights & Biases",
@@ -92,6 +94,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-24T03:16:00.535294+00:00",
+  "last_notice_utc": "2026-11-24T07:06:25.801271+00:00",
   "official_source_count": 757
 }
