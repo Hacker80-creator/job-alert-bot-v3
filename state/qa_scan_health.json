@@ -24,7 +24,6 @@
     "Chronosphere",
     "Ciena",
     "Cigna",
-    "Cipla",
     "Clari",
     "Cognizant",
     "Cohesity",
@@ -36,6 +35,7 @@
     "FedEx",
     "Genesys",
     "HDFC ERGO",
+    "Hero MotoCorp",
     "Hightouch",
     "IQVIA",
     "Illumina",
@@ -56,6 +56,7 @@
     "NXP Semiconductors",
     "Nasdaq",
     "PhonePe",
+    "Pixxel",
     "Postman",
     "Proofpoint",
     "Rackspace Technology",
@@ -80,6 +81,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-25T08:30:31.379186+00:00",
+  "last_notice_utc": "2026-11-25T11:32:59.984028+00:00",
   "official_source_count": 757
 }
