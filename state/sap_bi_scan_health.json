@@ -2,10 +2,10 @@
   "allowlist_count": 988,
   "failed_sources": [
     "3M",
-    "Acer",
     "Agilent Technologies",
     "Airbus India",
     "Alteryx",
+    "Amadeus",
     "Ameriprise Financial",
     "Amplitude",
     "Analog Devices",
@@ -31,7 +31,6 @@
     "CoinDCX",
     "Commonwealth Bank of Australia",
     "DBS Bank",
-    "Digit Insurance",
     "Dr. Reddy\u2019s Laboratories",
     "F5",
     "FedEx",
@@ -59,12 +58,14 @@
     "Postman",
     "Proofpoint",
     "Rackspace Technology",
+    "Raytheon Technologies",
     "Rockwell Automation",
     "Rupeek",
     "S&P Global",
     "Sabre",
     "SentinelOne",
     "Shell",
+    "Spinny",
     "Sun Life",
     "Sun Pharma",
     "The Coca-Cola Company",
@@ -79,6 +80,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-25T22:00:54.904684+00:00",
+  "last_notice_utc": "2026-11-25T22:36:16.211845+00:00",
   "official_source_count": 757
 }
