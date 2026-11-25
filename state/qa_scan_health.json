@@ -12,7 +12,6 @@
     "Atomicwork",
     "Autodesk",
     "Automation Anywhere",
-    "Baxter",
     "Bayer",
     "Bentley Systems",
     "Blackhawk Network",
@@ -21,7 +20,6 @@
     "CME Group",
     "CVS Health",
     "Cadence",
-    "Cargill",
     "Chegg",
     "Chronosphere",
     "Ciena",
@@ -32,7 +30,6 @@
     "CoinDCX",
     "Commonwealth Bank of Australia",
     "DBS Bank",
-    "Digit Insurance",
     "Dr. Reddy\u2019s Laboratories",
     "F5",
     "FedEx",
@@ -61,7 +58,6 @@
     "Postman",
     "Proofpoint",
     "Rackspace Technology",
-    "Raytheon Technologies",
     "Rockwell Automation",
     "Rupeek",
     "S&P Global",
@@ -70,7 +66,6 @@
     "Shell",
     "Sun Life",
     "Sun Pharma",
-    "Tessolve",
     "The Coca-Cola Company",
     "TheMathCompany",
     "Thoughtworks",
@@ -83,6 +78,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-25T11:51:33.177033+00:00",
+  "last_notice_utc": "2026-11-25T18:53:25.382434+00:00",
   "official_source_count": 757
 }
