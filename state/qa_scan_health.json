@@ -12,6 +12,7 @@
     "Atomicwork",
     "Autodesk",
     "Automation Anywhere",
+    "Baxter",
     "Bayer",
     "Bentley Systems",
     "Blackhawk Network",
@@ -20,6 +21,7 @@
     "CME Group",
     "CVS Health",
     "Cadence",
+    "Cargill",
     "Chegg",
     "Chronosphere",
     "Ciena",
@@ -51,6 +53,7 @@
     "Mavenir",
     "MaxLinear",
     "Medtronic",
+    "Moneyview",
     "Motorola Solutions",
     "NXP Semiconductors",
     "Nasdaq",
@@ -66,6 +69,7 @@
     "Shell",
     "Sun Life",
     "Sun Pharma",
+    "Tata 1mg",
     "The Coca-Cola Company",
     "TheMathCompany",
     "Thoughtworks",
@@ -76,8 +80,9 @@
     "Weights & Biases",
     "Workday",
     "Zendesk",
-    "Zoom"
+    "Zoom",
+    "Zurich Insurance Group"
   ],
-  "last_notice_utc": "2026-11-25T18:53:25.382434+00:00",
+  "last_notice_utc": "2026-11-25T21:58:58.091318+00:00",
   "official_source_count": 757
 }
