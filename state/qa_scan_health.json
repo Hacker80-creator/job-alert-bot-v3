@@ -5,6 +5,7 @@
     "Agilent Technologies",
     "Airbus India",
     "Alteryx",
+    "Amadeus",
     "Ameriprise Financial",
     "Amplitude",
     "Analog Devices",
@@ -25,7 +26,6 @@
     "Ciena",
     "Cigna",
     "Clari",
-    "Cognizant",
     "Cohesity",
     "CoinDCX",
     "Commonwealth Bank of Australia",
@@ -35,6 +35,7 @@
     "FedEx",
     "Genesys",
     "HDFC ERGO",
+    "Hero MotoCorp",
     "Hightouch",
     "IQVIA",
     "Illumina",
@@ -58,6 +59,7 @@
     "Postman",
     "Proofpoint",
     "Rackspace Technology",
+    "Raytheon Technologies",
     "Rockwell Automation",
     "Rupeek",
     "S&P Global",
@@ -70,7 +72,6 @@
     "TheMathCompany",
     "Thoughtworks",
     "TransUnion",
-    "Tricentis",
     "Valeo",
     "Waters Corporation",
     "Weights & Biases",
@@ -78,6 +79,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-25T00:08:42.517814+00:00",
+  "last_notice_utc": "2026-11-25T01:13:55.039496+00:00",
   "official_source_count": 757
 }
