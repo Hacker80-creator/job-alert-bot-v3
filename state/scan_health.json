@@ -4,8 +4,6 @@
     "3M",
     "Agilent Technologies",
     "Airbus India",
-    "Alteryx",
-    "Amadeus",
     "Ameriprise Financial",
     "Amplitude",
     "Analog Devices",
@@ -34,6 +32,7 @@
     "F5",
     "FedEx",
     "Genesys",
+    "Hero MotoCorp",
     "Hightouch",
     "IQVIA",
     "Illumina",
@@ -64,7 +63,6 @@
     "Sabre",
     "SentinelOne",
     "Shell",
-    "Spinny",
     "Sun Life",
     "Sun Pharma",
     "The Coca-Cola Company",
@@ -77,6 +75,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-25T03:24:10.767512+00:00",
+  "last_notice_utc": "2026-11-25T08:31:06.910898+00:00",
   "official_source_count": 732
 }
