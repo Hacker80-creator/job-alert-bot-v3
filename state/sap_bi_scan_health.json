@@ -34,7 +34,6 @@
     "F5",
     "FedEx",
     "Genesys",
-    "Hero MotoCorp",
     "Hightouch",
     "IQVIA",
     "Illumina",
@@ -55,10 +54,11 @@
     "NXP Semiconductors",
     "Nasdaq",
     "PhonePe",
-    "Porter",
     "Postman",
     "Proofpoint",
+    "Qualcomm",
     "Rackspace Technology",
+    "Rapido",
     "Raytheon Technologies",
     "Rockwell Automation",
     "Rupeek",
@@ -68,7 +68,6 @@
     "Shell",
     "Sun Life",
     "Sun Pharma",
-    "The Coca-Cola Company",
     "TheMathCompany",
     "Thoughtworks",
     "TransUnion",
@@ -79,6 +78,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-25T08:32:28.527779+00:00",
+  "last_notice_utc": "2026-11-25T11:34:40.627369+00:00",
   "official_source_count": 757
 }
