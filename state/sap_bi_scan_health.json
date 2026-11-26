@@ -18,6 +18,7 @@
     "Blackhawk Network",
     "Bristol Myers Squibb",
     "Broadridge",
+    "CVS Health",
     "Cadence",
     "Chegg",
     "Chronosphere",
@@ -33,7 +34,6 @@
     "F5",
     "FedEx",
     "Genesys",
-    "Hero MotoCorp",
     "Hightouch",
     "IQVIA",
     "Illumina",
@@ -57,13 +57,13 @@
     "Postman",
     "Proofpoint",
     "Rackspace Technology",
-    "Raytheon Technologies",
     "Rockwell Automation",
     "Rupeek",
     "S&P Global",
     "Sabre",
     "SentinelOne",
     "Shell",
+    "Sonata Software",
     "Sun Life",
     "Sun Pharma",
     "The Coca-Cola Company",
@@ -78,6 +78,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-26T04:30:22.566683+00:00",
+  "last_notice_utc": "2026-11-26T05:06:30.577045+00:00",
   "official_source_count": 757
 }
