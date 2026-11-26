@@ -26,7 +26,6 @@
     "Ciena",
     "Cigna",
     "Clari",
-    "ClearTax",
     "Cohesity",
     "CoinDCX",
     "Commonwealth Bank of Australia",
@@ -65,8 +64,6 @@
     "Sabre",
     "SentinelOne",
     "Shell",
-    "Sonata Software",
-    "Spinny",
     "Sun Life",
     "Sun Pharma",
     "The Coca-Cola Company",
@@ -79,6 +76,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-26T02:09:52.579616+00:00",
+  "last_notice_utc": "2026-11-26T04:17:08.279079+00:00",
   "official_source_count": 732
 }
