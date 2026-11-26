@@ -5,6 +5,7 @@
     "Agilent Technologies",
     "Airbus India",
     "Alteryx",
+    "Amadeus",
     "Ameriprise Financial",
     "Amplitude",
     "Analog Devices",
@@ -17,6 +18,7 @@
     "Blackhawk Network",
     "Bristol Myers Squibb",
     "Broadridge",
+    "CME Group",
     "CVS Health",
     "Cadence",
     "Chegg",
@@ -24,7 +26,6 @@
     "Ciena",
     "Cigna",
     "Clari",
-    "ClearTax",
     "Cognizant",
     "Cohesity",
     "CoinDCX",
@@ -66,7 +67,8 @@
     "Shell",
     "Sun Life",
     "Sun Pharma",
-    "Tessolve",
+    "Syngene International",
+    "The Coca-Cola Company",
     "TheMathCompany",
     "Thoughtworks",
     "TransUnion",
@@ -78,6 +80,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-26T20:04:53.757676+00:00",
+  "last_notice_utc": "2026-11-26T23:20:31.988230+00:00",
   "official_source_count": 757
 }
