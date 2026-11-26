@@ -5,7 +5,6 @@
     "Agilent Technologies",
     "Airbus India",
     "Alteryx",
-    "Amadeus",
     "Ameriprise Financial",
     "Amplitude",
     "Analog Devices",
@@ -42,6 +41,7 @@
     "Iterable",
     "KLA",
     "LSEG",
+    "LeadSquared",
     "Levi Strauss & Co.",
     "Logitech",
     "MUFG",
@@ -65,7 +65,6 @@
     "Sabre",
     "SentinelOne",
     "Shell",
-    "Spinny",
     "Sun Life",
     "Sun Pharma",
     "The Coca-Cola Company",
@@ -80,6 +79,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-25T22:36:16.211845+00:00",
+  "last_notice_utc": "2026-11-26T02:10:53.773357+00:00",
   "official_source_count": 757
 }
