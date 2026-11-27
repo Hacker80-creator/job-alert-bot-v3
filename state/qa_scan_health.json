@@ -5,7 +5,6 @@
     "Agilent Technologies",
     "Airbus India",
     "Alteryx",
-    "Amadeus",
     "Ameriprise Financial",
     "Amplitude",
     "Analog Devices",
@@ -25,7 +24,6 @@
     "Chronosphere",
     "Ciena",
     "Cigna",
-    "Cipla",
     "Clari",
     "Cognizant",
     "Cohesity",
@@ -53,7 +51,6 @@
     "Mavenir",
     "MaxLinear",
     "Medtronic",
-    "Mimecast",
     "Motorola Solutions",
     "NXP Semiconductors",
     "Nasdaq",
@@ -61,6 +58,8 @@
     "Postman",
     "Proofpoint",
     "Rackspace Technology",
+    "Rapido",
+    "Raytheon Technologies",
     "Rockwell Automation",
     "Rupeek",
     "S&P Global",
@@ -73,7 +72,6 @@
     "TheMathCompany",
     "Thoughtworks",
     "TransUnion",
-    "Tricentis",
     "Valeo",
     "Waters Corporation",
     "Weights & Biases",
@@ -81,6 +79,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-27T09:12:08.918126+00:00",
+  "last_notice_utc": "2026-11-27T11:32:53.490416+00:00",
   "official_source_count": 757
 }
