@@ -2,6 +2,7 @@
   "allowlist_count": 988,
   "failed_sources": [
     "3M",
+    "Acer",
     "Agilent Technologies",
     "Airbus India",
     "Alteryx",
@@ -26,7 +27,6 @@
     "Ciena",
     "Cigna",
     "Clari",
-    "Cognizant",
     "Cohesity",
     "CoinDCX",
     "Commonwealth Bank of Australia",
@@ -42,10 +42,10 @@
     "Iterable",
     "KLA",
     "LSEG",
+    "Lazada",
     "Levi Strauss & Co.",
     "Logitech",
     "MUFG",
-    "MakeMyTrip",
     "Marlabs",
     "Marqeta",
     "Marvell Technology",
@@ -80,6 +80,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-26T23:53:57.294743+00:00",
+  "last_notice_utc": "2026-11-27T02:39:48.759118+00:00",
   "official_source_count": 757
 }
