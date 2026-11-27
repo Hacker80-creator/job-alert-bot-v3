@@ -4,13 +4,13 @@
     "3M",
     "Agilent Technologies",
     "Airbus India",
-    "Alteryx",
     "Amadeus",
     "Ameriprise Financial",
     "Amplitude",
     "Analog Devices",
     "Aptiv",
     "Atomicwork",
+    "Aurobindo Pharma",
     "Autodesk",
     "Automation Anywhere",
     "Bayer",
@@ -32,6 +32,7 @@
     "DBS Bank",
     "Dr. Reddy\u2019s Laboratories",
     "F5",
+    "FedEx",
     "Genesys",
     "Hightouch",
     "IQVIA",
@@ -56,6 +57,7 @@
     "Postman",
     "Proofpoint",
     "Rackspace Technology",
+    "Raytheon Technologies",
     "Rockwell Automation",
     "Rupeek",
     "S&P Global",
@@ -74,6 +76,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-27T02:39:58.816090+00:00",
+  "last_notice_utc": "2026-11-27T08:25:49.504434+00:00",
   "official_source_count": 732
 }
