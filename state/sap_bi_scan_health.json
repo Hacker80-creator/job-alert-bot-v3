@@ -2,7 +2,6 @@
   "allowlist_count": 988,
   "failed_sources": [
     "3M",
-    "Acer",
     "Agilent Technologies",
     "Airbus India",
     "Alteryx",
@@ -26,6 +25,7 @@
     "Chronosphere",
     "Ciena",
     "Cigna",
+    "Cipla",
     "Clari",
     "Cohesity",
     "CoinDCX",
@@ -35,6 +35,7 @@
     "F5",
     "FedEx",
     "Genesys",
+    "GlobalLogic",
     "Hightouch",
     "IQVIA",
     "Illumina",
@@ -42,7 +43,6 @@
     "Iterable",
     "KLA",
     "LSEG",
-    "Lazada",
     "Levi Strauss & Co.",
     "Logitech",
     "MUFG",
@@ -80,6 +80,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-27T02:39:48.759118+00:00",
+  "last_notice_utc": "2026-11-27T08:38:39.070572+00:00",
   "official_source_count": 757
 }
