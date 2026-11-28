@@ -5,6 +5,7 @@
     "Agilent Technologies",
     "Airbus India",
     "Alteryx",
+    "Amadeus",
     "Ameriprise Financial",
     "Amplitude",
     "Analog Devices",
@@ -17,6 +18,8 @@
     "Blackhawk Network",
     "Bristol Myers Squibb",
     "Broadridge",
+    "CME Group",
+    "CVS Health",
     "Cadence",
     "Chegg",
     "Chronosphere",
@@ -33,7 +36,6 @@
     "Genesys",
     "HDFC ERGO",
     "Hightouch",
-    "ICICI Securities",
     "IQVIA",
     "Illumina",
     "Intel",
@@ -51,6 +53,7 @@
     "Medtronic",
     "Motorola Solutions",
     "NXP Semiconductors",
+    "Narayana Health Digital",
     "Nasdaq",
     "PhonePe",
     "Postman",
@@ -70,7 +73,6 @@
     "Thoughtworks",
     "Trane Technologies",
     "TransUnion",
-    "Tricentis",
     "Valeo",
     "Waters Corporation",
     "Weights & Biases",
@@ -78,6 +80,6 @@
     "Zendesk",
     "Zoom"
   ],
-  "last_notice_utc": "2026-11-28T02:48:43.018874+00:00",
+  "last_notice_utc": "2026-11-28T03:07:25.827016+00:00",
   "official_source_count": 757
 }
